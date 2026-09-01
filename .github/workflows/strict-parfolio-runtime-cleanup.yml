@@ -1,0 +1,62 @@
+name: Strict ParFolio runtime cleanup
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/strict-parfolio-runtime-cleanup.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove legacy ATG runtime remnants
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          app=Path('app.js')
+          text=app.read_text()
+          text=re.sub(r"const PARFOLIO_STORAGE_MIGRATION = \(\(\)=>\{.*?\n\}\)\(\);\n",'',text,count=1,flags=re.S)
+          text=text.replace("oldMapChoice=mapItems.find(item=>item.textContent.includes('ATG crest opens'))","oldMapChoice=mapItems.find(item=>item.textContent.includes('legacy crest opens'))")
+          app.write_text(text)
+
+          shared=Path('shared-course-library-v145.js')
+          text=shared.read_text()
+          text=text.replace('populate ATG search','populate ParFolio search')
+          text=text.replace("ATG's in-memory course list","ParFolio's in-memory course list")
+          text=text.replace('Existing ATG course IDs','Existing ParFolio course IDs')
+          text=text.replace("throw new Error('ATG course list is not ready.')","throw new Error('ParFolio course list is not ready.')")
+          text=text.replace('Shared Golf Course Library catalog unavailable; ATG is retaining its existing course data.','Shared Golf Course Library catalog unavailable; ParFolio is retaining its existing course data.')
+          shared.write_text(text)
+
+          # Do not allow old production secrets or religious-brand strings back into active source.
+          active=[]
+          for p in Path('.').glob('*.js'):
+            if p.name.startswith('parfolio-') or p.name in {'app.js','shared-course-library-v145.js','founder.js','guide-i18n.js'}:
+              active.append(p)
+          bad=[]
+          forbidden=['rntmqjqbmjfcpwbbflyz.supabase.co','FAITH · FELLOWSHIP · FAIRWAYS','Saved to Serve','Agape Tumoutou Golfers']
+          for p in active:
+            t=p.read_text(errors='ignore')
+            for needle in forbidden:
+              if needle in t: bad.append(f'{p}: {needle}')
+          if bad:
+            raise SystemExit('Forbidden ParFolio runtime remnants:\n'+'\n'.join(bad))
+          PY
+      - name: Commit cleanup
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js shared-course-library-v145.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Remove legacy ATG runtime remnants from ParFolio'
+          git push
