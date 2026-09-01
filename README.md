@@ -12,6 +12,8 @@ This repository currently contains the isolated ParFolio design foundation: app 
 
 ParFolio must not use or expose Agape Tumoutou Golfers private users, rounds, chats, tester data, credentials, secrets or storage. ATG may be used only as a functional reference. Shared golf-course information is consumed through the neutral shared course library under controlled, versioned rules.
 
+The live-round screen follows that boundary: course pars and tee/aim/green geometry come from the read-only `shared_course_payload` contract, while authentication, rounds and golfer-owned scores remain in ParFolio's independent Supabase project. The Google Maps key is a browser key restricted by website and API in Google Cloud; no server or unrestricted credentials belong in client files.
+
 ## Planned core features
 
 - GPS and live yardage
