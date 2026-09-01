@@ -130,6 +130,7 @@
         const rows=await fetchCatalog();stats.catalogRows=rows.length;
         const merged=mergeCatalog(rows);stats.added=merged.added;stats.matched=merged.matched;
         const hydrated=await hydrateSafeSharedCourses(rows);stats.hydrated=hydrated.hydrated;stats.gpsActive=hydrated.gpsActive;
+        if(Array.isArray(courses)&&courses.length&&typeof cloudError!=='undefined')cloudError='';
         try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
         stats.loaded=true;stats.loadedAt=new Date().toISOString();window.PARFOLIO_SHARED_LIBRARY=stats;window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
         if(rerender&&typeof render==='function')render();return true;
