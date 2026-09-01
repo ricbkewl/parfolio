@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: parfolio-ny-osm-mapper
+  cancel-in-progress: true
+
 jobs:
   map-new-york-v2:
     runs-on: ubuntu-latest
@@ -31,4 +35,5 @@ jobs:
             exit 0
           fi
           git commit -m "Generate New York statewide OSM GPS drafts v2"
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
