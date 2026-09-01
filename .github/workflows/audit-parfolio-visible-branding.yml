@@ -1,0 +1,49 @@
+name: Audit ParFolio visible branding residue
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/audit-parfolio-visible-branding.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan active frontend sources
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          needles=['Agape Tumoutou Golfers','Agape Golf','FAITH · FELLOWSHIP · FAIRWAYS','Faith · Fellowship · Fairways','Saved to Serve','2 Timothy 1:9','2 Timoteo 1:9','Previous Matches']
+          paths=[Path('index.html')]+sorted(Path('.').glob('*.js'))+sorted(Path('.').glob('*.css'))
+          paths=[p for p in paths if p.name not in {'parfolio-branding.js','founder.js'}]
+          hits=[]
+          for p in paths:
+            text=p.read_text(errors='ignore')
+            for needle in needles:
+              count=text.lower().count(needle.lower())
+              if count:hits.append((p.name,needle,count))
+          lines=['# ParFolio Visible Branding Residue Audit','','| File | Legacy phrase | Count |','|---|---|---:|']
+          for file,needle,count in hits:lines.append(f'| `{file}` | `{needle}` | {count} |')
+          lines+=['',f'**Legacy visible-brand hits: {sum(x[2] for x in hits)}**','']
+          Path('PARFOLIO-BRANDING-AUDIT.md').write_text('\n'.join(lines))
+          if hits:
+            print('\n'.join(f'{a}: {b} ({c})' for a,b,c in hits))
+          PY
+      - name: Commit branding audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add PARFOLIO-BRANDING-AUDIT.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Audit ParFolio legacy branding residue'
+          git pull --rebase origin main
+          git push origin HEAD:main
