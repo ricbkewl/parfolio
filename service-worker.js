@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v159-20260901';
+const CACHE_NAME='parfolio-v161-20260901';
 const APP_SHELL=[
   './',
   './index.html',
@@ -12,7 +12,9 @@ const APP_SHELL=[
   './rick-kulon-profile.jpg',
   './shared-course-library-v145.js',
   './ny-course-catalog-v158.js',
-  './ny-gps-draft-loader-v159.js'
+  './ny-gps-draft-loader-v159.js',
+  './regional-auto-publish-v160.js',
+  './parfolio-admin-role-v161.js'
 ];
 
 self.addEventListener('install',event=>{
