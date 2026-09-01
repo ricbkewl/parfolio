@@ -1,0 +1,11 @@
+/* Version 127: side-by-side open golf data source buttons. */
+.open-golf-sources{grid-template-columns:minmax(0,1fr) auto}
+.open-golf-source-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.open-golf-source-actions button{min-width:132px}
+.open-golf-source-actions .opengolf-button{background:#fff;color:#176b45}
+@media(max-width:700px){
+  .open-golf-sources{grid-template-columns:1fr}
+  .open-golf-source-actions{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .open-golf-source-actions button{width:100%;min-width:0}
+}
+@media(max-width:430px){.open-golf-source-actions{grid-template-columns:1fr}}

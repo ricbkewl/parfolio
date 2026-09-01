@@ -1,0 +1,25 @@
+/* Version 129: cinematic hole transition overlay. */
+.live-hole-map.hole-flyover-active .hole-edge-navigation button{pointer-events:none;opacity:.55}
+.hole-flyover-card{
+  position:absolute;
+  left:50%;
+  top:19%;
+  z-index:45;
+  transform:translateX(-50%);
+  min-width:190px;
+  padding:13px 18px 12px;
+  border:1px solid rgba(255,255,255,.34);
+  border-radius:18px;
+  background:rgba(12,35,26,.72);
+  backdrop-filter:blur(13px) saturate(1.15);
+  -webkit-backdrop-filter:blur(13px) saturate(1.15);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+  pointer-events:auto;
+}
+.hole-flyover-card small{display:block;font-size:10px;font-weight:700;letter-spacing:.14em;color:#e8c66e}
+.hole-flyover-card b{display:block;margin-top:2px;font-size:25px;line-height:1.05;font-weight:650}
+.hole-flyover-card span{display:block;margin-top:4px;font-size:13px;color:rgba(255,255,255,.86)}
+.hole-flyover-card button{margin-top:9px;min-height:32px;padding:0 13px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.11);color:#fff;font:inherit;font-size:12px;font-weight:600}
+@media(prefers-reduced-motion:reduce){.hole-flyover-card{display:none}}

@@ -3,20 +3,19 @@
   "short_name": "ParFolio",
   "description": "Your Game. Your Score. Your Story.",
   "start_url": "./",
-  "scope": "./",
   "display": "standalone",
-  "background_color": "#052d25",
-  "theme_color": "#0c5b43",
+  "background_color": "#0a2b20",
+  "theme_color": "#176b45",
   "icons": [
     {
       "src": "parfolio-app-icon.png",
-      "sizes": "1024x1024",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "parfolio-app-icon.png",
-      "sizes": "1024x1024",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }

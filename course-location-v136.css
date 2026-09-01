@@ -1,0 +1,5 @@
+/* Version 136: secondary city/state line for course names. */
+.course-location-subtitle{margin-top:2px;color:#6b7b73;font-size:.82rem;font-weight:500;line-height:1.25;letter-spacing:.01em}
+.course-editor-brand .course-location-subtitle,.course-editor-shell .course-location-subtitle{color:#5f7168}
+button .course-location-subtitle,.course-location-button-label+.course-location-subtitle{display:block;margin-top:3px;font-size:.76rem;font-weight:500;opacity:.78}
+.course-location-button-label{display:block;font-weight:inherit}

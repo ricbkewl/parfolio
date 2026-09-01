@@ -1,0 +1,50 @@
+/* Version 120: keep destructive/save course actions beside mapping marker groups. */
+.course-editor-wide .marker-groups .editor-hole-actions{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:10px;
+  min-width:0;
+  padding:12px;
+  border:1px solid #d9e2dd;
+  border-radius:16px;
+  background:#f7faf8;
+}
+.course-editor-wide .marker-groups .editor-hole-actions>small{
+  color:#176b45;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.course-editor-action-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.course-editor-action-buttons button{
+  min-height:52px;
+  margin:0!important;
+  border-radius:13px;
+  font:inherit;
+  font-size:14px;
+  font-weight:850;
+  cursor:pointer;
+}
+.course-editor-action-buttons .clear-all-markers{
+  border:1px solid #d59797!important;
+  background:#fff0f0!important;
+  color:#9a2d2d!important;
+}
+.course-editor-action-buttons #saveCourseButton{
+  border:1px solid #b68e37!important;
+  background:linear-gradient(135deg,#e0bd66,#c99d42)!important;
+  color:#173126!important;
+  box-shadow:none!important;
+}
+.marker-clear-actions.editor-selected-clear-only{
+  grid-template-columns:1fr!important;
+}
+@media(max-width:700px){
+  .course-editor-action-buttons{grid-template-columns:1fr}
+  .course-editor-action-buttons button{min-height:48px}
+}

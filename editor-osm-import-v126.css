@@ -1,0 +1,33 @@
+/* Version 126: OpenStreetMap golf import panel. */
+.osm-golf-import{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:center;
+  gap:14px;
+  margin:12px 0;
+  padding:13px 14px;
+  border:1px solid #cddbd3;
+  border-radius:15px;
+  background:#f7faf8;
+}
+.osm-golf-import>div{min-width:0;display:grid;gap:3px}
+.osm-golf-import small{font-size:10px;font-weight:900;letter-spacing:.08em;color:#176b45}
+.osm-golf-import b{font-size:14px;color:#173126}
+.osm-golf-import span{font-size:12px;line-height:1.35;color:#617067}
+.osm-golf-import button{
+  min-height:44px;
+  padding:0 14px;
+  border:1px solid #176b45;
+  border-radius:12px;
+  background:#176b45;
+  color:#fff;
+  font:inherit;
+  font-size:13px;
+  font-weight:800;
+  cursor:pointer;
+}
+.osm-golf-import button:disabled{opacity:.6;cursor:wait}
+@media(max-width:700px){
+  .osm-golf-import{grid-template-columns:1fr}
+  .osm-golf-import button{width:100%}
+}

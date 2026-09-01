@@ -1,331 +1,1377 @@
-const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
-const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
-const COURSE_LIBRARY_URL = 'https://qziemwgcjkohjchxdvnv.supabase.co';
-const COURSE_LIBRARY_KEY = 'sb_publishable_vod_BeAVzOLwjbCwLLeUBw_i8Bfv5wh';
-const parfolioClients = window.parfolioClients ||= {};
-const sb = parfolioClients.app ||= window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-parfolioClients.courseLibrary ||= window.supabase.createClient(COURSE_LIBRARY_URL, COURSE_LIBRARY_KEY, {
-  auth: {
-    persistSession: false,
-    autoRefreshToken: false,
-    detectSessionInUrl: false,
-    storageKey: 'parfolio-course-library-readonly'
-  }
-});
-
-const drawer = document.getElementById('drawer');
-const scrim = document.getElementById('scrim');
-const menuButton = document.getElementById('menuButton');
-const closeMenu = document.getElementById('closeMenu');
-const dialog = document.getElementById('contentDialog');
-const dialogContent = document.getElementById('dialogContent');
-const dialogClose = document.getElementById('dialogClose');
-const profileButton = document.getElementById('profileButton');
-const brandHome = document.getElementById('brandHome');
-
-let currentUser = null;
-let currentProfile = null;
-
-function setDrawer(open) {
-  drawer.classList.toggle('open', open);
-  scrim.classList.toggle('show', open);
-  drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-}
-
-function openDialog(html) {
-  dialogContent.innerHTML = html;
-  if (!dialog.open) dialog.showModal();
-}
-
-function message(text, type = 'info') {
-  const el = document.querySelector('.form-message');
-  if (!el) return;
-  el.textContent = text || '';
-  el.dataset.type = type;
-}
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-}
-
-function initials(profile, user) {
-  const a = profile?.first_name?.trim()?.[0] || '';
-  const b = profile?.last_name?.trim()?.[0] || '';
-  if (a || b) return `${a}${b}`.toUpperCase();
-  return (user?.email?.[0] || 'P').toUpperCase();
-}
-
-function profileAvatarMarkup(profile = currentProfile, user = currentUser, sizeClass = '') {
-  const label = initials(profile, user);
-  const url = profile?.avatar_url;
-  if (url) return `<span class="avatar ${sizeClass}"><img src="${escapeHtml(url)}" alt="Profile photo"></span>`;
-  return `<span class="avatar avatar-fallback ${sizeClass}">${escapeHtml(label)}</span>`;
-}
-
-function renderProfileButton() {
-  if (currentProfile?.avatar_url) {
-    profileButton.innerHTML = `<img src="${escapeHtml(currentProfile.avatar_url)}" alt="My profile">`;
-  } else {
-    profileButton.textContent = initials(currentProfile, currentUser);
-  }
-}
-
-async function loadProfile() {
-  if (!currentUser) {
-    currentProfile = null;
-    profileButton.textContent = 'PF';
-    profileButton.setAttribute('aria-label', 'Sign in');
-    return;
-  }
-
-  const { data, error } = await sb.from('profiles')
-    .select('id, first_name, last_name, phone, avatar_url, profile_complete')
-    .eq('id', currentUser.id)
-    .maybeSingle();
-
-  if (error) console.warn('Profile load:', error.message);
-  currentProfile = data || null;
-  renderProfileButton();
-  profileButton.setAttribute('aria-label', 'My profile');
-}
-
-async function refreshSession() {
-  const { data: { session } } = await sb.auth.getSession();
-  currentUser = session?.user || null;
-  await loadProfile();
-}
-
-function aboutContent() {
-  const founderPhoto = currentProfile?.avatar_url
-    ? `<img src="${escapeHtml(currentProfile.avatar_url)}" alt="Rick Kulon, Founder of ParFolio">`
-    : `<span>RK</span>`;
-
-  return `
-    <h2>About ParFolio</h2><div class="gold-rule"></div>
-    <p class="lead"><strong>Your Game. Your Score. Your Story.</strong></p>
-    <p>ParFolio was created to make playing golf with friends simpler, smarter and more connected.</p>
-    <p>From the first tee to the final putt, ParFolio keeps the things you need during a round close at hand—GPS distances, interactive course maps, shot planning, personal club suggestions, scoring, weather and your group’s live scorecard.</p>
-    <h3>Play Together</h3><p>Create a round, invite your playing partners with a Round Code or QR code, and everyone can follow the round from their own phone. Each golfer controls their own score while the group stays connected through the live scorecard and private round chat.</p>
-    <h3>Know Your Next Shot</h3><p>ParFolio combines your location, mapped course information and your personal club distances to help you understand what lies ahead and choose the club that fits the shot.</p>
-    <h3>Every Round Becomes Part of Your Story</h3><p>Your completed rounds stay in your history, giving you a simple record of the courses you’ve played, the people you’ve played with and how you performed.</p>
-    <h3>Built for Golfers</h3><p>Golf technology should help you play—not distract you from playing. ParFolio is designed around a simple idea: give golfers useful information when they need it, make scoring effortless, and keep everything else out of the way.</p>
-    <section class="founder-card">
-      <div class="founder-photo">${founderPhoto}</div>
-      <div>
-        <p class="founder-kicker">FOUNDER</p>
-        <h3>Rick Kulon</h3>
-        <p>I created ParFolio to make golf technology simpler, more useful and more connected—giving golfers the information they need without adding clutter to the game.</p>
-      </div>
-    </section>
-    <p class="about-signoff">ParFolio · Your Game. Your Score. Your Story.</p>`;
-}
-
-const guideContent = `
-  <h2>App Guide</h2><div class="gold-rule"></div>
-  <p class="lead">Get from the first tee to the final score without digging through menus.</p>
-  <h3>Start a Round</h3><p>Choose a course, select the number of holes and your playing tee, then create your round. Share the Round Code or QR code with your group.</p>
-  <h3>Join a Round</h3><p>Enter the six-character Round Code, open a shared joining link or scan the host’s QR code.</p>
-  <h3>Use the Play Map</h3><p>During play, ParFolio shows your live location, mapped route, distance to the next target, yards remaining, weather, wind and Suggested Club guidance.</p>
-  <h3>Plan the Next Shot</h3><p>Move the gold aim marker to explore a shot. ParFolio recalculates yards to hit and yards to go while preserving the mapped route on dogleg holes.</p>
-  <h3>Enter Scores</h3><p>Use the large minus and plus controls for fast scoring, or tap the score itself for exact entry. Each golfer edits only their own score.</p>
-  <h3>My Clubs</h3><p>Add your typical carry distance for each club. ParFolio uses these distances to make Suggested Club guidance more personal.</p>`;
-
-const placeholderContent = {
-  courses: ['Courses', 'Search the shared Golf Course Library by course name, city, state, ZIP/postal code or country.'],
-  history: ['Previous Rounds', 'Your completed and in-progress rounds will live here, with scorecards, totals and sharing controls.'],
-  clubs: ['My Clubs', 'Set your personal carry distances so Suggested Club guidance reflects your actual game.'],
-  'new-round': ['Start a Round', 'Course selection, Playing Tee, 9/18-hole setup and round invitations are the next build stage.'],
-  'join-round': ['Join a Round', 'Enter a Round Code, open a joining link or scan a ParFolio QR code.']
+const app = document.querySelector('#app');
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+const SUPABASE_URL = '__PARFOLIO_SUPABASE_URL__';
+const SUPABASE_PUBLISHABLE_KEY = '__PARFOLIO_SUPABASE_KEY__';
+const APP_URL = 'https://parfolio-iota.vercel.app/';
+const GOOGLE_MAPS_API_KEY = '__PARFOLIO_GOOGLE_MAPS_KEY__';
+const GOOGLE_MAP_ID = 'c27152898adbf111a2dbd048';
+const MAPTILER_API_KEY = '';
+const EAGLE_GLEN_COURSE_ID = 'be42b7f5-e195-4004-9e6d-4d7e44fbe6a2';
+const EAGLE_GLEN_DRAFT_POINTS = [
+  [[33.806254280625,-117.53652065365],[33.804213980421,-117.5380065538],null,[33.803712680371,-117.53905325391]],
+  [[33.804562280456,-117.53938805394],[33.804654980466,-117.54171095417],null,[33.805172480517,-117.54229325423]],
+  [[33.804746780475,-117.54350645435],[33.806732180673,-117.54480965448],[33.807855380786,-117.54589235459],[33.808276580828,-117.54673385467]],
+  [[33.809213480921,-117.54782465478],null,null,[33.809851580985,-117.54622895462]],
+  [[33.809742680974,-117.54556115456],[33.811287981129,-117.54337505434],[33.811169181117,-117.54154985415],[33.811327581133,-117.54078215408]],
+  [[33.811225881123,-117.53962025396],[33.810217881022,-117.54177665418],null,[33.810248481025,-117.5430411543]],
+  [[33.809936180994,-117.54388265439],[33.808733780873,-117.54169475417],null,[33.808042580804,-117.5410287541]],
+  [[33.807687080769,-117.54074525407],null,null,[33.806568380657,-117.54176135418]],
+  [[33.805830380583,-117.54372425437],[33.805851080585,-117.54090455409],null,[33.806261480626,-117.53986685399]],
+  [[33.806535080654,-117.53932325393],null,null,[33.804866480487,-117.53894705389]],
+  [[33.804514580451,-117.53916035392],[33.802676780268,-117.54056975406],null,[33.80230148023,-117.54176855418]],
+  [[33.801759680176,-117.54132845413],[33.802693880269,-117.53858165386],[33.803071880307,-117.53640185364],[33.802573280257,-117.53535605354]],
+  [[33.802330280233,-117.53429765343],[33.80189648019,-117.53686805369],null,[33.801918080192,-117.53762135376]],
+  [[33.80240228024,-117.53743775374],[33.801673280167,-117.540014454],null,[33.801233180123,-117.54157325416]],
+  [[33.80019728002,-117.54281705428],[33.801070280107,-117.539987454],null,[33.801351980135,-117.53830985383]],
+  [[33.800858780086,-117.53769335377],[33.801066680107,-117.5350329535],null,[33.801438380144,-117.53407805341]],
+  [[33.800350280035,-117.53458205346],null,null,[33.801228680123,-117.53333555333]],
+  [[33.802221380222,-117.53314295331],[33.803477780348,-117.53558285356],[33.804983480498,-117.53584115358],[33.805438880544,-117.53625245363]]
+];
+const EAGLE_GLEN_PARS=[4,4,5,3,5,4,4,3,4,3,4,5,4,4,4,4,3,5];
+const EAGLE_GLEN_TEE_YARDS={black:[416,311,549,187,551,360,369,172,396,202,398,645,341,441,476,380,164,540],blue:[385,305,525,174,536,329,352,153,357,152,342,581,315,406,395,364,143,465],white:[361,270,493,155,457,302,336,145,267,98,310,511,282,361,375,280,138,411],red:[327,225,447,130,421,262,285,79,252,83,281,452,262,326,326,236,115,388]};
+const REVIEW_TEE_OFFSETS={
+  'a230fad3-22db-48e1-be1a-e11c0e92cf11':{name:'Laguna Woods Golf Club',blue:0,white:20,red:42},
+  'df4efa6f-64da-4a01-bba8-05be8160ea23':{name:'River View Golf Course',blue:0,white:23,red:47},
+  '0a4f8d85-153e-421e-8b4a-1dedee34e724':{name:'Sierra Lakes Golf Club',black:0,blue:21,white:40,red:82}
 };
-
-function authContent(mode = 'signin') {
-  if (mode === 'signup') {
-    return `
-      <h2>Create Account</h2><div class="gold-rule"></div>
-      <p class="lead">Create your ParFolio golfer profile.</p>
-      <form class="auth-form" id="signupForm">
-        <div class="field-row"><label>First Name<input name="firstName" autocomplete="given-name" required></label><label>Last Name<input name="lastName" autocomplete="family-name" required></label></div>
-        <label>Email<input name="email" type="email" autocomplete="email" required></label>
-        <label>Phone<input name="phone" type="tel" autocomplete="tel" required></label>
-        <label>Password<input name="password" type="password" autocomplete="new-password" minlength="8" required></label>
-        <button class="form-primary" type="submit">Create Account</button>
-        <p class="form-message" aria-live="polite"></p>
-      </form>
-      <button class="text-button" data-auth-mode="signin">Already have an account? Sign in</button>`;
+const ROYALE_JAKARTA_LOOPS={
+  north:{label:'North',pars:[4,5,4,3,4,4,4,3,5],meters:{black:[362,550,344,150,373,431,400,171,510],blue:[345,500,321,124,350,399,388,153,487],white:[319,471,289,111,318,365,340,133,455],red:[301,448,273,96,281,317,290,118,296]}},
+  south:{label:'South',pars:[4,3,5,4,4,3,4,4,5],meters:{black:[365,155,490,432,365,189,400,420,563],blue:[347,137,474,411,351,176,382,401,515],white:[316,117,449,369,318,143,347,354,482],red:[272,96,387,309,280,111,294,300,383]}},
+  west:{label:'West',pars:[4,5,4,3,4,4,3,4,5],meters:{black:[389,554,343,150,447,322,194,425,494],blue:[372,516,327,138,429,307,175,408,466],white:[350,479,300,122,395,281,152,360,428],red:[308,406,260,99,338,250,117,315,379]}}
+};
+const ROYALE_JAKARTA_ENDPOINTS={
+  north:[[-6.27130,106.90030,-6.26845,106.90200],[-6.26835,106.90220,-6.26375,106.90065],[-6.26360,106.90085,-6.26090,106.90225],[-6.26078,106.90242,-6.25988,106.90338],[-6.26008,106.90362,-6.26335,106.90418],[-6.26362,106.90442,-6.26730,106.90590],[-6.26750,106.90570,-6.27078,106.90425],[-6.27055,106.90402,-6.26918,106.90345],[-6.26935,106.90318,-6.27118,106.89905]],
+  south:[[-6.27150,106.90085,-6.27448,106.90225],[-6.27465,106.90245,-6.27570,106.90332],[-6.27590,106.90348,-6.28018,106.90392],[-6.28035,106.90370,-6.28352,106.90155],[-6.28328,106.90130,-6.28100,106.89882],[-6.28078,106.89860,-6.27925,106.89792],[-6.27902,106.89805,-6.27592,106.90018],[-6.27572,106.89998,-6.27235,106.89842],[-6.27475,106.89890,-6.27138,106.90055]],
+  west:[[-6.27125,106.89995,-6.26835,106.89795],[-6.26810,106.89772,-6.26415,106.89472],[-6.26398,106.89455,-6.26678,106.89582],[-6.26696,106.89598,-6.26808,106.89518],[-6.26828,106.89492,-6.27218,106.89392],[-6.27225,106.89415,-6.26988,106.89602],[-6.26962,106.89618,-6.27118,106.89682],[-6.27130,106.89705,-6.26792,106.89902],[-6.26682,106.89905,-6.27120,106.90002]]
+};
+function royalePointBetween(start,end,fraction){return{lat:start.lat+(end.lat-start.lat)*fraction,lng:start.lng+(end.lng-start.lng)*fraction}}
+function buildRoyaleLoop(loopKey){
+  const loop=ROYALE_JAKARTA_LOOPS[loopKey];
+  return ROYALE_JAKARTA_ENDPOINTS[loopKey].map((endpoint,index)=>{
+    const [teeLat,teeLng,greenLat,greenLng]=endpoint,black={lat:teeLat,lng:teeLng},center={lat:greenLat,lng:greenLng},blackMeters=loop.meters.black[index];
+    const teeFor=color=>royalePointBetween(black,center,Math.max(0,1-loop.meters[color][index]/blackMeters));
+    const par=loop.pars[index],greenEdge=Math.min(.08,9.144/Math.max(1,blackMeters));
+    return{tee:black,tees:{black,blue:teeFor('blue'),white:teeFor('white'),red:teeFor('red')},aim1:par>=4?royalePointBetween(black,center,par===5?.34:.5):null,aim2:par===5?royalePointBetween(black,center,.67):null,front:royalePointBetween(black,center,1-greenEdge),center,back:royalePointBetween(black,center,1+greenEdge),_review:'official-diagram-satellite-alignment'};
+  });
+}
+const ROYALE_JAKARTA_GPS={north:buildRoyaleLoop('north'),south:buildRoyaleLoop('south'),west:buildRoyaleLoop('west')};
+const ROYALE_JAKARTA_ROUTE_OPTIONS=[['west-south','West → South (Championship)'],['north-south','North → South'],['west-north','West → North'],['south-west','South → West'],['south-north','South → North'],['north-west','North → West'],['north','North 9'],['south','South 9'],['west','West 9']];
+function royaleRouteKeys(value='west-south'){return String(value||'west-south').split('-').filter(key=>ROYALE_JAKARTA_LOOPS[key])}
+function royaleRouteLabel(value='west-south'){return royaleRouteKeys(value).map(key=>ROYALE_JAKARTA_LOOPS[key].label).join(' → ')}
+function royaleRoundCourse(value='west-south'){
+  const keys=royaleRouteKeys(value),pars=keys.flatMap(key=>ROYALE_JAKARTA_LOOPS[key].pars),greens=keys.flatMap(key=>ROYALE_JAKARTA_GPS[key]);
+  return{id:'catalog-royale-jakarta',name:`Royale Jakarta Golf Club · ${royaleRouteLabel(value)}`,holes:pars.length,pars,greens,tee_meters:Object.fromEntries(['black','blue','white','red'].map(color=>[color,keys.flatMap(key=>ROYALE_JAKARTA_LOOPS[key].meters[color])])),royaleFacility:true,catalogOnly:true};
+}
+function royaleRouteFromCourseName(name=''){
+  const normalized=courseMatchKey(name);if(!normalized.includes('royalejakarta'))return null;
+  const mentioned=['north','south','west'].filter(key=>normalized.includes(key)).sort((a,b)=>normalized.indexOf(a)-normalized.indexOf(b));
+  return mentioned.length?mentioned.slice(0,2).join('-'):'west-south';
+}
+function isLegacyRoyaleCourse(name=''){const normalized=courseMatchKey(name),loops=['north','south','west'].filter(key=>normalized.includes(key));return normalized.startsWith('royale')&&normalized.includes('jakarta')&&loops.length===1}
+const PUBLISHED_GPS_COURSE_POINTS={"jurupa":[{"tee":{"lat":33.97457507097535,"lng":-117.44320392604908},"aim1":null,"aim2":null,"front":{"lat":33.974025662803,"lng":-117.4440702795},"center":{"lat":33.973950035489,"lng":-117.4441963434},"back":{"lat":33.973874408108,"lng":-117.4443089962},"_review":"published-gps"},{"tee":{"lat":33.97435708759138,"lng":-117.44204789398631},"aim1":null,"aim2":null,"front":{"lat":33.97483976433436,"lng":-117.44138136502254},"center":{"lat":33.974926512398,"lng":-117.4412673711},"back":{"lat":33.97500436314928,"lng":-117.44118422268198},"_review":"published-gps"},{"tee":{"lat":33.97450722926737,"lng":-117.44096428153512},"aim1":null,"aim2":null,"front":{"lat":33.97371981663471,"lng":-117.4420586228172},"center":{"lat":33.97364863773162,"lng":-117.44215384123324},"back":{"lat":33.97358969265865,"lng":-117.44224503630788},"_review":"published-gps"},{"tee":{"lat":33.973407296322115,"lng":-117.43946760892406},"aim1":null,"aim2":null,"front":{"lat":33.97297354736613,"lng":-117.4387769400594},"center":{"lat":33.972913489644,"lng":-117.4386870861},"back":{"lat":33.97284342224791,"lng":-117.43856906882704},"_review":"published-gps"},{"tee":{"lat":33.97114065555372,"lng":-117.43669688693458},"aim1":null,"aim2":null,"front":{"lat":33.97069466073252,"lng":-117.43582382797749},"center":{"lat":33.970617918246,"lng":-117.4356669187},"back":{"lat":33.97054562453521,"lng":-117.4355113505828},"_review":"published-gps"},{"tee":{"lat":33.97107614771964,"lng":-117.43796557182286},"aim1":null,"aim2":null,"front":{"lat":33.971549945500804,"lng":-117.4389365315025},"center":{"lat":33.97160333100145,"lng":-117.43904918424757},"back":{"lat":33.97169119456434,"lng":-117.43918865915576},"_review":"published-gps"},{"tee":{"lat":33.97293795760986,"lng":-117.4416938423186},"aim1":null,"aim2":null,"front":{"lat":33.9731092331815,"lng":-117.44398042552169},"center":{"lat":33.973124803664,"lng":-117.444153428},"back":{"lat":33.973135925439514,"lng":-117.44432508936394},"_review":"published-gps"},{"tee":{"lat":33.97363576913013,"lng":-117.44490097559056},"aim1":null,"aim2":null,"front":{"lat":33.974795278113,"lng":-117.4447005987},"center":{"lat":33.97494653117,"lng":-117.4446764588},"back":{"lat":33.975079989526,"lng":-117.4446684122},"_review":"published-gps"},{"tee":{"lat":33.97565941879217,"lng":-117.44245156642856},"aim1":null,"aim2":null,"front":{"lat":33.97590853879889,"lng":-117.441713958916},"center":{"lat":33.97595747300002,"lng":-117.44156643743322},"back":{"lat":33.97600307075367,"lng":-117.4414323269496},"_review":"published-gps"},{"tee":{"lat":33.978272918233785,"lng":-117.4401207267783},"aim1":null,"aim2":null,"front":{"lat":33.979120342080215,"lng":-117.44014486668566},"center":{"lat":33.97919930109,"lng":-117.4401462078},"back":{"lat":33.97930383825734,"lng":-117.44014620776478},"_review":"published-gps"},{"tee":{"lat":33.97825401235614,"lng":-117.43820160622768},"aim1":null,"aim2":null,"front":{"lat":33.97727534941651,"lng":-117.43697717785123},"center":{"lat":33.977164137006,"lng":-117.436839044},"back":{"lat":33.977072942721,"lng":-117.4367263913},"_review":"published-gps"},{"tee":{"lat":33.97751556772702,"lng":-117.433853745379},"aim1":null,"aim2":null,"front":{"lat":33.977778027697,"lng":-117.4331054091},"center":{"lat":33.977811391195,"lng":-117.4330008029},"back":{"lat":33.977840306216,"lng":-117.4329042434},"_review":"published-gps"},{"tee":{"lat":33.97654245695222,"lng":-117.4346114694716},"aim1":null,"aim2":null,"front":{"lat":33.976505756555994,"lng":-117.43570446963604},"center":{"lat":33.976503532289,"lng":-117.4358814954},"back":{"lat":33.97650130802263,"lng":-117.43600353594142},"_review":"published-gps"},{"tee":{"lat":33.976845585315104,"lng":-117.4365407433014},"aim1":null,"aim2":null,"front":{"lat":33.97693726323764,"lng":-117.43774697183156},"center":{"lat":33.97695060877,"lng":-117.4378609657},"back":{"lat":33.9769661785562,"lng":-117.43798434732706},"_review":"published-gps"},{"tee":{"lat":33.97460843572956,"lng":-117.43684172624508},"aim1":null,"aim2":null,"front":{"lat":33.973494045848,"lng":-117.4348595738},"center":{"lat":33.973416193714,"lng":-117.434746921},"back":{"lat":33.973358360653,"lng":-117.4346423149},"_review":"published-gps"},{"tee":{"lat":33.97342731545096,"lng":-117.437050938508},"aim1":null,"aim2":null,"front":{"lat":33.97354409361145,"lng":-117.43799507611152},"center":{"lat":33.97356856139583,"lng":-117.43814796204674},"back":{"lat":33.97359859003078,"lng":-117.43831560014056},"_review":"published-gps"},{"tee":{"lat":33.975671652381564,"lng":-117.43944883339184},"aim1":null,"aim2":null,"front":{"lat":33.976779340944,"lng":-117.4393978714},"center":{"lat":33.976639212465,"lng":-117.4394166469},"back":{"lat":33.976489074552845,"lng":-117.43942201134593},"_review":"published-gps"},{"tee":{"lat":33.97693496937901,"lng":-117.43972897341548},"aim1":null,"aim2":null,"front":{"lat":33.9759897250717,"lng":-117.44012609120618},"center":{"lat":33.975840698155,"lng":-117.4401918053},"back":{"lat":33.975715026000294,"lng":-117.44025081393522},"_review":"published-gps"}],"shorecliffs":[{"tee":{"lat":33.455892692677125,"lng":-117.64319881789667},"aim1":null,"aim2":null,"front":{"lat":33.45646109075729,"lng":-117.64262348407748},"center":{"lat":33.45653717525793,"lng":-117.64258727425494},"back":{"lat":33.45663451856423,"lng":-117.64254704115493},"_review":"published-gps"},{"tee":{"lat":33.45962749218123,"lng":-117.6424384116839},"aim1":null,"aim2":null,"front":{"lat":33.46151832693018,"lng":-117.6418241857722},"center":{"lat":33.46160335758221,"lng":-117.64177322380742},"back":{"lat":33.46169062579754,"lng":-117.6417195796697},"_review":"published-gps"},{"tee":{"lat":33.46280608485677,"lng":-117.6405300199518},"aim1":null,"aim2":null,"front":{"lat":33.46432876959016,"lng":-117.63949871061692},"center":{"lat":33.46439365930822,"lng":-117.63939678664563},"back":{"lat":33.46446749927206,"lng":-117.63930559155548},"_review":"published-gps"},{"tee":{"lat":33.46450218165877,"lng":-117.63927876941312},"aim1":null,"aim2":null,"front":{"lat":33.46379510575843,"lng":-117.63789072622932},"center":{"lat":33.46372126522145,"lng":-117.6377941667203},"back":{"lat":33.46366085019023,"lng":-117.63769358388792},"_review":"published-gps"},{"tee":{"lat":33.461654823462894,"lng":-117.63917684550688},"aim1":null,"aim2":null,"front":{"lat":33.46094101134477,"lng":-117.63913124798287},"center":{"lat":33.460833603369665,"lng":-117.63913124797642},"back":{"lat":33.460732908272576,"lng":-117.63913393017891},"_review":"published-gps"},{"tee":{"lat":33.46039278174543,"lng":-117.63939946881152},"aim1":null,"aim2":null,"front":{"lat":33.46021376724811,"lng":-117.63774454584106},"center":{"lat":33.4601936280936,"lng":-117.63762921085672},"back":{"lat":33.46017125125096,"lng":-117.6375165581536},"_review":"published-gps"},{"tee":{"lat":33.4596621765035,"lng":-117.6389300822798},"aim1":null,"aim2":null,"front":{"lat":33.45931645151025,"lng":-117.64074593777389},"center":{"lat":33.45930861953571,"lng":-117.64085322614348},"back":{"lat":33.45929519329342,"lng":-117.64096990223562},"_review":"published-gps"},{"tee":{"lat":33.45802864174758,"lng":-117.64197304835729},"aim1":null,"aim2":null,"front":{"lat":33.45731032425445,"lng":-117.64192208642892},"center":{"lat":33.45721186282642,"lng":-117.64191135761256},"back":{"lat":33.45710668799488,"lng":-117.64190465201874},"_review":"published-gps"},{"tee":{"lat":33.4546260914263,"lng":-117.64301240435928},"aim1":null,"aim2":null,"front":{"lat":33.45414495712766,"lng":-117.6436775922602},"center":{"lat":33.45409796247126,"lng":-117.64377415171012},"back":{"lat":33.45404425426193,"lng":-117.64387071131496},"_review":"published-gps"},{"tee":{"lat":33.45186680592335,"lng":-117.64652073381954},"aim1":null,"aim2":null,"front":{"lat":33.450456918126115,"lng":-117.64732405537156},"center":{"lat":33.450388661072324,"lng":-117.64732271424737},"back":{"lat":33.45031928499505,"lng":-117.64732539645551},"_review":"published-gps"},{"tee":{"lat":33.45003059039949,"lng":-117.6471604406632},"aim1":null,"aim2":null,"front":{"lat":33.44833421049085,"lng":-117.64635711906138},"center":{"lat":33.44824021485601,"lng":-117.64632090917488},"back":{"lat":33.448146219118364,"lng":-117.64628469938845},"_review":"published-gps"},{"tee":{"lat":33.44701490529289,"lng":-117.64426901931466},"aim1":null,"aim2":null,"front":{"lat":33.44638042312745,"lng":-117.64342948785556},"center":{"lat":33.446334543284046,"lng":-117.64334097494655},"back":{"lat":33.446287544396036,"lng":-117.64324843882484},"_review":"published-gps"},{"tee":{"lat":33.44809474521969,"lng":-117.641136199201},"aim1":null,"aim2":null,"front":{"lat":33.44856584215722,"lng":-117.64043882488669},"center":{"lat":33.44861060182838,"lng":-117.6403650641092},"back":{"lat":33.448663194412255,"lng":-117.64028862116784},"_review":"published-gps"},{"tee":{"lat":33.448032081300816,"lng":-117.63843521472774},"aim1":null,"aim2":null,"front":{"lat":33.4471950660485,"lng":-117.63689562672216},"center":{"lat":33.447132401479344,"lng":-117.63678967947509},"back":{"lat":33.44707309389975,"lng":-117.636689096646},"_review":"published-gps"},{"tee":{"lat":33.44463025778957,"lng":-117.63753399247994},"aim1":null,"aim2":null,"front":{"lat":33.44424418715218,"lng":-117.63794571152118},"center":{"lat":33.444171449013645,"lng":-117.63802886004322},"back":{"lat":33.44411437750748,"lng":-117.63812005517428},"_review":"published-gps"},{"tee":{"lat":33.44406066311502,"lng":-117.64254301782522},"aim1":null,"aim2":null,"front":{"lat":33.44532853770677,"lng":-117.64239147300192},"center":{"lat":33.44540015584253,"lng":-117.64239951960526},"back":{"lat":33.44549303552366,"lng":-117.64240488404464},"_review":"published-gps"},{"tee":{"lat":33.446786626529246,"lng":-117.64537677164188},"aim1":null,"aim2":null,"front":{"lat":33.447803805215095,"lng":-117.64604330060996},"center":{"lat":33.44786758829951,"lng":-117.64608889817224},"back":{"lat":33.44793808533853,"lng":-117.64613315458492},"_review":"published-gps"},{"tee":{"lat":33.45040208869416,"lng":-117.6464791595901},"aim1":null,"aim2":null,"front":{"lat":33.451075705037894,"lng":-117.64630213374812},"center":{"lat":33.45120214738927,"lng":-117.64626190064244},"back":{"lat":33.45134089807662,"lng":-117.64624446622244},"_review":"published-gps"}],"newport":[{"tee":{"lat":33.658861796261704,"lng":-117.88148224353428},"aim1":null,"aim2":null,"front":{"lat":33.658267937827,"lng":-117.8825953602},"center":{"lat":33.658209891294405,"lng":-117.882694602009},"back":{"lat":33.6581473796,"lng":-117.8827884793},"_review":"published-gps"},{"tee":{"lat":33.657829239020856,"lng":-117.88269057862372},"aim1":null,"aim2":null,"front":{"lat":33.65848896080574,"lng":-117.88329944006762},"center":{"lat":33.65853919322185,"lng":-117.88336783639998},"back":{"lat":33.658591658159,"lng":-117.8834509849},"_review":"published-gps"},{"tee":{"lat":33.65810496092351,"lng":-117.8840062021948},"aim1":null,"aim2":null,"front":{"lat":33.65758588859142,"lng":-117.88357034320369},"center":{"lat":33.657502166954096,"lng":-117.88351401684056},"back":{"lat":33.65744523619465,"lng":-117.88345232603236},"_review":"published-gps"},{"tee":{"lat":33.65653992042341,"lng":-117.88158148521087},"aim1":null,"aim2":null,"front":{"lat":33.656245216317,"lng":-117.8807821869},"center":{"lat":33.656213959760855,"lng":-117.88067221631805},"back":{"lat":33.65616484229456,"lng":-117.88057029238112},"_review":"published-gps"},{"tee":{"lat":33.656054327891134,"lng":-117.88049787275956},"aim1":null,"aim2":null,"front":{"lat":33.655287421001,"lng":-117.8800740838},"center":{"lat":33.65522267454591,"lng":-117.8800338506},"back":{"lat":33.65517467283265,"lng":-117.87999361750902},"_review":"published-gps"},{"tee":{"lat":33.65500275949933,"lng":-117.8801371156728},"aim1":null,"aim2":null,"front":{"lat":33.65578083204089,"lng":-117.8805863856721},"center":{"lat":33.655841112833244,"lng":-117.88063332434056},"back":{"lat":33.655905858823,"lng":-117.8806748986},"_review":"published-gps"},{"tee":{"lat":33.65635461417058,"lng":-117.88266107432804},"aim1":null,"aim2":null,"front":{"lat":33.65677434342269,"lng":-117.88342818608564},"center":{"lat":33.656824576840364,"lng":-117.88347646592254},"back":{"lat":33.656859182066,"lng":-117.883528769},"_review":"published-gps"},{"tee":{"lat":33.65689601987194,"lng":-117.8837567567444},"aim1":null,"aim2":null,"front":{"lat":33.65785826242072,"lng":-117.88403302429012},"center":{"lat":33.657934169728,"lng":-117.88405314084056},"back":{"lat":33.658008960685,"lng":-117.8840732574},"_review":"published-gps"},{"tee":{"lat":33.65878142468324,"lng":-117.8833383320951},"aim1":null,"aim2":null,"front":{"lat":33.659067189954065,"lng":-117.88198918094592},"center":{"lat":33.65910737561921,"lng":-117.88189262143608},"back":{"lat":33.659143096194924,"lng":-117.88181215518932},"_review":"published-gps"},{"tee":{"lat":33.66186786263019,"lng":-117.88100078694384},"aim1":null,"aim2":null,"front":{"lat":33.66296622830092,"lng":-117.87957787506394},"center":{"lat":33.66304101488495,"lng":-117.87952423088112},"back":{"lat":33.66311580140344,"lng":-117.8794799744848},"_review":"published-gps"},{"tee":{"lat":33.662489601831545,"lng":-117.87971265605346},"aim1":null,"aim2":null,"front":{"lat":33.66166582432877,"lng":-117.88036376235326},"center":{"lat":33.661606105734236,"lng":-117.88040935984507},"back":{"lat":33.66154248027013,"lng":-117.88045965129366},"_review":"published-gps"},{"tee":{"lat":33.662216126434274,"lng":-117.88071915501372},"aim1":null,"aim2":null,"front":{"lat":33.66156201440836,"lng":-117.8810034691496},"center":{"lat":33.661508435046066,"lng":-117.88105174893155},"back":{"lat":33.66145373941323,"lng":-117.88110136985492},"_review":"published-gps"},{"tee":{"lat":33.66080408657621,"lng":-117.87989169353838},"aim1":null,"aim2":null,"front":{"lat":33.66200236852985,"lng":-117.8789971768594},"center":{"lat":33.662076597835714,"lng":-117.87895292040902},"back":{"lat":33.66213743233221,"lng":-117.8789187221793},"_review":"published-gps"},{"tee":{"lat":33.66243490682143,"lng":-117.87908568972134},"aim1":null,"aim2":null,"front":{"lat":33.66344173591924,"lng":-117.87845402952703},"center":{"lat":33.663500895134185,"lng":-117.87841111415408},"back":{"lat":33.66356451915005,"lng":-117.87836551660902},"_review":"published-gps"},{"tee":{"lat":33.66154527086181,"lng":-117.87843257185725},"aim1":null,"aim2":null,"front":{"lat":33.66087775879379,"lng":-117.8788349032262},"center":{"lat":33.66082194651339,"lng":-117.87890195841804},"back":{"lat":33.66077171543024,"lng":-117.87896901361886},"_review":"published-gps"},{"tee":{"lat":33.661726100998585,"lng":-117.8775152563067},"aim1":null,"aim2":null,"front":{"lat":33.662290913669764,"lng":-117.8769117593},"center":{"lat":33.6623389114141,"lng":-117.87685543294508},"back":{"lat":33.6623880253567,"lng":-117.8768044710082},"_review":"published-gps"},{"tee":{"lat":33.661090961371734,"lng":-117.87732750169648},"aim1":null,"aim2":null,"front":{"lat":33.660696926873705,"lng":-117.87776738399016},"center":{"lat":33.660638881979565,"lng":-117.87783712139098},"back":{"lat":33.66057860454758,"lng":-117.87791490552787},"_review":"published-gps"},{"tee":{"lat":33.66030735558157,"lng":-117.87966102354451},"aim1":null,"aim2":null,"front":{"lat":33.66027944926134,"lng":-117.88007542481353},"center":{"lat":33.66029396054894,"lng":-117.88015857333156},"back":{"lat":33.660299541813245,"lng":-117.88023635743156},"_review":"published-gps"}],"willowick":[{"tee":{"lat":33.751580615781,"lng":-117.9092860221},"aim1":null,"aim2":null,"front":{"lat":33.752711286355,"lng":-117.9088327288},"center":{"lat":33.75276926906,"lng":-117.908835411},"back":{"lat":33.752847322639,"lng":-117.9088434576},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.753527500817,"lng":-117.9107102751},"center":{"lat":33.753552031732,"lng":-117.9108551144},"back":{"lat":33.753560952063,"lng":-117.9109838604},"_review":"published-gps"},{"tee":{"lat":33.755081854955,"lng":-117.9130706191},"aim1":null,"aim2":null,"front":{"lat":33.755563542914,"lng":-117.9143393039},"center":{"lat":33.755590303277,"lng":-117.9144331812},"back":{"lat":33.755594763337,"lng":-117.9145351052},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.754024808004,"lng":-117.9141059517},"center":{"lat":33.753942295352,"lng":-117.9141300916},"back":{"lat":33.753862012696,"lng":-117.914173007},"_review":"published-gps"},{"tee":{"lat":33.754722817263,"lng":-117.9149508476},"aim1":null,"aim2":null,"front":{"lat":33.755842296284,"lng":-117.9150366783},"center":{"lat":33.755947107316,"lng":-117.9150795936},"back":{"lat":33.756058608274,"lng":-117.9151305556},"_review":"published-gps"},{"tee":{"lat":33.755237957831,"lng":-117.9119682312},"aim1":null,"aim2":null,"front":{"lat":33.754555563166,"lng":-117.9108738899},"center":{"lat":33.754502041786,"lng":-117.9107424616},"back":{"lat":33.75448197126,"lng":-117.9106003046},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.753806260806,"lng":-117.9094013571},"center":{"lat":33.753737128413,"lng":-117.9092726111},"back":{"lat":33.753676916284,"lng":-117.9091411828},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.752811641011,"lng":-117.9077544808},"center":{"lat":33.752755888439,"lng":-117.9076525568},"back":{"lat":33.752693445515,"lng":-117.9075694084},"_review":"published-gps"},{"tee":{"lat":33.751234944286,"lng":-117.9086342453},"aim1":null,"aim2":null,"front":{"lat":33.750249215339,"lng":-117.909245789},"center":{"lat":33.750115405106,"lng":-117.9092592},"back":{"lat":33.749994975718,"lng":-117.9092887043},"_review":"published-gps"},{"tee":{"lat":33.751770176977,"lng":-117.9141005873},"aim1":null,"aim2":null,"front":{"lat":33.751937436507,"lng":-117.9154711961},"center":{"lat":33.751936321444504,"lng":-117.9155784845},"back":{"lat":33.751935206382,"lng":-117.9156777262},"_review":"published-gps"},{"tee":{"lat":33.752193900487,"lng":-117.9118958115},"aim1":null,"aim2":null,"front":{"lat":33.752095775229,"lng":-117.9105949401},"center":{"lat":33.752077934261,"lng":-117.9104098677},"back":{"lat":33.752044482436,"lng":-117.9102274775},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.752457054034,"lng":-117.9106888175},"center":{"lat":33.75243698303,"lng":-117.9108175635},"back":{"lat":33.752396841006,"lng":-117.9109328985},"_review":"published-gps"},{"tee":{"lat":33.754279035677,"lng":-117.9128211736},"aim1":null,"aim2":null,"front":{"lat":33.754898991225,"lng":-117.9139396548},"center":{"lat":33.754961432543,"lng":-117.9140415787},"back":{"lat":33.754999343321,"lng":-117.9141300916},"_review":"published-gps"},{"tee":{"lat":33.7535297309,"lng":-117.9125744104},"aim1":null,"aim2":null,"front":{"lat":33.752903075151,"lng":-117.9114505648},"center":{"lat":33.752831711928,"lng":-117.9113540053},"back":{"lat":33.752751428232,"lng":-117.911260128},"_review":"published-gps"},{"tee":{"lat":33.753014580068,"lng":-117.9136687517},"aim1":null,"aim2":null,"front":{"lat":33.752889694552,"lng":-117.9149937629},"center":{"lat":33.75282056142,"lng":-117.9150903224},"back":{"lat":33.752751428232,"lng":-117.9151707887},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.75036964437,"lng":-117.9139021039},"center":{"lat":33.750327271212,"lng":-117.9137921333},"back":{"lat":33.750278207529,"lng":-117.9136794805},"_review":"published-gps"},{"tee":null,"aim1":null,"aim2":null,"front":{"lat":33.75144234735,"lng":-117.9154202342},"center":{"lat":33.751527092544,"lng":-117.9155194759},"back":{"lat":33.751573925378,"lng":-117.9156079888},"_review":"published-gps"},{"tee":{"lat":33.750971786988,"lng":-117.9121693968},"aim1":null,"aim2":null,"front":{"lat":33.750655105102,"lng":-117.9108524322},"center":{"lat":33.750635033675,"lng":-117.9107397794},"back":{"lat":33.750612732084,"lng":-117.9106378555},"_review":"published-gps"}]};
+const PUBLISHED_GPS_ENDPOINTS_BATCH_2={
+green:[[4,33.8728829,-117.6714033,33.8745459,-117.6693218],[3,33.8743945,-117.6700138,33.8755855,-117.6688705],[5,33.8768974,-117.6684632,33.8751649,-117.6727111],[3,33.8755533,-117.6730272,33.8763434,-117.6714111],[5,33.8766858,-117.6704116,33.8807526,-117.6688554],[4,33.8813222,-117.6687239,33.8843064,-117.6684075],[5,33.8842376,-117.6694798,33.8870418,-117.665959],[3,33.8875671,-117.6655736,33.8865103,-117.6644497],[4,33.8859167,-117.6636423,33.8838489,-117.6669351],[4,33.8839101,-117.6658341,33.8807116,-117.6680363],[4,33.8803559,-117.6676468,33.8774867,-117.6684897],[4,33.8753481,-117.6695936,33.8741619,-117.6720523],[3,33.8711136,-117.6735905,33.8722744,-117.674271],[4,33.872369,-117.6745674,33.8717459,-117.6780841],[4,33.8714173,-117.6781159,33.8717995,-117.674929],[3,33.8715091,-117.674493,33.8708432,-117.6760001],[5,33.870797,-117.6765676,33.8719024,-117.6811128],[5,33.8723868,-117.6810823,33.8726984,-117.6763012]],
+cresta:[[5,33.8852254,-117.5466083,33.888506,-117.5437722],[4,33.8885525,-117.5432024,33.8891313,-117.5399747],[3,33.8892667,-117.5393599,33.8894338,-117.5379248],[3,33.8880444,-117.5373012,33.8866662,-117.5380147],[5,33.8856051,-117.5390859,33.8837917,-117.5424073],[3,33.884743,-117.5419976,33.8856964,-117.5420135],[4,33.8867287,-117.5419907,33.8878934,-117.5390512],[4,33.8879473,-117.5395049,33.886685,-117.5430353],[5,33.8872324,-117.5431442,33.8842948,-117.5454892],[4,33.8853647,-117.546894,33.887577,-117.545319],[4,33.88779,-117.5450729,33.889333,-117.5439427],[4,33.888974,-117.5431774,33.8897399,-117.540176],[4,33.8897135,-117.5386162,33.8916936,-117.5372465],[3,33.8922191,-117.5377359,33.8913789,-117.5383747],[5,33.8914923,-117.5397464,33.8904582,-117.5436625],[4,33.8899775,-117.54366,33.888125,-117.5460392],[3,33.8881498,-117.5465907,33.8895368,-117.5470989],[5,33.8888312,-117.5474464,33.8855553,-117.5481025]],
+birch:[[3,33.9159712,-117.8680561,33.9153525,-117.8671174],[4,33.9141443,-117.8672412,33.9142125,-117.8702475],[3,33.9138452,-117.8703435,33.9143655,-117.8708831],[3,33.9146898,-117.8708805,33.9152479,-117.8707622],[3,33.9155593,-117.8712175,33.9140725,-117.8715173],[4,33.9138754,-117.8722601,33.9159298,-117.8721868],[3,33.9167011,-117.8723259,33.9176818,-117.8719871],[3,33.9179023,-117.8716725,33.9176324,-117.8708764],[3,33.9178766,-117.8700359,33.9176965,-117.8691603],[4,33.9179778,-117.8683107,33.9176517,-117.8648216],[3,33.9179267,-117.8642785,33.9171296,-117.864474],[3,33.9166881,-117.864925,33.9172214,-117.8650915],[4,33.9169444,-117.8653645,33.9174707,-117.8679933],[3,33.9165955,-117.8696706,33.9170517,-117.8705286],[3,33.9173482,-117.8704934,33.9172615,-117.871517],[3,33.9163146,-117.8713208,33.9161224,-117.8696005],[3,33.916455,-117.86987,33.91671,-117.8715157],[4,33.9157465,-117.871186,33.9151353,-117.868849]]};
+const publishEndpointHole=([par,teeLat,teeLng,greenLat,greenLng])=>{
+  const tee={lat:teeLat,lng:teeLng},center={lat:greenLat,lng:greenLng};
+  const latYards=(greenLat-teeLat)*121269,lngYards=(greenLng-teeLng)*121269*Math.cos(((teeLat+greenLat)/2)*Math.PI/180);
+  const edgeFraction=Math.min(.08,10/Math.max(1,Math.hypot(latYards,lngYards)));
+  const pointAt=f=>({lat:teeLat+(greenLat-teeLat)*f,lng:teeLng+(greenLng-teeLng)*f});
+  return {tee,aim1:par>=4?pointAt(par===5?.34:.5):null,aim2:par===5?pointAt(.67):null,front:pointAt(1-edgeFraction),center,back:pointAt(1+edgeFraction),_review:'openstreetmap-survey'};
+};
+Object.entries(PUBLISHED_GPS_ENDPOINTS_BATCH_2).forEach(([key,holes])=>{PUBLISHED_GPS_COURSE_POINTS[key]=holes.map(publishEndpointHole)});
+const PUBLISHED_GPS_ENDPOINTS_BATCH_3={"chino":[[4,33.9479222,-117.661315,33.9458507,-117.6588339],[4,33.9458674,-117.6583731,33.9457815,-117.6546482],[4,33.9459013,-117.6542579,33.9491277,-117.6542328],[3,33.9495625,-117.654665,33.9492875,-117.6529992],[5,33.9495602,-117.6521017,33.945216,-117.6535292],[4,33.9456477,-117.6540942,33.9426815,-117.6542435],[3,33.942335,-117.6540003,33.9419486,-117.6558094],[4,33.9409846,-117.6559144,33.944176,-117.6577081],[5,33.9444459,-117.658138,33.9473778,-117.66155],[4,33.9465936,-117.6619235,33.9468079,-117.6656946],[4,33.9463492,-117.6651031,33.9474197,-117.6687205],[4,33.9472081,-117.6694853,33.9442793,-117.6679677],[5,33.9440472,-117.6685006,33.9470588,-117.6718399],[3,33.947417,-117.6717591,33.9474354,-117.6699217],[4,33.9477915,-117.6693298,33.9487338,-117.6654571],[3,33.9490813,-117.6652933,33.9485129,-117.6637385],[5,33.9481119,-117.6633218,33.947549,-117.6676328],[4,33.9471585,-117.6670907,33.9477293,-117.6621589]],"butterfield":[[4,33.948198,-117.6611568,33.9464029,-117.6586657],[3,33.9462348,-117.6581583,33.9476159,-117.6584157],[4,33.9480484,-117.6577447,33.9509473,-117.65746],[4,33.9516473,-117.6582829,33.9513413,-117.6624878],[4,33.9519032,-117.6622678,33.9530026,-117.6586465],[5,33.9537273,-117.6583536,33.9522393,-117.6631068],[3,33.9528906,-117.6626479,33.9533347,-117.6609426],[4,33.9537912,-117.6606091,33.9535271,-117.664181],[5,33.9537255,-117.6652734,33.9504273,-117.6626345],[4,33.9497199,-117.6613866,33.9507609,-117.6581301],[4,33.9513804,-117.6583138,33.9507259,-117.6621174],[5,33.9501721,-117.6631319,33.9536,-117.6660183],[4,33.9540325,-117.6676971,33.9570404,-117.6683564],[3,33.9576807,-117.668055,33.9566811,-117.669601],[4,33.9570004,-117.6702188,33.9590248,-117.6675351],[5,33.9588493,-117.6672196,33.9544479,-117.6673646],[3,33.9535446,-117.6666276,33.9526605,-117.6658314],[4,33.9523848,-117.6661912,33.950116,-117.663754]],"westridge":[[4,33.9116107,-117.9673716,33.9103721,-117.9705325],[5,33.9112688,-117.9702162,33.9090716,-117.9749133],[3,33.9088328,-117.9755767,33.9097957,-117.9752989],[5,33.9101326,-117.9748931,33.9125927,-117.97169],[4,33.9121342,-117.9711232,33.9097009,-117.9745572],[4,33.9093109,-117.9763617,33.9071277,-117.9761235],[3,33.9072061,-117.9754345,33.9084395,-117.9754048],[4,33.908419,-117.974717,33.9101568,-117.9708929],[4,33.9098533,-117.9706139,33.9109128,-117.9673324],[4,33.9123988,-117.9669524,33.9145543,-117.9644722],[3,33.9146648,-117.9635285,33.9138088,-117.964165],[4,33.913369,-117.9645464,33.9132318,-117.9611355],[4,33.9134837,-117.9596918,33.9107855,-117.959557],[5,33.909463,-117.959208,33.9134449,-117.9604914],[3,33.9127917,-117.9611402,33.9120174,-117.9619999],[4,33.9126733,-117.9617647,33.9127478,-117.9653219],[4,33.9121467,-117.9651962,33.9086628,-117.9644356],[5,33.9082555,-117.9648364,33.9120884,-117.9657962]],"canyoncrest":[[4,33.9489435,-117.3341458,33.9504893,-117.3312187],[5,33.9498123,-117.3302308,33.9496472,-117.3257912],[4,33.9501406,-117.3260564,33.9503117,-117.3295892],[3,33.9506507,-117.3315931,33.9496929,-117.3330278],[4,33.949432,-117.3336301,33.9525431,-117.3326659],[4,33.9532582,-117.3328623,33.9539867,-117.3365641],[3,33.9532017,-117.3378,33.9538402,-117.3395346],[5,33.9536987,-117.3403633,33.9522389,-117.3358196],[4,33.9518917,-117.3363669,33.9496868,-117.3339695],[4,33.9490508,-117.3346196,33.9505641,-117.3382066],[3,33.951193,-117.3386895,33.9518026,-117.3368336],[4,33.9520432,-117.3375621,33.9523239,-117.3419431],[5,33.9518535,-117.3421023,33.9534758,-117.3455203],[4,33.9532238,-117.3457322,33.9512567,-117.3430413],[4,33.9506533,-117.3424588,33.9479394,-117.342182],[3,33.9476333,-117.3419592,33.9477766,-117.3400366],[4,33.9480031,-117.3397942,33.9509372,-117.3394149],[4,33.9510406,-117.3385975,33.9492713,-117.3343041]],"generalold":[[5,33.8798751,-117.2850129,33.8809632,-117.2802526],[3,33.8809699,-117.279646,33.8795036,-117.2806562],[4,33.8791507,-117.2802335,33.8815284,-117.2778089],[4,33.8811495,-117.2771041,33.8776439,-117.2764472],[5,33.8773985,-117.2762458,33.8731888,-117.277962],[4,33.8732406,-117.2784663,33.8763158,-117.2784377],[4,33.8764368,-117.2776255,33.8787789,-117.2791392],[3,33.879329,-117.2790828,33.8783593,-117.2804153],[4,33.8789275,-117.2805763,33.8794387,-117.2843862],[4,33.8792494,-117.2861347,33.8759863,-117.2845606],[3,33.8754685,-117.283995,33.8740974,-117.2830679],[4,33.8742568,-117.2824462,33.8770729,-117.2840822],[5,33.8776236,-117.284383,33.8768371,-117.2792858],[4,33.876363,-117.2792855,33.8764439,-117.2827227],[4,33.8759529,-117.282722,33.8732741,-117.2817347],[3,33.8729609,-117.2821849,33.8726375,-117.2836464],[4,33.8729679,-117.2842034,33.8757032,-117.2853492],[5,33.8755733,-117.2859274,33.8790966,-117.2868581]],"doslagos":[[4,33.8127373,-117.5029254,33.8146014,-117.500271],[4,33.8141294,-117.5001168,33.8163989,-117.4983513],[3,33.8172669,-117.4983214,33.8184788,-117.4992587],[5,33.81884,-117.4997105,33.8216415,-117.5037796],[3,33.8221225,-117.504031,33.8209618,-117.5054232],[4,33.8205718,-117.5061742,33.8196063,-117.5023344],[4,33.8194448,-117.5017878,33.8175172,-117.4990212],[3,33.8169905,-117.4989976,33.8163181,-117.4996359],[4,33.8154172,-117.5010136,33.8139628,-117.502946],[4,33.8121366,-117.5029083,33.809481,-117.5021307],[3,33.8102863,-117.5018086,33.812124,-117.5021132],[5,33.8122086,-117.5010095,33.8077509,-117.5010595],[4,33.8083982,-117.5006228,33.8121779,-117.5000613],[5,33.8127782,-117.4994702,33.8079103,-117.4993189],[3,33.8081406,-117.4988578,33.809617,-117.4991382],[4,33.8103186,-117.499311,33.8132559,-117.4984033],[3,33.813445,-117.4986226,33.8146759,-117.498269],[5,33.8143336,-117.4987841,33.8127512,-117.5023672]],"glenivy":[[5,33.7660159,-117.5006645,33.7652539,-117.4954077],[4,33.7659119,-117.4943741,33.7688422,-117.4962528],[4,33.7699374,-117.4962346,33.7700862,-117.4926418],[4,33.7694583,-117.4927505,33.7668498,-117.4908217],[3,33.7663906,-117.4907189,33.7661133,-117.492457],[4,33.7644944,-117.4947128,33.7617088,-117.4930968],[5,33.7613821,-117.4926031,33.7603016,-117.4975624],[4,33.7604192,-117.4994954,33.7626817,-117.5013548],[3,33.7638413,-117.5018868,33.7652343,-117.5008104],[5,33.7663714,-117.5007864,33.7698845,-117.4975298],[4,33.7706248,-117.4984542,33.7731327,-117.4991349],[4,33.7735096,-117.4991971,33.7753822,-117.5020247],[5,33.7737645,-117.5030425,33.7725994,-117.5073736],[3,33.7716237,-117.5079516,33.7698509,-117.5080729],[4,33.7670346,-117.5072249,33.7653369,-117.5096738],[4,33.7649233,-117.5095187,33.7646227,-117.5054703],[3,33.7633035,-117.5057639,33.7616857,-117.5062841],[4,33.760946,-117.5056262,33.7629969,-117.5023068]],"hiddenvalley":[[5,33.9149356,-117.5177701,33.9138033,-117.5216846],[4,33.9156657,-117.5227864,33.9192367,-117.5221342],[4,33.9204298,-117.5219201,33.918109,-117.5242245],[4,33.9176397,-117.523923,33.9207864,-117.5226325],[3,33.9209592,-117.5236383,33.9217566,-117.5217204],[5,33.9219613,-117.5213578,33.919299,-117.5183413],[4,33.9188809,-117.5174747,33.9203329,-117.5154686],[3,33.9204327,-117.514957,33.919321,-117.5160981],[4,33.9192129,-117.5166795,33.9154911,-117.5164135],[4,33.9154716,-117.5159448,33.9185556,-117.5160548],[5,33.9191598,-117.5151789,33.9150414,-117.5155037],[4,33.9153615,-117.5147656,33.9130013,-117.5167496],[3,33.9118745,-117.5158415,33.9115335,-117.5174745],[4,33.9115039,-117.5180906,33.9091941,-117.5167204],[5,33.9099012,-117.5183928,33.9103029,-117.5228992],[3,33.9112168,-117.5230473,33.9126332,-117.5223376],[4,33.9123882,-117.5217809,33.912942,-117.5186953],[4,33.9119325,-117.5188266,33.9149054,-117.5164126]],"marshall":[[5,34.1480013,-117.7529569,34.1477383,-117.7483899],[3,34.1481227,-117.7480639,34.1469653,-117.7470891],[4,34.1468886,-117.7465374,34.1486171,-117.7483694],[4,34.1482459,-117.7482618,34.1486744,-117.7518319],[4,34.1490232,-117.7510125,34.1490511,-117.7470771],[4,34.1498232,-117.7471446,34.1499067,-117.7501709],[3,34.1503681,-117.7502374,34.150605,-117.7484406],[4,34.1506024,-117.7473861,34.1508806,-117.7498657],[4,34.1507292,-117.7510117,34.1493233,-117.7535287],[5,34.1477234,-117.7530412,34.1470418,-117.7484921],[3,34.1465758,-117.7483698,34.1464988,-117.7467964],[4,34.1459813,-117.7469796,34.1452303,-117.7495778],[4,34.1447664,-117.7496801,34.1440609,-117.7536936],[4,34.1445285,-117.7538173,34.1453051,-117.7505423],[4,34.1459306,-117.7500871,34.1451919,-117.7534714],[3,34.1456887,-117.7532996,34.1464939,-117.7545391],[5,34.1470154,-117.7543629,34.1463612,-117.7501103],[4,34.1468318,-117.7498784,34.1474021,-117.7535508]]};
+Object.entries(PUBLISHED_GPS_ENDPOINTS_BATCH_3).forEach(([key,holes])=>{PUBLISHED_GPS_COURSE_POINTS[key]=holes.map(publishEndpointHole)});
+PUBLISHED_GPS_COURSE_POINTS.indian=[[4,33.986497,-117.4582725,33.9889983,-117.4556214],[4,33.9892502,-117.4550229,33.9914197,-117.4559297],[3,33.9916858,-117.4555962,33.9928463,-117.4543706],[4,33.9929121,-117.4536747,33.9946923,-117.4508753],[3,33.9951321,-117.4508496,33.9936066,-117.4496906],[4,33.9935555,-117.4492812,33.9911381,-117.4519754],[4,33.9907337,-117.4524184,33.9890665,-117.454536],[5,33.9884684,-117.4548181,33.9844825,-117.4535976],[4,33.9833214,-117.4554414,33.9868174,-117.456032],[4,33.9864209,-117.4589525,33.9882212,-117.4611579],[3,33.9888125,-117.4613466,33.9882571,-117.4625233],[4,33.9887884,-117.4624351,33.9869323,-117.4641461],[4,33.9869592,-117.4644703,33.9841174,-117.4624154],[4,33.9843136,-117.4635253,33.9819954,-117.4646767],[3,33.9818887,-117.4645014,33.9808836,-117.4653666],[4,33.9805865,-117.4648222,33.9787669,-117.4617347],[4,33.9783798,-117.4612124,33.9815996,-117.4615085],[5,33.9820297,-117.461782,33.9856533,-117.4594506]].map(publishEndpointHole);
+const WILLOWICK_PARS=[4,3,5,3,4,5,3,4,4,5,5,3,4,4,4,4,3,4];
+PUBLISHED_GPS_COURSE_POINTS.willowick.forEach((hole,index)=>{
+  if(!hole.tee){
+    const prior=PUBLISHED_GPS_COURSE_POINTS.willowick[(index+17)%18];
+    hole.tee={lat:prior.center.lat,lng:prior.center.lng};
+    hole._review='inferred-from-routing';
   }
-
-  return `
-    <h2>Welcome Back</h2><div class="gold-rule"></div>
-    <p class="lead">Sign in to your ParFolio account.</p>
-    <form class="auth-form" id="signinForm">
-      <label>Email<input name="email" type="email" autocomplete="email" required></label>
-      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
-      <button class="form-primary" type="submit">Sign In</button>
-      <button class="text-button" type="button" id="forgotPassword">Forgot password?</button>
-      <p class="form-message" aria-live="polite"></p>
-    </form>
-    <button class="text-button" data-auth-mode="signup">New to ParFolio? Create an account</button>`;
+  const par=WILLOWICK_PARS[index],pointAt=f=>({lat:hole.tee.lat+(hole.center.lat-hole.tee.lat)*f,lng:hole.tee.lng+(hole.center.lng-hole.tee.lng)*f});
+  hole.aim1=par>=4?pointAt(par===5?.34:.5):null;
+  hole.aim2=par===5?pointAt(.67):null;
+});
+const LISTED_COURSE_CATALOG=[
+  {id:'catalog-el-prado-butterfield',name:'Butterfield Stage Course at El Prado',match:['butterfieldstagecourse'],city:'Chino',state:'CA',postal_code:'91708',address:'6555 Pine Avenue',holes:18,pars:[4,3,4,4,4,5,3,4,5,4,4,5,4,3,4,5,3,4],par_total:72,course_type:'Public',catalog_point:{lat:33.953,lng:-117.663},gps_key:'butterfield',source:'https://www.elpradogolfcourses.com/'},
+  {id:'catalog-el-prado-chino-creek',name:'Chino Creek Course at El Prado',match:['chinocreekcourse'],city:'Chino',state:'CA',postal_code:'91708',address:'6555 Pine Avenue',holes:18,pars:[4,4,4,3,5,4,3,4,5,4,4,4,5,3,4,3,5,4],par_total:72,course_type:'Public',catalog_point:{lat:33.946,lng:-117.663},gps_key:'chino',source:'https://www.elpradogolfcourses.com/'},
+  {id:'catalog-shorecliffs',name:'Shorecliffs Golf Club',city:'San Clemente',state:'CA',postal_code:'92672',address:'501 Avenida Vaquero',holes:18,par_total:71,course_type:'Public',catalog_point:{lat:33.427,lng:-117.612},gps_key:'shorecliffs',source:'https://www.shorecliffsgolfclub.com/'},
+  {id:'catalog-newport-beach',name:'Newport Beach Golf Course',city:'Newport Beach',state:'CA',postal_code:'92660',address:'3100 Irvine Avenue',holes:18,par_total:59,course_type:'Public · Executive',catalog_point:{lat:33.6189,lng:-117.9298},gps_key:'newport',source:'https://www.newportbeachgolfcoursellc.com/'},
+  {id:'catalog-willowick',name:'Willowick Golf Course',city:'Santa Ana',state:'CA',postal_code:'92703',address:'3017 West 5th Street',holes:18,pars:[...WILLOWICK_PARS],par_total:71,course_type:'Public',catalog_point:{lat:33.753,lng:-117.912},gps_key:'willowick',catalog_note:'Seven reference tees are inferred from the preceding green and should be field-checked before competitive play.',source:'https://www.willowickgolf.com/'},
+  {id:'catalog-river-view',name:'River View Golf Course',city:'Santa Ana',state:'CA',postal_code:'92706',address:'1800 West Santa Clara Avenue',holes:18,par_total:70,course_type:'Public',catalog_point:{lat:33.7455,lng:-117.8677},source:'https://playriverview.com/'},
+  {id:'catalog-green-river',name:'Green River Golf Club',city:'Corona',state:'CA',postal_code:'92880',holes:18,par_total:72,pars:[4,3,5,3,5,4,5,3,4,4,4,4,3,4,4,3,5,5],course_type:'Public',catalog_point:{lat:33.879,lng:-117.671},gps_key:'green',catalog_note:'Primary 18-hole selection; the facility advertises 27 holes. Confirm the day’s routing before play.',source:'https://playgreenriver.com/'},
+  {id:'catalog-rancho-california',name:'The Golf Club at Rancho California',match:['thegolfclubofranchocalifornia'],city:'Murrieta',state:'CA',postal_code:'92563',address:'39500 Robert Trent Jones Parkway',holes:18,par_total:72,course_type:'Public',catalog_point:{lat:33.5539,lng:-117.2139},source:'https://thegolfclubatranchocalifornia.com/'},
+  {id:'catalog-cresta-verde',name:'Cresta Verde Golf Course',city:'Corona',state:'CA',postal_code:'92879',address:'1295 Cresta Road',holes:18,par_total:72,pars:[5,4,3,3,5,3,4,4,5,4,4,4,4,3,5,4,3,5],course_type:'Public',catalog_point:{lat:33.888,lng:-117.543},gps_key:'cresta',source:'https://golfcrestaverde.com/'},
+  {id:'catalog-birch-hills',name:'Birch Hills Golf Course',city:'Brea',state:'CA',postal_code:'92821',address:'2250 East Birch Street',holes:18,par_total:59,pars:[3,4,3,3,3,4,3,3,3,4,3,3,4,3,3,3,3,4],course_type:'Public · Executive',catalog_point:{lat:33.9167,lng:-117.8685},gps_key:'birch',source:'https://birchhillsgolf.com/'},
+  {id:'catalog-westridge',name:'Westridge Golf Club',city:'La Habra',state:'CA',postal_code:'90631',address:'1400 South La Habra Hills Drive',holes:18,pars:[4,5,3,5,4,4,3,4,4,4,3,4,4,5,3,4,4,5],par_total:72,course_type:'Public',catalog_point:{lat:33.912,lng:-117.967},gps_key:'westridge',source:'https://www.westridgegolfclub.com/'},
+  {id:'catalog-canyon-crest',name:'Canyon Crest Country Club',city:'Riverside',state:'CA',postal_code:'92506',address:'975 Country Club Drive',holes:18,pars:[4,5,4,3,4,4,3,5,4,4,3,4,5,4,4,3,4,4],par_total:71,course_type:'Public access',catalog_point:{lat:33.951,lng:-117.338},gps_key:'canyoncrest',source:'https://www.canyoncrestcountryclub.com/'},
+  {id:'catalog-general-old',name:'General Old Golf Course',city:'Riverside',state:'CA',postal_code:'92518',address:'16700 Village West Drive',holes:18,pars:[5,3,4,4,5,4,4,3,4,4,3,4,5,4,4,3,4,5],par_total:72,course_type:'Public',catalog_point:{lat:33.877,lng:-117.282},gps_key:'generalold',source:'https://www.generaloldgolfcourse.com/'},
+  {id:'catalog-jurupa-hills',name:'Jurupa Hills Country Club',city:'Riverside',state:'CA',postal_code:'92509',address:'6161 Moraga Avenue',holes:18,par_total:70,course_type:'Public',catalog_point:{lat:33.9806,lng:-117.3755},gps_key:'jurupa',source:'https://www.jurupahills.net/'},
+  {id:'catalog-indian-hills',name:'Indian Hills Golf Club',city:'Riverside',state:'CA',postal_code:'92509',address:'5700 Club House Drive',holes:18,pars:[4,4,3,4,3,4,4,5,4,4,3,4,4,4,3,4,4,5],par_total:70,course_type:'Public',catalog_point:{lat:33.987,lng:-117.458},gps_key:'indian',source:'https://www.indianhillsgolf.com/'},
+  {id:'catalog-arrowhead',name:'Arrowhead Country Club',city:'San Bernardino',state:'CA',postal_code:'92404',address:'3433 Parkside Drive',holes:18,par_total:72,course_type:'Semi-private',catalog_point:{lat:34.1083,lng:-117.2898},source:'https://golfarrowheadcc.com/'},
+  {id:'catalog-shandin-hills',name:'Shandin Hills Golf Club',city:'San Bernardino',state:'CA',postal_code:'92405',address:'3380 Little Mountain Drive',holes:18,par_total:72,course_type:'Public',catalog_point:{lat:34.1083,lng:-117.2898},source:'https://www.golfshandinhillsgc.com/'},
+  {id:'catalog-eagle-glen',name:'Eagle Glen Golf Club',match:['eagleglengolfcourse'],city:'Corona',state:'CA',postal_code:'92883',address:'1800 Eagle Glen Parkway',holes:18,par_total:72,course_type:'Public',catalog_point:{lat:33.8753,lng:-117.5664},source:'https://eagleglengc.com/'},
+  {id:'catalog-dos-lagos',name:'Dos Lagos Golf Course',city:'Corona',state:'CA',postal_code:'92883',holes:18,pars:[4,4,3,5,3,4,4,3,4,4,3,5,4,5,3,4,3,5],par_total:70,course_type:'Public',catalog_point:{lat:33.815,lng:-117.501},gps_key:'doslagos',catalog_note:'Confirm the current street address and published tee sheet during the pre-round review.',source:'https://www.doslagosgolf.com/'},
+  {id:'catalog-glen-ivy',name:'Glen Ivy Golf Club',match:['glenivygolfcourse'],city:'Corona',state:'CA',postal_code:'92883',address:'24400 Trilogy Parkway',holes:18,pars:[5,4,4,4,3,4,5,4,3,5,4,4,5,3,4,4,3,4],par_total:72,course_type:'Public',catalog_point:{lat:33.767,lng:-117.501},gps_key:'glenivy',source:'https://www.glenivygolf.com/'},
+  {id:'catalog-hidden-valley',name:'Hidden Valley Golf Club',city:'Norco',state:'CA',postal_code:'92860',address:'10 Clubhouse Drive',holes:18,pars:[5,4,4,4,3,5,4,3,4,4,5,4,3,4,5,3,4,4],par_total:72,course_type:'Public',catalog_point:{lat:33.915,lng:-117.519},gps_key:'hiddenvalley',source:'https://www.hiddenvalleygolf.com/'},
+  {id:'catalog-marshall-canyon',name:'Marshall Canyon Golf Course',city:'La Verne',state:'CA',postal_code:'91750',address:'6100 North Stephens Ranch Road',holes:18,pars:[5,3,4,4,4,4,3,4,4,5,3,4,4,4,4,3,5,4],par_total:71,course_type:'Public',catalog_point:{lat:34.147,lng:-117.751},gps_key:'marshall',source:'https://www.marshallcanyon.com/'},
+  {id:'catalog-royale-jakarta',name:'Royale Jakarta Golf Club',match:['royalejakartagolfclub','royalejakarta'],city:'East Jakarta',state:'DKI Jakarta',postal_code:'13610',country:'Indonesia',address:'Jl. Radar Selatan, RT.4/RW.4, Halim Perdanakusuma, Kec. Makasar',holes:27,pars:[...ROYALE_JAKARTA_LOOPS.north.pars,...ROYALE_JAKARTA_LOOPS.south.pars,...ROYALE_JAKARTA_LOOPS.west.pars],par_total:108,tee_meters:null,course_type:'Private · 27-hole facility',catalog_point:{lat:-6.271247,lng:106.900463},courseImage:'assets/royale-west-jakarta.svg',catalog_note:'North, South and West are mapped as three returning nines. Choose an 18-hole pairing and play one continuous scorecard.',source:'https://www.royalejakarta.com/golf-course/',royaleFacility:true,greens:[...ROYALE_JAKARTA_GPS.north,...ROYALE_JAKARTA_GPS.south,...ROYALE_JAKARTA_GPS.west]}
+];
+function courseMatchKey(value){return String(value||'').toLowerCase().replace(/\b(golf|course|club|country|at|the)\b/g,'').replace(/[^a-z0-9]/g,'')}
+function mergeListedCourseCatalog(cloudCourses){
+  const merged=(cloudCourses||[]).filter(course=>!course.catalogOnly&&!isLegacyRoyaleCourse(course.name)).map(course=>({...course}));
+  for(const catalog of LISTED_COURSE_CATALOG){
+    const keys=new Set([courseMatchKey(catalog.name),...(catalog.match||[]).map(courseMatchKey)]),existing=merged.find(course=>keys.has(courseMatchKey(course.name)));
+    if(existing){
+      Object.assign(existing,{city:catalog.city,state:catalog.state,postal_code:catalog.postal_code,address:catalog.address,par_total:catalog.par_total,course_type:catalog.course_type,catalog_point:catalog.catalog_point,catalog_note:catalog.catalog_note,courseImage:catalog.courseImage,tee_meters:catalog.tee_meters,source:catalog.source,royaleFacility:catalog.royaleFacility,catalogApproved:true});
+      if(catalog.pars?.length)existing.pars=[...catalog.pars];
+      const published=catalog.gps_key?PUBLISHED_GPS_COURSE_POINTS[catalog.gps_key]:null;
+      const complete=(existing.greens||[]).length>=catalog.holes&&(existing.greens||[]).slice(0,catalog.holes).every(h=>h?.tee&&h?.center);
+      if(published?.length&&!complete)existing.greens=[...published];
+      else if(catalog.greens?.length&&!complete)existing.greens=[...catalog.greens];
+    }
+    else merged.push({...catalog,pars:catalog.pars?[...catalog.pars]:[],greens:catalog.gps_key?[...PUBLISHED_GPS_COURSE_POINTS[catalog.gps_key]]:catalog.greens?[...catalog.greens]:[],catalogOnly:true,catalogApproved:true});
+  }
+  return merged.sort((a,b)=>a.name.localeCompare(b.name));
 }
+const WEATHER_CACHE_MS = 10*60*1000;
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY,{
+  auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}
+});
+const CLUBS=['Driver','3 Wood','5 Wood','7 Wood','2 Hybrid','3 Hybrid','4 Hybrid','5 Hybrid','2 Iron','3 Iron','4 Iron','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Gap Wedge','Sand Wedge','Lob Wedge'];
+const roundDefault = {v:'home',course:'',courseId:null,catalogCourseId:null,royaleRoute:null,holes:18,players:[''],pars:[],scores:{},putts:{},hole:1,teeSet:'black',done:false,resumeView:null,ownerUserId:null,createdBy:null};
+let s = JSON.parse(localStorage.atgRound || 'null') || roundDefault;
+if(!s.putts)s.putts={};
+if(!s.teeSet)s.teeSet='black';
+if(/^catalog-royale-(north|south|west)-jakarta$/.test(s.catalogCourseId||'')){s.royaleRoute=s.catalogCourseId.match(/^catalog-royale-(north|south|west)-jakarta$/)[1];s.catalogCourseId='catalog-royale-jakarta';const migrated=royaleRoundCourse(s.royaleRoute);s.course=migrated.name;s.holes=migrated.holes;s.pars=[...migrated.pars]}
+if(s.players?.length===1&&s.players[0]==='You'&&['home','setup'].includes(s.v))s.players=[''];
+const APP_LANGUAGES={en:'English',es:'Español',zh:'中文',id:'Bahasa Indonesia',hi:'हिन्दी',fr:'Français'};
+const I18N={
+  en:{home:'Home',playingTee:'Playing Tee',round:'Round',showCode:'Show Code / QR',coursesPlayers:'Courses / Players',courses:'Courses',language:'Language',myAccount:'My Account',scorecard:'Scorecard',chat:'Chat',menu:'Menu',close:'Close',hole:'HOLE',distance:'DISTANCE',par:'PAR',routeRemaining:'ROUTE REMAINING',wind:'WIND',terrain:'Terrain',satellite:'Satellite',tee:'Tee',aim:'Aim',you:'You',green:'Green',toHit:'TO HIT',toGo:'TO GO',backToGame:'Back to Game',previousMatches:'Previous Rounds',chooseLanguage:'Choose Language',selected:'Selected',sharedCourses:'Shared Courses',liveGps:'Live GPS',protectedScoring:'Protected Scoring',liveChat:'Live Chat',shotPlanner:'Shot Planner',joinCodeQr:'Join Code / QR',about:'About'},
+  es:{home:'Inicio',playingTee:'Tee de juego',round:'Ronda',showCode:'Mostrar código / QR',coursesPlayers:'Campos / Jugadores',courses:'Campos',language:'Idioma',myAccount:'Mi cuenta',scorecard:'Tarjeta',chat:'Chat',menu:'Menú',close:'Cerrar',hole:'HOYO',distance:'DISTANCIA',par:'PAR',routeRemaining:'DISTANCIA RESTANTE',wind:'VIENTO',terrain:'Terreno',satellite:'Satélite',tee:'Tee',aim:'Objetivo',you:'Tú',green:'Green',toHit:'AL OBJETIVO',toGo:'RESTANTE',backToGame:'Volver al juego',previousMatches:'Partidas anteriores',chooseLanguage:'Elegir idioma',selected:'Seleccionado',sharedCourses:'Campos compartidos',liveGps:'GPS en vivo',protectedScoring:'Puntuación protegida',liveChat:'Chat en vivo',shotPlanner:'Planificador de tiro',joinCodeQr:'Código / QR de unión',about:'Acerca de'},
+  zh:{home:'主页',playingTee:'发球台',round:'球局',showCode:'显示代码 / 二维码',coursesPlayers:'球场 / 球员',courses:'球场',language:'语言',myAccount:'我的账户',scorecard:'记分卡',chat:'聊天',menu:'菜单',close:'关闭',hole:'球洞',distance:'距离',par:'标准杆',routeRemaining:'剩余距离',wind:'风',terrain:'地形',satellite:'卫星',tee:'发球台',aim:'目标点',you:'你',green:'果岭',toHit:'击球距离',toGo:'剩余距离',backToGame:'返回球局',previousMatches:'历史球局',chooseLanguage:'选择语言',selected:'已选择',sharedCourses:'共享球场',liveGps:'实时 GPS',protectedScoring:'受保护记分',liveChat:'实时聊天',shotPlanner:'击球规划器',joinCodeQr:'加入代码 / 二维码',about:'关于'},
+  id:{home:'Beranda',playingTee:'Tee Bermain',round:'Ronde',showCode:'Tampilkan Kode / QR',coursesPlayers:'Lapangan / Pemain',courses:'Lapangan',language:'Bahasa',myAccount:'Akun Saya',scorecard:'Kartu Skor',chat:'Obrolan',menu:'Menu',close:'Tutup',hole:'HOLE',distance:'JARAK',par:'PAR',routeRemaining:'SISA JARAK',wind:'ANGIN',terrain:'Medan',satellite:'Satelit',tee:'Tee',aim:'Sasaran',you:'Anda',green:'Green',toHit:'UNTUK DIPUKUL',toGo:'TERSISA',backToGame:'Kembali ke Ronde',previousMatches:'Ronde Sebelumnya',chooseLanguage:'Pilih Bahasa',selected:'Dipilih',sharedCourses:'Lapangan Bersama',liveGps:'GPS Langsung',protectedScoring:'Skor Terlindungi',liveChat:'Obrolan Langsung',shotPlanner:'Perencana Pukulan',joinCodeQr:'Kode Gabung / QR',about:'Tentang'},
+  hi:{home:'होम',playingTee:'खेलने की टी',round:'राउंड',showCode:'कोड / QR दिखाएँ',coursesPlayers:'कोर्स / खिलाड़ी',courses:'कोर्स',language:'भाषा',myAccount:'मेरा खाता',scorecard:'स्कोरकार्ड',chat:'चैट',menu:'मेनू',close:'बंद करें',hole:'होल',distance:'दूरी',par:'पार',routeRemaining:'शेष दूरी',wind:'हवा',terrain:'टेरेन',satellite:'सैटेलाइट',tee:'टी',aim:'निशाना',you:'आप',green:'ग्रीन',toHit:'हिट दूरी',toGo:'शेष',backToGame:'राउंड पर लौटें',previousMatches:'पिछले मैच',chooseLanguage:'भाषा चुनें',selected:'चुना गया',sharedCourses:'साझा कोर्स',liveGps:'लाइव GPS',protectedScoring:'सुरक्षित स्कोरिंग',liveChat:'लाइव चैट',shotPlanner:'शॉट प्लानर',joinCodeQr:'जॉइन कोड / QR',about:'परिचय'},
+  fr:{home:'Accueil',playingTee:'Tee de départ',round:'Partie',showCode:'Afficher code / QR',coursesPlayers:'Parcours / Joueurs',courses:'Parcours',language:'Langue',myAccount:'Mon compte',scorecard:'Carte de score',chat:'Discussion',menu:'Menu',close:'Fermer',hole:'TROU',distance:'DISTANCE',par:'PAR',routeRemaining:'DISTANCE RESTANTE',wind:'VENT',terrain:'Relief',satellite:'Satellite',tee:'Tee',aim:'Cible',you:'Vous',green:'Green',toHit:'À FRAPPER',toGo:'RESTANT',backToGame:'Retour à la partie',previousMatches:'Parties précédentes',chooseLanguage:'Choisir la langue',selected:'Sélectionné',sharedCourses:'Parcours partagés',liveGps:'GPS en direct',protectedScoring:'Score protégé',liveChat:'Discussion en direct',shotPlanner:'Planificateur de coup',joinCodeQr:'Code / QR d’accès',about:'À propos'}
+};
+const START_NEW_ROUND_LABELS={en:'Start New Round',es:'Iniciar nueva ronda',zh:'开始新球局',id:'Mulai Ronde Baru',hi:'नया राउंड शुरू करें',fr:'Commencer une nouvelle partie'};
+function startNewRoundLabel(){return START_NEW_ROUND_LABELS[appLanguage]||START_NEW_ROUND_LABELS.en}
+const MENU_EXTRA_LABELS={
+  en:{clubs:'My Clubs',manage:'Manage / End Round'},
+  es:{clubs:'Mis palos',manage:'Gestionar / finalizar ronda'},
+  zh:{clubs:'我的球杆',manage:'管理 / 结束球局'},
+  id:{clubs:'Klub Saya',manage:'Kelola / Akhiri Ronde'},
+  hi:{clubs:'मेरे क्लब',manage:'राउंड प्रबंधित / समाप्त करें'},
+  fr:{clubs:'Mes clubs',manage:'Gérer / terminer la partie'}
+};
+function menuExtraLabel(key){return MENU_EXTRA_LABELS[appLanguage]?.[key]||MENU_EXTRA_LABELS.en[key]}
+let appLanguage=APP_LANGUAGES[localStorage.atgLanguage]?localStorage.atgLanguage:'en';
+document.documentElement.lang=appLanguage;
+function t(key){return I18N[appLanguage]?.[key]||I18N.en[key]||key}
+let courses = JSON.parse(localStorage.atgCourses||'[]');
+let currentUser = null;
+let adminRole = null;
+let cloudError = '';
+let cloudLoading = true;
+let draft=null,map=null,locationWatch=null;
+let courseSearchResults=[];
+let lastCourseSearch=0;
+let sharedPlayers=[];
+let historyRounds=[],historyDetail=null,historyLoading=false,historyError='',historyControlsReady=true;
+let registeredGolfers=[],registeredGolfersLoading=false,registeredGolfersError='';
+let golferProfile=null,golferProfileError='',signupEmail='',usersReturnView='accountView',coursesReturnView='home',clubsReturnView='accountView';
+let clubDistances={},clubProfileError='';
+let roundChannel=null,subscribedRoundId=null,realtimeTimer=null;
+let chatMessages=[],chatTimer=null,unreadChatCount=0,chatToastTimer=null,chatMediaReady=true;
+let qrScanner=null,qrScanLocked=false;
+let avatarCacheVersion=Date.now();
+let currentWeather=null,weatherLoading=false,weatherCache=JSON.parse(localStorage.atgWeatherCache||'{}');
+let lastKnownPosition=null,lastGpsAccuracyYards=null,inlineHoleMap=null,inlineGolferMarker=null,inlineHoleGreen=null,inlineViewResetting=false,inlineUserMovedMap=false;
+let inlinePlannerMarker=null,inlinePlannerLines=[],inlinePlannerLabels=[],shotPlannerGreen=null;
+let googleMapsPromise=null,inlineGoogleOverlays=[];
+const shotPlannerAims={};
+let coursePreviewMaps=[];
+let liveMapStyle=localStorage.atgLiveMapStyle==='terrain'?'terrain':'satellite';
+const LIVE_MAP_TILT=55;
+let pendingScores=JSON.parse(localStorage.atgPendingScores||'{}');
+let pendingHoleStats=JSON.parse(localStorage.atgPendingHoleStats||'{}');
+let scoreSyncPromise=null;
+let statsSyncPromise=null;
+let recoveryMode=false;
+let courseLibraryQuery='',courseLibraryLocation=null;
+let courseLibraryFilters={nearby:false,favorites:false,recent:false,holes:null,mapped:false,par3:false,difficulty:null};
+const save=()=>{localStorage.atgRound=JSON.stringify(s)};
+const rel=n=>n===0?'E':n>0?'+'+n:n;
+const parTotal=n=>s.pars.slice(0,n).reduce((a,b)=>a+b,0);
+const total=(p,n=s.holes)=>Array.from({length:n},(_,i)=>s.scores[p]?.[i+1]||0).reduce((a,b)=>a+b,0);
+const courseById=id=>courses.find(c=>c.id===id);
+const selectedRoundCourse=()=>s.catalogCourseId==='catalog-royale-jakarta'||royaleRouteFromCourseName(s.course)?royaleRoundCourse(s.royaleRoute||royaleRouteFromCourseName(s.course)||'west-south'):courseById(s.courseId||s.catalogCourseId)||courses.find(c=>courseMatchKey(c.name)===courseMatchKey(s.course));
+function avatarUrl(path){if(!path)return'';return db.storage.from('golfer-avatars').getPublicUrl(path).data.publicUrl+'?v='+avatarCacheVersion}
+function avatarMarkup(path,name,className='profile-photo'){const label=name||'Golfer';return path?`<img class="${className}" src="${esc(avatarUrl(path))}" alt="${esc(label)} profile picture">`:`<span class="${className} avatar-fallback">${esc(label.charAt(0).toUpperCase()||'G')}</span>`}
 
-function profileContent() {
-  const p = currentProfile || {};
-  return `
-    <h2>My Profile</h2><div class="gold-rule"></div>
-    <p class="lead">${escapeHtml(currentUser?.email || '')}</p>
-    <div class="profile-photo-editor">
-      ${profileAvatarMarkup(p, currentUser, 'avatar-large')}
-      <div>
-        <strong>Profile Photo</strong>
-        <p>Add a photo for your ParFolio profile.</p>
-        <label class="photo-button">Choose Photo<input id="avatarInput" type="file" accept="image/jpeg,image/png,image/webp" hidden></label>
-      </div>
-    </div>
-    <form class="auth-form" id="profileForm">
-      <div class="field-row"><label>First Name<input name="firstName" value="${escapeHtml(p.first_name || '')}" required></label><label>Last Name<input name="lastName" value="${escapeHtml(p.last_name || '')}" required></label></div>
-      <label>Phone<input name="phone" type="tel" value="${escapeHtml(p.phone || '')}" required></label>
-      <button class="form-primary" type="submit">Save Profile</button>
-      <p class="form-message" aria-live="polite"></p>
-    </form>
-    <button class="danger-button" id="signOutButton">Sign Out</button>`;
+function render(){save();document.querySelector('meta[name="theme-color"]')?.setAttribute('content',s.v==='round'?'#f7faf8':'#064c32');stopLocation();if(inlineHoleMap){if(inlineHoleMap.provider==='google')clearInlineGoogleOverlays();inlineHoleMap.remove();inlineHoleMap=null;inlineGolferMarker=null;inlineHoleGreen=null;inlineViewResetting=false;inlineUserMovedMap=false;inlinePlannerMarker=null;inlinePlannerLines=[];inlinePlannerLabels=[];shotPlannerGreen=null}for(const previewMap of coursePreviewMaps){try{previewMap.remove()}catch{}}coursePreviewMaps=[];if(map){if(draft&&!draft.skipMapViewSave){const center=map.getCenter();if(center)draft.mapView={lat:center.lat,lng:center.lng,zoom:map.getZoom()}}map.remove();map=null}if(draft?.skipMapViewSave){delete draft.mapView;delete draft.skipMapViewSave}app.className='';({home,setup,pars,round,recap,coursesView,mapCourse,accountView,historyView,historyDetailView,clubsView,chatView,usersView,signupView,profileView,roundManageView}[s.v]||home)();addGlobalMenuButton()}
+function appGuide(){return`<details class="app-guide" ontoggle="positionExpandedGuide(this)"><summary><span>App Guide & About</span><b>＋</b></summary><div class="guide-body"><section class="founder-card"><img src="rick-kulon-profile.jpg" alt="Rick Kulon, creator of the ParFolio app"><div><small class="guide-opening-line">CREATED FOR THE FELLOWSHIP</small><h2>ParFolio</h2><p>A mobile golf companion created by Rick Kulon to bring fellowship, course guidance, scoring and group communication together in one simple app.</p></div></section><h3>Before Your First Round</h3><ol><li>Tap <b>Sign Up</b> and enter your first name, last name, email and phone number.</li><li>Open the verification email from Supabase and confirm your account.</li><li>Return to the app and sign in. Your login is remembered on that device.</li><li>Open <b>Account → My Profile & Picture</b> to finish your profile.</li><li>Open <b>My Clubs & Distances</b> and save the distance you normally carry each club.</li></ol><h3>Create or Join a Round</h3><ol><li>One golfer creates a protected 9- or 18-hole round.</li><li>Share the six-character round code, join link or QR code.</li><li>Every participant signs in before joining; the score sheet uses the golfer's profile first name, which remains editable.</li><li>Use <b>Resume Current Round</b> if you leave the round screen accidentally.</li></ol><h3>Google Maps Course View</h3><ul class="guide-features"><li>High-quality full-screen Google Map and Satellite views</li><li>Each hole automatically frames the complete route and aligns from the golfer or tee toward the next aim point or green</li><li>Pinch to zoom, drag to pan, twist to rotate and use a two-finger vertical gesture to tilt supported maps</li><li>Tap the crosshair below the weather panel to restore the aligned full-hole view</li><li>Hole number, mapped distance, par and live route remaining remain visible across the top</li><li>Temperature, weather icon and wind direction are shown relative to the playing direction</li><li>Previous and next-hole arrows sit along the map edges, and the ATG crest opens the round QR code</li></ul><h3>Shot Planner & Suggested Club</h3><ul class="guide-features"><li>Move the gold aim marker to plan where the ball should land</li><li>The thin solid and dotted gold route lines update as the planner moves</li><li>See <b>yards to hit</b>, route-aware <b>yards to go</b> and the suggested club together beside the route</li><li>Mapped Aim 1 and Aim 2 points guide dogleg holes</li><li>The planner begins from your current GPS position as you advance up the hole</li><li>Suggested Club uses your saved carry distances and stops recommending Driver after you move beyond the tee area</li></ul><div class="notice guide-tip"><b>Remember:</b> Club suggestions are guidance only. Consider wind, lie, elevation, hazards and your normal shot shape.</div><h3>Protected Scoring</h3><ul class="guide-features"><li>Your score begins at the hole's par</li><li>Use <b>−</b> or <b>+</b>, or tap the raised score button for exact strokes and optional putts</li><li>Tap <b>0 · 10–20</b> in the score-entry sheet to enter scores of 10 or more</li><li>Each signed-in golfer can edit their own score, including when the round host is another golfer</li><li>The Live Scorecard updates for the group</li><li>Scores wait safely on the phone while offline and synchronize after reconnecting</li><li>Share or download a branded scorecard image with the ATG crest</li></ul><h3>Private Round Chat & Photos</h3><ul class="guide-features"><li>Send messages to everyone participating in the current round</li><li>Unread badges and alerts identify new messages</li><li>Tap 📷 to take a photo or choose one from your photo library</li><li>Type before choosing a photo if you want to include a caption</li><li>Tap a shared photo to view it full-screen or save/download it</li><li>When the host permanently deletes the round, its chat photos are removed from app storage</li></ul><h3>Courses, Account & History</h3><ul class="guide-features"><li>See up to seven recommended courses based on location, favorites, recent play and mapping completeness</li><li>Search the complete shared course library or filter by distance, favorites, recent play, holes, mapping and difficulty</li><li>Tap the star on a course to save it as a favorite on that device</li><li>Tap a course name or map to start a new round at that location</li><li>Upload a golfer picture and edit your profile information</li><li>Review My Clubs & Distances or change your password</li><li>Open Previous Rounds to view and share completed scorecards</li><li>Remove a match from only your history, or let the host permanently delete it for everyone</li><li>Authorized administrators can map tees, dogleg aim points and front, center and back of greens with Google Maps</li><li>The Super Admin can manage course administrators and view the private registered-player directory</li></ul><h3>Save It to Your Home Screen</h3><div class="install-guide"><section><h4>iPhone or iPad</h4><ol><li>Open the app in <b>Safari</b>.</li><li>Tap <b>Share → Add to Home Screen → Add</b>.</li></ol></section><section><h4>Android</h4><ol><li>Open the app in <b>Chrome</b>.</li><li>Tap the menu, then <b>Install app</b> or <b>Add to Home screen</b>.</li></ol></section></div><div class="notice guide-tip"><b>Tip:</b> If the link opens inside Messages, Facebook or another app, choose <b>Open in Safari</b> or <b>Open in Chrome</b> first.</div><h3>Location & Privacy</h3><p>Allow precise location access for live GPS yardages, playing-direction alignment and club suggestions. Round scores, messages and photos are limited to participating golfers. Profile contact information is available only to you and the Super Admin.</p><div class="guide-update">Current feature guide · Version 90 · Updated August 30, 2026</div><div class="guide-contact"><p>Suggestions for improving the app are welcome.</p><a href="mailto:ricbkewl@gmail.com?subject=Agape%20Golf%20App%20Suggestion">✉ ricbkewl@gmail.com</a><a href="sms:+16074383208">✆ Text 607.438.3208</a></div><button class="guide-close-button" onclick="closeAppGuide(this)">Close & Return Home</button></div></details>`}
+const appGuideEnglish=appGuide;
+appGuide=function(){return window.ATG_GUIDE?.render?window.ATG_GUIDE.render(appLanguage):appGuideEnglish()};
+function positionLocalizedGuide(details){if(!details.open)return;requestAnimationFrame(()=>details.querySelector('.guide-opening-line')?.scrollIntoView({behavior:'smooth',block:'start'}))}
+function positionExpandedGuide(details){
+  if(!details.open)return;
+  const headings=[...details.querySelectorAll('.guide-body > h3')],beforeHeading=headings.find(heading=>heading.textContent==='Before Your First Round'),installHeading=headings.find(heading=>heading.textContent==='Save It to Your Home Screen');
+  const beforeList=beforeHeading?.nextElementSibling,installGuide=installHeading?.nextElementSibling,installTip=installGuide?.nextElementSibling;
+  if(beforeList&&installHeading&&installGuide&&installTip)beforeList.after(installHeading,installGuide,installTip);
+  const courseHeading=headings.find(heading=>heading.textContent==='Courses, Account & History'),courseList=courseHeading?.nextElementSibling;
+  if(courseList&&!courseList.querySelector('[data-provisional-guide]'))courseList.insertAdjacentHTML('beforeend','<li data-provisional-guide>Courses approved for selection may still contain provisional GPS coordinates. Review and correct tees, aim points and greens before play when necessary.</li><li data-provisional-guide>Royale Jakarta is one 27-hole facility with North, South and West nines. Choose a pairing before the round; the two nines appear as one continuous 18-hole scorecard.</li>');
+  const createJoin=details.querySelector('.guide-body > h3:nth-of-type(2)')?.nextElementSibling;if(createJoin&&!createJoin.querySelector('[data-menu-guide]'))createJoin.insertAdjacentHTML('beforeend','<li data-menu-guide>The three-line menu replaces the bottom navigation and includes Home, Playing Tee, Round, the round code/QR, Courses/Players, Language and My Account. During play, scoring stays available in the compact floating score control.</li><li data-menu-guide>English is the default language. Choose Spanish, Chinese, Indonesian, Hindi or French from Language; the app remembers the choice on that device.</li>');
+  const mapHeading=headings.find(heading=>heading.textContent==='Google Maps Course View'),mapList=mapHeading?.nextElementSibling;if(mapList&&!mapList.querySelector('[data-map-view-guide]'))mapList.insertAdjacentHTML('afterbegin','<li data-map-view-guide>Terrain and Satellite are the two playing-map choices. Each new hole opens in a fitted, slightly tilted tee-to-green view.</li>');
+  const mapItems=[...(mapList?.querySelectorAll('li')||[])];const oldMapChoice=mapItems.find(item=>item.textContent.includes('High-quality full-screen Google Map'));if(oldMapChoice)oldMapChoice.textContent='High-quality full-screen Google Terrain and Satellite views';const oldCrest=mapItems.find(item=>item.textContent.includes('ATG crest opens'));if(oldCrest)oldCrest.textContent='Previous and next-hole arrows sit along the map edges, and the three-line button opens the round menu';
+  const update=details.querySelector('.guide-update');if(update)update.textContent='Current feature guide · Version 100 · Updated August 31, 2026';
+  requestAnimationFrame(()=>requestAnimationFrame(()=>details.querySelector('.guide-opening-line')?.scrollIntoView({behavior:'smooth',block:'start'})));
 }
-
-function bindAuthUI() {
-  document.querySelectorAll('[data-auth-mode]').forEach(btn => btn.addEventListener('click', () => {
-    openDialog(authContent(btn.dataset.authMode));
-    bindAuthUI();
-  }));
-
-  document.getElementById('signupForm')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const fd = new FormData(event.currentTarget);
-    message('Creating your account…');
-    const { error } = await sb.auth.signUp({
-      email: fd.get('email').trim(),
-      password: fd.get('password'),
-      options: {
-        emailRedirectTo: window.location.origin,
-        data: { first_name: fd.get('firstName').trim(), last_name: fd.get('lastName').trim(), phone: fd.get('phone').trim() }
-      }
-    });
-    if (error) return message(error.message, 'error');
-    message('Account created. Check your email and tap the verification link, then return to ParFolio to sign in.', 'success');
-    event.currentTarget.querySelector('button[type="submit"]').disabled = true;
-  });
-
-  document.getElementById('signinForm')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const fd = new FormData(event.currentTarget);
-    message('Signing in…');
-    const { data, error } = await sb.auth.signInWithPassword({ email: fd.get('email').trim(), password: fd.get('password') });
-    if (error) return message(error.message, 'error');
-    currentUser = data.user;
-    await loadProfile();
-    dialog.close();
-  });
-
-  document.getElementById('forgotPassword')?.addEventListener('click', async () => {
-    const email = document.querySelector('#signinForm input[name="email"]')?.value?.trim();
-    if (!email) return message('Enter your email first, then tap Forgot password.', 'error');
-    const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
-    message(error ? error.message : 'Password reset email sent.', error ? 'error' : 'success');
-  });
+function closeAppGuide(button){
+  const details=button.closest('.app-guide');if(details)details.open=false;
+  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-async function uploadAvatar(file) {
-  if (!file || !currentUser) return;
-  if (file.size > 5 * 1024 * 1024) return message('Please choose a photo smaller than 5 MB.', 'error');
-
-  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
-  const path = `${currentUser.id}/profile.${ext}`;
-  message('Uploading photo…');
-
-  const { error: uploadError } = await sb.storage.from('avatars').upload(path, file, {
-    upsert: true,
-    contentType: file.type || 'image/jpeg',
-    cacheControl: '3600'
-  });
-  if (uploadError) return message(uploadError.message, 'error');
-
-  const { data } = sb.storage.from('avatars').getPublicUrl(path);
-  const avatarUrl = `${data.publicUrl}?v=${Date.now()}`;
-  const { error: profileError } = await sb.from('profiles').update({ avatar_url: avatarUrl }).eq('id', currentUser.id);
-  if (profileError) return message(profileError.message, 'error');
-
-  await loadProfile();
-  openDialog(profileContent());
-  bindProfileUI();
-  message('Profile photo updated.', 'success');
+function activeRoundHomeCard(){if(!s.sharedRoundId||!s.joinCode)return'';if(s.done)return`<section class="active-round-card"><div><small>COMPLETED ROUND</small><b>${esc(s.course)}</b><span>Your scorecard is saved.</span></div><div class="active-round-actions completed-actions"><button onclick="openCurrentRound()">Scorecard</button>${s.createdBy===currentUser?.id?'<button onclick="openRoundManagement()">Manage</button>':''}<button onclick="shareCurrentScorecard()">Share</button></div></section>`;return`<section class="active-round-card"><div><small>ACTIVE ROUND</small><b>${esc(s.course)}</b><span>Join code <strong>${esc(s.joinCode)}</strong></span></div><div class="active-round-actions"><button onclick="copyRoundCode()">Copy</button><button onclick="showRoundQr()">Show Join QR</button><button onclick="shareRoundLink()">Share</button></div></section>`}
+function profileMissingItems(){if(!currentUser)return[];const missing=[];if(!golferProfile?.first_name||!golferProfile?.last_name)missing.push('your full name');if(!golferProfile?.phone)missing.push('your phone number');if(!golferProfile?.avatar_path)missing.push('a profile picture');return missing}
+function profileCompletionReminder(){const missing=profileMissingItems();if(!missing.length)return'';return`<button class="profile-reminder" onclick="openProfile()"><span>!</span><div><b>Finish Your Golfer Profile</b><small>Add ${esc(missing.join(', '))}.</small></div><i>→</i></button>`}
+function clubCompletionReminder(){if(!currentUser||clubProfileError||currentUser.user_metadata?.club_setup_complete===true)return'';const count=Object.keys(clubDistances).length;return`<button class="profile-reminder clubs-reminder" onclick="openClubs()"><span>⛳</span><div><b>Finish Setting Up My Clubs</b><small>${count?`${count} club${count===1?'':'s'} saved. Add the rest of the clubs you carry.`:'Add the carry distance for each club you use.'}</small></div><i>→</i></button>`}
+function homeSignInForm(){if(currentUser)return profileCompletionReminder()+clubCompletionReminder();if(cloudLoading)return'<div class="home-auth-loading">Checking your saved login…</div>';return`<form class="home-signin" onsubmit="signInFromHome(event)"><div class="home-signin-heading"><span>♙</span><div><b>Golfer Sign In</b><small>Sign in before creating or joining a round</small></div></div><label for="homeEmail">Email</label><input id="homeEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" required placeholder="you@example.com"><label for="homePassword">Password</label><input id="homePassword" type="password" autocomplete="current-password" required placeholder="Enter your password"><div id="homeSignInError" class="home-signin-error" role="alert"></div><button id="homeSignInButton" class="primary home-signin-button" type="submit">Sign In</button></form><div class="home-action-divider"><span>ROUND OPTIONS</span></div>`}
+function home(){const canResume=(s.sharedRoundId||['setup','pars','round','recap'].includes(s.resumeView))&&!s.done;app.className='home-page';app.innerHTML=`<section class="home-hero"><div class="logo-wrap"><img src="agape-golf-logo.png" alt="ParFolio logo" class="landing-logo"></div><div class="home-brand">PLAY · CONNECT · IMPROVE</div><h1>Saved to <span>Serve</span></h1><p class="scripture"><strong><em>“Who hath saved us, and called us<br>with a holy calling...”</em> <span>2 Tim. 1:9</span></strong></p><div class="feature-pills"><span>⛳ Shared Courses</span><span>◎ Live GPS</span><span>＋ Protected Scoring</span><span>💬 Live Chat</span></div></section><section class="home-actions">${homeSignInForm()}${cloudLoading?'<div class="notice">Loading shared courses…</div>':''}${cloudError?`<div class="error-notice">${esc(cloudError)}</div>`:''}<button class="secondary home-secondary home-courses-link" onclick="openCoursesFromNav()">⛳ Courses</button>${canResume?'<div class="home-resume-split"><button class="primary home-primary" onclick="resumeRound()">Resume Round <b>→</b></button><button class="home-end-round" onclick="endCurrentRoundFromHome()">End<br>Round</button></div><button class="secondary home-secondary" onclick="start()">Start a New Round</button>':`<button class="primary home-primary" onclick="start()" ${cloudLoading?'disabled':''}>Create a Round <b>→</b></button>`}${activeRoundHomeCard()}<button class="secondary home-secondary" onclick="joinRound()">Join with Round Code</button><button class="secondary home-secondary scan-round-button" onclick="showQrScanner()">▣ Scan Round QR</button><div class="account-bar">${currentUser?`<span class="account-status"><i></i>${adminRole?esc(adminRole.replace('_',' ')):'Golfer signed in'}</span><button class="back" onclick="accountAction()">My Account</button>`:`<span><button class="back" onclick="createAccount()">Sign Up</button></span><span><button class="back" onclick="forgotPassword()">Forgot Password?</button></span>`}</div></section>${appGuide()}<footer class="home-footer">Saved to serve · Ready to play</footer>`}
+function myRoundPlayerName(){if(s.sharedRoundId)return sharedPlayers.find(player=>player.user_id===currentUser?.id)?.display_name||'';return s.players[0]||''}
+async function ensureMyRoundPlayerName(){
+  let name=myRoundPlayerName();if(name)return name;
+  if(s.sharedRoundId&&currentUser&&await loadSharedRound(false))name=myRoundPlayerName();
+  if(!name)alert('Your golfer account could not be matched to this round. Check your connection, then rejoin with round code '+(s.joinCode||'shown by the host')+'.');
+  return name;
 }
-
-function bindProfileUI() {
-  document.getElementById('avatarInput')?.addEventListener('change', async (event) => {
-    const file = event.target.files?.[0];
-    if (file) await uploadAvatar(file);
-  });
-
-  document.getElementById('profileForm')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const fd = new FormData(event.currentTarget);
-    const firstName = fd.get('firstName').trim();
-    const lastName = fd.get('lastName').trim();
-    const phone = fd.get('phone').trim();
-    message('Saving…');
-    const { error } = await sb.from('profiles').update({ first_name: firstName, last_name: lastName, phone, profile_complete: Boolean(firstName && lastName && phone) }).eq('id', currentUser.id);
-    if (error) return message(error.message, 'error');
-    await loadProfile();
-    message('Profile saved.', 'success');
-  });
-
-  document.getElementById('signOutButton')?.addEventListener('click', async () => {
-    await sb.auth.signOut();
-    currentUser = null;
-    currentProfile = null;
-    await loadProfile();
-    dialog.close();
-  });
+function roundBottomNav(){
+  const name=myRoundPlayerName(),encoded=encodeURIComponent(name),holeScore=scoreValue(name)||Number(s.pars[s.hole-1])||0,roundTotal=total(name,s.hole);
+  app.insertAdjacentHTML('beforeend',`<nav class="round-action-bar" aria-label="Round controls"><div class="round-score-dock"><button onclick="changeScore('${encoded}',-1)" aria-label="Subtract one stroke">−</button><button class="round-score-display" onclick="openScoreEntry()" aria-label="Tap to enter score for Hole ${s.hole}"><b id="roundHoleScore">${holeScore}</b><small id="roundScoreTotal">Tap · Total ${roundTotal}</small></button><button onclick="changeScore('${encoded}',1)" aria-label="Add one stroke">+</button></div><button class="round-dock-button" onclick="openRoundChat()" ${s.sharedRoundId?'':'disabled'}><span class="chat-nav-icon">💬<i id="chatUnreadBadge" class="chat-unread ${unreadChatCount?'':'hidden'}">${unreadChatCount>99?'99+':unreadChatCount}</i></span><small>Chat</small></button><button class="round-dock-button" onclick="openScorecard()"><span>▦</span><small>Scorecard</small></button><button class="round-dock-button" onclick="showRoundQuickMenu()"><span>•••</span><small>Menu</small></button></nav>`)
 }
-
-function requireAuth() {
-  if (currentUser) return true;
-  openDialog(authContent('signin'));
-  bindAuthUI();
-  return false;
+function bottomNav(){if(s.v==='round'){roundBottomNav();return}app.insertAdjacentHTML('beforeend',`<nav class="bottom-nav ${s.sharedRoundId?'has-chat':''}" aria-label="Main navigation"><button onclick="goHome()"><span>⌂</span>Home</button>${s.sharedRoundId?'<button onclick="openCurrentRound()"><span>🏌</span>Round</button>':''}<button onclick="openCoursesFromNav()"><span>⛳</span>${adminRole==='super_admin'?'Courses/Players':'Courses'}</button>${s.sharedRoundId?`<button onclick="openRoundChat()"><span class="chat-nav-icon">💬<i id="chatUnreadBadge" class="chat-unread ${unreadChatCount?'':'hidden'}">${unreadChatCount>99?'99+':unreadChatCount}</i></span>Chat</button>`:''}<button onclick="accountAction()"><span>${currentUser?'●':'♙'}</span>${currentUser?'My Account':'Login'}</button></nav>`)}
+function closeRoundQuickMenu(){document.querySelector('.app-menu-overlay')?.remove();document.querySelector('.round-quick-overlay')?.remove()}
+function decorateHomeFeatures(){const pills=document.querySelector('.feature-pills');if(!pills)return;pills.innerHTML=`<span>⛳ ${esc(t('sharedCourses'))}</span><span>◎ ${esc(t('liveGps'))}</span><span>＋ ${esc(t('protectedScoring'))}</span><span>💬 ${esc(t('liveChat'))}</span><span>◉ ${esc(t('shotPlanner'))}</span><span>▣ ${esc(t('joinCodeQr'))}</span>`}
+function addGlobalMenuButton(){decorateHomeFeatures();if(s.v==='round'||document.querySelector('.global-menu-button'))return;const returnToGame=['historyView','historyDetailView'].includes(s.v)&&s.sharedRoundId&&!s.done?`<button class="history-return-game" onclick="openCurrentRound()">← ${esc(t('backToGame'))}</button>`:'';app.insertAdjacentHTML('afterbegin',`${returnToGame}<button class="global-menu-button" onclick="showAppMenu()" aria-label="${esc(t('menu'))}" title="${esc(t('menu'))}"><i></i><i></i><i></i></button>`)}
+function appMenuRoundTools(){if(!s.sharedRoundId)return'';return`<div class="app-menu-round-tools"><button onclick="closeRoundQuickMenu();openScorecard()">▦ ${esc(t('scorecard'))}</button><button onclick="closeRoundQuickMenu();openRoundChat()">💬 ${esc(t('chat'))}</button></div>`}
+function showAppMenu(){
+  closeRoundQuickMenu();const overlay=document.createElement('div');overlay.className='app-menu-overlay';overlay.onclick=event=>{if(event.target===overlay)closeRoundQuickMenu()};
+  overlay.innerHTML=`<section class="app-side-menu" role="dialog" aria-modal="true" aria-label="${esc(t('menu'))}"><header><button class="menu-about-logo" onclick="openAboutFromMenu()" aria-label="${esc(t('about'))}"><img src="agape-golf-logo.png" alt="ParFolio"><small>${esc(t('about'))}</small></button><button class="menu-close" onclick="closeRoundQuickMenu()" aria-label="${esc(t('close'))}">×</button></header><button onclick="closeRoundQuickMenu();goHome()"><span>⌂</span>${esc(t('home'))}</button><button onclick="closeRoundQuickMenu();showTeePicker()" ${s.sharedRoundId?'':'disabled'}><span>◉</span><div>${esc(t('playingTee'))}<small>${esc(teeSetLabel())}</small></div></button><button onclick="closeRoundQuickMenu();openCurrentRound()" ${s.sharedRoundId?'':'disabled'}><span>🏌</span>${esc(t('round'))}</button>${appMenuRoundTools()}<button onclick="closeRoundQuickMenu();showRoundQr()" ${s.joinCode?'':'disabled'}><span>▣</span><div>${esc(t('showCode'))}${s.joinCode?`<small>${esc(s.joinCode)}</small>`:''}</div></button><button onclick="closeRoundQuickMenu();openCoursesFromNav()"><span>⛳</span>${esc(adminRole==='super_admin'?t('coursesPlayers'):t('courses'))}</button><button onclick="closeRoundQuickMenu();showLanguageMenu()"><span>文</span><div>${esc(t('language'))}<small>${esc(APP_LANGUAGES[appLanguage])}</small></div></button><button onclick="closeRoundQuickMenu();accountAction()"><span>●</span>${esc(t('myAccount'))}</button></section>`;document.body.appendChild(overlay)
 }
-
-function showContent(screen) {
-  setDrawer(false);
-  if (screen === 'home') { if (dialog.open) dialog.close(); return; }
-  if (screen === 'about') return openDialog(aboutContent());
-  if (screen === 'guide') return openDialog(guideContent);
-  if (screen === 'profile') {
-    if (!requireAuth()) return;
-    openDialog(profileContent());
-    bindProfileUI();
+const showAppMenuWithoutNewRound=showAppMenu;
+showAppMenu=function(){
+  showAppMenuWithoutNewRound();
+  const menu=document.querySelector('.app-side-menu'),buttons=[...(menu?.querySelectorAll(':scope > button')||[])],teeButton=buttons.find(button=>button.getAttribute('onclick')?.includes('showTeePicker')),roundButton=buttons.find(button=>button.getAttribute('onclick')?.includes('openCurrentRound')),coursesButton=buttons.find(button=>button.getAttribute('onclick')?.includes('openCoursesFromNav'));
+  if(teeButton)teeButton.insertAdjacentHTML('afterend',`<button onclick="closeRoundQuickMenu();openClubs('round')" ${currentUser?'':'disabled'}><span>♣</span>${esc(menuExtraLabel('clubs'))}</button>`);
+  if(roundButton&&s.sharedRoundId)roundButton.insertAdjacentHTML('afterend',`<button onclick="closeRoundQuickMenu();openRoundManagement()"><span>⚙</span>${esc(menuExtraLabel('manage'))}</button>`);
+  if(coursesButton)coursesButton.insertAdjacentHTML('afterend',`<button class="menu-start-round" onclick="closeRoundQuickMenu();start()"><span>＋</span>${esc(startNewRoundLabel())}</button>`)
+};
+function openAboutFromMenu(){closeRoundQuickMenu();goHome();requestAnimationFrame(()=>{const guide=document.querySelector('.app-guide');if(guide){guide.open=true;guide.scrollIntoView({behavior:'smooth',block:'start'})}})}
+function showRoundQuickMenu(){showAppMenu()}
+function showLanguageMenu(){
+  closeRoundQuickMenu();const overlay=document.createElement('div');overlay.className='app-menu-overlay';overlay.onclick=event=>{if(event.target===overlay)closeRoundQuickMenu()};
+  overlay.innerHTML=`<section class="app-side-menu language-side-menu" role="dialog" aria-modal="true" aria-label="${esc(t('chooseLanguage'))}"><header><b>${esc(t('chooseLanguage'))}</b><button onclick="closeRoundQuickMenu()" aria-label="${esc(t('close'))}">×</button></header>${Object.entries(APP_LANGUAGES).map(([code,label])=>`<button class="language-choice ${appLanguage===code?'on':''}" onclick="setAppLanguage('${code}')"><span class="language-check">${appLanguage===code?'✓':''}</span><div>${esc(label)}<small>${appLanguage===code?esc(t('selected')):''}</small></div></button>`).join('')}</section>`;document.body.appendChild(overlay)
+}
+function setAppLanguage(code){if(!APP_LANGUAGES[code])return;appLanguage=code;localStorage.atgLanguage=code;document.documentElement.lang=code;closeRoundQuickMenu();render()}
+const TEE_LABELS={en:{black:'Black Tee',blue:'Blue Tee',white:'White Tee',red:'Red Tee'},es:{black:'Tee negro',blue:'Tee azul',white:'Tee blanco',red:'Tee rojo'},zh:{black:'黑色发球台',blue:'蓝色发球台',white:'白色发球台',red:'红色发球台'},id:{black:'Tee hitam',blue:'Tee biru',white:'Tee putih',red:'Tee merah'},hi:{black:'काली टी',blue:'नीली टी',white:'सफेद टी',red:'लाल टी'},fr:{black:'Départ noir',blue:'Départ bleu',white:'Départ blanc',red:'Départ rouge'}};
+function teeSetLabel(value=s.teeSet){return TEE_LABELS[appLanguage]?.[value]||TEE_LABELS.en[value]||TEE_LABELS.en.black}
+function selectedTee(green){return green?.tees?.[s.teeSet]||green?.tees?.black||green?.tee||null}
+function availableTeeSets(){const course=selectedRoundCourse(),sets=new Set();for(const green of course?.greens||[])for(const color of ['black','blue','white','red'])if(green?.tees?.[color])sets.add(color);return sets.size?[...sets]:['black']}
+function showTeePicker(){
+  document.querySelector('.tee-picker-overlay')?.remove();const sets=availableTeeSets(),overlay=document.createElement('div');overlay.className='tee-picker-overlay';overlay.onclick=event=>{if(event.target===overlay)overlay.remove()};
+  overlay.innerHTML=`<section class="tee-picker"><div><span><small>PLAYING TEE</small><b>Choose your tee</b></span><button onclick="this.closest('.tee-picker-overlay').remove()" aria-label="Close tee selection">×</button></div><p>This changes the map and yardage for you only. Other golfers can choose their own tee.</p>${sets.map(color=>`<button class="tee-choice ${s.teeSet===color?'on':''}" onclick="setRoundTee('${color}')"><i class="tee-choice-dot ${color}"></i><span><b>${teeSetLabel(color)}</b><small>${color==='black'?'Back / championship':color==='blue'?'Back / experienced':color==='white'?'Middle / standard':'Forward'}</small></span><em>${s.teeSet===color?'Selected':'Choose'}</em></button>`).join('')}${sets.length===1&&!selectedRoundCourse()?.greens?.some(g=>g?.tees)?'<div class="notice">This course currently has one reviewed reference tee. More tee choices will appear after its mapping is approved.</div>':''}</section>`;document.body.appendChild(overlay)
+}
+function setRoundTee(color){if(!availableTeeSets().includes(color))return;s.teeSet=color;for(const key of Object.keys(shotPlannerAims))delete shotPlannerAims[key];document.querySelector('.tee-picker-overlay')?.remove();save();showRoundHole()}
+function rememberRoundView(){if(['setup','pars','round','recap'].includes(s.v)&&!s.done)s.resumeView=s.v}
+function goHome(){rememberRoundView();s.v='home';render()}
+async function resumeRound(){if(s.sharedRoundId)await loadSharedRound(false);s.v=s.done?'recap':(s.resumeView||'round');render()}
+async function endCurrentRoundFromHome(){
+  if(s.sharedRoundId){
+    await loadSharedRound(false);
+    if(s.createdBy===currentUser?.id){await setRoundStatus('complete');return}
+    if(!confirm('Leave this active round on this device? Your saved scores will remain in Previous Rounds, and the host’s round will stay active.'))return
+  }else if(!confirm('End this unfinished round? Any unsaved local setup or scoring will be discarded.'))return;
+  const playerName=golferProfile?.first_name?.trim()||'';s={...roundDefault,v:'home',players:[playerName],ownerUserId:currentUser?.id||null};save();render()
+}
+async function openCurrentRound(){if(!s.sharedRoundId){await resumeRound();return}await loadSharedRound(false);s.resumeView='round';s.v=s.done?'recap':'round';render()}
+function openCoursesFromNav(){rememberRoundView();coursesReturnView='home';s.v='coursesView';render()}
+async function accountAction(){if(!currentUser){await signInAccount();return}rememberRoundView();s.v='accountView';render()}
+function accountView(){if(!currentUser){s.v='home';render();return}const fullName=[golferProfile?.first_name,golferProfile?.last_name].filter(Boolean).join(' ');app.innerHTML=`<button class="back" onclick="goHome()">← Back</button><h1>My Account</h1><section class="profile-card"><div class="profile-icon">${avatarMarkup(golferProfile?.avatar_path,fullName)}</div><div><b>${esc(fullName||'Golfer Profile')}</b><div class="small muted">${esc(currentUser.email||'')}</div><div class="small muted">${adminRole?esc(adminRole.replace('_',' ')):'Golfer account'}</div></div></section>${!golferProfile?'<div class="notice"><b>Complete your profile.</b> Existing accounts need a first name, last name and phone number.</div>':''}<div class="notice remember-notice">✓ You will stay signed in securely on this device until you choose Sign Out.</div><button class="primary" onclick="openProfile()">My Profile & Picture</button><button class="secondary" onclick="openClubs()">My Clubs & Distances</button><button class="secondary" onclick="openHistory()">Previous Rounds</button><button class="secondary" onclick="changePassword()">Change Password</button>${adminRole==='super_admin'?'<button class="secondary" onclick="promoteCourseAdmin()">Add Course Admin</button>':''}<button class="secondary danger-button" onclick="signOutAdmin()">Sign Out</button>`}
+async function initializeCloud(){
+  cloudLoading=true;render();
+  const {data:{session}}=await db.auth.getSession();
+  currentUser=session?.user||null;
+  if(s.ownerUserId&&s.ownerUserId!==currentUser?.id)s={...roundDefault};
+  await Promise.all([loadAdminRole(),loadCourses(),loadClubDistances(),loadGolferProfile()]);
+  cloudLoading=false;render();
+  await Promise.all([syncPendingScores(),syncPendingHoleStats()]);
+  const linkedCode=new URLSearchParams(location.search).get('join');
+  const pendingCode=linkedCode||localStorage.atgPendingJoinCode;
+  if(pendingCode&&!recoveryMode)setTimeout(()=>joinRoundWithCode(pendingCode),250);
+}
+async function loadAdminRole(){
+  adminRole=null;
+  if(!currentUser)return;
+  const {data,error}=await db.from('app_admins').select('role').eq('user_id',currentUser.id).maybeSingle();
+  if(!error)adminRole=data?.role||null;
+}
+async function loadGolferProfile(){
+  golferProfile=null;golferProfileError='';
+  if(!currentUser)return;
+  const {data,error}=await db.from('golfer_profiles').select('first_name,last_name,phone,avatar_path').eq('user_id',currentUser.id).maybeSingle();
+  if(error){golferProfileError='Install the Golfer Profiles SQL update to save names and phone numbers.';return}
+  golferProfile=data||null;
+}
+async function loadCourses(){
+  const {data,error}=await db.from('courses').select('id,name,holes,pars,greens,updated_at').order('name');
+  if(error){courses=mergeListedCourseCatalog(courses);cloudError=courses.length?'You are offline. Using the courses saved on this device.':'Shared courses could not be loaded. Connect to the internet and try again.';return}
+  cloudError='';courses=mergeListedCourseCatalog(data||[]);localStorage.atgCourses=JSON.stringify(courses);
+}
+async function loadClubDistances(){
+  clubDistances={};clubProfileError='';
+  if(!currentUser)return;
+  const {data,error}=await db.from('golfer_club_distances').select('club,carry_yards').eq('user_id',currentUser.id);
+  if(error){clubProfileError='Club recommendations are not ready yet. Install the Supabase club-distance update first.';return}
+  for(const item of data||[])clubDistances[item.club]=item.carry_yards;
+}
+function openClubs(returnView){if(!currentUser){alert('Please sign in first.');return}clubsReturnView=returnView||'accountView';s.v='clubsView';render()}
+function returnFromClubs(){if(clubsReturnView==='round'&&s.sharedRoundId&&!s.done){s.v='round';render();return}accountAction()}
+function clubsView(){
+  if(!currentUser){s.v='home';render();return}
+  const backLabel=clubsReturnView==='round'&&s.sharedRoundId&&!s.done?'Round':'Account';
+  app.innerHTML=`<button class="back" onclick="returnFromClubs()">← ${backLabel}</button><h1>My Clubs</h1><p class="muted">Enter the distance you normally carry each club in the air. Leave clubs you do not carry blank.</p>${clubProfileError?`<div class="error-notice">${esc(clubProfileError)}</div>`:''}<section class="club-grid">${CLUBS.map(club=>`<label class="club-row"><span>${esc(club)}</span><span class="club-input"><input data-club="${esc(club)}" type="number" inputmode="numeric" min="20" max="350" step="1" value="${clubDistances[club]||''}" placeholder="—"><small>yd</small></span></label>`).join('')}</section><div class="notice">Recommendations use the distance to the center of the green. Wind, elevation, lie, hazards and rollout can change the right club.</div><button id="saveClubsButton" class="primary" onclick="saveClubDistances()" ${clubProfileError?'disabled':''}>Save My Clubs</button>`;
+}
+async function saveClubDistances(){
+  const distances={};
+  for(const input of document.querySelectorAll('[data-club]')){
+    if(input.value==='')continue;
+    const yards=Number(input.value);
+    if(!Number.isInteger(yards)||yards<20||yards>350){alert(`Enter a carry distance from 20 to 350 yards for ${input.dataset.club}.`);input.focus();return}
+    distances[input.dataset.club]=yards;
+  }
+  if(!Object.keys(distances).length&&!confirm('Save an empty bag? Club suggestions will remain turned off.'))return;
+  const button=$('saveClubsButton');button.disabled=true;button.textContent='Saving…';
+  const {error}=await db.rpc('save_my_club_distances',{p_distances:distances});
+  if(error){button.disabled=false;button.textContent='Save My Clubs';alert('Club distances could not be saved: '+error.message);return}
+  clubDistances=distances;clubProfileError='';
+  if(Object.keys(distances).length){const update=await db.auth.updateUser({data:{club_setup_complete:true}});if(!update.error)currentUser=update.data.user}
+  alert(Object.keys(distances).length?'Your club distances are saved. Live club suggestions are now ready.':'Your bag is empty, so club suggestions remain turned off.');returnFromClubs();
+}
+function driverAllowedForCurrentShot(){
+  const green=selectedRoundCourse()?.greens?.[s.hole-1];
+  if(!lastKnownPosition||!selectedTee(green)||!golferIsNearHole(green))return true;
+  const teeBuffer=Math.max(35,Math.min(60,(lastGpsAccuracyYards||0)+15));
+  return distanceYards(lastKnownPosition,selectedTee(green))<=teeBuffer;
+}
+function suggestedClubFor(yards,allowDriver=driverAllowedForCurrentShot()){
+  if(!Number.isFinite(yards))return null;
+  const savedBag=Object.entries(clubDistances).map(([club,carry])=>({club,carry:Number(carry)})).filter(x=>Number.isFinite(x.carry)),bag=(allowDriver?savedBag:savedBag.filter(x=>x.club.toLowerCase()!=='driver')).sort((a,b)=>a.carry-b.carry);
+  if(!bag.length&&savedBag.length)return{club:'Fairway Club',note:'Driver is only suggested near the mapped tee. Add your other club distances.'};
+  if(!bag.length)return null;
+  const shortest=bag[0],longest=bag[bag.length-1];
+  if(yards>longest.carry+35)return{club:longest.club,note:`Your longest saved carry is ${longest.carry} yd. Choose a safe lay-up target.`};
+  if(yards<shortest.carry-15)return{club:shortest.club,note:`Your shortest saved carry is ${shortest.carry} yd. Consider a partial swing.`};
+  const closest=bag.reduce((best,item)=>Math.abs(item.carry-yards)<Math.abs(best.carry-yards)?item:best,bag[0]);
+  return{club:closest.club,note:`Saved carry ${closest.carry} yd · target is ${yards} yd`};
+}
+function updateClubSuggestion(centerYards,accuracyYards){
+  const title=$('clubSuggestion'),note=$('clubSuggestionNote');if(!title||!note)return;
+  if(accuracyYards>50){title.textContent='—';note.textContent='Waiting for a more accurate GPS signal.';return}
+  if(centerYards>650){title.textContent='—';note.textContent='Move closer to the mapped hole for a club suggestion.';return}
+  const suggestion=suggestedClubFor(centerYards,driverAllowedForCurrentShot());
+  if(!suggestion){title.textContent='Set up My Clubs';note.textContent='Add your carry distances under Account to receive suggestions.';return}
+  title.textContent=suggestion.club;note.textContent=suggestion.note;
+}
+async function signInAdmin(){
+  const email=prompt('Administrator email:');if(!email)return;
+  const password=prompt('Administrator password:');if(!password)return;
+  const {data,error}=await db.auth.signInWithPassword({email:email.trim(),password});
+  if(error){alert('Sign-in failed: '+error.message);return}
+  currentUser=data.user;await Promise.all([loadAdminRole(),loadClubDistances(),loadGolferProfile()]);
+  if(!adminRole){await db.auth.signOut();currentUser=null;alert('This account is not an authorized course administrator.');return}
+  render();
+}
+async function signInAccount(){
+  const email=prompt('Email address:');if(!email)return false;
+  const password=prompt('Password:');if(!password)return false;
+  const {data,error}=await db.auth.signInWithPassword({email:email.trim(),password});
+  if(error){alert('Sign-in failed: '+error.message);if(confirm('Would you like a password-reset email?'))await sendPasswordReset(email.trim());return false}
+  currentUser=data.user;await Promise.all([loadAdminRole(),loadClubDistances(),loadGolferProfile()]);render();return true;
+}
+async function signInFromHome(event){
+  event.preventDefault();
+  const email=$('homeEmail')?.value.trim(),password=$('homePassword')?.value;
+  const button=$('homeSignInButton'),errorBox=$('homeSignInError');
+  if(!email||!password)return false;
+  button.disabled=true;button.textContent='Signing In…';errorBox.textContent='';
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error){button.disabled=false;button.textContent='Sign In';errorBox.textContent='Email or password was not recognized. Try again or use Forgot Password.';return false}
+  currentUser=data.user;
+  if(s.ownerUserId&&s.ownerUserId!==currentUser.id)s={...roundDefault};
+  await Promise.all([loadAdminRole(),loadClubDistances(),loadGolferProfile()]);render();return true;
+}
+function createAccount(){signupEmail='';s.v='signupView';render()}
+function signupView(){
+  if(currentUser){s.v='accountView';render();return}
+  if(signupEmail){app.innerHTML=`<button class="back" onclick="goHome()">← Home</button><section class="verification-card"><div class="verification-icon">✉</div><h1>Verify Your Email</h1><p>We sent a verification link to <b>${esc(signupEmail)}</b>.</p><ol><li>Open your email inbox.</li><li>Tap the verification link from Supabase.</li><li>Return to the app and sign in.</li></ol><div class="notice">Check your Spam or Junk folder if the message does not arrive within a few minutes.</div><button class="primary" onclick="goHome()">Return to Sign In</button></section>`;return}
+  app.innerHTML=`<button class="back" onclick="goHome()">← Home</button><h1>Create Golfer Account</h1><p class="muted">Every field is required. Your contact information is visible only to the Super Admin.</p><form class="signup-form" onsubmit="submitSignup(event)"><div class="name-fields"><label>First Name<input id="signupFirstName" autocomplete="given-name" maxlength="80" required></label><label>Last Name<input id="signupLastName" autocomplete="family-name" maxlength="80" required></label></div><label>Email<input id="signupEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" required></label><label>Phone Number<input id="signupPhone" type="tel" inputmode="tel" autocomplete="tel" minlength="7" maxlength="30" required placeholder="(555) 555-1234"></label><label>Password<input id="signupPassword" type="password" autocomplete="new-password" minlength="8" required></label><label>Confirm Password<input id="signupConfirmPassword" type="password" autocomplete="new-password" minlength="8" required></label><div id="signupError" class="error-notice hidden" role="alert"></div><button id="signupButton" class="primary" type="submit">Create Account</button></form><div class="notice"><b>Email verification is required.</b> After signing up, open the verification email before attempting to sign in.</div>`;
+}
+async function submitSignup(event){
+  event.preventDefault();
+  const firstName=$('signupFirstName').value.trim(),lastName=$('signupLastName').value.trim(),email=$('signupEmail').value.trim(),phone=$('signupPhone').value.trim(),password=$('signupPassword').value,confirmed=$('signupConfirmPassword').value;
+  const errorBox=$('signupError'),button=$('signupButton');errorBox.classList.add('hidden');errorBox.textContent='';
+  if(!firstName||!lastName||!email||phone.length<7){errorBox.textContent='Enter your first name, last name, email and phone number.';errorBox.classList.remove('hidden');return}
+  if(password.length<8){errorBox.textContent='Use a password with at least 8 characters.';errorBox.classList.remove('hidden');return}
+  if(password!==confirmed){errorBox.textContent='The passwords do not match.';errorBox.classList.remove('hidden');return}
+  button.disabled=true;button.textContent='Creating Account…';
+  const {data,error}=await db.auth.signUp({email,password,options:{emailRedirectTo:APP_URL,data:{first_name:firstName,last_name:lastName,phone}}});
+  if(error){button.disabled=false;button.textContent='Create Account';errorBox.textContent='Account could not be created: '+error.message;errorBox.classList.remove('hidden');return}
+  if(data.session){currentUser=data.user;await Promise.all([loadAdminRole(),loadClubDistances(),loadGolferProfile()]);s.v='accountView';render();return}
+  signupEmail=email;render();
+}
+function openProfile(){if(!currentUser){s.v='home';render();return}s.v='profileView';render()}
+function profileView(){
+  if(!currentUser){s.v='home';render();return}
+  const fullName=[golferProfile?.first_name,golferProfile?.last_name].filter(Boolean).join(' ')||'Golfer';
+  app.innerHTML=`<button class="back" onclick="accountAction()">← Account</button><h1>My Profile</h1><p class="muted">Keep your contact details current. Only you and the Super Admin can access them.</p><section class="avatar-editor">${avatarMarkup(golferProfile?.avatar_path,fullName,'avatar-preview')}<div><b>Profile Picture</b><p id="profilePhotoStatus">${golferProfile?'Choose a clear square or portrait photo.':'Save your profile information first.'}</p><label class="avatar-upload-button">Choose Picture<input id="profilePhotoInput" type="file" accept="image/*" onchange="uploadProfilePhoto(this.files[0])" ${golferProfile?'':'disabled'}></label></div></section><div class="small muted avatar-privacy">Your picture is used as your app icon and appears in the private Super Admin Players directory. Uploaded pictures use a public image URL.</div>${golferProfileError?`<div class="error-notice">${esc(golferProfileError)}</div>`:''}<form class="signup-form" onsubmit="saveMyProfile(event)"><div class="name-fields"><label>First Name<input id="profileFirstName" autocomplete="given-name" maxlength="80" required value="${esc(golferProfile?.first_name||'')}"></label><label>Last Name<input id="profileLastName" autocomplete="family-name" maxlength="80" required value="${esc(golferProfile?.last_name||'')}"></label></div><label>Email<input value="${esc(currentUser.email||'')}" readonly></label><label>Phone Number<input id="profilePhone" type="tel" inputmode="tel" autocomplete="tel" minlength="7" maxlength="30" required value="${esc(golferProfile?.phone||'')}"></label><div id="profileError" class="error-notice hidden" role="alert"></div><button id="profileSaveButton" class="primary" type="submit" ${golferProfileError?'disabled':''}>Save Profile</button></form>`;
+}
+async function saveMyProfile(event){
+  event.preventDefault();const firstName=$('profileFirstName').value.trim(),lastName=$('profileLastName').value.trim(),phone=$('profilePhone').value.trim(),button=$('profileSaveButton'),errorBox=$('profileError');
+  if(!firstName||!lastName||phone.length<7){errorBox.textContent='First name, last name and phone number are required.';errorBox.classList.remove('hidden');return}
+  button.disabled=true;button.textContent='Saving…';const {error}=await db.rpc('save_my_golfer_profile',{p_first_name:firstName,p_last_name:lastName,p_phone:phone});
+  if(error){button.disabled=false;button.textContent='Save Profile';errorBox.textContent='Profile could not be saved: '+error.message;errorBox.classList.remove('hidden');return}
+  golferProfile={...golferProfile,first_name:firstName,last_name:lastName,phone};alert('Your profile has been saved.');s.v='accountView';render();
+}
+async function resizeProfilePhoto(file){
+  if(!file?.type.startsWith('image/'))throw new Error('Choose a picture from your photo library.');
+  if(file.size>20*1024*1024)throw new Error('Choose a picture smaller than 20 MB.');
+  const source=await new Promise((resolve,reject)=>{const image=new Image(),url=URL.createObjectURL(file);image.onload=()=>{URL.revokeObjectURL(url);resolve(image)};image.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('This picture format could not be opened. Try JPEG or PNG.'))};image.src=url});
+  const size=Math.min(source.naturalWidth,source.naturalHeight),left=(source.naturalWidth-size)/2,top=(source.naturalHeight-size)/2,canvas=document.createElement('canvas');canvas.width=512;canvas.height=512;
+  canvas.getContext('2d').drawImage(source,left,top,size,size,0,0,512,512);
+  return await new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error('The picture could not be resized.')),'image/jpeg',.84));
+}
+async function uploadProfilePhoto(file){
+  if(!file)return;if(!golferProfile){alert('Save your first name, last name and phone number before adding a picture.');return}
+  const status=$('profilePhotoStatus'),input=$('profilePhotoInput');status.textContent='Preparing picture…';input.disabled=true;
+  try{
+    const blob=await resizeProfilePhoto(file),path=`${currentUser.id}/avatar.jpg`;status.textContent='Uploading picture…';
+    const upload=await db.storage.from('golfer-avatars').upload(path,blob,{contentType:'image/jpeg',cacheControl:'3600',upsert:true});
+    if(upload.error)throw upload.error;
+    const saved=await db.rpc('save_my_avatar_path',{p_avatar_path:path});if(saved.error)throw saved.error;
+    golferProfile={...golferProfile,avatar_path:path};avatarCacheVersion=Date.now();alert('Your profile picture has been saved.');render();
+  }catch(error){status.textContent=error.message||'The picture could not be uploaded.';input.disabled=false}
+}
+async function sendPasswordReset(email){
+  const {error}=await db.auth.resetPasswordForEmail(email,{redirectTo:APP_URL});
+  if(error){alert('Password reset could not be sent: '+error.message);return false}
+  alert('Password-reset email sent. Open the link on this device, then return to the app.');return true;
+}
+async function forgotPassword(){const email=prompt('Enter your golfer-account email:');if(email?.trim())await sendPasswordReset(email.trim())}
+async function changePassword(){
+  if(!currentUser){alert('Open the password-reset link from your email first.');return false}
+  const password=prompt('Enter a new password with at least 8 characters:');if(!password)return false;
+  if(password.length<8){alert('Use at least 8 characters.');return false}
+  const confirmPassword=prompt('Enter the new password again:');if(password!==confirmPassword){alert('The passwords did not match.');return false}
+  const {error}=await db.auth.updateUser({password});
+  if(error){alert('Password could not be changed: '+error.message);return false}
+  recoveryMode=false;history.replaceState({},'',location.pathname);alert('Your password has been changed.');s.v='accountView';render();return true;
+}
+async function signOutAdmin(){await stopRoundRealtime();await db.auth.signOut();delete localStorage.atgPendingJoinCode;currentUser=null;adminRole=null;historyRounds=[];historyDetail=null;registeredGolfers=[];registeredGolfersError='';golferProfile=null;golferProfileError='';clubDistances={};clubProfileError='';s={...roundDefault};render()}
+async function promoteCourseAdmin(){
+  if(adminRole!=='super_admin'){alert('Only a super admin can add course administrators.');return}
+  const email=prompt('Enter the email of an existing app user:');
+  if(!email)return;
+  if(!confirm(`Give ${email.trim()} permission to map and edit shared courses?`))return;
+  const {data,error}=await db.rpc('set_course_admin',{target_email:email.trim()});
+  if(error){alert('Administrator was not added: '+error.message);return}
+  alert(`${data.email} is now a course administrator.`);
+}
+async function start(){if(!currentUser){alert('Each golfer needs an account so scores can be protected. Please sign in or create an account first.');await signInAccount();if(!currentUser)return}if(s.resumeView&&!s.done&&!confirm('Start a new round? Your unfinished round will be replaced.'))return;const playerName=golferProfile?.first_name?.trim()||'';s={...roundDefault,v:'setup',players:[playerName],scores:{},putts:{},pars:[],resumeView:'setup',sharedRoundId:null,joinCode:null,ownerUserId:currentUser.id};render()}
+function setup(){
+  const selectedCourseId=s.courseId||s.catalogCourseId,hasSavedCourse=!!selectedCourseId,selectedCourse=courseById(selectedCourseId),isRoyale=!!selectedCourse?.royaleFacility,gpsAvailable=mappedCount(selectedRoundCourse()||selectedCourse)>0;
+  const options=courses.map(c=>`<option value="${esc(c.id)}" ${selectedCourseId===c.id?'selected':''}>${esc(c.name)} (${c.royaleFacility?'27 holes · choose route':`${c.holes} holes`})</option>`).join('');
+  const royalePicker=isRoyale?`<label>Round route</label><select id="royaleRoute" onchange="setRoyaleRoute(this.value)">${ROYALE_JAKARTA_ROUTE_OPTIONS.map(([value,label])=>`<option value="${value}" ${s.royaleRoute===value?'selected':''}>${label}</option>`).join('')}</select><div class="notice"><b>${esc(royaleRouteLabel(s.royaleRoute||'west-south'))}</b> plays as one continuous ${s.holes}-hole scorecard. Hole 10 begins on the second nine.</div>`:'';
+  app.innerHTML=`<button class="back" onclick="goHome()">← Back</button><h1>Create a Round</h1><p class="muted">Choose a saved course to start immediately, or create a custom scorecard.</p><label>Saved course</label><select id="savedCourse" onchange="chooseCourse(this.value)"><option value="">Custom scorecard without GPS</option>${options}</select>${royalePicker}${hasSavedCourse?`<div class="notice">${gpsAvailable?'The available GPS tees, aim points and green markers will be used automatically.':'The approved course name and hole pars will be used. GPS guidance will appear as its holes are mapped.'}</div>`:`<label>Course name</label><input id="course" value="${esc(s.course)}" placeholder="e.g., Oak Valley Golf Club"><label>How many holes?</label><div class="row"><button class="choice ${s.holes===9?'on':''}" onclick="setHoles(9)">9 Holes</button><button class="choice ${s.holes===18?'on':''}" onclick="setHoles(18)">18 Holes</button></div>`}<label>Your name for this round</label><input aria-label="Your name for this round" value="${esc(s.players[0]||'')}" placeholder="Enter your name" oninput="updatePlayer(0,this.value)"><div class="notice">Your profile first name is entered automatically, but you can edit it. Other golfers join from their own phones.</div><button id="${hasSavedCourse?'createRoundButton':'setupContinueButton'}" class="primary" onclick="goPars()">${hasSavedCourse?'Create Protected Round':'Continue'}</button>`;
+}
+function setRoyaleRoute(value){s.royaleRoute=value;const course=royaleRoundCourse(value);s.course=course.name;s.holes=course.holes;s.pars=[...course.pars];s.teeDistanceMeters=course.tee_meters;s.teeSet='black';save();render()}
+function chooseCourse(id){const c=courseById(id);if(c){s.courseId=c.catalogOnly?null:c.id;s.catalogCourseId=c.catalogOnly?c.id:null;if(c.royaleFacility){s.catalogCourseId='catalog-royale-jakarta';setRoyaleRoute(s.royaleRoute||'west-south');return}s.royaleRoute=null;s.course=c.name;s.holes=c.holes;s.pars=c.pars?.length===c.holes?[...c.pars]:Array(c.holes).fill(4);s.teeDistanceMeters=c.tee_meters||null;s.teeSet='black'}else{s.courseId=null;s.catalogCourseId=null;s.royaleRoute=null;s.course='';s.pars=[];s.teeSet='black'}render()}
+function setHoles(n){s.holes=n;render()}
+function addPlayer(){const n=$('name').value.trim();if(n&&!s.players.includes(n)){s.players.push(n);render()}}
+function updatePlayer(i,name){s.players[i]=name;save()}
+function removePlayer(i){s.players.splice(i,1);render()}
+function goPars(){const names=s.players.map(x=>x.trim()).filter(Boolean);if(!names.length){alert('Enter at least one player name.');return}if(new Set(names.map(x=>x.toLowerCase())).size!==names.length){alert('Each player needs a different name.');return}s.players=names;const hasSavedCourse=!!(s.courseId||s.catalogCourseId);if(!hasSavedCourse)s.course=$('course').value.trim()||'Friendly Round';s.pars=Array.from({length:s.holes},(_,i)=>s.pars[i]||4);if(hasSavedCourse){createSharedRound();return}s.v='pars';s.resumeView='pars';render()}
+function pars(){app.innerHTML=`<button class="back" onclick="s.v='setup';render()">← Back</button><h1>Set hole pars</h1><p class="muted">Adjust any hole that is not par 4.</p>${s.pars.map((x,i)=>`<div class="card row"><b>Hole ${i+1}</b><div class="stepper"><button onclick="changePar(${i},-1)">−</button><span>${x}</span><button onclick="changePar(${i},1)">+</button></div></div>`).join('')}<button id="createRoundButton" class="primary" onclick="createSharedRound()">Create Protected Round</button>`}
+function changePar(i,d){s.pars[i]=Math.max(3,Math.min(6,s.pars[i]+d));render()}
+async function createSharedRound(){
+  if(!currentUser){alert('Please sign in first.');return}
+  const button=$('createRoundButton');if(button){button.disabled=true;button.textContent='Creating round…'}
+  const uuidPattern=/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const databaseCourseId=uuidPattern.test(String(s.courseId||''))?s.courseId:null;
+  if(s.courseId&&!databaseCourseId){s.catalogCourseId=s.catalogCourseId||s.courseId;s.courseId=null}
+  const {data,error}=await db.rpc('create_shared_round',{p_course_id:databaseCourseId,p_course_name:s.course,p_holes:s.holes,p_pars:s.pars,p_display_name:s.players[0]});
+  if(error){alert('Round could not be created: '+error.message);if(button){button.disabled=false;button.textContent='Create Protected Round'}return}
+  s.sharedRoundId=data.round_id;s.joinCode=data.join_code;s.hole=1;s.done=false;s.resumeView='round';
+  await loadSharedRound(false);s.v='round';render();
+}
+function signedInGolferFirstName(){return golferProfile?.first_name?.trim()||currentUser?.user_metadata?.first_name?.trim()||''}
+function isGenericGolferName(name){return !name?.trim()||/^golfer$/i.test(name.trim())}
+async function requireGolferSignInToJoin(){
+  if(currentUser)return true;
+  alert('Please sign in before joining the round. Your round code or link will be remembered.');
+  return await signInAccount();
+}
+function scorecardNameForJoin(){
+  const firstName=signedInGolferFirstName();
+  const name=prompt('Name on the scorecard (you can edit it):',firstName);
+  return name?.trim()||'';
+}
+async function joinRound(){
+  if(!await requireGolferSignInToJoin())return;
+  const code=prompt('Enter the 6-character round code:');if(!code)return;
+  await joinRoundWithCode(code.trim());
+}
+async function joinRoundWithCode(code){
+  if(!code)return;
+  localStorage.atgPendingJoinCode=code.toUpperCase();
+  if(!await requireGolferSignInToJoin())return;
+  const name=scorecardNameForJoin();if(!name)return;
+  const {data,error}=await db.rpc('join_shared_round',{p_join_code:code.trim(),p_display_name:name});
+  if(error){alert('Could not join round: '+error.message);return}
+  delete localStorage.atgPendingJoinCode;history.replaceState({},'',location.pathname);
+  s={...roundDefault,v:'round',players:[name],scores:{},putts:{},sharedRoundId:data.round_id,joinCode:data.join_code,resumeView:'round',ownerUserId:currentUser.id};
+  await loadSharedRound(false);render();
+}
+async function loadSharedRound(showError=true){
+  if(!s.sharedRoundId||!currentUser)return false;
+  const [roundResult,playersResult,scoresResult,statsResult]=await Promise.all([
+    db.from('shared_rounds').select('id,join_code,course_id,course_name,holes,pars,status,created_by').eq('id',s.sharedRoundId).single(),
+    db.from('round_players').select('user_id,display_name,joined_at').eq('round_id',s.sharedRoundId).order('joined_at'),
+    db.from('round_scores').select('user_id,hole,strokes').eq('round_id',s.sharedRoundId),
+    db.from('round_hole_stats').select('user_id,hole,putts').eq('round_id',s.sharedRoundId)
+  ]);
+  if(roundResult.error||playersResult.error||scoresResult.error){if(showError)alert('Shared scores could not be refreshed. Check your connection.');return false}
+  const r=roundResult.data,royaleRoute=royaleRouteFromCourseName(r.course_name);s.joinCode=r.join_code;s.courseId=r.course_id;s.course=r.course_name;s.holes=r.holes;s.pars=r.pars;s.royaleRoute=royaleRoute;s.catalogCourseId=royaleRoute?'catalog-royale-jakarta':r.course_id?null:(courses.find(c=>courseMatchKey(c.name)===courseMatchKey(r.course_name))?.id||s.catalogCourseId||null);s.done=r.status==='complete';s.createdBy=r.created_by;
+  const existingMine=(playersResult.data||[]).find(player=>player.user_id===currentUser.id),profileFirstName=signedInGolferFirstName();
+  if(existingMine&&isGenericGolferName(existingMine.display_name)&&profileFirstName){
+    const renamed=await db.rpc('join_shared_round',{p_join_code:r.join_code,p_display_name:profileFirstName});
+    if(!renamed.error)existingMine.display_name=profileFirstName;
+  }
+  sharedPlayers=playersResult.data||[];s.players=sharedPlayers.map(p=>p.display_name);s.scores={};s.putts={};
+  for(const score of scoresResult.data||[]){const player=sharedPlayers.find(p=>p.user_id===score.user_id);if(player){s.scores[player.display_name]??={};s.scores[player.display_name][score.hole]=score.strokes}}
+  if(!statsResult.error)for(const stat of statsResult.data||[]){const player=sharedPlayers.find(p=>p.user_id===stat.user_id);if(player&&Number.isInteger(stat.putts)){s.putts[player.display_name]??={};s.putts[player.display_name][stat.hole]=stat.putts}}
+  const mine=sharedPlayers.find(p=>p.user_id===currentUser.id);
+  if(mine)for(const pending of Object.values(pendingScores)){if(pending.round_id===s.sharedRoundId&&pending.user_id===currentUser.id){s.scores[mine.display_name]??={};s.scores[mine.display_name][pending.hole]=pending.strokes}}
+  if(mine)for(const pending of Object.values(pendingHoleStats)){if(pending.round_id===s.sharedRoundId&&pending.user_id===currentUser.id){s.putts[mine.display_name]??={};s.putts[mine.display_name][pending.hole]=pending.putts}}
+  subscribeToRound(s.sharedRoundId);
+  return true;
+}
+async function refreshSharedRound(){if(await loadSharedRound())render()}
+function pendingScoreCount(){return Object.values(pendingScores).filter(x=>x.user_id===currentUser?.id).length}
+function persistPendingScores(){localStorage.atgPendingScores=JSON.stringify(pendingScores);updateSyncIndicator()}
+function pendingScoreKey(item){return`${item.round_id}:${item.user_id}:${item.hole}`}
+function updateSyncIndicator(){const el=$('syncStatus');if(!el)return;const pending=pendingScoreCount();el.textContent=!navigator.onLine?`Offline · ${pending} waiting`:pending?`Saving ${pending}…`:'Live';el.className='sync-status '+(!navigator.onLine||pending?'waiting':'live')}
+async function syncPendingScores(){
+  if(!currentUser||!navigator.onLine)return false;
+  if(scoreSyncPromise)return scoreSyncPromise;
+  const syncUserId=currentUser.id;
+  scoreSyncPromise=(async()=>{
+    while(true){
+      const entries=Object.entries(pendingScores).filter(([,item])=>item.user_id===syncUserId);
+      if(!entries.length){updateSyncIndicator();return true}
+      updateSyncIndicator();
+      const {error}=await db.from('round_scores').upsert(entries.map(([,item])=>item));
+      if(error){updateSyncIndicator();return false}
+      for(const [key,item] of entries)if(pendingScores[key]?.updated_at===item.updated_at)delete pendingScores[key];
+      persistPendingScores();
+    }
+  })();
+  try{return await scoreSyncPromise}finally{scoreSyncPromise=null}
+}
+function pendingHoleStatKey(item){return`${item.round_id}:${item.user_id}:${item.hole}`}
+function persistPendingHoleStats(){localStorage.atgPendingHoleStats=JSON.stringify(pendingHoleStats)}
+async function syncPendingHoleStats(){
+  if(!currentUser||!navigator.onLine)return false;
+  if(statsSyncPromise)return statsSyncPromise;
+  const syncUserId=currentUser.id;
+  statsSyncPromise=(async()=>{
+    while(true){
+      const entries=Object.entries(pendingHoleStats).filter(([,item])=>item.user_id===syncUserId);
+      if(!entries.length)return true;
+      const {error}=await db.from('round_hole_stats').upsert(entries.map(([,item])=>item));
+      if(error)return false;
+      for(const [key,item] of entries)if(pendingHoleStats[key]?.updated_at===item.updated_at)delete pendingHoleStats[key];
+      persistPendingHoleStats();
+    }
+  })();
+  try{return await statsSyncPromise}finally{statsSyncPromise=null}
+}
+function scheduleRealtimeRefresh(){clearTimeout(realtimeTimer);realtimeTimer=setTimeout(async()=>{if(!s.sharedRoundId)return;await loadSharedRound(false);if(['round','recap'].includes(s.v))render()},350)}
+function scheduleChatRefresh(){clearTimeout(chatTimer);chatTimer=setTimeout(async()=>{if(!s.sharedRoundId)return;await loadRoundMessages(false);if(s.v==='chatView')render()},250)}
+function updateChatBadge(){const badge=$('chatUnreadBadge');if(!badge)return;badge.textContent=unreadChatCount>99?'99+':String(unreadChatCount);badge.classList.toggle('hidden',!unreadChatCount)}
+function showChatToast(item){
+  document.querySelector('.chat-toast')?.remove();clearTimeout(chatToastTimer);
+  const sender=sharedPlayers.find(player=>player.user_id===item.user_id)?.display_name||'A golfer';
+  const toast=document.createElement('button');toast.className='chat-toast';toast.type='button';
+  const title=document.createElement('b');title.textContent=`New message from ${sender}`;
+  const message=document.createElement('span');message.textContent=String(item.message||'Shared a photo').slice(0,100);
+  toast.append(title,message);toast.onclick=()=>openRoundChat();document.body.appendChild(toast);
+  chatToastTimer=setTimeout(()=>toast.remove(),5000);
+}
+function handleIncomingChat(payload){
+  const item=payload.new;if(!item||item.user_id===currentUser?.id)return;
+  if(s.v!=='chatView'){unreadChatCount++;updateChatBadge();showChatToast(item)}
+  scheduleChatRefresh();
+}
+function subscribeToRound(roundId){
+  if(!roundId||subscribedRoundId===roundId)return;
+  stopRoundRealtime();subscribedRoundId=roundId;
+  roundChannel=db.channel(`round-${roundId}`)
+    .on('postgres_changes',{event:'*',schema:'public',table:'round_scores',filter:`round_id=eq.${roundId}`},scheduleRealtimeRefresh)
+    .on('postgres_changes',{event:'*',schema:'public',table:'round_players',filter:`round_id=eq.${roundId}`},scheduleRealtimeRefresh)
+    .on('postgres_changes',{event:'*',schema:'public',table:'shared_rounds',filter:`id=eq.${roundId}`},scheduleRealtimeRefresh)
+    .on('postgres_changes',{event:'INSERT',schema:'public',table:'round_messages',filter:`round_id=eq.${roundId}`},handleIncomingChat)
+    .subscribe();
+}
+async function stopRoundRealtime(){clearTimeout(realtimeTimer);clearTimeout(chatTimer);const channel=roundChannel;roundChannel=null;subscribedRoundId=null;if(channel)await db.removeChannel(channel)}
+async function openHistory(){
+  if(!currentUser){alert('Please sign in to view your previous matches.');await signInAccount();if(!currentUser)return}
+  rememberRoundView();s.v='historyView';historyLoading=true;historyError='';render();
+  await loadMatchHistory();historyLoading=false;render();
+}
+async function loadMatchHistory(){
+  historyRounds=[];historyError='';
+  const [memberships,hiddenResult]=await Promise.all([
+    db.from('round_players').select('round_id,display_name,joined_at').eq('user_id',currentUser.id).order('joined_at',{ascending:false}),
+    db.from('hidden_round_history').select('round_id').eq('user_id',currentUser.id)
+  ]);
+  if(memberships.error){historyError='Your match history could not be loaded. Please try again.';return}
+  historyControlsReady=!hiddenResult.error;const hiddenIds=new Set((hiddenResult.data||[]).map(x=>x.round_id));
+  const visibleMemberships=(memberships.data||[]).filter(x=>!hiddenIds.has(x.round_id)),roundIds=visibleMemberships.map(x=>x.round_id);
+  if(!roundIds.length)return;
+  const [roundResult,scoreResult]=await Promise.all([
+    db.from('shared_rounds').select('id,join_code,course_name,holes,pars,status,created_by,created_at').in('id',roundIds),
+    db.from('round_scores').select('round_id,hole,strokes').eq('user_id',currentUser.id).in('round_id',roundIds)
+  ]);
+  if(roundResult.error||scoreResult.error){historyError='Your match history could not be loaded. Please try again.';return}
+  const roundsById=new Map((roundResult.data||[]).map(x=>[x.id,x]));
+  historyRounds=visibleMemberships.map(membership=>{
+    const match=roundsById.get(membership.round_id);if(!match)return null;
+    const scores=(scoreResult.data||[]).filter(x=>x.round_id===membership.round_id);
+    const score=scores.reduce((sum,x)=>sum+x.strokes,0),complete=scores.length>=match.holes;
+    const par=(match.pars||[]).reduce((sum,x)=>sum+Number(x||0),0);
+    return {...match,displayName:membership.display_name,joinedAt:membership.joined_at,score,scoreCount:scores.length,complete,relative:complete?score-par:null};
+  }).filter(Boolean).sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
+}
+function formatMatchDate(value){return new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',year:'numeric'}).format(new Date(value))}
+function formatAccountDate(value){if(!value)return'Never';return new Intl.DateTimeFormat(undefined,{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}).format(new Date(value))}
+function directoryTabs(active){if(adminRole!=='super_admin')return'';return`<div class="directory-tabs"><button class="${active==='courses'?'on':''}" onclick="openCourses()">Courses</button><button class="${active==='players'?'on':''}" onclick="openRegisteredGolfers('coursesView')">Players</button></div>`}
+async function openRegisteredGolfers(returnView='accountView'){
+  if(adminRole!=='super_admin'){alert('Only the Super Admin can view registered golfers.');return}
+  usersReturnView=returnView;
+  registeredGolfersLoading=true;registeredGolfersError='';registeredGolfers=[];s.v='usersView';render();
+  const {data,error}=await db.rpc('list_registered_golfers');
+  registeredGolfersLoading=false;
+  if(error){registeredGolfersError=error.message.includes('function')?'Install the Registered Golfers SQL update in Supabase first.':'Registered golfers could not be loaded.';render();return}
+  registeredGolfers=data||[];render();
+}
+function refreshRegisteredGolfers(){openRegisteredGolfers(usersReturnView)}
+function usersView(){
+  if(adminRole!=='super_admin'){s.v='accountView';render();return}
+  const backAction=usersReturnView==='coursesView'?'openCourses()':'accountAction()';
+  app.innerHTML=`<button class="back" onclick="${backAction}">← ${usersReturnView==='coursesView'?'Courses':'Account'}</button><div class="row users-heading"><div><h1>Courses / Players</h1><p class="muted">Private player directory · Super Admin only</p></div>${!registeredGolfersLoading?'<button class="locate" onclick="refreshRegisteredGolfers()">Refresh</button>':''}</div>${directoryTabs('players')}${registeredGolfersLoading?'<div class="history-loading">Loading registered players…</div>':''}${registeredGolfersError?`<div class="error-notice">${esc(registeredGolfersError)}</div>`:''}${!registeredGolfersLoading&&!registeredGolfersError?`<div class="users-count">${registeredGolfers.length} registered ${registeredGolfers.length===1?'player':'players'}</div>`:''}${registeredGolfers.map(user=>{const name=[user.first_name,user.last_name].filter(Boolean).join(' ')||'—';return`<article class="user-card"><div class="user-avatar">${avatarMarkup(user.avatar_path,name,'user-avatar-image')}</div><div class="user-details"><b>${esc(name)}</b><span>${esc(user.email||'—')}</span><a href="tel:${esc(user.phone||'')}">${esc(user.phone||'—')}</a></div></article>`}).join('')}<div class="notice">Only first name, last name, email and phone number are listed. Course admins and regular golfers cannot access this directory.</div>`;
+}
+function historyView(){
+  if(!currentUser){app.innerHTML='<button class="back" onclick="goHome()">← Back</button><h1>Previous Rounds</h1><div class="notice">Sign in to see your saved matches.</div><button class="primary" onclick="signInAccount()">Sign In</button>';return}
+  app.innerHTML=`<button class="back" onclick="accountAction()">← Account</button><div class="row"><div><h1>Previous Rounds</h1><p class="muted">Every round played with this login is saved here.</p></div>${!historyLoading?'<button class="locate" onclick="openHistory()">Refresh</button>':''}</div>${!historyControlsReady?'<div class="notice">Install the History Controls SQL update to remove or permanently delete matches.</div>':''}${historyLoading?'<div class="history-loading">Loading your matches…</div>':''}${historyError?`<div class="error-notice">${esc(historyError)}</div>`:''}${!historyLoading&&!historyError&&!historyRounds.length?'<div class="empty history-empty"><b>No matches yet</b><span>Your completed and in-progress rounds will appear here.</span></div>':''}${historyRounds.map(match=>`<article class="history-card"><div class="history-top"><div><span class="history-date">${esc(formatMatchDate(match.created_at))}</span><h2>${esc(match.course_name)}</h2><span class="small muted">${match.holes} holes · ${esc(match.displayName)}</span></div><div class="history-score"><b>${match.score||'–'}</b><span>${match.complete?rel(match.relative):`${match.scoreCount}/${match.holes}`}</span></div></div><div class="history-bottom"><span class="status-chip ${match.complete?'complete':'progress'}">${match.complete?'Complete':'In progress'}</span><span class="history-card-actions"><button class="back remove-history-link" onclick="hideMatchFromHistory('${esc(match.id)}')">Remove</button><button class="back" onclick="openHistoryRound('${esc(match.id)}')">View →</button></span></div></article>`).join('')}`;
+}
+function historyCourseName(roundId){return historyDetail?.round?.id===roundId?historyDetail.round.course_name:historyRounds.find(match=>match.id===roundId)?.course_name||'this round'}
+async function hideMatchFromHistory(roundId){
+  if(!historyControlsReady){alert('Install the History Controls SQL update in Supabase first.');return}
+  const course=historyCourseName(roundId);if(!confirm(`Remove ${course} from your match history? Other golfers will keep their records.`))return;
+  const {error}=await db.rpc('hide_round_from_my_history',{p_round_id:roundId});if(error){alert('The match could not be removed: '+error.message);return}
+  await openHistory();
+}
+async function deleteMatchForEveryone(roundId){
+  if(!historyControlsReady){alert('Install the History Controls SQL update in Supabase first.');return}
+  const course=historyCourseName(roundId);if(!confirm(`Permanently delete ${course} for every golfer? All players, scores, chat messages and shared photos from this round will be erased.`))return;
+  if(!confirm('This cannot be undone. Delete the shared round permanently?'))return;
+  const mediaDeleted=await deleteRoundChatMedia(roundId);if(!mediaDeleted)return;
+  const {error}=await db.rpc('delete_owned_round',{p_round_id:roundId});if(error){alert('The round could not be deleted: '+error.message);return}
+  if(s.sharedRoundId===roundId)s={...roundDefault};historyDetail=null;await openHistory();
+}
+async function openHistoryRound(roundId){
+  historyLoading=true;historyError='';historyDetail=null;s.v='historyDetailView';render();
+  const [roundResult,playersResult,scoresResult]=await Promise.all([
+    db.from('shared_rounds').select('id,course_name,holes,pars,created_by,created_at').eq('id',roundId).single(),
+    db.from('round_players').select('user_id,display_name,joined_at').eq('round_id',roundId).order('joined_at'),
+    db.from('round_scores').select('user_id,hole,strokes').eq('round_id',roundId)
+  ]);
+  historyLoading=false;
+  if(roundResult.error||playersResult.error||scoresResult.error){historyError='This scorecard could not be loaded.';render();return}
+  historyDetail={round:roundResult.data,players:playersResult.data||[],scores:scoresResult.data||[]};render();
+}
+function historyDetailView(){
+  if(historyLoading){app.innerHTML='<button class="back" onclick="openHistory()">← Matches</button><div class="history-loading">Loading scorecard…</div>';return}
+  if(historyError||!historyDetail){app.innerHTML=`<button class="back" onclick="openHistory()">← Matches</button><h1>Match Scorecard</h1><div class="error-notice">${esc(historyError||'Scorecard unavailable.')}</div>`;return}
+  const match=historyDetail.round,players=historyDetail.players,scores=historyDetail.scores,pars=match.pars||[];
+  const playerScore=(userId,hole)=>scores.find(x=>x.user_id===userId&&x.hole===hole)?.strokes;
+  const playerTotal=userId=>scores.filter(x=>x.user_id===userId).reduce((sum,x)=>sum+x.strokes,0);
+  const playerComplete=userId=>scores.filter(x=>x.user_id===userId).length>=match.holes;
+  const fullPar=pars.reduce((sum,x)=>sum+Number(x||0),0);
+  app.innerHTML=`<button class="back" onclick="openHistory()">← Matches</button><h1>${esc(match.course_name)}</h1><p class="muted">${esc(formatMatchDate(match.created_at))} · ${match.holes} holes</p><div class="table-wrap"><table><thead><tr><th>Hole #</th>${pars.map((_,i)=>`<th>${i+1}</th>`).join('')}<th>Total</th><th>+/−</th></tr><tr class="par-row"><th>Par</th>${pars.map(x=>`<th>${x}</th>`).join('')}<th>${fullPar}</th><th>E</th></tr></thead><tbody>${players.map(player=>{const score=playerTotal(player.user_id),complete=playerComplete(player.user_id);return`<tr><td><b>${esc(player.display_name)}${player.user_id===currentUser?.id?' (You)':''}</b></td>${pars.map((_,i)=>`<td>${playerScore(player.user_id,i+1)||'–'}</td>`).join('')}<td>${score||'–'}</td><td class="green">${complete?rel(score-fullPar):'–'}</td></tr>`}).join('')}</tbody></table></div><button class="primary" onclick="shareHistoryScorecard()">Share Scorecard</button><button class="secondary" onclick="hideMatchFromHistory('${esc(match.id)}')">Remove from My History</button>${match.created_by===currentUser?.id?`<button class="secondary danger-button" onclick="deleteMatchForEveryone('${esc(match.id)}')">Permanently Delete for Everyone</button>`:''}<div class="notice">Removing hides this match only from your account. Only the round creator can permanently delete the shared round for every golfer.</div>`;
+}
+function currentScorecardSnapshot(){return{course:s.course,date:new Date().toLocaleDateString(),pars:[...s.pars],players:s.players.map(name=>({name,scores:{...(s.scores[name]||{})}}))}}
+function historyScorecardSnapshot(){
+  if(!historyDetail)return null;const match=historyDetail.round;
+  return{course:match.course_name,date:formatMatchDate(match.created_at),pars:[...(match.pars||[])],players:historyDetail.players.map(player=>({name:player.display_name,scores:Object.fromEntries(historyDetail.scores.filter(x=>x.user_id===player.user_id).map(x=>[x.hole,x.strokes]))}))};
+}
+function scorecardShareText(data){
+  const par=data.pars.reduce((sum,x)=>sum+Number(x||0),0),lines=[`${data.course} · ${data.date}`];
+  for(const player of data.players){const entries=Object.values(player.scores).filter(Number.isFinite),score=entries.reduce((sum,x)=>sum+Number(x),0),complete=entries.length>=data.pars.length;lines.push(`${player.name}: ${score||'No score'}${complete?` (${rel(score-par)})`:` · ${entries.length}/${data.pars.length} holes`}`)}
+  lines.push('ParFolio · Saved to Serve');return lines.join('\n');
+}
+function loadScorecardLogo(){
+  return new Promise(resolve=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>resolve(null);image.src='agape-golf-logo.png'});
+}
+async function drawScorecardImage(data){
+  const width=1600,rowH=76,left=50,nameW=330,holeW=112,totalW=150,groups=data.pars.length>9?[[0,9],[9,18]]:[[0,data.pars.length]],sectionH=150+data.players.length*rowH,height=230+groups.length*sectionH+80;
+  const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const ctx=canvas.getContext('2d');
+  ctx.fillStyle='#f5f8f6';ctx.fillRect(0,0,width,height);ctx.fillStyle='#123f2b';ctx.fillRect(0,0,width,175);ctx.fillStyle='#e0bd66';ctx.font='800 30px system-ui';ctx.fillText('PLAY · CONNECT · IMPROVE',50,55);ctx.fillStyle='#fff';ctx.font='800 50px system-ui';ctx.fillText(data.course.slice(0,48),50,116);ctx.fillStyle='#c8ddcf';ctx.font='24px system-ui';ctx.fillText(`${data.date} · ${data.pars.length} holes`,50,151);
+  const logo=await loadScorecardLogo();if(logo){const logoSize=138,logoX=width-logoSize-48,logoY=18;ctx.save();ctx.globalAlpha=.98;ctx.drawImage(logo,logoX,logoY,logoSize,logoSize);ctx.restore()}
+  let y=205;const cell=(x,top,w,h,fill,text,bold=false,align='center')=>{ctx.fillStyle=fill;ctx.fillRect(x,top,w,h);ctx.strokeStyle='#d6e1db';ctx.strokeRect(x,top,w,h);ctx.fillStyle='#173126';ctx.font=`${bold?'800':'600'} 25px system-ui`;ctx.textAlign=align;ctx.textBaseline='middle';ctx.fillText(String(text),align==='left'?x+14:x+w/2,top+h/2);ctx.textAlign='left'};
+  for(const [start,end] of groups){const holes=Array.from({length:end-start},(_,i)=>start+i);cell(left,y,nameW,65,'#e5f1ea',start?'BACK NINE':'FRONT NINE',true,'left');holes.forEach((hole,i)=>cell(left+nameW+i*holeW,y,holeW,65,'#e5f1ea',hole+1,true));cell(left+nameW+holes.length*holeW,y,totalW,65,'#e0bd66','TOTAL',true);y+=65;cell(left,y,nameW,62,'#eff6f2','PAR',true,'left');holes.forEach((hole,i)=>cell(left+nameW+i*holeW,y,holeW,62,'#eff6f2',data.pars[hole],true));cell(left+nameW+holes.length*holeW,y,totalW,62,'#f5e7bc',holes.reduce((sum,h)=>sum+Number(data.pars[h]||0),0),true);y+=62;
+    for(const player of data.players){cell(left,y,nameW,rowH,'#fff',player.name.slice(0,22),true,'left');holes.forEach((hole,i)=>cell(left+nameW+i*holeW,y,holeW,rowH,'#fff',player.scores[hole+1]||'–'));const subtotal=holes.reduce((sum,h)=>sum+Number(player.scores[h+1]||0),0);cell(left+nameW+holes.length*holeW,y,totalW,rowH,'#f8fbf9',subtotal||'–',true);y+=rowH}y+=22;
+  }
+  ctx.fillStyle='#4f675b';ctx.font='22px system-ui';ctx.fillText('Shared from ParFolio · Saved to Serve',50,height-35);return canvas;
+}
+async function shareScorecardData(data){
+  if(!data)return;const canvas=await drawScorecardImage(data),blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));
+  if(!blob){alert('The scorecard image could not be created.');return}
+  const file=new File([blob],`agape-scorecard-${new Date().toISOString().slice(0,10)}.png`,{type:'image/png'}),text=scorecardShareText(data);
+  if(navigator.share&&navigator.canShare?.({files:[file]})){try{await navigator.share({title:`${data.course} Scorecard`,text,files:[file]});return}catch(error){if(error.name==='AbortError')return}}
+  const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=file.name;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+  try{await navigator.clipboard.writeText(text);alert('Scorecard image downloaded and score summary copied.')}catch{alert('Scorecard image downloaded.')}
+}
+function shareCurrentScorecard(){return shareScorecardData(currentScorecardSnapshot())}
+function shareHistoryScorecard(){return shareScorecardData(historyScorecardSnapshot())}
+function scoreValue(p){return s.scores[p]?.[s.hole]||0}
+function scoreName(score,par){const delta=score-par;return delta<=-2?'Eagle':delta===-1?'Birdie':delta===0?'Par':delta===1?'Bogey':delta===2?'Double':`${delta>0?'+':''}${delta}`}
+function scoreChoiceClass(score,par){return score<par?'under':score>par?'over':'par'}
+function scoreEntryMarkup(){
+  const name=myRoundPlayerName(),par=Number(s.pars[s.hole-1])||4,score=scoreValue(name)||par,putts=s.putts?.[name]?.[s.hole];
+  const scoreButtons=Array.from({length:9},(_,index)=>index+1).map(value=>`<button class="score-choice ${scoreChoiceClass(value,par)} ${value===score?'selected':''}" onclick="setExactHoleScore(${value})"><b>${value}</b><small>${scoreName(value,par)}</small></button>`).join('');
+  const puttButtons=[0,1,2,3,4].map(value=>`<button class="putt-choice ${value===putts?'selected':''}" onclick="setHolePutts(${value})">${value===4?'4+':value}</button>`).join('');
+  return`<section class="score-entry-sheet" role="dialog" aria-modal="true" aria-label="Score Hole ${s.hole}"><header><div><small>HOLE ${s.hole}</small><h2>Enter Your Score</h2><span>PAR ${par}</span></div><button onclick="closeScoreEntry()" aria-label="Close score entry">×</button></header><h3>Strokes</h3><div class="score-choice-grid">${scoreButtons}<button class="score-choice more-score" onclick="chooseExtendedScore()"><b>0</b><small>10–20</small></button></div><h3>Putts <small>Optional</small></h3><div class="putt-choice-grid">${puttButtons}</div><footer><button onclick="scoreEntryPrevious()" ${s.hole===1?'disabled':''}>‹</button><button class="save-score-button" onclick="closeScoreEntry()">Save Hole ${s.hole}</button><button onclick="scoreEntryNext()">›</button></footer></section>`
+}
+async function openScoreEntry(){if(!await ensureMyRoundPlayerName())return;document.querySelector('.score-entry-overlay')?.remove();const overlay=document.createElement('div');overlay.className='score-entry-overlay';overlay.onclick=event=>{if(event.target===overlay)closeScoreEntry()};overlay.innerHTML=scoreEntryMarkup();document.body.appendChild(overlay)}
+function closeScoreEntry(){document.querySelector('.score-entry-overlay')?.remove()}
+function refreshScoreEntry(){const overlay=document.querySelector('.score-entry-overlay');if(overlay)overlay.innerHTML=scoreEntryMarkup();const name=myRoundPlayerName(),score=$('roundHoleScore'),roundTotal=$('roundScoreTotal');if(score)score.textContent=scoreValue(name)||Number(s.pars[s.hole-1])||0;if(roundTotal)roundTotal.textContent=`Tap · Total ${total(name,s.hole)}`}
+function queueSharedScore(strokes){if(!s.sharedRoundId||!currentUser)return;const item={round_id:s.sharedRoundId,user_id:currentUser.id,hole:s.hole,strokes,updated_at:new Date().toISOString()};pendingScores[pendingScoreKey(item)]=item;persistPendingScores();syncPendingScores()}
+function setExactHoleScore(strokes){const name=myRoundPlayerName(),value=Math.max(1,Math.min(20,Number(strokes)||1));if(!name)return;s.scores[name]??={};s.scores[name][s.hole]=value;save();queueSharedScore(value);refreshScoreEntry()}
+function chooseExtendedScore(){const value=Number(prompt('Enter your total strokes from 10 to 20:'));if(Number.isInteger(value)&&value>=10&&value<=20)setExactHoleScore(value)}
+function setHolePutts(putts){const name=myRoundPlayerName(),value=Math.max(0,Math.min(4,Number(putts)||0));if(!name)return;s.putts??={};s.putts[name]??={};s.putts[name][s.hole]=value;save();if(s.sharedRoundId&&currentUser){const item={round_id:s.sharedRoundId,user_id:currentUser.id,hole:s.hole,putts:value,updated_at:new Date().toISOString()};pendingHoleStats[pendingHoleStatKey(item)]=item;persistPendingHoleStats();syncPendingHoleStats()}refreshScoreEntry()}
+function scoreEntryPrevious(){if(s.hole<=1)return;closeScoreEntry();s.hole--;showRoundHole();setTimeout(openScoreEntry,0)}
+function scoreEntryNext(){closeScoreEntry();if(s.hole<s.holes){s.hole++;showRoundHole();setTimeout(openScoreEntry,0)}else{if(!s.sharedRoundId)s.done=true;s.v='recap';render()}}
+function ensureCurrentHolePar(){
+  const par=Number(s.pars[s.hole-1]);if(!par)return;
+  const mine=s.sharedRoundId?sharedPlayers.find(player=>player.user_id===currentUser?.id):null;
+  const name=mine?.display_name||(!s.sharedRoundId?s.players[0]:null);if(!name)return;
+  s.scores[name]??={};if(s.scores[name][s.hole])return;
+  s.scores[name][s.hole]=par;
+  if(!s.sharedRoundId){save();return}
+  const item={round_id:s.sharedRoundId,user_id:currentUser.id,hole:s.hole,strokes:par,updated_at:new Date().toISOString()};
+  pendingScores[pendingScoreKey(item)]=item;persistPendingScores();syncPendingScores();
+}
+function holeRoute(green){return[selectedTee(green),green?.aim1,green?.aim2,green?.center].filter(Boolean)}
+function mappedHoleDistance(green){const route=holeRoute(green);if(route.length<2)return null;return Math.round(route.slice(1).reduce((sum,point,index)=>sum+distanceYards(route[index],point),0))}
+function routeProjection(point,start,end){const latScale=Math.cos((start.lat+end.lat)*Math.PI/360),ax=start.lng*latScale,ay=start.lat,bx=end.lng*latScale,by=end.lat,px=point.lng*latScale,py=point.lat,dx=bx-ax,dy=by-ay,length=dx*dx+dy*dy;return length?((px-ax)*dx+(py-ay)*dy)/length:1}
+function activeRouteSegment(here,green){const route=holeRoute(green);if(route.length<2)return null;if(!here)return{origin:route[0],target:route[1],index:1,isGreen:route[1]===green.center};for(let i=1;i<route.length;i++){const target=route[i],isLast=i===route.length-1,close=distanceYards(here,target)<45,passed=routeProjection(here,route[i-1],target)>.88;if(isLast||(!close&&!passed))return{origin:route[i-1],target,index:i,isGreen:target===green.center}}return{origin:route.at(-2),target:route.at(-1),index:route.length-1,isGreen:true}}
+function shotPlannerKey(){return`${s.courseId||s.course}:${s.hole}:${s.teeSet||'black'}`}
+function golferIsNearHole(green){return Boolean(lastKnownPosition&&green?.center&&distanceYards(lastKnownPosition,green.center)<=3000)}
+function shotPlannerOrigin(green){return golferIsNearHole(green)?lastKnownPosition:selectedTee(green)}
+function pointBetween(start,end,ratio=.5){return{lat:start.lat+(end.lat-start.lat)*ratio,lng:start.lng+(end.lng-start.lng)*ratio}}
+function routeDistance(points){return points.slice(1).reduce((sum,point,index)=>sum+distanceYards(points[index],point),0)}
+function remainingRoutePoints(origin,aim,green){const route=holeRoute(green),segment=activeRouteSegment(origin,green);let tail=segment?route.slice(segment.index+1):[];if(!tail.length||tail.at(-1)!==green.center)tail=[...tail,green.center];return[aim,...tail]}
+function routeRemainingFrom(origin,green){const route=holeRoute(green),segment=activeRouteSegment(origin,green);if(!segment)return 0;return routeDistance([origin,...route.slice(segment.index)])}
+function defaultShotPlannerAim(green){
+  const near=golferIsNearHole(green),here=near?lastKnownPosition:null,segment=activeRouteSegment(here,green);if(!segment)return green.center;
+  if(!segment.isGreen)return segment.target;
+  if(green.aim1||green.aim2)return green.center;
+  const tee=selectedTee(green),fullDistance=distanceYards(tee,green.center);if(fullDistance<=260)return green.center;
+  const midpoint=pointBetween(tee,green.center,.5);if(here&&(distanceYards(here,midpoint)<40||routeProjection(here,tee,midpoint)>.92))return green.center;
+  return midpoint;
+}
+function shotPlannerAim(green){const key=shotPlannerKey(),custom=shotPlannerAims[key];if(custom&&golferIsNearHole(green)&&distanceYards(lastKnownPosition,custom)<35)delete shotPlannerAims[key];return shotPlannerAims[key]||defaultShotPlannerAim(green)}
+function updateShotPlanner(green){
+  if(!selectedTee(green)||!green?.center)return;
+  const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green),toTarget=Math.round(distanceYards(origin,aim)),remaining=Math.round(routeDistance(remainingPoints)),routeTotal=toTarget+remaining;
+  if(inlinePlannerMarker)inlinePlannerMarker.setLatLng(aim);if(inlinePlannerLines[0])inlinePlannerLines[0].setLatLngs([origin,aim]);if(inlinePlannerLines[1])inlinePlannerLines[1].setLatLngs(remainingPoints);
+  if(inlinePlannerLabels[0])inlinePlannerLabels[0].setLatLng(pointBetween(origin,aim,.5));if(inlinePlannerLabels[1]&&remainingPoints[1])inlinePlannerLabels[1].setLatLng(pointBetween(remainingPoints[0],remainingPoints[1],.5));
+  const hit=$('plannerLineTargetYards'),left=$('plannerLineRemainingYards'),hitClub=$('plannerLineTargetClub'),goClub=$('plannerLineRemainingClub'),goLabel=$('plannerLineRemainingLabel'),yardage=$('centerYards'),label=$('yardageTargetLabel'),hitSuggestion=suggestedClubFor(toTarget,driverAllowedForCurrentShot()),goSuggestion=suggestedClubFor(remaining,false),hitClubName=hitSuggestion?.club||'Set Clubs',goClubName=goSuggestion?.club||'Set Clubs';if(hit)hit.textContent=toTarget;if(left)left.textContent=remaining;if(hitClub)hitClub.textContent=hitClubName;if(goClub)goClub.textContent=goClubName;if(goLabel)goLabel.classList.toggle('hidden',remaining<5);inlinePlannerLabels[0]?.setPlannerContent?.(toTarget,hitClubName,true);inlinePlannerLabels[1]?.setPlannerContent?.(remaining,goClubName,remaining>=5);if(yardage)yardage.textContent=routeTotal;if(label)label.textContent='Route Remaining';
+  if(golferIsNearHole(green))updateClubSuggestion(toTarget,lastGpsAccuracyYards??999)
+}
+function liveHoleMapPanel(green,h,p){
+  if(!selectedTee(green)||!green?.center)return`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>An administrator needs to map the tee and center green for Hole ${h}.</span></section>`;
+  const yards=mappedHoleDistance(green);
+  return`<section class="live-hole-map planner-on"><div class="live-map-viewport"><div id="liveHoleMap" aria-label="Forward-facing course view of Hole ${h}"></div></div><div class="hole-map-summary round-map-summary"><div><small>${esc(t('hole'))}</small><b id="roundMapHole">${h}</b></div><div class="hole-distance-summary"><small>${esc(t('distance'))}</small><b><span id="roundMapDistance">${yards}</span> <i>YDS</i></b></div><div><small>${esc(t('par'))}</small><b id="roundMapPar">${p}</b></div><div class="route-remaining-summary"><small>${esc(t('routeRemaining'))}</small><b><span id="centerYards">${yards}</span> <i>YDS</i></b><span id="yardageTargetLabel" class="visually-hidden">${esc(t('routeRemaining'))}</span></div><div class="round-qr-summary round-menu-summary"><button onclick="showAppMenu()" aria-label="${esc(t('menu'))}" title="${esc(t('menu'))}"><i></i><i></i><i></i></button></div></div><div id="gpsStatus" class="visually-hidden">Locating…</div><button id="mapRecenterButton" class="map-recenter-button hidden" onclick="resetLiveHoleView()" aria-label="Restore the complete hole view" title="Restore hole view"><span></span></button><div class="live-map-style-toggle" aria-label="Map style"><button class="${liveMapStyle==='terrain'?'on':''}" onclick="setLiveMapStyle('terrain')">${esc(t('terrain'))}</button><button class="${liveMapStyle==='satellite'?'on':''}" onclick="setLiveMapStyle('satellite')">${esc(t('satellite'))}</button></div><div class="hole-edge-navigation" aria-label="Change hole"><button class="hole-edge-arrow previous" onclick="prev()" aria-label="Previous hole" ${h===1?'disabled':''}>‹</button><button class="hole-edge-arrow next" onclick="next()" aria-label="Next hole">›</button></div><div class="forward-label">GOOGLE MAPS · SHOT PLANNER · FORWARD</div><div class="map-wind-card"><div class="map-weather-temperature"><span id="mapWeatherIcon">◌</span><b id="mapTemperature">—°</b></div><small>${esc(t('wind'))}</small><span id="mapWindArrow" class="map-wind-arrow">↑</span><b id="mapWindSpeed">—</b><em id="mapWindLabel">Loading</em></div><div class="map-zoom-controls" aria-label="Map zoom controls"><button onclick="zoomLiveHoleMap(1)" aria-label="Zoom map in">+</button><button onclick="zoomLiveHoleMap(-1)" aria-label="Zoom map out">−</button></div><div class="hole-map-legend inline-legend"><span><i class="tee-dot"></i>${esc(t('tee'))}</span><span><i class="aim-dot"></i>${esc(t('aim'))}</span><span><i class="golfer-dot"></i>${esc(t('you'))}</span><span><i class="green-dot"></i>${esc(t('green'))}</span></div>${floatingRoundScoreControl()}</section>`;
+}
+function floatingRoundScoreControl(){const name=myRoundPlayerName(),encoded=encodeURIComponent(name),holeScore=scoreValue(name)||Number(s.pars[s.hole-1])||0,roundTotal=total(name,s.hole);return`<div class="round-floating-score" aria-label="Round score controls"><button onclick="changeScore('${encoded}',-1)" aria-label="Subtract one stroke">−</button><button onclick="openScoreEntry()"><b id="roundHoleScore">${holeScore}</b><small id="roundScoreTotal">Tap · Total ${roundTotal}</small></button><button onclick="changeScore('${encoded}',1)" aria-label="Add one stroke">+</button></div>`}
+function round(){
+  if(s.done){s.v='recap';recap();return}
+  ensureCurrentHolePar();const h=s.hole,p=s.pars[h-1],c=selectedRoundCourse(),green=c?.greens?.[h-1];app.classList.add('round-fullscreen');
+  app.innerHTML=green?liveHoleMapPanel(green,h,p):`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>An administrator needs to map Hole ${h}.</span></section>`;
+  if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href='https://www.maptiler.com/copyright/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent='© MapTiler · © OpenStreetMap';document.querySelector('.live-hole-map')?.append(attribution)}
+  const summary=document.querySelector('.round-map-summary');if(summary&&c){const strip=document.createElement('div');strip.className='round-course-name-strip';strip.textContent=c.name;summary.after(strip);requestAnimationFrame(positionRoundCourseNameStrip)}
+  updateSyncIndicator();if(green){initInlineHoleMap(green);const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green)}
+}
+function positionRoundCourseNameStrip(){const summary=document.querySelector('.round-map-summary'),strip=document.querySelector('.round-course-name-strip');if(!summary||!strip)return;strip.style.top=`${summary.offsetTop+summary.offsetHeight}px`;strip.style.left=`${summary.offsetLeft}px`;strip.style.width=`${summary.offsetWidth}px`}
+window.addEventListener('resize',positionRoundCourseNameStrip);
+function yardagePanel(){return`<section class="gps-card"><div class="gps-signal-row top-gps-signal gps-compact-row"><div class="gps-accuracy"><b>GPS</b><div id="gpsStatus" class="small muted">Locating…</div></div><div class="hole-yardage-compact"><small id="yardageTargetLabel">Yards to Hole</small><b id="centerYards">–</b><em>yd</em></div><div class="top-weather-compact"><span id="currentWeatherIcon">◌</span><div><b id="currentTemperature">—°</b><small id="currentWeatherLabel">Loading</small></div></div></div><div class="club-suggestion featured-club"><div class="club-recommendation-copy"><small>Suggested Club</small><b id="clubSuggestion">—</b><span id="clubSuggestionNote">Waiting for an accurate GPS signal</span></div></div><button class="club-refresh-button" onclick="refreshLocation()">↻ Refresh GPS</button></section>`}
+function loadGoogleMaps(){
+  if(window.google?.maps)return Promise.resolve(window.google.maps);
+  if(googleMapsPromise)return googleMapsPromise;
+  googleMapsPromise=new Promise((resolve,reject)=>{
+    const script=document.createElement('script');script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(GOOGLE_MAPS_API_KEY)}&v=weekly&loading=async`;script.async=true;script.defer=true;
+    script.onload=()=>window.google?.maps?resolve(window.google.maps):reject(new Error('Google Maps did not initialize'));
+    script.onerror=()=>reject(new Error('Google Maps could not load'));
+    document.head.appendChild(script);
+  });
+  return googleMapsPromise;
+}
+function googlePoint(value){return{lat:Number(value.lat),lng:Number(value.lng)}}
+function googleMapFacade(raw,container){
+  const listeners=[];
+  return{
+    provider:'google',raw,container,
+    remove(){listeners.forEach(listener=>listener.remove?.());google.maps.event.clearInstanceListeners(raw);container.replaceChildren()},
+    getCenter(){const center=raw.getCenter();return center?{lat:center.lat(),lng:center.lng()}:null},
+    getZoom(){return Number(raw.getZoom()||0)},
+    setZoom(value){raw.setZoom(value)},
+    setView(value,zoom){raw.setCenter({lat:Number(value[0]),lng:Number(value[1])});if(Number.isFinite(zoom))raw.setZoom(zoom)},
+    panBy(value){raw.panBy(Number(value[0]),Number(value[1]))},
+    on(names,callback){for(const name of String(names).split(/\s+/)){const eventName=name==='zoomend'?'zoom_changed':name==='moveend'?'dragend':name;listeners.push(raw.addListener(eventName,callback))}}
+  };
+}
+function googleMarkerFacade(marker){return{raw:marker,setLatLng(point){marker.setPosition(googlePoint(point))},getLatLng(){const point=marker.getPosition();return point?{lat:point.lat(),lng:point.lng()}:null},setMap(value){marker.setMap(value)}}}
+function googlePolylineFacade(line){return{raw:line,setLatLngs(points){line.setPath(points.map(googlePoint))},setMap(value){line.setMap(value)}}}
+function createGoogleHtmlOverlay(position,className,html){
+  class AtgOverlay extends google.maps.OverlayView{
+    constructor(){super();this.position=googlePoint(position);this.div=document.createElement('div');this.div.className=`${className} google-planner-label`;this.div.innerHTML=html;this.div.style.position='absolute';this.div.style.pointerEvents='none'}
+    onAdd(){this.getPanes().overlayMouseTarget.appendChild(this.div)}
+    draw(){
+      const projection=this.getProjection();if(!projection)return;const point=projection.fromLatLngToDivPixel(this.position);if(!point)return;
+      const mapDiv=this.getMap()?.getDiv(),label=this.div.firstElementChild,width=label?.offsetWidth||96,height=label?.offsetHeight||70,mapWidth=mapDiv?.clientWidth||window.innerWidth,mapHeight=mapDiv?.clientHeight||window.innerHeight,minTop=205,maxTop=Math.max(minTop,mapHeight-92-height);
+      const left=Math.min(Math.max(point.x-width-34,10),Math.max(10,mapWidth-width-10)),laneOffset=className.includes('hit-label')?-(height/2+8):(height/2+8),top=Math.min(Math.max(point.y-height/2+laneOffset,minTop),maxTop);
+      this.div.style.width=`${width}px`;this.div.style.height=`${height}px`;this.div.style.left=`${left}px`;this.div.style.top=`${top}px`;
+      requestAnimationFrame(()=>resolveGooglePlannerLabelCollision(mapDiv));
+    }
+    onRemove(){this.div.remove()}
+    setLatLng(point){this.position=googlePoint(point);if(this.getProjection())this.draw()}
+  }
+  const overlay=new AtgOverlay();return overlay;
+}
+function resolveGooglePlannerLabelCollision(mapDiv){
+  if(!mapDiv)return;const hit=mapDiv.querySelector('.google-planner-label.hit-label'),go=mapDiv.querySelector('.google-planner-label.go-label');if(!hit||!go||go.firstElementChild?.classList.contains('hidden'))return;
+  const a=hit.getBoundingClientRect(),b=go.getBoundingClientRect(),overlapX=Math.min(a.right,b.right)-Math.max(a.left,b.left),overlapY=Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top);if(overlapX<=0||overlapY<=0)return;
+  const gap=10,limit=mapDiv.clientHeight-92-go.offsetHeight,currentGo=parseFloat(go.style.top)||0,nextGo=currentGo+overlapY+gap;if(nextGo<=limit){go.style.top=`${nextGo}px`;return}
+  hit.style.top=`${Math.max(205,(parseFloat(hit.style.top)||205)-overlapY-gap)}px`;
+}
+function rememberGoogleOverlay(overlay){inlineGoogleOverlays.push(overlay);return overlay}
+function clearInlineGoogleOverlays(){
+  for(const overlay of inlineGoogleOverlays){try{google.maps.event.clearInstanceListeners(overlay.raw||overlay);(overlay.raw||overlay).setMap?.(null)}catch{}}
+  inlineGoogleOverlays=[];inlineGolferMarker=null;inlinePlannerMarker=null;inlinePlannerLines=[];inlinePlannerLabels=[];
+}
+function googleCircleMarker(rawMap,position,fillColor,radius=9,title=''){
+  const marker=new google.maps.Marker({map:rawMap,position:googlePoint(position),title,clickable:false,zIndex:900,icon:{path:google.maps.SymbolPath.CIRCLE,scale:radius,fillColor,fillOpacity:1,strokeColor:'#fff',strokeOpacity:1,strokeWeight:3}});
+  rememberGoogleOverlay(marker);return marker;
+}
+function googlePlannerIcon(){
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="25" fill="#d5ad51" stroke="#fff" stroke-width="4"/><circle cx="29" cy="29" r="15" fill="none" stroke="#173126" stroke-width="2"/><circle cx="29" cy="29" r="9" fill="none" stroke="#173126" stroke-width="2"/></svg>`;
+  return{url:`data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,scaledSize:new google.maps.Size(58,58),anchor:new google.maps.Point(29,29)};
+}
+function googlePlannerLabelIcon(kind,yards='—',club='—'){
+  const width=116,height=78,label=kind==='hit'?t('toHit'):t('toGo'),safeLabel=String(label).replace(/[&<>"']/g,'').slice(0,18),safeClub=String(club).replace(/[&<>"']/g,''),safeYards=String(yards).replace(/[^0-9—]/g,'');
+  const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><rect x="1" y="1" width="114" height="76" rx="12" fill="#0c1410" fill-opacity=".42" stroke="#ffffff" stroke-opacity=".18"/><text x="58" y="25" text-anchor="middle" fill="#f5cf68" font-family="Arial,sans-serif" font-size="22" font-weight="800">${safeYards}</text><text x="58" y="37" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="10" font-weight="800">yd</text><text x="58" y="49" text-anchor="middle" fill="#e4eee9" font-family="Arial,sans-serif" font-size="7" font-weight="800">${safeLabel}</text><line x1="14" y1="56" x2="102" y2="56" stroke="#f5cf68" stroke-opacity=".72"/><text x="58" y="70" text-anchor="middle" fill="#a9efc9" font-family="Arial,sans-serif" font-size="11" font-weight="800">${safeClub}</text></svg>`;
+  return{url:`data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,size:new google.maps.Size(width,height),scaledSize:new google.maps.Size(width,height),anchor:new google.maps.Point(width+34,height/2)};
+}
+function googlePlannerLabelMarker(rawMap,position,kind){
+  const marker=new google.maps.Marker({map:rawMap,position:googlePoint(position),clickable:false,optimized:false,zIndex:1100,icon:googlePlannerLabelIcon(kind)});
+  return{raw:marker,setMap:value=>marker.setMap(value),setLatLng:point=>marker.setPosition(googlePoint(point)),setPlannerContent:(yards,club,visible=true)=>{marker.setVisible(visible);if(visible)marker.setIcon(googlePlannerLabelIcon(kind,yards,club))}};
+}
+function orientInlineHoleMap(green,origin=null,target=null){
+  if(!inlineHoleMap||!selectedTee(green)||!green?.center)return;
+  const segment=activeRouteSegment(null,green),start=origin||segment?.origin||selectedTee(green),end=target||segment?.target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);
+  if(inlineHoleMap.provider==='google'){
+    if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
+    if(!inlineUserMovedMap||inlineViewResetting)inlineHoleMap.raw.moveCamera({heading:bearing,tilt:LIVE_MAP_TILT});
     return;
   }
-  if (screen !== 'courses' && !requireAuth()) return;
-  const item = placeholderContent[screen] || ['ParFolio', 'This feature is part of the next build stage.'];
-  openDialog(`<h2>${item[0]}</h2><div class="gold-rule"></div><p class="lead">${item[1]}</p>`);
+  if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing',`${bearing}deg`);container.style.transform=`rotate(${-bearing}deg)`}
 }
-
-menuButton.addEventListener('click', () => setDrawer(true));
-closeMenu.addEventListener('click', () => setDrawer(false));
-scrim.addEventListener('click', () => setDrawer(false));
-brandHome.addEventListener('click', () => showContent('home'));
-profileButton.addEventListener('click', () => showContent('profile'));
-
-document.querySelectorAll('[data-screen]').forEach(button => button.addEventListener('click', () => showContent(button.dataset.screen)));
-document.querySelectorAll('[data-action]').forEach(button => button.addEventListener('click', () => {
-  const screen = button.dataset.action === 'start' ? 'new-round' : button.dataset.action === 'join' ? 'join-round' : 'history';
-  showContent(screen);
-}));
-
-dialogClose.addEventListener('click', () => dialog.close());
-dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-
-sb.auth.onAuthStateChange(async (_event, session) => {
-  currentUser = session?.user || null;
-  await loadProfile();
+function zoomLiveHoleMap(change){if(!inlineHoleMap)return;inlineHoleMap.setZoom(inlineHoleMap.getZoom()+change,{animate:true})}
+function showMapRecenterButton(){if(!inlineViewResetting){inlineUserMovedMap=true;$('mapRecenterButton')?.classList.remove('hidden')}}
+function onceGoogleMapIdle(rawMap,timeout=900){return new Promise(resolve=>{let finished=false;const done=()=>{if(finished)return;finished=true;resolve()};google.maps.event.addListenerOnce(rawMap,'idle',done);setTimeout(done,timeout)})}
+function googleHolePointsInsideSafeFrame(rawMap,points){return new Promise(resolve=>{let finished=false;const done=value=>{if(finished)return;finished=true;resolve(value)},overlay=new google.maps.OverlayView();overlay.onAdd=()=>{};overlay.onRemove=()=>{};overlay.draw=()=>{const projection=overlay.getProjection(),div=rawMap.getDiv();if(!projection||!div)return;const width=div.clientWidth,height=div.clientHeight;if(!width||!height){done(false);return}const safe=points.every(point=>{const pixel=projection.fromLatLngToContainerPixel(googlePoint(point));if(!pixel)return false;const rightEdge=pixel.y>105&&pixel.y<265?width-104:width-38;return pixel.x>=38&&pixel.x<=rightEdge&&pixel.y>=138&&pixel.y<=height-64});overlay.setMap(null);done(safe)};overlay.setMap(rawMap);setTimeout(()=>{overlay.setMap(null);done(false)},700)})}
+async function maximizeGoogleHoleZoom(rawMap,points){let zoom=rawMap.getZoom();if(!Number.isFinite(zoom))return;for(let i=0;i<5&&!await googleHolePointsInsideSafeFrame(rawMap,points);i++){zoom-=.18;rawMap.setZoom(zoom);await onceGoogleMapIdle(rawMap)}for(let i=0;i<5;i++){const prior=zoom,candidate=Math.min(21,prior+.12);if(candidate===prior)break;rawMap.setZoom(candidate);await onceGoogleMapIdle(rawMap);if(!await googleHolePointsInsideSafeFrame(rawMap,points)){rawMap.setZoom(prior);await onceGoogleMapIdle(rawMap);break}zoom=candidate}}
+function fitLiveHoleView(green){
+  if(!inlineHoleMap||!selectedTee(green)||!green?.center)return;
+  inlineViewResetting=true;inlineUserMovedMap=false;inlineHoleGreen=green;$('mapRecenterButton')?.classList.add('hidden');
+  const points=[...holeRoute(green),green.front,green.back].filter(Boolean);
+  if(inlineHoleMap.provider==='google'){
+    const rawMap=inlineHoleMap.raw,bounds=new google.maps.LatLngBounds();points.forEach(point=>bounds.extend(googlePoint(point)));rawMap.setHeading(0);rawMap.setTilt(0);
+    google.maps.event.addListenerOnce(rawMap,'idle',async()=>{if(inlineHoleMap?.raw!==rawMap)return;orientInlineHoleMap(green);await onceGoogleMapIdle(rawMap);if(inlineHoleMap?.raw!==rawMap)return;await maximizeGoogleHoleZoom(rawMap,points);if(inlineHoleMap?.raw!==rawMap)return;inlineViewResetting=false;inlineUserMovedMap=false;$('mapRecenterButton')?.classList.add('hidden')});
+    rawMap.fitBounds(bounds,{top:145,right:48,bottom:72,left:48});return;
+  }
+  inlineHoleMap.fitBounds(points.map(point=>[point.lat,point.lng]),{padding:[78,46],maxZoom:22,animate:false});
+  inlineHoleMap.setZoom(inlineHoleMap.getZoom()-.35,{animate:false});
+  setTimeout(()=>{orientInlineHoleMap(green);$('mapRecenterButton')?.classList.add('hidden');inlineViewResetting=false},180);
+}
+function resetLiveHoleView(){fitLiveHoleView(inlineHoleGreen)}
+function setLiveMapStyle(style){
+  liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.atgLiveMapStyle=liveMapStyle;
+  render();
+}
+function enableForwardMapDragging(){
+  const viewport=document.querySelector('.live-map-viewport'),container=$('liveHoleMap');if(!viewport||!container)return;
+  if(inlineHoleMap?.provider==='google')return;
+  const pointers=new Map();let dragPointer=null,plannerPointer=null;
+  const resetRemaining=()=>{plannerPointer=null;if(pointers.size===1){const [id]=pointers.keys();dragPointer=id}else dragPointer=null};
+  viewport.addEventListener('pointerdown',event=>{if(event.pointerType==='mouse'&&event.button!==0)return;const plannerHandle=event.target.closest?.('.shot-planner-marker');pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});if(plannerHandle){plannerPointer=event.pointerId;dragPointer=null}else if(pointers.size===1)dragPointer=event.pointerId;else dragPointer=null;try{viewport.setPointerCapture(event.pointerId)}catch{}});
+  viewport.addEventListener('pointermove',event=>{const prior=pointers.get(event.pointerId);if(!prior)return;pointers.set(event.pointerId,{x:event.clientX,y:event.clientY});if(pointers.size!==1||!inlineHoleMap)return;const dx=event.clientX-prior.x,dy=event.clientY-prior.y;if(!dx&&!dy)return;const angle=Number(container.dataset.forwardBearing||0)*Math.PI/180,localX=Math.cos(angle)*dx-Math.sin(angle)*dy,localY=Math.sin(angle)*dx+Math.cos(angle)*dy;if(plannerPointer===event.pointerId&&inlinePlannerMarker&&shotPlannerGreen){event.preventDefault();const point=inlineHoleMap.latLngToContainerPoint(inlinePlannerMarker.getLatLng()),latLng=inlineHoleMap.containerPointToLatLng([point.x+localX,point.y+localY]);shotPlannerAims[shotPlannerKey()]={lat:latLng.lat,lng:latLng.lng};inlinePlannerMarker.setLatLng(latLng);updateShotPlanner(shotPlannerGreen);return}if(dragPointer===event.pointerId)inlineHoleMap.panBy([-localX,-localY],{animate:false})});
+  const end=event=>{pointers.delete(event.pointerId);resetRemaining()};viewport.addEventListener('pointerup',end);viewport.addEventListener('pointercancel',end);
+}
+function initInlineHoleMapLeaflet(green){
+  const container=$('liveHoleMap');if(!container||!selectedTee(green)||!green?.center||!window.L)return;
+  inlineHoleMap=L.map(container,{zoomControl:false,zoomSnap:.25,dragging:false,scrollWheelZoom:false,doubleClickZoom:'center',boxZoom:false,keyboard:false,touchZoom:'center',attributionControl:false});
+  inlineHoleGreen=green;
+  const useAttribution=(provider,fallback=false)=>{const label=document.querySelector('.forward-label'),credit=document.querySelector('.hole-map-attribution');if(label)label.textContent=fallback?'MAPTILER UNAVAILABLE · OPEN MAP · FORWARD':provider==='maptiler'?'MAPTILER COURSE MAP · FAIRWAY ROUTE · FORWARD':'OPEN COURSE MAP · FAIRWAY ROUTE · FORWARD';if(credit){credit.classList.remove('hidden');credit.textContent=provider==='maptiler'?'© MapTiler · © OpenStreetMap':'© OpenStreetMap';credit.href=provider==='maptiler'?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/'}};
+  if(liveMapStyle==='satellite'&&MAPTILER_API_KEY){addSatelliteLayer(inlineHoleMap,()=>useAttribution('osm',true));useAttribution('maptiler')}else if(MAPTILER_API_KEY){addCourseMapLayer(inlineHoleMap,()=>useAttribution('osm',true));useAttribution('maptiler')}else{addStreetLayer(inlineHoleMap);useAttribution('osm')}
+  fitLiveHoleView(green);
+  L.circleMarker(selectedTee(green),{radius:9,color:'#fff',weight:3,fillColor:'#d8a93e',fillOpacity:1}).addTo(inlineHoleMap);
+  for(const aim of[green.aim1,green.aim2].filter(Boolean))L.circleMarker(aim,{radius:8,color:'#fff',weight:3,fillColor:'#e0bd66',fillOpacity:1}).addTo(inlineHoleMap);
+  L.circleMarker(green.center,{radius:10,color:'#fff',weight:3,fillColor:'#176b45',fillOpacity:1}).addTo(inlineHoleMap);
+  shotPlannerGreen=green;const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green),icon=L.divIcon({className:'shot-planner-marker',html:'<span>◎</span>',iconSize:[42,42],iconAnchor:[21,21]}),hitLabel=L.divIcon({className:'planner-line-label-marker hit-label',html:`<span><b id="plannerLineTargetYards">—</b> yd<small>${esc(t('toHit'))}</small><em id="plannerLineTargetClub">—</em></span>`,iconSize:[1,1],iconAnchor:[0,0]}),goLabel=L.divIcon({className:'planner-line-label-marker go-label',html:`<span id="plannerLineRemainingLabel"><b id="plannerLineRemainingYards">—</b> yd<small>${esc(t('toGo'))}</small><em id="plannerLineRemainingClub">—</em></span>`,iconSize:[1,1],iconAnchor:[0,0]});
+  inlinePlannerLines=[L.polyline([origin,aim],{color:'#f5cf68',weight:2.25,opacity:1}).addTo(inlineHoleMap),L.polyline(remainingPoints,{color:'#f5dfa8',weight:2.25,opacity:.95,dashArray:'7 9'}).addTo(inlineHoleMap)];
+  inlinePlannerMarker=L.marker(aim,{icon,interactive:true,keyboard:false,zIndexOffset:1200}).addTo(inlineHoleMap);inlinePlannerLabels=[L.marker(pointBetween(origin,aim,.5),{icon:hitLabel,interactive:false,keyboard:false,zIndexOffset:1100}).addTo(inlineHoleMap),L.marker(pointBetween(remainingPoints[0],remainingPoints[1]||remainingPoints[0],.5),{icon:goLabel,interactive:false,keyboard:false,zIndexOffset:1100}).addTo(inlineHoleMap)];updateShotPlanner(green);
+  enableForwardMapDragging();setTimeout(()=>inlineHoleMap?.on('zoomend moveend',showMapRecenterButton),220);
+}
+function drawGoogleLiveHole(green){
+    const rawMap=inlineHoleMap.raw;inlineHoleGreen=green;clearInlineGoogleOverlays();
+    googleCircleMarker(rawMap,selectedTee(green),'#d8a93e',9,teeSetLabel());
+    for(const [index,aimPoint] of[green.aim1,green.aim2].filter(Boolean).entries())googleCircleMarker(rawMap,aimPoint,'#e0bd66',8,`Aim ${index+1}`);
+    googleCircleMarker(rawMap,green.center,'#176b45',10,'Green center');
+    shotPlannerGreen=green;const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green);
+    const hitLine=rememberGoogleOverlay(new google.maps.Polyline({map:rawMap,path:[googlePoint(origin),googlePoint(aim)],strokeColor:'#f5cf68',strokeWeight:2.25,strokeOpacity:1,zIndex:800}));
+    const goLine=rememberGoogleOverlay(new google.maps.Polyline({map:rawMap,path:remainingPoints.map(googlePoint),strokeColor:'#f5dfa8',strokeWeight:2.25,strokeOpacity:0,zIndex:800,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:2.25,scale:2.2},offset:'0',repeat:'14px'}]}));
+    inlinePlannerLines=[googlePolylineFacade(hitLine),googlePolylineFacade(goLine)];
+    const planner=rememberGoogleOverlay(new google.maps.Marker({map:rawMap,position:googlePoint(aim),draggable:true,keyboardShortcuts:false,zIndex:1200,icon:googlePlannerIcon(),title:'Drag to plan your shot'}));
+    inlinePlannerMarker=googleMarkerFacade(planner);
+    const hitLabel=rememberGoogleOverlay(googlePlannerLabelMarker(rawMap,pointBetween(origin,aim,.5),'hit'));
+    const goLabel=rememberGoogleOverlay(googlePlannerLabelMarker(rawMap,pointBetween(remainingPoints[0],remainingPoints[1]||remainingPoints[0],.5),'go'));
+    inlinePlannerLabels=[hitLabel,goLabel];
+    planner.addListener('drag',()=>{const point=planner.getPosition();if(!point)return;shotPlannerAims[shotPlannerKey()]={lat:point.lat(),lng:point.lng()};updateShotPlanner(green)});
+    planner.addListener('dragend',()=>{inlineUserMovedMap=true;$('mapRecenterButton')?.classList.remove('hidden')});
+    fitLiveHoleView(green);updateShotPlanner(green);
+}
+async function initInlineHoleMap(green){
+  const container=$('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
+  if(liveMapStyle==='terrain'){document.querySelector('.live-map-viewport')?.classList.remove('google-map-active');initInlineHoleMapLeaflet(green);return}
+  try{
+    await loadGoogleMaps();if($('liveHoleMap')!==container||shotPlannerKey()!==key)return;
+    document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
+    const rawMap=new google.maps.Map(container,{center:googlePoint(green.center),zoom:17,mapId:GOOGLE_MAP_ID,mapTypeId:liveMapStyle,heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'});
+    inlineHoleMap=googleMapFacade(rawMap,container);const label=document.querySelector('.forward-label');if(label)label.textContent='GOOGLE MAPS · FAIRWAY ROUTE · FORWARD';drawGoogleLiveHole(green);
+    setTimeout(()=>{if(inlineHoleMap?.raw!==rawMap)return;rawMap.addListener('dragstart',showMapRecenterButton);rawMap.addListener('zoom_changed',showMapRecenterButton);rawMap.addListener('heading_changed',showMapRecenterButton);rawMap.addListener('tilt_changed',showMapRecenterButton)},650);
+  }catch(error){
+    console.warn('Google Maps unavailable; using the existing map fallback.',error);if($('liveHoleMap')!==container)return;document.querySelector('.live-map-viewport')?.classList.remove('google-map-active');initInlineHoleMapLeaflet(green);
+  }
+}
+function updateInlineGolferPosition(here,green){
+  if(!inlineHoleMap||!here||!green?.center||distanceYards(here,green.center)>3000)return;
+  if(inlineGolferMarker){inlineGolferMarker.setLatLng(here);return}
+  if(inlineHoleMap.provider==='google'){
+    const marker=googleCircleMarker(inlineHoleMap.raw,here,'#2476d1',9,'Your location');inlineGolferMarker=googleMarkerFacade(marker);return;
+  }
+  inlineGolferMarker=L.circleMarker(here,{radius:9,color:'#fff',weight:3,fillColor:'#2476d1',fillOpacity:1}).addTo(inlineHoleMap);
+}
+function startLocation(green){
+  if(!navigator.geolocation){$('gpsStatus').textContent='GPS is not supported by this browser.';return}
+  locationWatch=navigator.geolocation.watchPosition(pos=>{
+    const accuracyYards=Math.round(pos.coords.accuracy*1.094),status=$('gpsStatus');lastGpsAccuracyYards=accuracyYards;status.textContent=`Accuracy ±${accuracyYards} yd`;status.classList.toggle('gps-warning',accuracyYards>50);
+    const here={lat:pos.coords.latitude,lng:pos.coords.longitude};lastKnownPosition=here;const near=golferIsNearHole(green),segment=activeRouteSegment(near?here:null,green);if(!segment)return;
+    updateShotPlanner(green);
+    const tee=selectedTee(green);updateInlineGolferPosition(here,green);orientInlineHoleMap(green,segment.origin,segment.target);loadWeather(near?here:tee,segment.target,tee);
+  },err=>{if($('gpsStatus'))$('gpsStatus').textContent=err.code===1?'Location permission was denied. Allow it in browser settings.':'Unable to get a GPS signal.'},{enableHighAccuracy:true,maximumAge:3000,timeout:15000});
+}
+function stopLocation(){if(locationWatch!==null){navigator.geolocation.clearWatch(locationWatch);locationWatch=null}}
+function refreshLocation(){const g=selectedRoundCourse()?.greens?.[s.hole-1];stopLocation();if(g)startLocation(g)}
+function distanceYards(a,b){const R=6371000,rad=x=>x*Math.PI/180,dLat=rad(b.lat-a.lat),dLng=rad(b.lng-a.lng),q=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(q),Math.sqrt(1-q))*1.0936133}
+function draftPoint(value){return value?{lat:Number(value[0]),lng:Number(value[1])}:null}
+function pointToward(start,end,yards){const distance=distanceYards(start,end),ratio=distance?yards/distance:0;return{lat:start.lat+(end.lat-start.lat)*ratio,lng:start.lng+(end.lng-start.lng)*ratio}}
+function buildEagleGlenDraft(){
+  return EAGLE_GLEN_DRAFT_POINTS.map((row,index)=>{
+    const black=draftPoint(row[0]),aim1=draftPoint(row[1]),aim2=draftPoint(row[2]),center=draftPoint(row[3]),firstTarget=aim1||aim2||center,approach=aim2||aim1||black,blackYards=EAGLE_GLEN_TEE_YARDS.black[index];
+    const tees={};for(const color of ['black','blue','white','red'])tees[color]=color==='black'?black:pointToward(black,firstTarget,Math.max(0,blackYards-EAGLE_GLEN_TEE_YARDS[color][index]));
+    const front=pointToward(center,approach,12),back=pointToward(center,approach,-12);
+    return{tee:black,tees,aim1,aim2,front,center,back,_review:'candidate'};
+  });
+}
+function buildExistingCourseReviewDraft(course,config){
+  return(course.greens||[]).map(green=>{
+    const reference=green.tee||green.tees?.black||green.tees?.blue,firstTarget=green.aim1||green.aim2||green.center;if(!reference||!firstTarget)return{...green,_review:'candidate'};
+    const tees={};for(const color of ['black','blue','white','red'])tees[color]=pointToward(reference,firstTarget,Number(config[color]??0));
+    return{...green,tee:tees.black,tees,_review:'candidate'};
+  });
+}
+function bearingDegrees(a,b){const rad=x=>x*Math.PI/180,deg=x=>x*180/Math.PI,dLng=rad(b.lng-a.lng),lat1=rad(a.lat),lat2=rad(b.lat);return(deg(Math.atan2(Math.sin(dLng)*Math.cos(lat2),Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLng)))+360)%360}
+function compassDirection(degrees){return['N','NE','E','SE','S','SW','W','NW'][Math.round(Number(degrees||0)/45)%8]}
+function weatherDescription(code){if(code===0)return'Clear';if(code<=3)return'Partly cloudy';if([45,48].includes(code))return'Foggy';if(code>=51&&code<=67)return'Rain';if(code>=71&&code<=77)return'Snow';if(code>=80&&code<=82)return'Showers';if(code>=95)return'Thunderstorms';return'Changing conditions'}
+function weatherConditionIcon(code){if(code===0)return'☀️';if(code<=3)return'⛅';if([45,48].includes(code))return'🌫️';if(code>=51&&code<=67)return'🌧️';if(code>=71&&code<=77)return'🌨️';if(code>=80&&code<=82)return'🌦️';if(code>=95)return'⛈️';return'🌤️'}
+function windEffectText(weather,here,target){
+  if(!target||!Number.isFinite(weather?.wind_speed_10m))return'Wind effect unavailable for this green';
+  const shot=bearingDegrees(here,target),windTo=(Number(weather.wind_direction_10m)+180)%360,delta=((windTo-shot+540)%360)-180,speed=Number(weather.wind_speed_10m),along=Math.cos(delta*Math.PI/180)*speed,cross=Math.sin(delta*Math.PI/180)*speed;
+  const parts=[];if(Math.abs(along)>=2)parts.push(`${Math.round(Math.abs(along))} mph ${along>0?'tailwind':'headwind'}`);else parts.push('mostly neutral wind');
+  if(Math.abs(cross)>=2)parts.push(`${Math.round(Math.abs(cross))} mph ${cross>0?'left-to-right':'right-to-left'}`);
+  return parts.join(' · ');
+}
+function relativeWindData(weather,origin,target){
+  if(!origin||!target||!Number.isFinite(weather?.wind_speed_10m))return null;
+  const holeBearing=bearingDegrees(origin,target),windTo=(Number(weather.wind_direction_10m)+180)%360,rotation=(windTo-holeBearing+360)%360,delta=((rotation+540)%360)-180,along=Math.cos(delta*Math.PI/180),cross=Math.sin(delta*Math.PI/180);
+  const label=Math.abs(along)>=.55?(along>0?'Tailwind':'Headwind'):(cross>0?'Left to right':'Right to left');
+  return{rotation,label,speed:Math.round(weather.wind_speed_10m)};
+}
+function updateMapWind(weather,origin,target){
+  const arrow=$('mapWindArrow'),speed=$('mapWindSpeed'),label=$('mapWindLabel');if(!arrow||!speed||!label)return;
+  const relative=relativeWindData(weather,origin,target);if(!relative){speed.textContent='—';label.textContent='Unavailable';return}
+  arrow.style.transform=`rotate(${relative.rotation}deg)`;speed.textContent=`${relative.speed} mph`;label.textContent=relative.label;
+}
+function showWeather(weather,here,target,tee){
+  const summary=$('weatherSummary'),effect=$('windEffect'),temperature=$('currentTemperature'),mapTemperature=$('mapTemperature'),icon=$('currentWeatherIcon'),mapIcon=$('mapWeatherIcon'),condition=$('currentWeatherLabel');
+  if(!weather){if(summary)summary.textContent='Weather temporarily unavailable';if(effect)effect.textContent='GPS yardages still work normally';if(temperature)temperature.textContent='—°';if(mapTemperature)mapTemperature.textContent='—°';if(icon)icon.textContent='◌';if(mapIcon)mapIcon.textContent='◌';if(condition)condition.textContent='Weather unavailable';updateMapWind(null,tee||here,target);return}
+  const degrees=`${Math.round(weather.temperature_2m)}°`,weatherIcon=weatherConditionIcon(weather.weather_code);if(temperature)temperature.textContent=degrees;if(mapTemperature)mapTemperature.textContent=degrees;if(icon)icon.textContent=weatherIcon;if(mapIcon)mapIcon.textContent=weatherIcon;if(condition)condition.textContent=weatherDescription(weather.weather_code);
+  if(summary)summary.textContent=`${Math.round(weather.temperature_2m)}°F · ${weatherDescription(weather.weather_code)} · Wind ${Math.round(weather.wind_speed_10m)} mph ${compassDirection(weather.wind_direction_10m)}`;
+  if(effect)effect.textContent=windEffectText(weather,tee||here,target);updateMapWind(weather,tee||here,target);
+}
+async function loadWeather(here,target,tee,force=false){
+  const weatherPoint=target||here,key=`${weatherPoint.lat.toFixed(2)},${weatherPoint.lng.toFixed(2)}`,cached=weatherCache[key];
+  if(!force&&cached&&Date.now()-cached.savedAt<WEATHER_CACHE_MS){currentWeather=cached.data;showWeather(currentWeather,here,target,tee);return}
+  if(weatherLoading){if(currentWeather)showWeather(currentWeather,here,target,tee);return}
+  weatherLoading=true;
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(weatherPoint.lat)}&longitude=${encodeURIComponent(weatherPoint.lng)}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto`;
+    const response=await fetch(url);if(!response.ok)throw new Error('Weather unavailable');
+    const payload=await response.json();currentWeather=payload.current||null;if(!currentWeather)throw new Error('Weather unavailable');
+    weatherCache[key]={savedAt:Date.now(),data:currentWeather};localStorage.atgWeatherCache=JSON.stringify(weatherCache);showWeather(currentWeather,here,target,tee);
+  }catch{showWeather(null,here,target,tee)}finally{weatherLoading=false}
+}
+function isMyPlayer(name){return !s.sharedRoundId||sharedPlayers.some(p=>p.display_name===name&&p.user_id===currentUser?.id)}
+async function changeScore(encoded,d){const p=s.sharedRoundId?await ensureMyRoundPlayerName():decodeURIComponent(encoded);if(!p)return;s.scores[p]??={};const previous=s.scores[p][s.hole]??Number(s.pars[s.hole-1])??0;const nextScore=Math.max(1,previous+d);s.scores[p][s.hole]=nextScore;if(s.sharedRoundId){const item={round_id:s.sharedRoundId,user_id:currentUser.id,hole:s.hole,strokes:nextScore,updated_at:new Date().toISOString()};pendingScores[pendingScoreKey(item)]=item;persistPendingScores()}save();if(s.v==='round'&&inlineHoleMap?.provider==='google')refreshScoreEntry();else render();if(s.sharedRoundId){const synced=await syncPendingScores();if(!synced&&navigator.onLine)alert('Your score is protected on this phone but has not synchronized yet. The app will keep retrying.')}}
+function updateGoogleRoundHole(){
+  if(s.v!=='round'||inlineHoleMap?.provider!=='google')return false;
+  const course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
+  stopLocation();const yards=mappedHoleDistance(green);$('roundMapHole').textContent=s.hole;$('roundMapDistance').textContent=yards;$('roundMapPar').textContent=par;$('liveHoleMap')?.setAttribute('aria-label',`Forward-facing course view of Hole ${s.hole}`);
+  const previous=document.querySelector('.hole-edge-arrow.previous');if(previous)previous.disabled=s.hole===1;
+  const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;if($('roundScoreTotal'))$('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
+  inlineHoleMap.raw.setMapTypeId(liveMapStyle);drawGoogleLiveHole(green);const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green);save();return true;
+}
+function showRoundHole(){if(!updateGoogleRoundHole())render()}
+function prev(){if(s.hole>1){s.hole--;showRoundHole()}}
+function next(){if(s.hole<s.holes){s.hole++;showRoundHole()}else{if(!s.sharedRoundId)s.done=true;s.v='recap';render()}}
+async function openScorecard(){if(s.sharedRoundId)await loadSharedRound(false);s.v='recap';render()}
+function copyRoundCode(){navigator.clipboard?.writeText(s.joinCode).then(()=>alert('Round code copied.')).catch(()=>alert('Round code: '+s.joinCode))}
+function roundJoinUrl(){
+  const base=new URL('./',window.location.href);
+  base.search='';
+  base.hash='';
+  base.searchParams.set('join',s.joinCode);
+  return base.href;
+}
+function showRoundQr(){
+  if(!s.joinCode)return;
+  const overlay=document.createElement('div');overlay.className='qr-overlay';overlay.onclick=event=>{if(event.target===overlay)overlay.remove()};
+  overlay.innerHTML=`<section class="qr-modal"><button class="qr-close" onclick="this.closest('.qr-overlay').remove()">×</button><h2>Scan to Join</h2><p class="muted">Open the camera on another golfer's phone.</p><div id="roundQr"></div><b class="qr-code-text">${esc(s.joinCode)}</b><p class="small muted">${esc(roundJoinUrl())}</p><button class="secondary" onclick="shareRoundLink()">Share Join Link</button></section>`;
+  document.body.appendChild(overlay);
+  if(window.QRCode)new QRCode($('roundQr'),{text:roundJoinUrl(),width:220,height:220,colorDark:'#123f2b',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M});
+  else $('roundQr').innerHTML='<div class="notice">QR generator unavailable. Use Share Join Link instead.</div>';
+}
+async function shareRoundLink(){const text=`Join my ParFolio round. Code: ${s.joinCode}`;if(navigator.share){try{await navigator.share({title:'Join Golf Round',text,url:roundJoinUrl()});return}catch(error){if(error.name==='AbortError')return}}navigator.clipboard?.writeText(roundJoinUrl()).then(()=>alert('Join link copied.')).catch(()=>alert(roundJoinUrl()))}
+function scannedRoundCode(value){
+  const raw=String(value||'').trim();if(/^[A-Z0-9]{6}$/i.test(raw))return raw.toUpperCase();
+  try{const url=new URL(raw);if(url.origin!==location.origin)return null;const code=url.searchParams.get('join');return/^[A-Z0-9]{6}$/i.test(code||'')?code.toUpperCase():null}catch{return null}
+}
+async function closeQrScanner(){
+  const scanner=qrScanner;qrScanner=null;
+  if(scanner){try{await scanner.stop()}catch{}try{scanner.clear()}catch{}}
+  document.querySelector('.qr-scanner-overlay')?.remove();
+}
+async function showQrScanner(){
+  if(!window.Html5Qrcode){alert('The QR scanner could not load. Use your phone camera or enter the round code instead.');return}
+  if(!await requireGolferSignInToJoin())return;
+  await closeQrScanner();qrScanLocked=false;
+  const overlay=document.createElement('div');overlay.className='qr-overlay qr-scanner-overlay';overlay.onclick=event=>{if(event.target===overlay)closeQrScanner()};
+  overlay.innerHTML=`<section class="qr-modal scanner-modal"><button class="qr-close" onclick="closeQrScanner()">×</button><h2>Scan Round QR</h2><p class="muted">Point the camera at another golfer's join QR.</p><div id="roundQrReader"></div><div id="qrScannerStatus" class="small muted">Requesting camera access…</div><button class="secondary" onclick="closeQrScanner()">Cancel</button></section>`;
+  document.body.appendChild(overlay);qrScanner=new Html5Qrcode('roundQrReader');
+  try{
+    await qrScanner.start({facingMode:'environment'},{fps:10,qrbox:{width:230,height:230}},async decoded=>{
+      if(qrScanLocked)return;const code=scannedRoundCode(decoded);
+      if(!code){$('qrScannerStatus').textContent='This is not an ParFolio round QR.';return}
+      qrScanLocked=true;await closeQrScanner();await joinRoundWithCode(code);
+    },()=>{});
+    if($('qrScannerStatus'))$('qrScannerStatus').textContent='Scanning…';
+  }catch(error){if($('qrScannerStatus'))$('qrScannerStatus').textContent='Camera unavailable. Allow camera access, or enter the round code manually.'}
+}
+async function openRoundChat(){
+  if(!s.sharedRoundId||!currentUser){alert('Join a round before opening its chat.');return}
+  unreadChatCount=0;document.querySelector('.chat-toast')?.remove();await loadRoundMessages();s.v='chatView';render();
+}
+async function loadRoundMessages(showError=true){
+  if(!s.sharedRoundId||!currentUser)return false;
+  let result=await db.from('round_messages').select('id,user_id,message,media_path,media_type,media_name,created_at').eq('round_id',s.sharedRoundId).order('created_at').limit(200);
+  if(result.error&&/media_(path|type|name)/i.test(result.error.message||'')){
+    chatMediaReady=false;
+    result=await db.from('round_messages').select('id,user_id,message,created_at').eq('round_id',s.sharedRoundId).order('created_at').limit(200);
+  }else chatMediaReady=!result.error;
+  if(result.error){if(showError)alert('Round chat could not be loaded. Make sure the Supabase chat upgrade has been installed.');return false}
+  chatMessages=result.data||[];
+  const paths=[...new Set(chatMessages.map(item=>item.media_path).filter(Boolean))];
+  if(paths.length){
+    const signed=await db.storage.from('round-chat-media').createSignedUrls(paths,3600);
+    if(!signed.error){const urls=new Map((signed.data||[]).map(item=>[item.path,item.signedUrl]));chatMessages=chatMessages.map(item=>({...item,media_url:urls.get(item.media_path)||''}))}
+  }
+  return true;
+}
+function chatPhotoMarkup(item){
+  if(!item.media_path)return'';
+  if(!item.media_url)return'<div class="chat-photo-unavailable">Photo unavailable</div>';
+  return`<button class="chat-photo-button" onclick="openChatPhoto('${esc(item.id)}')" aria-label="Open shared photo"><img src="${esc(item.media_url)}" alt="Photo shared in the round chat" loading="lazy"></button>`;
+}
+function chatView(){
+  const nameFor=userId=>{const saved=sharedPlayers.find(player=>player.user_id===userId)?.display_name;if(userId===currentUser?.id&&isGenericGolferName(saved))return signedInGolferFirstName()||saved||'Golfer';return saved||'Golfer'};
+  app.classList.add('chat-page');
+  app.innerHTML=`<div class="row"><button class="back" onclick="s.v='round';render()">← Round</button><button class="back" onclick="loadRoundMessages().then(()=>render())">Refresh</button></div><h1>Round Chat</h1><p class="muted">Only golfers in this round can see these messages and photos.</p><div class="chat-message-stage"><div class="chat-watermark" aria-hidden="true"><img src="agape-golf-logo.png" alt=""></div><section id="chatMessages" class="chat-messages">${chatMessages.length?chatMessages.map(item=>`<article class="chat-bubble ${item.user_id===currentUser.id?'mine':''}"><b>${esc(nameFor(item.user_id))}</b>${chatPhotoMarkup(item)}${item.message?`<p>${esc(item.message)}</p>`:''}<small>${new Date(item.created_at).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</small></article>`).join(''):'<div class="empty">No messages yet. Say hello to the group!</div>'}</section></div><form class="chat-compose" onsubmit="event.preventDefault();sendRoundMessage()"><label id="chatMediaButton" class="chat-media-button" aria-label="Take or choose a photo" title="Take or choose a photo">📷<input id="chatPhotoInput" type="file" accept="image/*" onchange="uploadChatPhoto(this.files[0]);this.value=''" ${chatMediaReady?'':'disabled'}></label><input id="chatInput" maxlength="500" autocomplete="off" placeholder="Message everyone" aria-label="Chat message"><button type="submit">Send</button></form>`;
+  setTimeout(()=>{const box=$('chatMessages');if(box)box.scrollTop=box.scrollHeight},0);
+}
+async function sendRoundMessage(){
+  const input=$('chatInput'),message=input?.value.trim();if(!message)return;
+  input.disabled=true;
+  const {error}=await db.from('round_messages').insert({round_id:s.sharedRoundId,user_id:currentUser.id,message});
+  if(error){input.disabled=false;alert('Message could not be sent: '+error.message);return}
+  input.value='';await loadRoundMessages(false);render();
+}
+async function resizeChatPhoto(file){
+  if(!file?.type.startsWith('image/'))throw new Error('Choose a photo from your camera or photo library.');
+  if(file.size>20*1024*1024)throw new Error('Choose a photo smaller than 20 MB.');
+  const source=await new Promise((resolve,reject)=>{const image=new Image(),url=URL.createObjectURL(file);image.onload=()=>{URL.revokeObjectURL(url);resolve(image)};image.onerror=()=>{URL.revokeObjectURL(url);reject(new Error('This photo format could not be opened. Try JPEG or PNG.'))};image.src=url});
+  const maxSide=1600,scale=Math.min(1,maxSide/Math.max(source.naturalWidth,source.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(source.naturalWidth*scale));canvas.height=Math.max(1,Math.round(source.naturalHeight*scale));canvas.getContext('2d').drawImage(source,0,0,canvas.width,canvas.height);
+  const blob=await new Promise((resolve,reject)=>canvas.toBlob(value=>value?resolve(value):reject(new Error('The photo could not be prepared.')),'image/jpeg',.78));
+  if(blob.size>3*1024*1024)throw new Error('This photo is still too large after compression. Choose a smaller image.');
+  return blob;
+}
+async function uploadChatPhoto(file){
+  if(!file)return;
+  if(!chatMediaReady){alert('Install the Chat Photos SQL update in Supabase first.');return}
+  const button=$('chatMediaButton'),input=$('chatInput'),caption=input?.value.trim()||null;if(button){button.classList.add('uploading');button.setAttribute('aria-label','Uploading photo')}
+  let path='';
+  try{
+    const blob=await resizeChatPhoto(file),id=globalThis.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(16).slice(2)}`;path=`${s.sharedRoundId}/${currentUser.id}/${id}.jpg`;
+    const upload=await db.storage.from('round-chat-media').upload(path,blob,{contentType:'image/jpeg',cacheControl:'86400',upsert:false});if(upload.error)throw upload.error;
+    const saved=await db.from('round_messages').insert({round_id:s.sharedRoundId,user_id:currentUser.id,message:caption,media_path:path,media_type:'image/jpeg',media_name:'round-photo.jpg'});
+    if(saved.error){await db.storage.from('round-chat-media').remove([path]);throw saved.error}
+    if(input)input.value='';await loadRoundMessages(false);render();
+  }catch(error){if(path)await db.storage.from('round-chat-media').remove([path]);alert('Photo could not be shared: '+(error.message||'Unknown error'));if(button){button.classList.remove('uploading');button.setAttribute('aria-label','Take or choose a photo')}}
+}
+function openChatPhoto(messageId){
+  const item=chatMessages.find(message=>message.id===messageId);if(!item?.media_url)return;
+  const overlay=document.createElement('div');overlay.className='chat-photo-viewer';overlay.innerHTML=`<div class="chat-photo-viewer-card"><button class="chat-photo-close" aria-label="Close photo">×</button><img src="${esc(item.media_url)}" alt="Shared round photo"><a href="${esc(item.media_url)}" target="_blank" rel="noopener" download="${esc(item.media_name||'round-photo.jpg')}">↓ Save or Download Photo</a><small>On iPhone, use Share → Save Image if it opens in a new window.</small></div>`;overlay.onclick=event=>{if(event.target===overlay||event.target.closest('.chat-photo-close'))overlay.remove()};document.body.appendChild(overlay);
+}
+async function deleteRoundChatMedia(roundId){
+  const result=await db.from('round_messages').select('media_path').eq('round_id',roundId).not('media_path','is',null);
+  if(result.error&&/media_path/i.test(result.error.message||''))return true;
+  if(result.error){alert('The round photos could not be checked, so nothing was deleted. Try again.');return false}
+  const paths=[...new Set((result.data||[]).map(item=>item.media_path).filter(Boolean))];
+  for(let i=0;i<paths.length;i+=1000){const removed=await db.storage.from('round-chat-media').remove(paths.slice(i,i+1000));if(removed.error){alert('The round photos could not be removed, so the round was kept to prevent orphaned files. Try again.');return false}}
+  return true;
+}
+function recap(){const host=s.createdBy===currentUser?.id;app.innerHTML=`<button class="back" onclick="s.v='round';render()">← Back to round</button><div class="row"><div><h1>${s.done?'Round Complete':'Live Scorecard'}</h1><p class="muted">${esc(s.course)} · ${s.holes} holes</p></div>${s.sharedRoundId?'<button class="locate" onclick="refreshSharedRound()">Refresh</button>':''}</div><div class="table-wrap"><table><thead><tr><th>Hole #</th>${s.pars.map((_,i)=>`<th>${i+1}</th>`).join('')}<th>Total</th><th>+/−</th></tr><tr class="par-row"><th>Par</th>${s.pars.map(x=>`<th>${x}</th>`).join('')}<th>${parTotal(s.holes)}</th><th>E</th></tr></thead><tbody>${s.players.map(x=>`<tr><td><b>${esc(x)}${isMyPlayer(x)?' (You)':''}</b></td>${s.pars.map((_,i)=>`<td>${s.scores[x]?.[i+1]||'–'}</td>`).join('')}<td>${total(x)||'–'}</td><td class="green">${total(x)?rel(total(x)-parTotal(s.holes)):'–'}</td></tr>`).join('')}</tbody></table></div><div class="scorecard-actions"><button class="primary" onclick="shareCurrentScorecard()">Share Scorecard</button>${host?'<button class="secondary" onclick="openRoundManagement()">Manage Round</button>':''}<button class="secondary" onclick="finishRound()">${s.done?'Return Home':'Leave Scorecard'}</button></div>`}
+function finishRound(){s.resumeView=null;s.v='home';render()}
+async function openRoundManagement(){if(!s.sharedRoundId)return;await loadSharedRound(false);s.v='roundManageView';render()}
+function roundManageView(){
+  const host=s.createdBy===currentUser?.id;
+  app.innerHTML=`<button class="back" onclick="s.v=${s.done?'\'recap\'':'\'round\''};render()">← ${s.done?'Scorecard':'Round'}</button><h1>Round Management</h1><p class="muted">${esc(s.course)} · Code ${esc(s.joinCode||'')}</p><div class="round-status-card"><span class="status-chip ${s.done?'complete':'progress'}">${s.done?'Round complete':'Round active'}</span><b>${s.players.length} ${s.players.length===1?'golfer':'golfers'}</b></div><h2 class="section-heading">Players</h2>${sharedPlayers.map(player=>{const count=Object.keys(s.scores[player.display_name]||{}).length,isHost=player.user_id===s.createdBy;return`<article class="manage-player"><div>${avatarMarkup(null,player.display_name,'manage-player-avatar')}<span><b>${esc(player.display_name)}${player.user_id===currentUser?.id?' (You)':''}</b><small>${isHost?'Round host':`${count} ${count===1?'score':'scores'} recorded`}</small></span></div>${host&&!isHost&&!count?`<button onclick="removeRoundPlayer('${esc(player.user_id)}','${encodeURIComponent(player.display_name)}')">Remove</button>`:host&&!isHost?'<i title="Scores protect this player from removal">🔒</i>':''}</article>`}).join('')}${host?`<div class="management-actions">${s.done?'<button class="primary" onclick="setRoundStatus(\'active\')">Reopen Round</button>':'<button class="primary danger-solid" onclick="setRoundStatus(\'complete\')">End Round</button>'}<div class="notice">A player can only be removed before recording a score. This protects the scorecard from being altered after play begins.</div></div>`:'<div class="notice">Only the golfer who created the round can end it or manage its players.</div>'}`;
+}
+async function setRoundStatus(status){
+  const action=status==='complete'?'end':'reopen';if(!confirm(`${action==='end'?'End':'Reopen'} this round for everyone?`))return;
+  const {error}=await db.rpc('manage_round_status',{p_round_id:s.sharedRoundId,p_status:status});if(error){alert('Round could not be updated: '+error.message);return}
+  s.done=status==='complete';await loadSharedRound(false);s.v='recap';render();
+}
+async function removeRoundPlayer(userId,encodedName){
+  const name=decodeURIComponent(encodedName);if(!confirm(`Remove ${name} from this round?`))return;
+  const {error}=await db.rpc('remove_round_player',{p_round_id:s.sharedRoundId,p_user_id:userId});if(error){alert('Player could not be removed: '+error.message);return}
+  await loadSharedRound(false);render();
+}
+function openCourses(returnView){if(returnView)coursesReturnView=returnView;s.v='coursesView';render()}
+function coursePreviewPoint(course){for(const green of course.greens||[]){const point=green?.center||green?.tee||green?.front||green?.back;if(point)return point}return null}
+function courseFavoritesKey(){return`atgCourseFavorites:${currentUser?.id||'guest'}`}
+function favoriteCourseIds(){try{return new Set(JSON.parse(localStorage.getItem(courseFavoritesKey())||'[]'))}catch{return new Set()}}
+function recentCourseIds(){try{return JSON.parse(localStorage.getItem(`atgRecentCourses:${currentUser?.id||'guest'}`)||'[]')}catch{return[]}}
+function rememberRecentCourse(id){const recent=[id,...recentCourseIds().filter(item=>item!==id)].slice(0,20);localStorage.setItem(`atgRecentCourses:${currentUser?.id||'guest'}`,JSON.stringify(recent))}
+function toggleCourseFavorite(id,event){event?.stopPropagation();const favorites=favoriteCourseIds();favorites.has(id)?favorites.delete(id):favorites.add(id);localStorage.setItem(courseFavoritesKey(),JSON.stringify([...favorites]));refreshCourseLibrary()}
+function courseDistanceMiles(course){const point=coursePreviewPoint(course)||course.catalog_point;return point&&courseLibraryLocation?distanceYards(courseLibraryLocation,point)/1760:null}
+function courseDifficulty(course){const distances=(course.greens||[]).map(mappedHoleDistance).filter(Number.isFinite);if(distances.length<Math.max(3,Math.ceil(course.holes*.5)))return'unknown';const average=distances.reduce((sum,value)=>sum+value,0)/distances.length;return average<310?'forward':average>390?'championship':'standard'}
+function courseMatchesFilters(course){
+  const filters=courseLibraryFilters,favorites=favoriteCourseIds(),recent=recentCourseIds(),distance=courseDistanceMiles(course),difficulty=courseDifficulty(course);
+  if(filters.nearby&&(distance===null||distance>25))return false;
+  if(filters.favorites&&!favorites.has(course.id))return false;
+  if(filters.recent&&!recent.includes(course.id))return false;
+  if(filters.holes&&course.holes!==filters.holes&&!(course.royaleFacility&&[9,18].includes(filters.holes)))return false;
+  if(filters.mapped&&mappedCount(course)!==course.holes)return false;
+  if(filters.par3&&(!(course.pars||[]).length||(course.pars||[]).some(par=>Number(par)!==3)))return false;
+  if(filters.difficulty&&difficulty!==filters.difficulty)return false;
+  return true;
+}
+function rankedSharedCourses(){
+  const favorites=favoriteCourseIds(),recent=recentCourseIds();
+  return courses.map((course,index)=>{const distance=courseDistanceMiles(course),recentIndex=recent.indexOf(course.id);let score=0;if(favorites.has(course.id))score+=100000;if(recentIndex>=0)score+=20000-recentIndex*100;if(distance!==null)score+=Math.max(0,10000-distance*100);score+=mappedCount(course)*8;return{course,index,distance,score}}).sort((a,b)=>b.score-a.score||a.course.name.localeCompare(b.course.name));
+}
+function activeCourseFilterCount(){return Object.entries(courseLibraryFilters).filter(([key,value])=>key==='holes'?Boolean(value):value===true||typeof value==='string').length}
+function filterSharedCourses(value){courseLibraryQuery=String(value||'').trim().toLowerCase();refreshCourseLibrary()}
+function refreshCourseLibrary(){
+  const grid=$('courseLibraryGrid');if(!grid)return;
+  for(const previewMap of coursePreviewMaps){try{previewMap.remove()}catch{}}coursePreviewMaps=[];
+  const query=courseLibraryQuery,filtered=rankedSharedCourses().filter(item=>{const haystack=[item.course.name,item.course.city,item.course.state,item.course.postal_code,item.course.address].filter(Boolean).join(' ').toLowerCase();return(!query||haystack.includes(query))&&courseMatchesFilters(item.course)});
+  const visible=query||activeCourseFilterCount()?filtered:filtered.slice(0,7);
+  grid.innerHTML=visible.map(item=>courseLibraryCard(item.course,item.index,item.distance)).join('');
+  const empty=$('courseLibraryEmpty');if(empty)empty.classList.toggle('hidden',visible.length>0);
+  const heading=$('courseResultsHeading');if(heading)heading.textContent=query||activeCourseFilterCount()?`${visible.length} Course${visible.length===1?'':'s'} Found`:'Recommended for You';
+  const count=$('courseFilterCount');if(count){count.textContent=activeCourseFilterCount()||'';count.classList.toggle('hidden',!activeCourseFilterCount())}
+  setTimeout(initCoursePreviews,0);
+}
+function courseLibraryCard(course,index,distance=null){const point=coursePreviewPoint(course),image=course.courseImage||'',favorite=favoriteCourseIds().has(course.id),difficulty=courseDifficulty(course),mapped=mappedCount(course),status=mapped?`${mapped} MAPPED${mapped===course.holes?'':' · PARTIAL'}`:course.catalogOnly?'APPROVED · GPS MAPPING PENDING':'0 MAPPED',mapPreview=!image&&point;return`<article class="course-library-card"><div class="course-preview course-start-target" role="button" tabindex="0" onclick="startCourseFromLibrary(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startCourseFromLibrary(${index})}">${image?`<img src="${esc(image)}" alt="${esc(course.name)} course overview" loading="lazy">`:mapPreview?`<div id="coursePreview${index}" class="course-preview-map" data-lat="${point.lat}" data-lng="${point.lng}" aria-label="Satellite preview of ${esc(course.name)}"></div>`:''}<div class="course-preview-placeholder"><span>⛳</span><small>${mapPreview?'Loading satellite preview':`${esc(course.city||'Southern California')} · ${esc(course.postal_code||'')}`}</small></div><button class="course-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${esc(course.id)}',event)" aria-label="${favorite?'Remove':'Add'} ${esc(course.name)} ${favorite?'from':'to'} favorites" aria-pressed="${favorite}">${favorite?'★':'☆'}</button>${mapPreview?'<a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener" onclick="event.stopPropagation()">© MapTiler</a>':''}</div><div class="course-card-info"><div><small>${course.holes} HOLES · ${status}${distance===null?'':` · ${distance<10?distance.toFixed(1):Math.round(distance)} MI`}</small><button class="course-name-start" onclick="startCourseFromLibrary(${index})">${esc(course.name)}</button><span>${course.course_type?`${esc(course.course_type)} · `:''}${difficulty==='unknown'?`Par ${course.par_total||'pending'}`:difficulty==='forward'?'Forward friendly':difficulty==='championship'?'Championship length':'Standard length'} · Tap to play</span></div>${adminRole?(course.catalogOnly?`<button onclick="mapCatalogCourse(${index})">Map</button>`:`<button onclick="editCourse(${index})">Edit</button>`):'<i>›</i>'}</div></article>`}
+function setCourseFilter(name,value){courseLibraryFilters[name]=courseLibraryFilters[name]===value?(name==='holes'||name==='difficulty'?null:false):value;renderCourseFilterSheet();refreshCourseLibrary()}
+function clearCourseFilters(){courseLibraryFilters={nearby:false,favorites:false,recent:false,holes:null,mapped:false,par3:false,difficulty:null};renderCourseFilterSheet();refreshCourseLibrary()}
+function closeCourseFilters(){document.querySelector('.course-filter-overlay')?.remove()}
+function filterChip(label,name,value=true){const on=courseLibraryFilters[name]===value;return`<button class="course-filter-chip ${on?'on':''}" onclick="setCourseFilter('${name}',${typeof value==='string'?`'${value}'`:value})" aria-pressed="${on}">${label}</button>`}
+function renderCourseFilterSheet(){
+  const sheet=document.querySelector('.course-filter-sheet');if(!sheet)return;
+  sheet.innerHTML=`<header><button onclick="closeCourseFilters()">Cancel</button><b>Filter Courses</b><span></span></header><div class="course-filter-body"><h3>Show First</h3><div class="course-filter-chips three">${filterChip('Near Me','nearby')}${filterChip('Favorites','favorites')}${filterChip('Recently Played','recent')}</div><h3>Course Format</h3><div class="course-filter-chips">${filterChip('9 Holes','holes',9)}${filterChip('18 Holes','holes',18)}${filterChip('Fully Mapped','mapped')}${filterChip('Par 3','par3')}</div><h3>Level of Difficulty</h3><div class="course-filter-chips three">${filterChip('Forward Friendly','difficulty','forward')}${filterChip('Standard','difficulty','standard')}${filterChip('Championship','difficulty','championship')}</div><section class="catalog-filters-pending"><h3>Additional Catalog Filters</h3><p>Public, private, resort, tournaments, leagues, ratings and course condition will appear after verified catalog data is added. They are not estimated.</p></section></div><footer><button onclick="clearCourseFilters()">Clear All</button><button onclick="closeCourseFilters()">Show Results</button></footer>`;
+}
+function showCourseFilters(){const overlay=document.createElement('div');overlay.className='course-filter-overlay';overlay.onclick=event=>{if(event.target===overlay)closeCourseFilters()};overlay.innerHTML='<section class="course-filter-sheet" role="dialog" aria-modal="true" aria-label="Filter courses"></section>';document.body.appendChild(overlay);renderCourseFilterSheet()}
+function requestCourseLibraryLocation(){if(!navigator.geolocation)return;navigator.geolocation.getCurrentPosition(position=>{courseLibraryLocation={lat:position.coords.latitude,lng:position.coords.longitude};refreshCourseLibrary()},()=>{}, {enableHighAccuracy:false,timeout:7000,maximumAge:300000})}
+async function startCourseFromLibrary(index){const course=courses[index];if(!course)return;const mapped=mappedCount(course);if(!confirm(`Would you like to start a new game at ${course.name}?${course.catalogOnly&&!mapped?'\n\nThis course is approved for scorecard play while GPS mapping continues.':''}`))return;rememberRecentCourse(course.id);await start();if(s.v!=='setup')return;if(course.royaleFacility){chooseCourse(course.id);return}if(!course.catalogOnly){chooseCourse(course.id);return}s.courseId=null;s.catalogCourseId=course.id;s.royaleRoute=null;s.course=course.name;s.holes=course.holes;s.pars=course.pars?.length===course.holes?[...course.pars]:Array(course.holes).fill(4);s.teeSet='black';s.teeDistanceMeters=course.tee_meters||null;s.v='pars';s.resumeView='pars';save();if(!mapped)alert(`${course.name} is ready for scorecard play. Live GPS guidance will appear as its holes are mapped.`);render()}
+function initCoursePreviews(){
+  const previews=[...document.querySelectorAll('.course-preview-map')];if(!previews.length||!window.L)return;
+  const initialize=node=>{if(node.dataset.ready)return;node.dataset.ready='1';const previewMap=L.map(node,{zoomControl:false,dragging:false,scrollWheelZoom:false,doubleClickZoom:false,boxZoom:false,keyboard:false,touchZoom:false,attributionControl:false}).setView([Number(node.dataset.lat),Number(node.dataset.lng)],15);if(MAPTILER_API_KEY)addSatelliteLayer(previewMap);else addStreetLayer(previewMap);coursePreviewMaps.push(previewMap)};
+  if(!('IntersectionObserver'in window)){previews.forEach(initialize);return}
+  const observer=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){initialize(entry.target);observer.unobserve(entry.target)}},{rootMargin:'180px'});previews.forEach(node=>observer.observe(node));
+}
+function coursesView(){const backView=coursesReturnView==='accountView'?'accountView':'home';app.innerHTML=`<button class="back" onclick="s.v='${backView}';render()">← ${backView==='accountView'?'Account':'Home'}</button><h1>${adminRole==='super_admin'?'Courses / Players':'Shared Courses'}</h1><p class="muted">Seven recommended courses are shown first. Search reveals the complete approved library.</p>${directoryTabs('courses')}${cloudError?`<div class="error-notice">${esc(cloudError)}</div>`:''}${courses.length?`<div class="course-discovery-tools"><label class="course-library-search"><span>⌕</span><input type="search" placeholder="Search courses" aria-label="Search shared courses" value="${esc(courseLibraryQuery)}" oninput="filterSharedCourses(this.value)"><button onclick="showCourseFilters()" aria-label="Filter courses"><i></i><b id="courseFilterCount" class="hidden"></b></button></label><button class="course-favorites-shortcut ${courseLibraryFilters.favorites?'on':''}" onclick="setCourseFilter('favorites',true)" aria-label="Show favorite courses">${courseLibraryFilters.favorites?'★':'☆'}</button></div><div class="course-results-heading"><b id="courseResultsHeading">Recommended for You</b><span>Maximum 7 until you search or filter</span></div><div id="courseLibraryEmpty" class="empty hidden">No courses match that search and filter combination.</div><section id="courseLibraryGrid" class="course-library-grid"></section>`:'<div class="empty">No shared courses have been mapped yet.</div>'}${adminRole?'<button class="primary" onclick="newCourse()">Map a New Course</button>':currentUser?'<div class="notice">Your account does not have course-manager permission.</div>':'<button class="secondary" onclick="signInAdmin()">Admin sign in</button>'}`;if(courses.length){refreshCourseLibrary();requestCourseLibraryLocation()}}
+function mappedCount(c){return(c?.greens||[]).filter(g=>(g.tee||g.tees?.black)&&g.front&&g.center&&g.back).length}
+function newCourse(){if(!adminRole){alert('Administrator sign-in required.');return}const name=prompt('Course name:');if(!name?.trim())return;const holes=confirm('Does this course have 18 holes?\nChoose Cancel for 9 holes.')?18:9;draft={id:crypto.randomUUID(),isNew:true,name:name.trim(),holes,pars:Array(holes).fill(4),greens:Array.from({length:holes},()=>({tee:null,aim1:null,aim2:null,front:null,center:null,back:null})),mapHole:1,target:'center'};s.v='mapCourse';render()}
+function mapCatalogCourse(i){if(!adminRole){alert('Administrator sign-in required.');return}const course=courses[i];if(!course?.catalogOnly)return;draft={id:crypto.randomUUID(),isNew:true,name:course.name,holes:course.holes,pars:course.pars?.length===course.holes?[...course.pars]:Array(course.holes).fill(4),greens:Array.from({length:course.holes},()=>({tee:null,aim1:null,aim2:null,front:null,center:null,back:null,_review:'candidate'})),mapHole:1,target:'tee',mapStyle:'satellite',mapView:course.catalog_point?{...course.catalog_point,zoom:17}:null,catalogSourceId:course.id};s.v='mapCourse';render()}
+function editCourse(i){if(!adminRole){alert('Administrator sign-in required.');return}draft=JSON.parse(JSON.stringify(courses[i]));draft.isNew=false;draft.mapHole=1;draft.target='center';if(draft.id===EAGLE_GLEN_COURSE_ID&&!draft.greens?.every(g=>g?.tees?.black)){draft.pars=[...EAGLE_GLEN_PARS];draft.greens=buildEagleGlenDraft();draft.intelligentDraft=true;draft.reviewedHoles=Array(18).fill(false);draft.mapStyle='satellite'}else if(REVIEW_TEE_OFFSETS[draft.id]&&!draft.greens?.every(g=>g?.tees?.black)){draft.greens=buildExistingCourseReviewDraft(draft,REVIEW_TEE_OFFSETS[draft.id]);draft.intelligentDraft=true;draft.reviewedHoles=Array(draft.holes).fill(false);draft.mapStyle='satellite'}s.v='mapCourse';render()}
+function markerName(key){return({tee:'Reference Tee',tee_black:'Black Tee',tee_blue:'Blue Tee',tee_white:'White Tee',tee_red:'Red Tee',aim1:'Aim 1',aim2:'Aim 2',front:'Front',center:'Center',back:'Back'})[key]||key}
+function markerPoint(green,key){return key.startsWith('tee_')?green.tees?.[key.slice(4)]||null:green[key]||null}
+function setMarkerPoint(green,key,point){if(key.startsWith('tee_')){green.tees??={};green.tees[key.slice(4)]=point;if(key==='tee_black')green.tee=point}else green[key]=point}
+function markerButtons(keys,green){return keys.map(key=>{const point=markerPoint(green,key);return`<button class="marker-tab ${draft.target===key?'on':''} ${point?'set':''}" onclick="draft.target='${key}';render()">${markerName(key)} ${point?'✓':''}</button>`}).join('')}
+function mapEditorMarkerEntries(green){const keys=green.tees?['aim1','aim2','front','center','back']:['tee','aim1','aim2','front','center','back'],entries=keys.map(key=>[key,green[key]]);for(const color of ['black','blue','white','red'])if(green.tees?.[color])entries.push([`tee_${color}`,green.tees[color]]);return entries.filter(([,point])=>point)}
+function mapCourse(){
+  if(!adminRole){s.v='coursesView';render();return}
+  const h=draft.mapHole,g=draft.greens[h-1],satelliteReady=Boolean(GOOGLE_MAPS_API_KEY),reviewed=(draft.reviewedHoles||[]).filter(Boolean).length;
+  g.aim1??=null;g.aim2??=null;draft.mapStyle=draft.mapStyle||'street';
+  const teeSets=g.tees?`<section><small>TEE-SET CANDIDATES</small><div class="marker-tabs four-tabs tee-set-tabs">${markerButtons(['tee_black','tee_blue','tee_white','tee_red'],g)}</div></section>`:'',routeKeys=g.tees?['aim1','aim2']:['tee','aim1','aim2'];
+  const reviewPanel=draft.intelligentDraft?`<section class="mapping-review-panel"><b>PROVISIONAL INTELLIGENT MAPPING</b><span>${reviewed} of ${draft.holes} holes visually reviewed · review is optional before play</span><button class="secondary" onclick="reviewDraftHole()">${draft.reviewedHoles?.[h-1]?'Hole Reviewed ✓':h<draft.holes?'Review Hole & Continue →':'Mark Hole Reviewed ✓'}</button><button class="primary" onclick="approveIntelligentCourseMapping()">Approve for Play & Publish</button></section>`:'';
+  app.innerHTML=`<button class="back" onclick="cancelMapping()">← Courses</button><h1>${esc(draft.name)}</h1>${draft.intelligentDraft?'<div class="notice mapping-draft-notice"><b>Review draft mapping:</b> Tee and pin coordinates come from published course-map data. Colored tee positions and green edges are intelligent estimates and must be visually confirmed.</div>':''}<div class="row map-toolbar"><button class="back" onclick="mapPrev()">←</button><b>Hole ${h} of ${draft.holes}</b><button class="back" onclick="mapNext()">→</button></div><div class="row"><span>Par</span><div class="stepper"><button onclick="draft.pars[${h-1}]=Math.max(3,draft.pars[${h-1}]-1);render()">−</button><span>${draft.pars[h-1]}</span><button onclick="draft.pars[${h-1}]=Math.min(6,draft.pars[${h-1}]+1);render()">+</button></div></div><p class="muted small">Select any marker below, then tap the satellite map to correct its position. Aim points are optional and should follow the normal playing route.</p><div class="marker-groups">${teeSets}<section><small>FAIRWAY ROUTE · AIM POINTS OPTIONAL</small><div class="marker-tabs three-tabs">${markerButtons(routeKeys,g)}</div></section><section><small>GREEN</small><div class="marker-tabs three-tabs">${markerButtons(['front','center','back'],g)}</div></section></div><form class="course-search" onsubmit="event.preventDefault();searchCourseAddress()"><label for="courseSearch">Find course by name or address</label><div class="search-row"><input id="courseSearch" autocomplete="street-address" placeholder="Sierra Lakes Golf Club or street address"><button id="courseSearchButton" type="submit">Search</button></div></form><div id="courseSearchResults" class="search-results"></div><div class="search-divider"><span>or</span></div><button class="secondary locate-map" onclick="centerOnMe()">Use My Location to Find Course</button><div class="map-layer-toggle"><button class="${draft.mapStyle==='street'?'on':''}" onclick="setMapStyle('street')">Street</button><button class="${draft.mapStyle==='satellite'?'on':''}" onclick="setMapStyle('satellite')" ${satelliteReady?'':'disabled'}>Satellite</button></div>${satelliteReady?'':'<div class="satellite-key-note">Google satellite mapping is not configured.</div>'}<div id="courseMap" aria-label="Course mapping map"></div><div id="mapMessage" class="notice">Tap the map to set ${markerName(draft.target)} for Hole ${h}.</div><div class="marker-clear-actions"><button class="secondary" onclick="clearMarker()">Clear ${markerName(draft.target)}</button><button class="secondary clear-all-markers" onclick="clearAllMarkers()">Clear All Markers · Hole ${h}</button></div>${reviewPanel}${draft.intelligentDraft?'':'<button id="saveCourseButton" class="primary" onclick="saveMappedCourse()">Save Shared Course</button>'}`;
+  setTimeout(initMap,0)
+}
+function setMapStyle(style){
+  if(style==='satellite'&&!GOOGLE_MAPS_API_KEY){alert('Google satellite mapping is not configured.');return}draft.mapStyle=style;
+  if(map?.provider==='google'){
+    map.raw.setMapTypeId(style==='satellite'?'satellite':'roadmap');document.querySelectorAll('.map-layer-toggle button').forEach(button=>button.classList.toggle('on',button.textContent.trim().toLowerCase()===(style==='satellite'?'satellite':'street')));return;
+  }
+  render();
+}
+function addStreetLayer(targetMap){return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'© OpenStreetMap'}).addTo(targetMap)}
+function addCourseMapLayer(targetMap,onFallback){
+  const layer=L.tileLayer(`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=${encodeURIComponent(MAPTILER_API_KEY)}`,{tileSize:256,maxZoom:22,crossOrigin:true,attribution:'© MapTiler · © OpenStreetMap'});let failures=0,fellBack=false;
+  layer.on('tileerror',()=>{if(fellBack||++failures<3)return;fellBack=true;targetMap.removeLayer(layer);addStreetLayer(targetMap);if(onFallback)onFallback()});return layer.addTo(targetMap)
+}
+function addSatelliteLayer(targetMap,onFallback){
+  const layer=L.tileLayer(`https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}@2x.jpg?key=${encodeURIComponent(MAPTILER_API_KEY)}`,{tileSize:256,maxZoom:22,crossOrigin:true,attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a>'});let failures=0,fellBack=false;
+  layer.on('tileerror',()=>{if(fellBack||++failures<3)return;fellBack=true;targetMap.removeLayer(layer);addStreetLayer(targetMap);if(onFallback)onFallback()});return layer.addTo(targetMap);
+}
+function initMapLeaflet(){
+  const g=draft.greens[draft.mapHole-1],existing=markerPoint(g,draft.target),any=g.center||g.aim1||g.aim2||g.tee||g.front||g.back,view=draft.mapView?[draft.mapView.lat,draft.mapView.lng]:(existing||any||[34.1,-117.3]),zoom=draft.mapView?.zoom??(existing||any?18:10);map=L.map('courseMap').setView(view,zoom);
+  if(draft.mapStyle==='satellite'&&MAPTILER_API_KEY)addSatelliteLayer(map,()=>{const message=$('mapMessage');if(message)message.textContent='Satellite imagery is unavailable. Street mapping has been restored.'});
+  else addStreetLayer(map);
+  const colors={tee:'#d8a93e',tee_black:'#111',tee_blue:'#2571d9',tee_white:'#f5f5f5',tee_red:'#d93636',aim1:'#c68b2c',aim2:'#9b6c22',front:'#f4a340',center:'#176b45',back:'#174f9c'},route=holeRoute(g);if(route.length>1)L.polyline(route.map(point=>[point.lat,point.lng]),{color:'#d29f31',weight:4,opacity:.9,dashArray:'8 6'}).addTo(map);mapEditorMarkerEntries(g).forEach(([k,p])=>L.circleMarker(p,{radius:k.startsWith('tee_')?7:8,color:colors[k]||'#174f9c',fillOpacity:.92,weight:k==='tee_white'?3:2}).addTo(map).bindTooltip(markerName(k)));map.on('click',e=>{setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:e.latlng.lat,lng:e.latlng.lng});render()});
+}
+async function initMap(){
+  const container=$('courseMap');if(!container||!draft)return;
+  try{
+    await loadGoogleMaps();if($('courseMap')!==container||!draft)return;
+    const g=draft.greens[draft.mapHole-1],existing=markerPoint(g,draft.target),any=g.center||g.aim1||g.aim2||g.tee||g.front||g.back,view=draft.mapView||existing||any||{lat:34.1,lng:-117.3},zoom=draft.mapView?.zoom??(existing||any?18:10);
+    const rawMap=new google.maps.Map(container,{center:googlePoint(view),zoom,mapId:GOOGLE_MAP_ID,mapTypeId:draft.mapStyle==='satellite'?'satellite':'roadmap',mapTypeControl:false,streetViewControl:false,fullscreenControl:false,gestureHandling:'greedy',clickableIcons:false,headingInteractionEnabled:true,tiltInteractionEnabled:true});map=googleMapFacade(rawMap,container);
+    const colors={tee:'#d8a93e',tee_black:'#111',tee_blue:'#2571d9',tee_white:'#f5f5f5',tee_red:'#d93636',aim1:'#c68b2c',aim2:'#9b6c22',front:'#f4a340',center:'#176b45',back:'#174f9c'},route=holeRoute(g);if(route.length>1)new google.maps.Polyline({map:rawMap,path:route.map(googlePoint),strokeColor:'#d29f31',strokeWeight:4,strokeOpacity:.9});
+    for(const [key,point] of mapEditorMarkerEntries(g))new google.maps.Marker({map:rawMap,position:googlePoint(point),title:markerName(key),icon:{path:google.maps.SymbolPath.CIRCLE,scale:key.startsWith('tee_')?7:8,fillColor:colors[key]||'#174f9c',fillOpacity:.95,strokeColor:key==='tee_white'?'#222':'#fff',strokeWeight:2}});
+    rawMap.addListener('click',event=>{const point=event.latLng;if(!point)return;setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:point.lat(),lng:point.lng()});render()});
+  }catch(error){console.warn('Google course map unavailable; using fallback.',error);if($('courseMap')===container)initMapLeaflet()}
+}
+function centerOnMe(){if(!navigator.geolocation){$('mapMessage').textContent='GPS is not supported.';return}$('mapMessage').textContent='Finding your location…';navigator.geolocation.getCurrentPosition(p=>map.setView([p.coords.latitude,p.coords.longitude],18),()=>{$('mapMessage').textContent='Location unavailable. Pan and zoom the map manually.'},{enableHighAccuracy:true,timeout:15000})}
+async function searchCourseAddress(){
+  const input=$('courseSearch'),button=$('courseSearchButton'),box=$('courseSearchResults'),query=input?.value.trim();
+  if(!query||query.length<3){box.innerHTML='<div class="search-error">Enter a course name or full address.</div>';return}
+  const cache=JSON.parse(localStorage.atgGeocodeCache||'{}'),key=query.toLowerCase();
+  if(cache[key]){showCourseSearchResults(cache[key]);return}
+  if(Date.now()-lastCourseSearch<1100){box.innerHTML='<div class="search-error">Please wait a moment before searching again.</div>';return}
+  lastCourseSearch=Date.now();button.disabled=true;button.textContent='Searching…';box.innerHTML='';
+  try{
+    const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q='+encodeURIComponent(query);
+    const response=await fetch(url,{headers:{Accept:'application/json'}});
+    if(!response.ok)throw new Error('Search unavailable');
+    const results=(await response.json()).map(x=>({lat:Number(x.lat),lon:Number(x.lon),name:x.display_name}));
+    cache[key]=results;localStorage.atgGeocodeCache=JSON.stringify(cache);showCourseSearchResults(results);
+  }catch(error){box.innerHTML='<div class="search-error">Location search is temporarily unavailable. You can still use your location or move the map manually.</div>'}
+  finally{button.disabled=false;button.textContent='Search'}
+}
+function showCourseSearchResults(results){courseSearchResults=results;const box=$('courseSearchResults');box.innerHTML=results.length?results.map((r,i)=>`<button type="button" onclick="chooseCourseSearchResult(${i})"><b>${esc(r.name.split(',')[0])}</b><span>${esc(r.name)}</span></button>`).join(''):'<div class="search-error">No matching location found. Try the complete street address.</div>'}
+function chooseCourseSearchResult(i){const result=courseSearchResults[i];if(!result||!map)return;map.setView([result.lat,result.lon],17);draft.mapView={lat:result.lat,lng:result.lon,zoom:17};$('courseSearchResults').innerHTML='';$('mapMessage').textContent='Course found. Zoom in, choose a marker, and tap the green.'}
+function clearMarker(){setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,null);render()}
+function clearAllMarkers(){
+  const hole=draft.mapHole,markers=draft.greens[hole-1];
+  if(!markers.tee&&!markers.aim1&&!markers.aim2&&!markers.front&&!markers.center&&!markers.back){alert(`Hole ${hole} has no markers to clear.`);return}
+  if(!confirm(`Clear every route and green marker for Hole ${hole}?`))return;
+  draft.greens[hole-1]={tee:null,tees:null,aim1:null,aim2:null,front:null,center:null,back:null,_review:'candidate'};render();
+}
+function mapPrev(){if(draft.mapHole>1){draft.mapHole--;draft.skipMapViewSave=true;render()}}
+function mapNext(){if(draft.mapHole<draft.holes){draft.mapHole++;draft.skipMapViewSave=true;render()}}
+function reviewDraftHole(){if(!draft?.intelligentDraft)return;draft.reviewedHoles??=Array(draft.holes).fill(false);draft.reviewedHoles[draft.mapHole-1]=true;if(draft.mapHole<draft.holes){draft.mapHole++;draft.skipMapViewSave=true}render()}
+async function approveIntelligentCourseMapping(){
+  if(!draft?.intelligentDraft)return;
+  const reviewed=(draft.reviewedHoles||[]).filter(Boolean).length;
+  if(!confirm(`Approve ${draft.name} for play now?\n\n${reviewed} of ${draft.holes} holes have been visually reviewed. Unreviewed coordinates will remain marked provisional for the pre-round check.`))return;
+  draft.greens.forEach((green,index)=>green._review=draft.reviewedHoles?.[index]?'approved':'provisional');draft.intelligentDraft=false;await saveMappedCourse();
+}
+function cancelMapping(){draft=null;s.v='coursesView';render()}
+async function saveMappedCourse(){
+  if(!adminRole||!currentUser){alert('Administrator sign-in required.');return}
+  const button=$('saveCourseButton');if(button){button.disabled=true;button.textContent='Saving…'}
+  const payload={id:draft.id,name:draft.name,holes:draft.holes,pars:draft.pars,greens:draft.greens,updated_by:currentUser.id,updated_at:new Date().toISOString()};
+  let result;
+  if(draft.isNew)result=await db.from('courses').insert({...payload,created_by:currentUser.id});
+  else result=await db.from('courses').update(payload).eq('id',draft.id);
+  if(result.error){alert('Course could not be saved: '+result.error.message);if(button){button.disabled=false;button.textContent='Save Shared Course'}return}
+  await loadCourses();draft=null;s.v='coursesView';render();
+}
+db.auth.onAuthStateChange((event,session)=>{
+  if(event==='PASSWORD_RECOVERY'){
+    recoveryMode=true;currentUser=session?.user||null;
+    setTimeout(()=>changePassword(),250);
+  }
 });
-
-refreshSession();
+window.addEventListener('online',async()=>{await Promise.all([syncPendingScores(),syncPendingHoleStats()]);await loadCourses();if(s.sharedRoundId)await loadSharedRound(false);render()});
+window.addEventListener('offline',updateSyncIndicator);
+if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+initializeCloud();

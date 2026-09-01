@@ -3,82 +3,76 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#0c5b43">
+  <meta name="theme-color" content="#f7faf8">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="ParFolio">
-  <meta name="description" content="ParFolio — Your Game. Your Score. Your Story.">
   <title>ParFolio — Your Game. Your Score. Your Story.</title>
   <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" type="image/png" href="parfolio-app-icon.png">
-  <link rel="apple-touch-icon" href="parfolio-app-icon.png">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="parfolio-app-icon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="parfolio-app-icon.png">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="styles.css?v=148">
+  <link rel="stylesheet" href="menu-v107.css?v=148">
+  <link rel="stylesheet" href="play-v108.css?v=148">
+  <link rel="stylesheet" href="royale-v111.css?v=148">
+  <link rel="stylesheet" href="editor-desktop-v116.css?v=148">
+  <link rel="stylesheet" href="editor-provider-v117.css?v=148">
+  <link rel="stylesheet" href="editor-actions-v120.css?v=148">
+  <link rel="stylesheet" href="editor-actions-v121.css?v=148">
+  <link rel="stylesheet" href="royale-loop-editor-v121.css?v=148">
+  <link rel="stylesheet" href="editor-readiness-v125.css?v=148">
+  <link rel="stylesheet" href="editor-osm-import-v126.css?v=148">
+  <link rel="stylesheet" href="editor-opengolf-import-v127.css?v=148">
+  <link rel="stylesheet" href="editor-open-data-combined-v128.css?v=148">
+  <link rel="stylesheet" href="hole-flyover-v129.css?v=148">
+  <link rel="stylesheet" href="editor-open-contribute-v134.css?v=148">
+  <link rel="stylesheet" href="editor-route-yardages-v135.css?v=148">
+  <link rel="stylesheet" href="course-location-v136.css?v=148">
+  <link rel="stylesheet" href="editor-edited-holes-v138.css?v=148">
+  <link rel="stylesheet" href="history-select-delete-v141.css?v=148">
+  <link rel="stylesheet" href="editor-marker-buttons-v144.css?v=148">
+  <link rel="stylesheet" href="course-corrections-v147.css?v=148">
+  <link rel="stylesheet" href="course-location-search-v148.css?v=148">
 </head>
 <body>
-  <div class="app-shell">
-    <header class="topbar">
-      <button class="profile-button" id="profileButton" aria-label="My profile">PF</button>
-      <button class="brand-mini brand-home" id="brandHome" aria-label="ParFolio home"><div class="pf-mark" aria-hidden="true">PF</div><span>ParFolio</span></button>
-      <button class="icon-button" id="menuButton" aria-label="Open menu"><span></span><span></span><span></span></button>
-    </header>
-
-    <main>
-      <section class="hero">
-        <div class="hero-crest" aria-hidden="true">
-          <svg viewBox="0 0 220 250" role="img" aria-label="ParFolio crest">
-            <defs><linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#d7b66d"/><stop offset="0.5" stop-color="#f2dfab"/><stop offset="1" stop-color="#b88a35"/></linearGradient></defs>
-            <path d="M110 8 198 55v101c0 42-31 68-88 88-57-20-88-46-88-88V55Z" fill="#073e31" stroke="url(#gold)" stroke-width="9"/>
-            <path d="M110 22 185 62v91c0 33-24 54-75 73-51-19-75-40-75-73V62Z" fill="none" stroke="#f0d891" stroke-width="3" opacity=".95"/>
-            <path d="M49 104c34-22 83-30 121-8-20 7-39 17-56 33-20 18-40 33-73 38" fill="none" stroke="#8fa85c" stroke-width="12" stroke-linecap="round" opacity=".55"/>
-            <circle cx="67" cy="78" r="25" fill="none" stroke="#f2dfab" stroke-width="3" stroke-dasharray="2 7"/>
-            <path d="M139 47v43m0-40c16 1 23 6 33 10-9 6-18 9-33 8" stroke="#f2dfab" stroke-width="4" fill="none" stroke-linecap="round"/>
-            <text x="110" y="164" text-anchor="middle" font-family="Georgia,serif" font-size="90" font-weight="700" fill="url(#gold)" letter-spacing="-18">PF</text>
-          </svg>
-        </div>
-        <p class="eyebrow">PLAY · CONNECT · IMPROVE</p>
-        <h1>ParFolio</h1>
-        <p class="tagline">Your Game. Your Score. Your Story.</p>
-        <p class="hero-copy">Everything you need for the round, without the clutter.</p>
-      </section>
-
-      <section class="primary-actions" aria-label="Round actions">
-        <button class="action action-primary" data-action="start">Start a Round</button>
-        <button class="action action-secondary" data-action="join">Join a Round</button>
-        <button class="action action-ghost" data-action="resume">Resume Round</button>
-      </section>
-
-      <section class="quick-grid" aria-label="ParFolio features">
-        <button class="quick-card" data-screen="courses"><span class="quick-icon">⌖</span><strong>Courses</strong><small>Find mapped courses</small></button>
-        <button class="quick-card" data-screen="history"><span class="quick-icon">▦</span><strong>Previous Rounds</strong><small>Your golf history</small></button>
-        <button class="quick-card" data-screen="clubs"><span class="quick-icon">⛳</span><strong>My Clubs</strong><small>Personal carry distances</small></button>
-        <button class="quick-card" data-screen="profile"><span class="quick-icon">◎</span><strong>My Profile</strong><small>Account & preferences</small></button>
-      </section>
-
-      <section class="feature-strip">
-        <div><strong>Live GPS</strong><span>Know what’s ahead.</span></div>
-        <div><strong>Smart Shot Planning</strong><span>Plan the next shot.</span></div>
-        <div><strong>Shared Rounds</strong><span>Play together, live.</span></div>
-      </section>
-    </main>
-
-    <aside class="drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-head"><div class="brand-mini"><div class="pf-mark">PF</div><span>ParFolio</span></div><button class="close-button" id="closeMenu" aria-label="Close menu">×</button></div>
-      <nav>
-        <button data-screen="home">Home</button><button data-screen="courses">Courses</button><button data-screen="new-round">Start New Round</button><button data-screen="join-round">Join a Round</button><button data-screen="history">Previous Rounds</button><button data-screen="clubs">My Clubs</button><button data-screen="profile">My Account</button><button data-screen="guide">App Guide</button><button data-screen="about">About ParFolio</button>
-      </nav>
-      <p class="drawer-version">ParFolio Beta</p>
-    </aside>
-    <div class="scrim" id="scrim"></div>
-
-    <dialog id="contentDialog"><button class="dialog-close" id="dialogClose" aria-label="Close">×</button><div id="dialogContent"></div></dialog>
-  </div>
+  <main id="app"></main>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-  <script src="app.js"></script>
-  <script src="founder.js"></script>
-  <script src="clubs.js"></script>
-  <script src="courses.js"></script>
-  <script src="maps-config.js"></script>
-  <script src="rounds.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+  <script src="guide-i18n.js?v=148"></script>
+  <script src="app.js?v=148"></script>
+  <script src="shared-course-library-v145.js?v=148"></script>
+  <script src="shared-osm-draft-v146.js?v=148"></script>
+  <script src="mapping-reference-v110.js?v=148"></script>
+  <script src="royale-remap-v112.js?v=148"></script>
+  <script src="course-editor-v114.js?v=148"></script>
+  <script src="menu-v107.js?v=148"></script>
+  <script src="play-v108.js?v=148"></script>
+  <script src="play-camera-v137.js?v=148"></script>
+  <script src="royale-v111.js?v=148"></script>
+  <script src="editor-desktop-v116.js?v=148"></script>
+  <script src="editor-provider-v117.js?v=148"></script>
+  <script src="editor-continuity-v118.js?v=148"></script>
+  <script src="editor-markers-v119.js?v=148"></script>
+  <script src="editor-actions-v120.js?v=148"></script>
+  <script src="editor-actions-v121.js?v=148"></script>
+  <script src="royale-loop-editor-v121.js?v=148"></script>
+  <script src="royale-save-verify-v123.js?v=148"></script>
+  <script src="editor-autosave-v124.js?v=148"></script>
+  <script src="editor-readiness-v125.js?v=148"></script>
+  <script src="editor-osm-import-v126.js?v=148"></script>
+  <script src="editor-opengolf-import-v127.js?v=148"></script>
+  <script src="editor-open-data-combined-v128.js?v=148"></script>
+  <script src="hole-flyover-v129.js?v=148"></script>
+  <script src="editor-open-contribute-v134.js?v=148"></script>
+  <script src="editor-route-yardages-v135.js?v=148"></script>
+  <script src="course-location-v136.js?v=148"></script>
+  <script src="editor-edited-holes-v138.js?v=148"></script>
+  <script src="history-select-delete-v141.js?v=148"></script>
+  <script src="editor-marker-buttons-v144.js?v=148"></script>
+  <script src="course-corrections-v147.js?v=148"></script>
+  <script src="course-location-search-v148.js?v=148"></script>
 </body>
 </html>

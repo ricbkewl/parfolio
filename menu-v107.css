@@ -1,0 +1,28 @@
+/* Version 107: lighter menu typography and clearer round actions */
+.app-side-menu>button{
+  font-weight:600;
+}
+.app-side-menu small{
+  font-weight:450;
+}
+.menu-about-logo small{
+  font-weight:650!important;
+}
+.app-menu-round-tools button,
+.app-side-menu>.menu-start-round,
+.app-side-menu>.menu-finish-round,
+.app-side-menu>.menu-previous-matches{
+  font-weight:600;
+}
+.app-side-menu>.menu-finish-round{
+  margin:3px 0 1px;
+  border:1px solid rgba(224,189,102,.32);
+  background:rgba(255,255,255,.055);
+  color:#fff;
+}
+.app-side-menu>.menu-finish-round>span{
+  color:#e0bd66;
+}
+.app-side-menu>.menu-previous-matches{
+  min-height:44px;
+}

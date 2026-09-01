@@ -1,0 +1,5 @@
+/* Version 121: selected marker clear joins grouped hole/course actions. */
+.course-editor-action-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}
+.course-editor-action-buttons .clear-selected-marker{border:1px solid #d7b56a!important;background:#fff7df!important;color:#7a5a16!important}
+@media(max-width:900px){.course-editor-action-buttons{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.course-editor-action-buttons{grid-template-columns:1fr}}

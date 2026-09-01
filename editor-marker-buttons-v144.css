@@ -1,0 +1,19 @@
+/* Version 144: mapping controls mirror marker colors on the map. */
+.marker-tabs .marker-tab{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;min-height:44px;border-width:2px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);transition:transform .08s ease,box-shadow .12s ease,filter .12s ease}
+.marker-tabs .marker-tab:active{transform:scale(.98)}
+.marker-tabs .marker-tab.on{border-color:#fff;box-shadow:0 0 0 3px rgba(23,107,69,.42),inset 0 0 0 1px rgba(255,255,255,.42);filter:brightness(1.07)}
+.marker-tabs .marker-tab.set{background-image:linear-gradient(rgba(255,255,255,.05),rgba(0,0,0,.04))}
+.marker-button-dot{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 0 2px rgba(255,255,255,.55);opacity:.95;flex:0 0 auto}
+.marker-button-check{font-size:13px;line-height:1;margin-left:1px}
+.marker-color-tee{background:#d8a93e;border-color:#b38420;color:#17231d;text-shadow:none}
+.marker-color-tee_black{background:#111;border-color:#000}
+.marker-color-tee_blue{background:#2571d9;border-color:#1756aa}
+.marker-color-tee_white{background:#f5f5f5;border-color:#7c8580;color:#17231d;text-shadow:none;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.marker-color-tee_red{background:#d93636;border-color:#a92525}
+.marker-color-aim1{background:#c68b2c;border-color:#95671f}
+.marker-color-aim2{background:#9b6c22;border-color:#704d17}
+.marker-color-front{background:#f4a340;border-color:#c97d1e;color:#17231d;text-shadow:none}
+.marker-color-center{background:#176b45;border-color:#0e4a2f}
+.marker-color-back{background:#174f9c;border-color:#10376c}
+.marker-color-tee .marker-button-dot,.marker-color-tee_white .marker-button-dot,.marker-color-front .marker-button-dot{background:#17231d;box-shadow:0 0 0 2px rgba(255,255,255,.5)}
+.marker-color-tee_white.on{border-color:#222;box-shadow:0 0 0 3px rgba(23,107,69,.42),inset 0 0 0 1px rgba(0,0,0,.12)}

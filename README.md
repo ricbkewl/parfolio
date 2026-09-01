@@ -1,36 +1,95 @@
 # ParFolio
 
-**Your Game. Your Score. Your Story.**
+![Rick Kulon, app creator](rick-kulon-profile.jpg)
 
-ParFolio is a separate public golf-app beta with a premium emerald green, champagne gold and ivory visual system.
+A mobile-first fellowship golf companion created by Rick Kulon, featuring shared course mapping, live GPS yardages, protected individual scoring, group scorecards and private round chat.
 
-## Current milestone
+## Quick Start
 
-This repository currently contains the isolated ParFolio design foundation: app shell, navigation, wording, About section and App Guide shell.
+1. Create a golfer account with your name, email and phone number.
+2. Open the verification email and confirm the account before signing in.
+3. One golfer creates a round and shares its six-character code or QR.
+4. Other golfers join on their own phones.
+5. Each golfer enters only their own score.
+6. Open **Live Scorecard** to follow the group.
 
-## Isolation rule
+## Current Features
 
-ParFolio must not use or expose Agape Tumoutou Golfers private users, rounds, chats, tester data, credentials, secrets or storage. ATG may be used only as a functional reference. Shared golf-course information is consumed through the neutral shared course library under controlled, versioned rules.
+- Protected 9- and 18-hole group scoring
+- Personal score entry defaulted to each hole's par
+- Live full-group scorecards and previous-match history
+- Branded shareable scorecard images with the Agape crest and a copyable text summary
+- Six-character round codes, share links and QR joining
+- In-app QR camera scanner
+- Private round chat with unread alerts, a fixed composer and a stationary Agape crest watermark
+- Front, center and back green GPS yardages
+- Compact in-round GPS, club, yardage and weather panel
+- Taller active-hole map with a compact icon-free Suggested Club panel
+- Translucent previous/next-hole arrows on the middle edges of the live map
+- Full-screen active-round map with a dedicated scoring, chat, scorecard and overflow control dock
+- Centered course title and a scorecard control attached to personal scoring
+- Pinch, double-tap and plus/minus zoom controls on the live hole map
+- Default drag-to-aim shot planner with segment-side yards-to-hit and route-aware yards-to-go labels
+- Slim floating in-round score and navigation dock that leaves the map visible through the iPhone safe area
+- Automatic Aim 1/Aim 2 progression with a calculated mid-hole fallback when no aim point was mapped
+- Tee-aware recommendations that stop suggesting Driver after the golfer moves up the hole
+- My Clubs completion reminder for signed-in golfers
+- Searchable shared-course library with mapped satellite previews
+- Direction-corrected dragging on forward-facing hole maps
+- Compact center-only yardage display and map-based wind information
+- Larger personal scoring and Live Scorecard controls
+- Optional Aim 1 and Aim 2 markers for single and double dogleg holes
+- Segmented fairway-route arrows, route-distance totals and next-target club guidance
+- Live Map/Satellite switching during a round
+- iPhone Dynamic Island safe-area spacing
+- Current course temperature and condition icon in Suggested Club
+- Live temperature, conditions and wind effect for the current green
+- Personal club carry profiles with a prominent Suggested Club display
+- GPS accuracy and off-course recommendation safeguards
+- Shared course maps with course-name and address search
+- Administrator-only course mapping and editing
+- Street and MapTiler satellite course-mapping controls
+- Always-visible forward-facing hole maps rotated from tee toward green
+- Measured tee-to-center hole distance and course-based relative wind arrows
+- Golfer profile-completion reminders
+- Personal match-history removal and host-only permanent round deletion
+- Secure host controls to end or reopen a round and remove scoreless accidental joins
+- Super-admin management of course administrators
+- Private Super Admin player directory listing name, email and phone
+- Required first name, last name, email and phone during signup
+- Email verification instructions and editable golfer profiles
+- Uploadable profile-picture icons on Account, Profile and the private Players directory
+- Remembered golfer sessions and password recovery
+- Active-round recovery from Home and dedicated Round navigation
+- Offline score queue with synchronization after reconnecting
+- Custom iPhone and Android Home Screen icons
+- Cleaner Suggested Club panel with compact top weather and bottom GPS refresh
+- Streamlined welcome page with account-only match and course management
+- Shorter, higher-contrast App Guide tips and feature summary
+- Automatic editable first-name entry when starting a round
+- Additional iPhone Home Screen safe-area spacing above the logo
 
-The live-round screen follows that boundary: course pars and tee/aim/green geometry come from the read-only `shared_course_payload` contract, while authentication, rounds and golfer-owned scores remain in ParFolio's independent Supabase project. The Google Maps key is a browser key restricted by website and API in Google Cloud; no server or unrestricted credentials belong in client files.
+## Contact and Suggestions
 
-## Planned core features
+Suggestions for improving the app are welcome.
 
-- GPS and live yardage
-- Google Maps satellite/map play view
-- Course search and mapping
-- Protected scoring
-- Shared rounds and QR joining
-- Live group scorecards
-- Private round chat
-- My Clubs and Suggested Club guidance
-- Profiles and Previous Rounds
-- Weather and wind
-- Golfer-assisted course correction suggestions
+- Email: [ricbkewl@gmail.com](mailto:ricbkewl@gmail.com)
+- Text: [607.438.3208](sms:+16074383208)
 
-## Brand
+**Last updated:** August 28, 2026
 
-- Primary: Emerald green
-- Accent: Champagne gold
-- Background: Ivory
-- Identity: Interlocking PF golf crest
+## Deployment Notes
+
+Upload the app files to the repository root and publish the `main` branch from `/(root)` in GitHub Pages settings.
+
+Before deploying the required golfer-profile signup, run `supabase-golfer-profiles.sql` in the Supabase SQL Editor. Under **Authentication → URL Configuration**, set the Site URL to `https://ricbkewl.github.io/fairway-simple/` and include the same address in Redirect URLs so verification links return to the app.
+
+Before deploying round-management controls, run `supabase-round-management.sql`. Satellite mapping requires a protected MapTiler API key in `MAPTILER_API_KEY` near the top of `app.js`; without it, street mapping continues to work and the Satellite button remains disabled.
+
+Before enabling match removal and permanent host deletion, run `supabase-history-controls.sql` once in the Supabase SQL Editor.
+
+The forward-facing hole map requires a Tee marker and center-green marker for each hole. Existing green data remains unchanged; administrators only need to revisit a course and add its Tee markers.
+
+Location access requires HTTPS and user permission. Mapped courses, accounts, scores and chat messages are stored through Supabase security policies. Run each supplied Supabase SQL upgrade only when its corresponding feature has not already been installed.
+
+Profile pictures are resized in the browser to a 512×512 JPEG and stored in the public `golfer-avatars` bucket. Only the signed-in account owner can upload or replace the file, but anyone with its public image URL can view it.

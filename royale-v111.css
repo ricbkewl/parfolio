@@ -1,0 +1,108 @@
+/* Version 115: Royale Jakarta safe scorecard-only play mode.
+   Keep the temporary remap screen inside the exact visible viewport and preserve all controls. */
+.royale-scorecard-play{
+  overflow:hidden!important;
+  background:#071f18!important;
+  width:100vw!important;
+  max-width:100vw!important;
+  margin:0!important;
+}
+.royale-safe-round{
+  position:fixed;
+  inset:0;
+  box-sizing:border-box;
+  width:100vw;
+  max-width:100vw;
+  height:100dvh;
+  min-height:100dvh;
+  margin:0;
+  overflow:hidden;
+  background:radial-gradient(circle at 50% 20%,rgba(213,175,83,.16),transparent 34%),linear-gradient(155deg,#123f2b 0%,#0a2b20 62%,#071f18 100%);
+  color:#fff;
+}
+
+/* Header always fits the physical viewport. */
+.royale-safe-round .round-map-summary{
+  position:absolute;
+  z-index:2100;
+  top:max(28px,calc(env(safe-area-inset-top) + 27px));
+  left:max(8px,env(safe-area-inset-left));
+  right:max(8px,env(safe-area-inset-right));
+  box-sizing:border-box;
+  width:auto!important;
+  max-width:none!important;
+  margin:0!important;
+  overflow:hidden;
+  pointer-events:auto;
+}
+.royale-safe-round .round-map-summary{
+  grid-template-columns:.5fr .9fr .48fr 1.18fr .56fr!important;
+}
+.royale-safe-round .round-map-summary>div{min-width:0!important;padding:5px 2px!important}
+.royale-safe-round .round-map-summary small{font-size:7px!important;letter-spacing:.035em!important}
+.royale-safe-round .round-map-summary b{font-size:23px!important}
+.royale-safe-round .round-map-summary i{font-size:7px!important}
+
+.royale-safe-round .round-course-name-strip{
+  position:absolute;
+  z-index:2050;
+  top:max(98px,calc(env(safe-area-inset-top) + 97px));
+  left:max(8px,env(safe-area-inset-left));
+  right:max(8px,env(safe-area-inset-right));
+  box-sizing:border-box;
+  width:auto!important;
+  max-width:none!important;
+  margin:0!important;
+  overflow:hidden;
+  text-align:center;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Make the hamburger independent of any text overflow inside the summary. */
+.royale-safe-round .round-menu-summary,
+.royale-safe-round .round-menu-summary button{
+  position:relative;
+  z-index:2300;
+  min-width:0;
+  pointer-events:auto;
+  touch-action:manipulation;
+}
+.royale-safe-round .round-menu-summary button{min-height:54px;width:100%!important}
+
+.royale-mapping-review-card{
+  position:absolute;
+  z-index:20;
+  left:50%;
+  top:48%;
+  transform:translate(-50%,-50%);
+  box-sizing:border-box;
+  width:calc(100vw - 64px);
+  max-width:360px;
+  padding:22px 18px;
+  border:1px solid rgba(224,189,102,.34);
+  border-radius:18px;
+  background:rgba(255,255,255,.075);
+  box-shadow:0 18px 42px rgba(0,0,0,.28);
+  backdrop-filter:blur(12px);
+  text-align:center;
+  pointer-events:none;
+}
+.royale-mapping-review-card .royale-review-icon{display:block;font-size:32px;margin-bottom:8px}
+.royale-mapping-review-card b{display:block;color:#f5dfa8;font-size:18px;margin-bottom:8px}
+.royale-mapping-review-card p{margin:0 0 8px;line-height:1.4;color:#e9f0ec;font-size:13px}
+.royale-mapping-review-card small{color:#bfd1c8}
+
+.royale-safe-round .round-score-stack{
+  z-index:1500;
+  max-width:calc(100vw - 24px);
+}
+.royale-safe-round .hole-edge-navigation{z-index:980;left:0!important;right:0!important}
+
+@media(max-width:390px){
+  .royale-safe-round .round-map-summary{top:max(27px,calc(env(safe-area-inset-top) + 25px));grid-template-columns:.48fr .86fr .45fr 1.1fr .54fr!important}
+  .royale-safe-round .round-map-summary small{font-size:6.5px!important}
+  .royale-safe-round .round-map-summary b{font-size:21px!important}
+  .royale-safe-round .round-course-name-strip{top:max(94px,calc(env(safe-area-inset-top) + 92px))}
+  .royale-mapping-review-card{top:47%;width:calc(100vw - 52px);padding:19px 15px}
+}

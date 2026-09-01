@@ -1,0 +1,4 @@
+/* Version 128: single combined open-golf data action. */
+.combined-open-data .open-golf-source-actions{display:block;min-width:190px}
+.combined-open-data .combined-open-data-button{width:100%;min-width:190px;background:#176b45;color:#fff}
+@media(max-width:700px){.combined-open-data .open-golf-source-actions{width:100%;min-width:0}.combined-open-data .combined-open-data-button{min-width:0;width:100%}}
