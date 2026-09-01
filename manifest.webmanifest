@@ -1,0 +1,10 @@
+{
+  "name": "ParFolio",
+  "short_name": "ParFolio",
+  "description": "Your Game. Your Score. Your Story.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fbf8ef",
+  "theme_color": "#0c5b43",
+  "icons": []
+}
