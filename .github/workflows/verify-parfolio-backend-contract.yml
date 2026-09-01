@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - 'app.js'
-      - 'supabase/atg-v148-compatibility.sql'
+      - 'supabase/**'
       - '.github/workflows/verify-parfolio-backend-contract.yml'
 
 permissions:
@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Compare frontend Supabase dependencies with migration
+      - name: Compare frontend Supabase dependencies with migrations
         shell: bash
         run: |
           set -euo pipefail
@@ -25,10 +25,10 @@ jobs:
           import re, datetime
 
           js=Path('app.js').read_text()
-          sql=Path('supabase/atg-v148-compatibility.sql').read_text()
-          tables=sorted(set(re.findall(r"\.from\(['\"]([^'\"]+)['\"]\)",js)))
-          rpcs=sorted(set(re.findall(r"\.rpc\(['\"]([^'\"]+)['\"]",js)))
+          sql='\n'.join(p.read_text() for p in sorted(Path('supabase').glob('*.sql')))
           buckets=sorted(set(re.findall(r"\.storage\.from\(['\"]([^'\"]+)['\"]\)",js)))
+          tables=sorted(set(re.findall(r"(?<!storage)\.from\(['\"]([^'\"]+)['\"]\)",js))-set(buckets))
+          rpcs=sorted(set(re.findall(r"\.rpc\(['\"]([^'\"]+)['\"]",js)))
 
           def table_present(name):
             patterns=[rf'create\s+table\s+(?:if\s+not\s+exists\s+)?(?:public\.)?{re.escape(name)}\b',rf'alter\s+table\s+(?:public\.)?{re.escape(name)}\b']
@@ -36,7 +36,7 @@ jobs:
           def rpc_present(name):
             return bool(re.search(rf'create\s+(?:or\s+replace\s+)?function\s+(?:public\.)?{re.escape(name)}\s*\(',sql,re.I))
           def bucket_present(name):
-            return name in sql
+            return bool(re.search(rf"['\"]{re.escape(name)}['\"]",sql)) and 'storage.buckets' in sql
 
           missing_tables=[x for x in tables if not table_present(x)]
           missing_rpcs=[x for x in rpcs if not rpc_present(x)]
@@ -53,7 +53,7 @@ jobs:
                  f'Missing buckets: {", ".join(f"`{x}`" for x in missing_buckets) if missing_buckets else "None"}','']
           Path('PARFOLIO-BACKEND-CONTRACT.md').write_text('\n'.join(lines))
           if missing_tables or missing_rpcs or missing_buckets:
-            print('Migration does not fully cover the current frontend contract.')
+            raise SystemExit('ParFolio backend migration set does not fully cover the current frontend contract.')
           PY
       - name: Commit contract report
         shell: bash
