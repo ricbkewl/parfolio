@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v148-20260901';
+const CACHE_NAME='parfolio-v148-20260901b';
 const APP_SHELL=[
   './',
   './index.html',
@@ -8,8 +8,7 @@ const APP_SHELL=[
   './manifest.webmanifest',
   './parfolio-app-icon.png',
   './rick-kulon-profile.jpg',
-  './shared-course-library-v145.js',
-  './parfolio-branding.js'
+  './shared-course-library-v145.js'
 ];
 
 self.addEventListener('install',event=>{
@@ -34,7 +33,6 @@ self.addEventListener('fetch',event=>{
     return;
   }
 
-  // Network-first for application code so a copied ATG cache can never pin ParFolio to stale assets.
   if(appAsset&&/\.(?:js|css|webmanifest)$/.test(url.pathname)){
     event.respondWith(fetch(event.request).then(response=>{
       if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
