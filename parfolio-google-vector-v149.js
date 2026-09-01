@@ -1,7 +1,6 @@
 /* ParFolio vector-map compatibility.
-   ParFolio has its own Google browser key but does not yet have a dedicated Cloud Map ID.
-   Use Google's demo vector Map ID for beta so heading, tilt and the helicopter flyover work.
-   Replace DEMO_MAP_ID with a dedicated ParFolio Map ID when one is created. */
+   Force Google's native VECTOR renderer directly in code so ParFolio gets the
+   same heading/tilt/WebGL camera behavior ATG uses without borrowing ATG's Map ID. */
 (function(){
   if(typeof loadGoogleMaps!=='function')return;
   const priorLoadGoogleMaps=loadGoogleMaps;
@@ -13,7 +12,10 @@
     const OriginalMap=window.google.maps.Map;
     const WrappedMap=function(element,options){
       const next={...(options||{})};
-      if(!next.mapId)next.mapId='DEMO_MAP_ID';
+      delete next.mapId;
+      if(window.google?.maps?.RenderingType?.VECTOR)next.renderingType=window.google.maps.RenderingType.VECTOR;
+      next.headingInteractionEnabled=true;
+      next.tiltInteractionEnabled=true;
       return new OriginalMap(element,next);
     };
     try{Object.setPrototypeOf(WrappedMap,OriginalMap);}catch{}
