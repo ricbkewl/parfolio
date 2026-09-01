@@ -7,6 +7,7 @@
     .live-round{display:grid;gap:12px}.live-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding-right:48px}.live-head h2{margin-right:0!important;font-size:25px!important}.live-hole-meta{margin:4px 0 0!important;color:#0c5b43!important;font-weight:650}.map-toggle{display:flex;border:1px solid rgba(201,164,91,.35);border-radius:999px;padding:3px;background:#fff}.map-toggle button{border:0;border-radius:999px;padding:7px 10px;background:transparent;color:#486058;font-size:11px;cursor:pointer}.map-toggle button.active{background:#073e31;color:#fff}.play-map{height:min(55vh,470px);min-height:330px;border:1px solid rgba(201,164,91,.35);border-radius:20px;overflow:hidden;background:#dce7df;box-shadow:0 10px 28px rgba(5,45,37,.12)}.live-status{margin:0!important;min-height:18px;color:#65746e!important;font-size:12px!important}.hole-nav{display:grid;grid-template-columns:48px 1fr 48px;gap:9px;align-items:center}.hole-nav button{height:44px;border:0;border-radius:13px;background:#073e31;color:#fff;font-size:20px;cursor:pointer}.hole-nav button:disabled{opacity:.35}.hole-nav-label{text-align:center;color:#052d25;font-size:13px;font-weight:650}.score-foundation{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:13px 15px;border-radius:17px;background:linear-gradient(135deg,#f9f4e7,#e8f1ed);border:1px solid rgba(201,164,91,.22)}.score-copy strong{display:block;color:#052d25}.score-copy small{display:block;margin-top:3px;color:#65746e}.score-stepper{display:grid;grid-template-columns:38px 48px 38px;align-items:center}.score-stepper button{height:38px;border:0;border-radius:11px;background:#073e31;color:#fff;font-size:20px;cursor:pointer}.score-stepper output{text-align:center;color:#052d25;font-size:22px;font-weight:700}.live-share{border:0;background:transparent;color:#0c5b43;cursor:pointer;font-size:12px;text-decoration:underline}.map-pin{display:grid;place-items:center;width:28px;height:28px;border:2px solid #fff;border-radius:50%;background:#073e31;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.35);font:700 11px/1 sans-serif}.map-pin.aim{background:#c7a24e;color:#052d25}.map-pin.green{background:#0c7a55}.map-pin.gps{width:18px;height:18px;background:#2775d7;border-width:3px}
     dialog.live-round-dialog{position:fixed;inset:0;width:100%;max-width:none;height:100dvh;max-height:none;margin:0;border:0;border-radius:0;background:#173c2b;overflow:hidden}.live-round-dialog .dialog-close{display:none}.live-round-dialog #dialogContent{height:100%;padding:0}.live-round-shell{position:relative;width:100%;height:100%;overflow:hidden;background:#173c2b}.live-round-shell .play-map{position:absolute;inset:0;width:100%;height:100%;min-height:0;border:0;border-radius:0;box-shadow:none}.live-map-summary{position:absolute;z-index:20;top:max(8px,calc(env(safe-area-inset-top) + 4px));left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));display:grid;grid-template-columns:.48fr .78fr .48fr 1.08fr .6fr;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(12,20,16,.48);box-shadow:0 8px 24px rgba(0,0,0,.3);color:#fff;backdrop-filter:blur(9px)}.live-map-summary>div,.live-map-summary>button{display:flex;min-width:0;min-height:60px;flex-direction:column;align-items:center;justify-content:center;padding:6px 3px;border:0;border-right:1px solid rgba(255,255,255,.12);background:transparent;color:#fff}.live-map-summary>button{border-right:0;cursor:pointer}.live-map-summary small{color:#c8d9d0;font-size:7px;font-weight:850;letter-spacing:.055em;text-transform:uppercase;white-space:nowrap}.live-map-summary b{margin-top:2px;color:#fff;font-size:23px;line-height:1}.live-map-summary i{color:#d9e7df;font-size:8px;font-style:normal}.live-course-strip{position:absolute;z-index:19;top:max(69px,calc(env(safe-area-inset-top) + 65px));left:50%;max-width:76vw;transform:translateX(-50%);overflow:hidden;padding:4px 13px;border-radius:0 0 11px 11px;background:rgba(12,20,16,.52);color:#f5dfa8;font-size:10px;font-weight:750;text-overflow:ellipsis;white-space:nowrap;backdrop-filter:blur(8px)}.live-menu-lines{display:flex;gap:4px}.live-menu-lines i{display:block;width:20px;height:2px;border-radius:2px;background:#fff}.live-map-toggle{position:absolute;z-index:22;right:max(8px,env(safe-area-inset-right));bottom:calc(9px + env(safe-area-inset-bottom));display:flex;width:78px;height:84px;flex-direction:column;gap:3px;padding:4px;border:1px solid rgba(255,255,255,.16);border-radius:15px;background:rgba(12,20,16,.38);box-shadow:0 7px 20px rgba(0,0,0,.25);backdrop-filter:blur(7px)}.live-map-toggle button{flex:1;border:0;border-radius:10px;background:transparent;color:#fff;font:inherit;font-size:9px;font-weight:750;text-shadow:0 1px 3px rgba(0,0,0,.65);cursor:pointer}.live-map-toggle button.active{border:1px solid rgba(245,207,104,.42);background:rgba(245,207,104,.22)}.live-map-toggle button:disabled{opacity:.45;cursor:not-allowed}.live-weather-card{position:absolute;z-index:22;top:max(82px,calc(env(safe-area-inset-top) + 78px));right:max(8px,env(safe-area-inset-right));display:flex;width:70px;flex-direction:column;align-items:center;padding:8px 6px;border:1px solid rgba(255,255,255,.16);border-radius:13px;background:rgba(12,20,16,.38);color:#fff;box-shadow:0 7px 20px rgba(0,0,0,.22);backdrop-filter:blur(7px)}.live-weather-card span{font-size:22px}.live-weather-card b{color:#fff;font-size:17px}.live-weather-card small,.live-weather-card em{color:#d6e1db;font-size:7px;font-style:normal;text-align:center}.live-map-recenter{position:absolute;z-index:22;top:max(222px,calc(env(safe-area-inset-top) + 218px));right:max(20px,calc(env(safe-area-inset-right) + 20px));display:grid;width:42px;height:42px;place-items:center;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(12,20,16,.42);color:#fff;font-size:24px;box-shadow:0 6px 18px rgba(0,0,0,.25);backdrop-filter:blur(7px);cursor:pointer}.live-zoom-controls{position:absolute;z-index:22;right:max(10px,env(safe-area-inset-right));bottom:calc(102px + env(safe-area-inset-bottom));display:grid;overflow:hidden;border:1px solid rgba(255,255,255,.16);border-radius:12px;background:rgba(12,20,16,.38);backdrop-filter:blur(7px)}.live-zoom-controls button{width:42px;height:38px;border:0;border-bottom:1px solid rgba(255,255,255,.13);background:transparent;color:#fff;font-size:23px}.live-zoom-controls button:last-child{border-bottom:0}.live-yard-card{position:absolute;z-index:22;display:flex;min-width:78px;flex-direction:column;align-items:center;padding:7px 9px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(12,20,16,.38);color:#fff;box-shadow:0 5px 16px rgba(0,0,0,.24);backdrop-filter:blur(7px);pointer-events:none}.live-yard-card b{color:#f5cf68;font-size:18px}.live-yard-card small{color:#d6e1db;font-size:7px;font-weight:850;letter-spacing:.08em}.live-to-hit{left:14%;top:42%}.live-to-go{right:14%;top:56%}.hole-edge-arrow{position:absolute;z-index:23;top:50%;display:grid;width:38px;height:66px;place-items:center;transform:translateY(-50%);border:1px solid rgba(255,255,255,.35);background:rgba(9,24,16,.48);color:#fff;font:inherit;font-size:42px;box-shadow:0 5px 17px rgba(0,0,0,.2);backdrop-filter:blur(5px);cursor:pointer}.hole-edge-arrow.previous{left:0;border-radius:0 15px 15px 0}.hole-edge-arrow.next{right:0;border-radius:15px 0 0 15px}.hole-edge-arrow:disabled{opacity:.22}.live-score-controls{position:absolute;z-index:24;left:39%;bottom:calc(9px + env(safe-area-inset-bottom));display:grid;width:min(230px,62vw);height:46px;grid-template-columns:48px minmax(104px,1fr) 48px;gap:5px;transform:translateX(-50%)}.live-score-controls button{height:46px;border:1px solid rgba(255,255,255,.16);border-radius:13px;background:rgba(12,20,16,.38);color:#f5cf68;font:inherit;font-size:29px;font-weight:800;box-shadow:0 7px 18px rgba(0,0,0,.3);backdrop-filter:blur(7px);cursor:pointer}.live-score-controls button:nth-child(2){display:flex;flex-direction:column;align-items:center;justify-content:center;border-color:rgba(245,207,104,.45);font-size:initial}.live-score-controls b{color:#f5cf68;font-size:23px;line-height:1}.live-score-controls small{margin-top:2px;color:#e3eee8;font-size:8px}.live-status-line{position:absolute;z-index:18;left:8px;bottom:calc(98px + env(safe-area-inset-bottom));max-width:55vw;margin:0!important;padding:3px 6px;border-radius:5px;background:rgba(12,20,16,.38);color:#d8e7df!important;font-size:8px!important;backdrop-filter:blur(5px)}
     @media(max-width:390px){.live-map-summary small{font-size:6px}.live-map-summary b{font-size:20px}.live-score-controls{left:38%;width:min(218px,64vw);grid-template-columns:44px minmax(96px,1fr) 44px}.live-to-hit{left:11%}.live-to-go{right:11%}}
+    .live-map-summary{right:max(60px,calc(env(safe-area-inset-right) + 60px));grid-template-columns:.5fr .86fr .5fr 1.14fr}.live-play-menu{position:absolute;z-index:25;top:max(8px,calc(env(safe-area-inset-top) + 4px));right:max(8px,env(safe-area-inset-right));display:flex;width:46px;height:60px;flex-direction:column;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(255,255,255,.2);border-radius:14px;background:rgba(12,20,16,.48);box-shadow:0 8px 24px rgba(0,0,0,.3);backdrop-filter:blur(9px);cursor:pointer}.live-play-menu i{display:block;width:21px;height:2px;border-radius:2px;background:#fff}.shot-planner-target{position:absolute;z-index:30;display:grid;width:54px;height:54px;place-items:center;transform:translate(-50%,-50%);border:4px solid #fff;border-radius:50%;background:#d5ad51;color:#173126;box-shadow:0 7px 22px rgba(0,0,0,.38);font-size:26px;font-weight:800;cursor:grab;touch-action:none}.shot-planner-target:active{cursor:grabbing}.hole-flyover-card{position:absolute;z-index:45;left:50%;top:19%;min-width:190px;transform:translateX(-50%);padding:13px 18px 12px;border:1px solid rgba(255,255,255,.34);border-radius:18px;background:rgba(12,35,26,.72);color:#fff;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.22);backdrop-filter:blur(13px)}.hole-flyover-card small{display:block;color:#e8c66e;font-size:10px;font-weight:700;letter-spacing:.14em}.hole-flyover-card b{display:block;margin-top:2px;color:#fff;font-size:25px}.hole-flyover-card span{display:block;margin-top:4px;color:rgba(255,255,255,.86);font-size:13px}.hole-flyover-card button{margin-top:9px;min-height:32px;padding:0 13px;border:1px solid rgba(255,255,255,.42);border-radius:999px;background:rgba(255,255,255,.11);color:#fff}.live-shell-flying .hole-edge-arrow{pointer-events:none;opacity:.45}@media(prefers-reduced-motion:reduce){.hole-flyover-card{display:none}}
     @media(max-width:430px){.round-actions{grid-template-columns:1fr}}
   `;
   document.head.appendChild(style);
@@ -108,6 +109,25 @@
     return (deg(Math.atan2(Math.sin(dLng)*Math.cos(lat2),Math.cos(lat1)*Math.sin(lat2)-Math.sin(lat1)*Math.cos(lat2)*Math.cos(dLng)))+360)%360;
   }
 
+  const clamp = (value,min,max) => Math.max(min,Math.min(max,value));
+  const interpolate = (a,b,t) => ({lat:a.lat+(b.lat-a.lat)*t,lng:a.lng+(b.lng-a.lng)*t});
+  function pointAlongRoute(route,fraction=.46){
+    if (!route.length) return null;
+    const lengths=route.slice(1).map((point,index)=>yardsBetween(route[index],point));
+    let remaining=lengths.reduce((sum,value)=>sum+value,0)*clamp(fraction,0,1);
+    for(let index=0;index<lengths.length;index++){
+      if(remaining<=lengths[index]) return interpolate(route[index],route[index+1],lengths[index]?remaining/lengths[index]:0);
+      remaining-=lengths[index];
+    }
+    return route[route.length-1];
+  }
+
+  function finalHoleCamera(points){
+    const yards=points.slice(1).reduce((sum,point,index)=>sum+yardsBetween(points[index],point),0);
+    const safe=Math.max(140,yards||350);
+    return {center:pointAlongRoute(points,.46)||points[0],zoom:clamp(19.15-Math.log2(safe/150)*.75,17.45,19.1),heading:bearingBetween(points[0],points[1]||points.at(-1)),tilt:67.5,yards};
+  }
+
   async function updateLiveWeather(point){
     if (!point) return;
     try {
@@ -130,7 +150,8 @@
     const holeCount = Math.min(Number(round?.holes) || Number(payload?.holes) || 18, payload?.greens?.length || Number(round?.holes) || 18);
     const scores = await loadScores(round);
     let holeIndex = 0;
-    let map, routeLine, gpsMarker, watchId, gpsPoint, activePoints=[];
+    let map, routeLine, gpsMarker, watchId, gpsPoint, activePoints=[], plannerMarker, plannerHitLine, plannerGoLine, flyoverFrame;
+    const plannerAims = {};
     let mapMarkers = [];
 
     const terrainReady = Boolean(window.PARFOLIO_CONFIG?.mapTilerKey);
@@ -141,8 +162,8 @@
         <div><small>Distance</small><b><span id="roundMapDistance">—</span> <i>YDS</i></b></div>
         <div><small>Par</small><b id="roundMapPar">—</b></div>
         <div><small>Route Remaining</small><b><span id="centerYards">—</span> <i>YDS</i></b></div>
-        <button type="button" id="liveMenuButton" aria-label="Open round menu"><span class="live-menu-lines"><i></i><i></i><i></i></span><small>Menu</small></button>
       </div>
+      <button class="live-play-menu" type="button" id="liveMenuButton" aria-label="Open ParFolio menu"><i></i><i></i><i></i></button>
       <div class="live-course-strip">${esc(round?.course_name || payload?.name || 'ParFolio Live Round')}</div>
       <div class="live-map-toggle" aria-label="Map style"><button type="button" data-map-type="terrain" ${terrainReady?'':'disabled title="Requires a separate ParFolio MapTiler key"'}>Terrain</button><button type="button" data-map-type="satellite" class="active">Satellite</button></div>
       <div class="live-weather-card"><span id="liveWeatherIcon">◌</span><b id="liveTemperature">—°</b><small>WIND</small><span id="liveWindArrow">↑</span><em id="liveWindSpeed">—</em></div>
@@ -170,17 +191,36 @@
       const marker = new google.maps.Marker({ position, map, label:{ text:label, color:'#ffffff', fontSize:'11px', fontWeight:'700' }, icon:{ path:google.maps.SymbolPath.CIRCLE, fillColor:kind==='green'?'#0c7a55':kind==='aim'?'#c7a24e':'#073e31', fillOpacity:1, strokeColor:'#ffffff', strokeWeight:2, scale:11 }, zIndex:kind==='green'?4:3 });
       mapMarkers.push(marker);
     };
-    const updateDistanceReadouts = (points=activePoints) => {
-      const origin = gpsPoint || points[0], target = points.find((point,index) => index > 0 && yardsBetween(origin,point) > 25) || points[points.length-1];
-      const targetIndex = Math.max(0, points.indexOf(target));
-      const toHit = yardsBetween(origin,target);
-      const toGo = toHit + points.slice(targetIndex).reduce((sum,point,index,array) => index ? sum + yardsBetween(array[index-1],point) : sum,0);
+    const updatePlanner = (points=activePoints) => {
+      if (!points.length) return;
+      const origin = gpsPoint || points[0], aim = plannerAims[holeIndex] || points.find((point,index) => index > 0 && yardsBetween(origin,point) > 25) || points.at(-1);
+      const nearestIndex = points.reduce((best,point,index) => index && yardsBetween(aim,point)<yardsBetween(aim,points[best]) ? index : best, Math.min(1,points.length-1));
+      const remaining = [aim,...points.slice(nearestIndex)];
+      const toHit = yardsBetween(origin,aim);
+      const toGo = remaining.slice(1).reduce((sum,point,index)=>sum+yardsBetween(remaining[index],point),0);
+      plannerHitLine?.setPath([origin,aim]); plannerGoLine?.setPath(remaining); plannerMarker?.setPosition(aim);
       document.getElementById('roundMapDistance').textContent = points.length > 1 ? points.slice(1).reduce((sum,point,index) => sum+yardsBetween(points[index],point),0) : '—';
       document.getElementById('centerYards').textContent = toGo || '—';
       document.getElementById('yardsToHit').textContent = toHit || '—';
       document.getElementById('yardsToGo').textContent = toGo || '—';
     };
-    const drawHole = () => {
+    const installPlanner = points => {
+      plannerMarker?.setMap(null); plannerHitLine?.setMap(null); plannerGoLine?.setMap(null);
+      if (!points.length) return;
+      const origin=gpsPoint||points[0], aim=plannerAims[holeIndex]||points[1]||points.at(-1);
+      plannerHitLine=new google.maps.Polyline({map,path:[origin,aim],strokeColor:'#f5cf68',strokeWeight:2.5,strokeOpacity:1,zIndex:8});
+      plannerGoLine=new google.maps.Polyline({map,path:[aim,...points.slice(1)],strokeColor:'#f5dfa8',strokeWeight:2.5,strokeOpacity:0,zIndex:8,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:2.25,scale:2.2},offset:'0',repeat:'14px'}]});
+      plannerMarker=new google.maps.Marker({map,position:aim,draggable:true,zIndex:12,title:'Drag to plan your shot',label:{text:'◎',color:'#173126',fontSize:'24px',fontWeight:'800'},icon:{path:google.maps.SymbolPath.CIRCLE,scale:22,fillColor:'#d5ad51',fillOpacity:1,strokeColor:'#fff',strokeWeight:4}});
+      plannerMarker.addListener('drag',()=>{const value=plannerMarker.getPosition();if(!value)return;plannerAims[holeIndex]={lat:value.lat(),lng:value.lng()};updatePlanner(points)});
+      plannerMarker.addListener('dragend',()=>document.getElementById('liveMapRecenter').classList.add('active'));
+      updatePlanner(points);
+    };
+    const landHoleCamera = () => {
+      if (!map || !activePoints.length) return;
+      const camera=finalHoleCamera(activePoints),apply=()=>{try{map.moveCamera(camera)}catch{}};
+      apply();setTimeout(apply,220);setTimeout(apply,700);
+    };
+    const drawHole = (applyCamera=true) => {
       mapMarkers.forEach(marker => marker.setMap(null)); mapMarkers = [];
       routeLine?.setMap(null);
       const hole = payload?.greens?.[holeIndex] || {};
@@ -195,45 +235,55 @@
       stops.forEach(stop => addMarker(stop.point, stop.label, stop.kind));
       if (points.length) {
         routeLine = new google.maps.Polyline({ path:points, map, strokeColor:'#d6b765', strokeOpacity:.96, strokeWeight:4, geodesic:true });
-        const bounds = new google.maps.LatLngBounds(); points.forEach(point => bounds.extend(point));
-        if (gpsMarker?.getPosition()) bounds.extend(gpsMarker.getPosition());
-        map.fitBounds(bounds, {top:145,right:48,bottom:72,left:48});
-        const heading = bearingBetween(points[0], points[1] || points[points.length-1]);
-        setTimeout(() => { try { map.moveCamera({heading,tilt:67.5}); } catch {} }, 120);
+        installPlanner(points);
+        if(applyCamera){const bounds=new google.maps.LatLngBounds();[...points,toPoint(hole.front),toPoint(hole.back)].filter(Boolean).forEach(point=>bounds.extend(point));map.setHeading(0);map.setTilt(0);map.fitBounds(bounds,{top:145,right:48,bottom:72,left:48});google.maps.event.addListenerOnce(map,'idle',landHoleCamera)}
       } else if (payload?.lat && payload?.lng) map.setCenter({lat:Number(payload.lat),lng:Number(payload.lng)});
       const par = payload?.pars?.[holeIndex];
       document.getElementById('roundMapHole').textContent = holeIndex+1;
       document.getElementById('roundMapPar').textContent = par || '—';
-      updateDistanceReadouts(points);
+      updatePlanner(points);
       document.getElementById('previousHole').disabled = holeIndex === 0;
       document.getElementById('nextHole').disabled = holeIndex >= holeCount-1;
       document.getElementById('liveRoundStatus').textContent = points.length ? 'Tee → aim → green route from the shared Golf Course Library.' : 'This hole is awaiting approved GPS mapping in the shared library.';
       renderScore();
     };
+    const runHoleFlyover = targetIndex => {
+      if(!map||targetIndex<0||targetIndex>=holeCount)return;
+      if(flyoverFrame)cancelAnimationFrame(flyoverFrame);
+      const startCenter=map.getCenter()?{lat:map.getCenter().lat(),lng:map.getCenter().lng()}:activePoints[0];
+      const startZoom=Number(map.getZoom()||17),startHeading=Number(map.getHeading()||0),startTilt=Number(map.getTilt()||0);
+      holeIndex=targetIndex;drawHole(false);if(!activePoints.length)return;
+      const camera=finalHoleCamera(activePoints);
+      if(window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches){landHoleCamera();return}
+      const shell=document.querySelector('.live-round-shell'),card=document.createElement('div');shell.classList.add('live-shell-flying');card.className='hole-flyover-card';card.innerHTML=`<small>NEXT HOLE</small><b>Hole ${holeIndex+1}</b><span>Par ${payload?.pars?.[holeIndex]||'—'} · ${camera.yards} yd</span><button type="button">Skip</button>`;shell.appendChild(card);
+      let done=false;const finish=()=>{if(done)return;done=true;if(flyoverFrame)cancelAnimationFrame(flyoverFrame);flyoverFrame=null;card.remove();shell.classList.remove('live-shell-flying');landHoleCamera()};card.querySelector('button').addEventListener('click',finish);
+      const started=performance.now(),cruiseZoom=clamp(camera.zoom-1.55,15.8,17.3),smooth=t=>{t=clamp(t,0,1);return t*t*t*(t*(t*6-15)+10)},heading=(a,b,t)=>{const delta=((b-a+540)%360)-180;return(a+delta*t+360)%360};
+      const frame=now=>{const t=clamp((now-started)/2750,0,1);let center,zoom,tilt,direction;if(t<.13){const p=smooth(t/.13);center=startCenter;zoom=startZoom+(cruiseZoom-startZoom)*p;tilt=startTilt+(31-startTilt)*p;direction=heading(startHeading,camera.heading,p*.16)}else if(t<.62){const p=smooth((t-.13)/.49);center=interpolate(startCenter,camera.center,p);zoom=cruiseZoom;tilt=31;direction=heading(startHeading,camera.heading,.16+.84*p)}else{const p=smooth((t-.62)/.38);center=camera.center;zoom=cruiseZoom+(camera.zoom-cruiseZoom)*p;tilt=31+(camera.tilt-31)*p;direction=camera.heading}try{map.moveCamera({center,zoom,tilt,heading:direction})}catch{}if(t>=1){finish();return}flyoverFrame=requestAnimationFrame(frame)};flyoverFrame=requestAnimationFrame(frame);
+    };
 
     try {
       await loadGoogleMaps();
       map = new google.maps.Map(document.getElementById('playMap'), { center:{lat:Number(payload?.lat)||37.5,lng:Number(payload?.lng)||-119.5}, zoom:17, mapTypeId:'satellite', heading:0, tilt:67.5, disableDefaultUI:true, clickableIcons:false, gestureHandling:'greedy', headingInteractionEnabled:true, tiltInteractionEnabled:true, backgroundColor:'#173c2b' });
-      drawHole();
+      runHoleFlyover(0);
       const weatherPoint = toPoint(payload) || toPoint(payload?.greens?.[0]?.center); updateLiveWeather(weatherPoint);
       document.querySelectorAll('[data-map-type]').forEach(button => button.addEventListener('click', () => { if(button.disabled)return; map.setMapTypeId(button.dataset.mapType==='satellite'?'satellite':'terrain'); document.querySelectorAll('[data-map-type]').forEach(b => b.classList.toggle('active', b===button)); }));
       if (navigator.geolocation) watchId = navigator.geolocation.watchPosition(position => {
         gpsPoint = {lat:position.coords.latitude,lng:position.coords.longitude};
         if (!gpsMarker) gpsMarker = new google.maps.Marker({position:gpsPoint,map,title:'Your GPS location',icon:{path:google.maps.SymbolPath.CIRCLE,fillColor:'#2775d7',fillOpacity:1,strokeColor:'#ffffff',strokeWeight:3,scale:8},zIndex:9}); else gpsMarker.setPosition(gpsPoint);
-        updateDistanceReadouts();
+        updatePlanner();
       }, () => { document.getElementById('liveRoundStatus').textContent = 'Location is off. Enable GPS to show your position on the hole.'; }, {enableHighAccuracy:true,maximumAge:5000,timeout:15000});
     } catch (error) { document.getElementById('playMap').innerHTML = `<div class="course-empty">${esc(error.message)}</div>`; document.getElementById('liveRoundStatus').textContent = 'The map is unavailable, but hole navigation and scoring still work.'; renderScore(); }
 
-    document.getElementById('previousHole').addEventListener('click', () => { if (holeIndex) { holeIndex--; if(map) drawHole(); else renderScore(); } });
-    document.getElementById('nextHole').addEventListener('click', () => { if (holeIndex < holeCount-1) { holeIndex++; if(map) drawHole(); else renderScore(); } });
+    document.getElementById('previousHole').addEventListener('click', () => { if (holeIndex) { if(map) runHoleFlyover(holeIndex-1); else {holeIndex--;renderScore();} } });
+    document.getElementById('nextHole').addEventListener('click', () => { if (holeIndex < holeCount-1) { if(map) runHoleFlyover(holeIndex+1); else {holeIndex++;renderScore();} } });
     document.getElementById('scoreMinus').addEventListener('click', () => setScore(-1));
     document.getElementById('scorePlus').addEventListener('click', () => setScore(1));
     document.getElementById('scoreDisplay').addEventListener('click', () => setScore(0));
     document.getElementById('liveMenuButton').addEventListener('click', () => { dialog.close(); setDrawer(true); });
-    document.getElementById('liveMapRecenter').addEventListener('click', drawHole);
+    document.getElementById('liveMapRecenter').addEventListener('click', () => drawHole(true));
     document.getElementById('liveZoomIn').addEventListener('click', () => map?.setZoom((map.getZoom()||17)+1));
     document.getElementById('liveZoomOut').addEventListener('click', () => map?.setZoom((map.getZoom()||17)-1));
-    dialog.addEventListener('close', () => { if (watchId !== undefined) navigator.geolocation.clearWatch(watchId); dialog.classList.remove('live-round-dialog'); }, {once:true});
+    dialog.addEventListener('close', () => { if (watchId !== undefined) navigator.geolocation.clearWatch(watchId); if(flyoverFrame)cancelAnimationFrame(flyoverFrame); dialog.classList.remove('live-round-dialog'); }, {once:true});
   }
 
   function startRoundScreen(){
