@@ -1,0 +1,112 @@
+name: Migrate ParFolio to ATG v148
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/migrate-atg-v148.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout ParFolio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Clone ATG v148 source
+        run: git clone --depth 1 https://github.com/ricbkewl/fairway-simple.git /tmp/atg
+
+      - name: Preserve ParFolio-only assets
+        run: |
+          mkdir -p /tmp/parfolio-preserve
+          cp parfolio-app-icon.png /tmp/parfolio-preserve/ 2>/dev/null || true
+          cp appicon.png /tmp/parfolio-preserve/ 2>/dev/null || true
+          cp founder.js /tmp/parfolio-preserve/ 2>/dev/null || true
+          cp .github/workflows/migrate-atg-v148.yml /tmp/parfolio-preserve/workflow.yml
+
+      - name: Replace app foundation with ATG v148
+        run: |
+          find . -maxdepth 1 -type f ! -name '.gitignore' -delete
+          find . -maxdepth 1 -type d ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
+          cp -a /tmp/atg/. .
+          rm -rf .git .github
+          mkdir -p .github/workflows
+          cp /tmp/parfolio-preserve/workflow.yml .github/workflows/migrate-atg-v148.yml
+          cp /tmp/parfolio-preserve/parfolio-app-icon.png . 2>/dev/null || true
+          cp /tmp/parfolio-preserve/appicon.png . 2>/dev/null || true
+          cp /tmp/parfolio-preserve/founder.js . 2>/dev/null || true
+
+      - name: Rebrand and isolate configuration placeholders
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re, json
+
+          app = Path('app.js')
+          text = app.read_text()
+          text = re.sub(r"const SUPABASE_URL = '[^']*';", "const SUPABASE_URL = '__PARFOLIO_SUPABASE_URL__';", text, count=1)
+          text = re.sub(r"const SUPABASE_PUBLISHABLE_KEY = '[^']*';", "const SUPABASE_PUBLISHABLE_KEY = '__PARFOLIO_SUPABASE_KEY__';", text, count=1)
+          text = re.sub(r"const APP_URL = '[^']*';", "const APP_URL = 'https://parfolio-iota.vercel.app/';", text, count=1)
+          text = re.sub(r"const GOOGLE_MAPS_API_KEY = '[^']*';", "const GOOGLE_MAPS_API_KEY = '__PARFOLIO_GOOGLE_MAPS_KEY__';", text, count=1)
+          text = re.sub(r"const MAPTILER_API_KEY = '[^']*';", "const MAPTILER_API_KEY = '';", text, count=1)
+          app.write_text(text)
+
+          replacements = {
+              'Agape Tumoutou Golfers': 'ParFolio',
+              'Agape Golf': 'ParFolio',
+              'FAITH · FELLOWSHIP · FAIRWAYS': 'PLAY · CONNECT · IMPROVE',
+              'Faith · Fellowship · Fairways': 'Play · Connect · Improve',
+              'Previous Matches': 'Previous Rounds',
+          }
+          for p in Path('.').glob('*'):
+              if p.suffix.lower() not in {'.js','.css','.html','.webmanifest','.md'} or not p.is_file():
+                  continue
+              try:
+                  t = p.read_text()
+              except UnicodeDecodeError:
+                  continue
+              for a,b in replacements.items():
+                  t = t.replace(a,b)
+              p.write_text(t)
+
+          idx = Path('index.html')
+          t = idx.read_text()
+          t = t.replace('href="favicon-32.png"','href="parfolio-app-icon.png"')
+          t = t.replace('href="apple-touch-icon.png"','href="parfolio-app-icon.png"')
+          t = t.replace('<title>ParFolio</title>','<title>ParFolio — Your Game. Your Score. Your Story.</title>')
+          idx.write_text(t)
+
+          manifest = {
+            'name':'ParFolio','short_name':'ParFolio',
+            'description':'Your Game. Your Score. Your Story.',
+            'start_url':'./','display':'standalone',
+            'background_color':'#0a2b20','theme_color':'#176b45',
+            'icons':[
+              {'src':'parfolio-app-icon.png','sizes':'512x512','type':'image/png','purpose':'any'},
+              {'src':'parfolio-app-icon.png','sizes':'512x512','type':'image/png','purpose':'maskable'}
+            ]
+          }
+          Path('manifest.webmanifest').write_text(json.dumps(manifest, indent=2)+'\n')
+          PY
+
+      - name: Add migration marker
+        run: |
+          cat > PARFOLIO-ATG-BASELINE.md <<'EOF'
+          # ParFolio ATG Baseline
+          ParFolio uses the ATG v148 frontend as its functional baseline.
+          Private ATG users, rounds, scores, chat and credentials are not copied.
+          ParFolio retains separate backend and map credentials.
+          EOF
+
+      - name: Commit migration
+        run: |
+          git config user.name "ParFolio Migration"
+          git config user.email "parfolioproject@gmail.com"
+          git add -A
+          git commit -m "Adopt ATG v148 as ParFolio functional baseline" || exit 0
+          git push origin main
