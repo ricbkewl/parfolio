@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v161-20260901';
+const CACHE_NAME='parfolio-v162-20260901';
 const APP_SHELL=[
   './',
   './index.html',
@@ -7,6 +7,9 @@ const APP_SHELL=[
   './styles.css',
   './mobile-fit-v157.css',
   './mobile-fit-v157.js',
+  './home-v162.css',
+  './home-v162.js',
+  './parfolio-home-bg-v162.webp',
   './manifest.webmanifest',
   './parfolio-app-icon.png',
   './rick-kulon-profile.jpg',
@@ -39,7 +42,7 @@ self.addEventListener('fetch',event=>{
     return;
   }
 
-  if(appAsset&&/\.(?:js|css|webmanifest|json)$/.test(url.pathname)){
+  if(appAsset&&/\.(?:js|css|webmanifest|json|webp)$/.test(url.pathname)){
     event.respondWith(fetch(event.request).then(response=>{
       if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
       return response;
