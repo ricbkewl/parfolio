@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-01T14:29:24.009001+00:00
+Generated: 2026-09-01T14:43:58.478176+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
@@ -39,6 +39,7 @@ Production root: `200`
 | `editor-marker-buttons-v144.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-corrections-v147.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-location-search-v148.js` | `200` | `application/javascript; charset=utf-8` |
+| `parfolio-play-lock-v150.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
@@ -69,4 +70,4 @@ Production root: `200`
 
 ## Result
 
-Checked **61** production assets. Missing/unhealthy: **0**.
+Checked **62** production assets. Missing/unhealthy: **0**.
