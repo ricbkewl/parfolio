@@ -1,0 +1,40 @@
+name: Fix ParFolio shared-library status
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-parfolio-shared-library-status.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clear misleading local-backend error after shared catalog loads
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('shared-course-library-v145.js')
+          t=p.read_text()
+          old="const hydrated=await hydrateSafeSharedCourses(rows);stats.hydrated=hydrated.hydrated;stats.gpsActive=hydrated.gpsActive;\n        try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}"
+          new="const hydrated=await hydrateSafeSharedCourses(rows);stats.hydrated=hydrated.hydrated;stats.gpsActive=hydrated.gpsActive;\n        if(Array.isArray(courses)&&courses.length&&typeof cloudError!=='undefined')cloudError='';\n        try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}"
+          if old not in t:
+            raise SystemExit('shared library hydration source pattern not found')
+          t=t.replace(old,new,1)
+          p.write_text(t)
+          PY
+      - name: Commit status fix
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add shared-course-library-v145.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Clear false shared-course loading error in ParFolio'
+          git push
