@@ -1,0 +1,34 @@
+name: Map New York OSM GPS Drafts v2
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/map-new-york-osm-v2.yml'
+      - 'scripts/map_ny_osm_v2.py'
+      - 'ny-course-catalog-v158.js'
+
+permissions:
+  contents: write
+
+jobs:
+  map-new-york-v2:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build tiled statewide GPS drafts
+        run: python scripts/map_ny_osm_v2.py
+      - name: Commit generated mapping drafts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ny-osm-gps-drafts-v159.json NY-GPS-MAPPING-REPORT.md
+          if git diff --cached --quiet; then
+            echo "No GPS draft changes"
+            exit 0
+          fi
+          git commit -m "Generate New York statewide OSM GPS drafts v2"
+          git push
