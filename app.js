@@ -33,11 +33,30 @@ function message(text, type = 'info') {
   el.dataset.type = type;
 }
 
+function escapeHtml(value) {
+  return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+}
+
 function initials(profile, user) {
   const a = profile?.first_name?.trim()?.[0] || '';
   const b = profile?.last_name?.trim()?.[0] || '';
   if (a || b) return `${a}${b}`.toUpperCase();
   return (user?.email?.[0] || 'P').toUpperCase();
+}
+
+function profileAvatarMarkup(profile = currentProfile, user = currentUser, sizeClass = '') {
+  const label = initials(profile, user);
+  const url = profile?.avatar_url;
+  if (url) return `<span class="avatar ${sizeClass}"><img src="${escapeHtml(url)}" alt="Profile photo"></span>`;
+  return `<span class="avatar avatar-fallback ${sizeClass}">${escapeHtml(label)}</span>`;
+}
+
+function renderProfileButton() {
+  if (currentProfile?.avatar_url) {
+    profileButton.innerHTML = `<img src="${escapeHtml(currentProfile.avatar_url)}" alt="My profile">`;
+  } else {
+    profileButton.textContent = initials(currentProfile, currentUser);
+  }
 }
 
 async function loadProfile() {
@@ -48,9 +67,14 @@ async function loadProfile() {
     return;
   }
 
-  const { data } = await sb.from('profiles').select('id, first_name, last_name, phone, avatar_url, profile_complete').eq('id', currentUser.id).maybeSingle();
+  const { data, error } = await sb.from('profiles')
+    .select('id, first_name, last_name, phone, avatar_url, profile_complete')
+    .eq('id', currentUser.id)
+    .maybeSingle();
+
+  if (error) console.warn('Profile load:', error.message);
   currentProfile = data || null;
-  profileButton.textContent = initials(currentProfile, currentUser);
+  renderProfileButton();
   profileButton.setAttribute('aria-label', 'My profile');
 }
 
@@ -60,16 +84,30 @@ async function refreshSession() {
   await loadProfile();
 }
 
-const aboutContent = `
-  <h2>About ParFolio</h2><div class="gold-rule"></div>
-  <p class="lead"><strong>Your Game. Your Score. Your Story.</strong></p>
-  <p>ParFolio was created to make playing golf with friends simpler, smarter and more connected.</p>
-  <p>From the first tee to the final putt, ParFolio keeps the things you need during a round close at hand—GPS distances, interactive course maps, shot planning, personal club suggestions, scoring, weather and your group’s live scorecard.</p>
-  <h3>Play Together</h3><p>Create a round, invite your playing partners with a Round Code or QR code, and everyone can follow the round from their own phone. Each golfer controls their own score while the group stays connected through the live scorecard and private round chat.</p>
-  <h3>Know Your Next Shot</h3><p>ParFolio combines your location, mapped course information and your personal club distances to help you understand what lies ahead and choose the club that fits the shot.</p>
-  <h3>Every Round Becomes Part of Your Story</h3><p>Your completed rounds stay in your history, giving you a simple record of the courses you’ve played, the people you’ve played with and how you performed.</p>
-  <h3>Built for Golfers</h3><p>Golf technology should help you play—not distract you from playing. ParFolio is designed around a simple idea: give golfers useful information when they need it, make scoring effortless, and keep everything else out of the way.</p>
-  <p class="about-signoff">ParFolio · Your Game. Your Score. Your Story.</p>`;
+function aboutContent() {
+  const founderPhoto = currentProfile?.avatar_url
+    ? `<img src="${escapeHtml(currentProfile.avatar_url)}" alt="Rick Kulon, Founder of ParFolio">`
+    : `<span>RK</span>`;
+
+  return `
+    <h2>About ParFolio</h2><div class="gold-rule"></div>
+    <p class="lead"><strong>Your Game. Your Score. Your Story.</strong></p>
+    <p>ParFolio was created to make playing golf with friends simpler, smarter and more connected.</p>
+    <p>From the first tee to the final putt, ParFolio keeps the things you need during a round close at hand—GPS distances, interactive course maps, shot planning, personal club suggestions, scoring, weather and your group’s live scorecard.</p>
+    <h3>Play Together</h3><p>Create a round, invite your playing partners with a Round Code or QR code, and everyone can follow the round from their own phone. Each golfer controls their own score while the group stays connected through the live scorecard and private round chat.</p>
+    <h3>Know Your Next Shot</h3><p>ParFolio combines your location, mapped course information and your personal club distances to help you understand what lies ahead and choose the club that fits the shot.</p>
+    <h3>Every Round Becomes Part of Your Story</h3><p>Your completed rounds stay in your history, giving you a simple record of the courses you’ve played, the people you’ve played with and how you performed.</p>
+    <h3>Built for Golfers</h3><p>Golf technology should help you play—not distract you from playing. ParFolio is designed around a simple idea: give golfers useful information when they need it, make scoring effortless, and keep everything else out of the way.</p>
+    <section class="founder-card">
+      <div class="founder-photo">${founderPhoto}</div>
+      <div>
+        <p class="founder-kicker">FOUNDER</p>
+        <h3>Rick Kulon</h3>
+        <p>I created ParFolio to make golf technology simpler, more useful and more connected—giving golfers the information they need without adding clutter to the game.</p>
+      </div>
+    </section>
+    <p class="about-signoff">ParFolio · Your Game. Your Score. Your Story.</p>`;
+}
 
 const guideContent = `
   <h2>App Guide</h2><div class="gold-rule"></div>
@@ -122,7 +160,15 @@ function profileContent() {
   const p = currentProfile || {};
   return `
     <h2>My Profile</h2><div class="gold-rule"></div>
-    <p class="lead">${currentUser?.email || ''}</p>
+    <p class="lead">${escapeHtml(currentUser?.email || '')}</p>
+    <div class="profile-photo-editor">
+      ${profileAvatarMarkup(p, currentUser, 'avatar-large')}
+      <div>
+        <strong>Profile Photo</strong>
+        <p>Add a photo for your ParFolio profile.</p>
+        <label class="photo-button">Choose Photo<input id="avatarInput" type="file" accept="image/jpeg,image/png,image/webp" hidden></label>
+      </div>
+    </div>
     <form class="auth-form" id="profileForm">
       <div class="field-row"><label>First Name<input name="firstName" value="${escapeHtml(p.first_name || '')}" required></label><label>Last Name<input name="lastName" value="${escapeHtml(p.last_name || '')}" required></label></div>
       <label>Phone<input name="phone" type="tel" value="${escapeHtml(p.phone || '')}" required></label>
@@ -130,10 +176,6 @@ function profileContent() {
       <p class="form-message" aria-live="polite"></p>
     </form>
     <button class="danger-button" id="signOutButton">Sign Out</button>`;
-}
-
-function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 }
 
 function bindAuthUI() {
@@ -178,7 +220,38 @@ function bindAuthUI() {
   });
 }
 
+async function uploadAvatar(file) {
+  if (!file || !currentUser) return;
+  if (file.size > 5 * 1024 * 1024) return message('Please choose a photo smaller than 5 MB.', 'error');
+
+  const ext = (file.name.split('.').pop() || 'jpg').toLowerCase().replace(/[^a-z0-9]/g, '');
+  const path = `${currentUser.id}/profile.${ext}`;
+  message('Uploading photo…');
+
+  const { error: uploadError } = await sb.storage.from('avatars').upload(path, file, {
+    upsert: true,
+    contentType: file.type || 'image/jpeg',
+    cacheControl: '3600'
+  });
+  if (uploadError) return message(uploadError.message, 'error');
+
+  const { data } = sb.storage.from('avatars').getPublicUrl(path);
+  const avatarUrl = `${data.publicUrl}?v=${Date.now()}`;
+  const { error: profileError } = await sb.from('profiles').update({ avatar_url: avatarUrl }).eq('id', currentUser.id);
+  if (profileError) return message(profileError.message, 'error');
+
+  await loadProfile();
+  openDialog(profileContent());
+  bindProfileUI();
+  message('Profile photo updated.', 'success');
+}
+
 function bindProfileUI() {
+  document.getElementById('avatarInput')?.addEventListener('change', async (event) => {
+    const file = event.target.files?.[0];
+    if (file) await uploadAvatar(file);
+  });
+
   document.getElementById('profileForm')?.addEventListener('submit', async (event) => {
     event.preventDefault();
     const fd = new FormData(event.currentTarget);
@@ -201,7 +274,7 @@ function bindProfileUI() {
   });
 }
 
-function requireAuth(screen) {
+function requireAuth() {
   if (currentUser) return true;
   openDialog(authContent('signin'));
   bindAuthUI();
@@ -211,15 +284,15 @@ function requireAuth(screen) {
 function showContent(screen) {
   setDrawer(false);
   if (screen === 'home') { if (dialog.open) dialog.close(); return; }
-  if (screen === 'about') return openDialog(aboutContent);
+  if (screen === 'about') return openDialog(aboutContent());
   if (screen === 'guide') return openDialog(guideContent);
   if (screen === 'profile') {
-    if (!requireAuth(screen)) return;
+    if (!requireAuth()) return;
     openDialog(profileContent());
     bindProfileUI();
     return;
   }
-  if (screen !== 'courses' && !requireAuth(screen)) return;
+  if (screen !== 'courses' && !requireAuth()) return;
   const item = placeholderContent[screen] || ['ParFolio', 'This feature is part of the next build stage.'];
   openDialog(`<h2>${item[0]}</h2><div class="gold-rule"></div><p class="lead">${item[1]}</p>`);
 }
