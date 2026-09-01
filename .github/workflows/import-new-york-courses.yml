@@ -20,74 +20,84 @@ jobs:
       - name: Build New York catalog from OpenGolfAPI
         shell: python
         run: |
-          import csv, io, json, urllib.request, datetime, pathlib
+          import csv, io, json, urllib.request, datetime, pathlib, re
 
           url = 'https://raw.githubusercontent.com/opengolfapi/data/main/opengolfapi-us.csv'
           with urllib.request.urlopen(url, timeout=120) as response:
               text = response.read().decode('utf-8-sig')
 
-          rows = []
+          def num(row, key, cast=float):
+              value = (row.get(key) or '').strip()
+              if not value:
+                  return None
+              try: return cast(float(value)) if cast is int else cast(value)
+              except Exception: return None
+
+          raw = []
           for row in csv.DictReader(io.StringIO(text)):
               if (row.get('state') or '').strip().upper() != 'NY':
                   continue
               name = (row.get('name') or '').strip()
               if not name:
                   continue
-              def num(key, cast=float):
-                  value = (row.get(key) or '').strip()
-                  if not value:
-                      return None
-                  try: return cast(float(value)) if cast is int else cast(value)
-                  except Exception: return None
-              holes = num('holes', int) or 18
-              pars = []
-              for i in range(1, holes + 1):
-                  p = num(f'hole_{i}_par', int)
+              latitude, longitude = num(row,'latitude'), num(row,'longitude')
+              # Guard obvious state-geocoding mistakes while keeping all legitimate NY records.
+              if latitude is not None and longitude is not None:
+                  if not (40.45 <= latitude <= 45.02 and -79.80 <= longitude <= -71.75):
+                      continue
+              par_total = num(row,'par',int)
+              mapped_holes = num(row,'holes',int)
+              if par_total is not None and par_total <= 40:
+                  holes, hole_count_known = 9, True
+              elif par_total is not None and par_total >= 50:
+                  holes, hole_count_known = 18, True
+              elif mapped_holes in (9,18):
+                  holes, hole_count_known = mapped_holes, True
+              else:
+                  holes, hole_count_known = 18, False
+              pars=[]
+              for i in range(1, holes+1):
+                  p=num(row,f'hole_{i}_par',int)
                   pars.append(p if p and 3 <= p <= 6 else None)
-              if not all(pars):
-                  pars = []
-              rows.append({
-                  'id': (row.get('id') or '').strip(),
-                  'name': name,
-                  'latitude': num('latitude'),
-                  'longitude': num('longitude'),
-                  'country': (row.get('country') or 'US').strip() or 'US',
-                  'state': 'NY',
-                  'city': (row.get('city') or '').strip(),
-                  'type': (row.get('type') or '').strip(),
-                  'holes': holes,
-                  'par': num('par', int),
-                  'year_built': num('year_built', int),
-                  'phone': (row.get('phone') or '').strip(),
-                  'website': (row.get('website') or '').strip(),
-                  'address': (row.get('address') or '').strip(),
-                  'postal_code': (row.get('postal_code') or '').strip(),
-                  'architect': (row.get('architect') or '').strip(),
+              if not all(pars): pars=[]
+              raw.append({
+                  'id': (row.get('id') or '').strip(), 'name': name,
+                  'latitude': latitude, 'longitude': longitude,
+                  'country': 'US', 'state': 'NY', 'city': (row.get('city') or '').strip(),
+                  'type': (row.get('type') or '').strip(), 'holes': holes,
+                  'hole_count_known': hole_count_known, 'par': par_total,
+                  'year_built': num(row,'year_built',int), 'phone': (row.get('phone') or '').strip(),
+                  'website': (row.get('website') or '').strip(), 'address': (row.get('address') or '').strip(),
+                  'postal_code': (row.get('postal_code') or '').strip(), 'architect': (row.get('architect') or '').strip(),
                   'pars': pars,
               })
 
-          # Preserve every distinct OpenGolf course record. Runtime matching handles
-          # overlap with the existing shared library without deleting valid NY layouts.
-          rows = sorted(rows, key=lambda x: (x['name'].lower(), x['city'].lower(), x['id']))
+          # Collapse only records that are effectively the same named course at the same location.
+          # This removes crawler duplicates while preserving distinct layouts/facilities.
+          def norm(v): return re.sub(r'[^a-z0-9]+',' ',(v or '').lower().replace('&',' and ')).strip()
+          dedup={}
+          for item in raw:
+              latkey = round(item['latitude'],5) if item['latitude'] is not None else None
+              lngkey = round(item['longitude'],5) if item['longitude'] is not None else None
+              key=(norm(item['name']),latkey,lngkey)
+              prior=dedup.get(key)
+              quality=lambda x: sum(bool(x.get(k)) for k in ('website','address','postal_code','phone','par','year_built','pars'))
+              if prior is None or quality(item)>quality(prior): dedup[key]=item
+          rows=sorted(dedup.values(),key=lambda x:(x['name'].lower(),x['city'].lower(),x['id']))
 
-          generated = datetime.datetime.now(datetime.timezone.utc).isoformat()
-          data = json.dumps(rows, ensure_ascii=False, separators=(',', ':'))
-          js = f'''/* Auto-generated New York golf course catalog.\n   Source: OpenGolfAPI / OpenStreetMap contributors · ODbL 1.0\n   Generated: {generated}\n   Courses: {len(rows)}\n*/\n(function(){{\n  const NY={data};\n  const normalize=v=>String(v||'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();\n  function mergeNyCourses(){{\n    if(typeof courses==='undefined'||!Array.isArray(courses))return 0;\n    const byOpenGolf=new Map(),byNameCity=new Map();\n    courses.forEach((c,i)=>{{\n      if(c.openGolfApiId)byOpenGolf.set(String(c.openGolfApiId),i);\n      byNameCity.set(normalize(c.name)+'|'+normalize(c.city),i);\n    }});\n    let added=0,matched=0;\n    for(const row of NY){{\n      let idx=row.id?byOpenGolf.get(String(row.id)):undefined;\n      if(idx===undefined)idx=byNameCity.get(normalize(row.name)+'|'+normalize(row.city));\n      const catalogPoint=Number.isFinite(row.latitude)&&Number.isFinite(row.longitude)?{{lat:row.latitude,lng:row.longitude}}:null;\n      if(idx!==undefined){{\n        const prior=courses[idx];\n        courses[idx]={{...prior,city:prior.city||row.city,state:prior.state||'NY',country:prior.country||'US',holes:Number(prior.holes)||row.holes||18,pars:(Array.isArray(prior.pars)&&prior.pars.length?prior.pars:row.pars),par_total:Number(prior.par_total)||row.par||null,catalog_point:prior.catalog_point||catalogPoint,openGolfApiId:prior.openGolfApiId||row.id,course_type:prior.course_type||row.type,address:prior.address||row.address,postal_code:prior.postal_code||row.postal_code,phone:prior.phone||row.phone,website:prior.website||row.website,year_built:prior.year_built||row.year_built,architect:prior.architect||row.architect}};\n        matched++;continue;\n      }}\n      const item={{id:'opengolf-ny-'+row.id,openGolfApiId:row.id,name:row.name,city:row.city||'',state:'NY',country:'US',country_code:'US',holes:row.holes||18,pars:row.pars||[],greens:[],par_total:row.par||null,catalog_point:catalogPoint,catalogOnly:true,catalogApproved:true,catalogHoleCountKnown:Boolean(row.holes),sharedMappingStatus:'catalog_only',sharedLibrarySource:'opengolfapi_ny',course_type:row.type||'OpenGolfAPI',address:row.address||'',postal_code:row.postal_code||'',phone:row.phone||'',website:row.website||'',year_built:row.year_built||null,architect:row.architect||null}};\n      courses.push(item);\n      const newIndex=courses.length-1;\n      if(row.id)byOpenGolf.set(String(row.id),newIndex);\n      byNameCity.set(normalize(row.name)+'|'+normalize(row.city),newIndex);\n      added++;\n    }}\n    courses.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));\n    try{{localStorage.parfolioCourses=JSON.stringify(courses)}}catch{{}}\n    window.PARFOLIO_NY_CATALOG={{version:158,total:NY.length,added,matched,loadedAt:new Date().toISOString(),source:'OpenGolfAPI'}};\n    return added;\n  }}\n  window.mergeParFolioNyCourses=mergeNyCourses;\n  if(typeof loadSharedCourseLibrary==='function'){{\n    const prior=loadSharedCourseLibrary;\n    loadSharedCourseLibrary=async function(options){{const result=await prior(options);mergeNyCourses();return result;}};\n  }}\n  [0,300,900,1800].forEach(ms=>setTimeout(()=>{{const added=mergeNyCourses();if(added&&typeof render==='function'&&s?.v!=='round')try{{render()}}catch{{}}}},ms));\n}})();\n'''
-          pathlib.Path('ny-course-catalog-v158.js').write_text(js, encoding='utf-8')
+          generated=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          data=json.dumps(rows,ensure_ascii=False,separators=(',',':'))
+          js=f'''/* Auto-generated New York golf course catalog.\n   Source: OpenGolfAPI / OpenStreetMap contributors · ODbL 1.0\n   Generated: {generated}\n   Courses: {len(rows)}\n   Catalog metadata only; GPS is never activated by this file.\n*/\n(function(){{\n  const NY={data};\n  const normalize=v=>String(v||'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim();\n  function mergeNyCourses(){{\n    if(typeof courses==='undefined'||!Array.isArray(courses))return 0;\n    const byOpenGolf=new Map(),byNameCity=new Map();\n    courses.forEach((c,i)=>{{if(c.openGolfApiId)byOpenGolf.set(String(c.openGolfApiId),i);byNameCity.set(normalize(c.name)+'|'+normalize(c.city),i);}});\n    let added=0,matched=0;\n    for(const row of NY){{\n      let idx=row.id?byOpenGolf.get(String(row.id)):undefined;\n      if(idx===undefined)idx=byNameCity.get(normalize(row.name)+'|'+normalize(row.city));\n      const catalogPoint=Number.isFinite(row.latitude)&&Number.isFinite(row.longitude)?{{lat:row.latitude,lng:row.longitude}}:null;\n      if(idx!==undefined){{\n        const prior=courses[idx];\n        courses[idx]={{...prior,city:prior.city||row.city,state:prior.state||'NY',country:prior.country||'US',country_code:prior.country_code||'US',holes:Number(prior.holes)||row.holes||18,pars:(Array.isArray(prior.pars)&&prior.pars.length?prior.pars:row.pars),par_total:Number(prior.par_total)||row.par||null,catalog_point:prior.catalog_point||catalogPoint,openGolfApiId:prior.openGolfApiId||row.id,course_type:prior.course_type||row.type,address:prior.address||row.address,postal_code:prior.postal_code||row.postal_code,phone:prior.phone||row.phone,website:prior.website||row.website,year_built:prior.year_built||row.year_built,architect:prior.architect||row.architect}};\n        matched++;continue;\n      }}\n      const item={{id:'opengolf-ny-'+row.id,openGolfApiId:row.id,name:row.name,city:row.city||'',state:'NY',country:'US',country_code:'US',holes:row.holes||18,pars:row.pars||[],greens:[],par_total:row.par||null,catalog_point:catalogPoint,catalogOnly:true,catalogApproved:true,catalogHoleCountKnown:Boolean(row.hole_count_known),sharedMappingStatus:'catalog_only',sharedLibraryGpsActive:false,sharedLibrarySource:'opengolfapi_ny',course_type:row.type||'OpenGolfAPI',address:row.address||'',postal_code:row.postal_code||'',phone:row.phone||'',website:row.website||'',year_built:row.year_built||null,architect:row.architect||null}};\n      courses.push(item);const newIndex=courses.length-1;if(row.id)byOpenGolf.set(String(row.id),newIndex);byNameCity.set(normalize(row.name)+'|'+normalize(row.city),newIndex);added++;\n    }}\n    courses.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));\n    try{{localStorage.parfolioCourses=JSON.stringify(courses)}}catch{{}}\n    window.PARFOLIO_NY_CATALOG={{version:158,total:NY.length,added,matched,loadedAt:new Date().toISOString(),source:'OpenGolfAPI'}};return added;\n  }}\n  window.mergeParFolioNyCourses=mergeNyCourses;\n  if(typeof loadSharedCourseLibrary==='function'){{const prior=loadSharedCourseLibrary;loadSharedCourseLibrary=async function(options){{const result=await prior(options);mergeNyCourses();return result;}};}}\n  [0,300,900,1800].forEach(ms=>setTimeout(()=>{{const added=mergeNyCourses();if(added&&typeof render==='function'&&s?.v!=='round')try{{render()}}catch{{}}}},ms));\n}})();\n'''
+          pathlib.Path('ny-course-catalog-v158.js').write_text(js,encoding='utf-8')
           pathlib.Path('NY-COURSE-IMPORT.md').write_text(
-              f'# New York Course Import\n\nGenerated from OpenGolfAPI on {generated}.\n\nDistinct OpenGolf NY course records bundled: **{len(rows)}**.\n\nThese are catalog/search entries only unless ParFolio has separately verified GPS hole mapping.\n',
-              encoding='utf-8'
-          )
-          print(f'Generated {len(rows)} New York course records')
+              f'# New York Course Import\n\nGenerated from OpenGolfAPI on {generated}.\n\nRaw NY rows: **{len(raw)}**.\n\nBundled distinct course/location records: **{len(rows)}**.\n\nThese are catalog/search entries only unless ParFolio has separately verified GPS hole mapping.\n',encoding='utf-8')
+          print(f'NY raw={len(raw)} bundled={len(rows)}')
 
       - name: Commit generated NY catalog
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ny-course-catalog-v158.js NY-COURSE-IMPORT.md
-          if git diff --cached --quiet; then
-            echo "No catalog changes"
-            exit 0
-          fi
+          if git diff --cached --quiet; then echo "No catalog changes"; exit 0; fi
           git commit -m "Generate New York statewide course catalog"
           git push
