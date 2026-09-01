@@ -1,10 +1,10 @@
 const app = document.querySelector('#app');
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
-const SUPABASE_URL = '__PARFOLIO_SUPABASE_URL__';
-const SUPABASE_PUBLISHABLE_KEY = '__PARFOLIO_SUPABASE_KEY__';
+const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
 const APP_URL = 'https://parfolio-iota.vercel.app/';
-const GOOGLE_MAPS_API_KEY = '__PARFOLIO_GOOGLE_MAPS_KEY__';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyB62ENrS5TIOb5SChgC0MbaL6XwW3GNaog';
 const GOOGLE_MAP_ID = 'c27152898adbf111a2dbd048';
 const MAPTILER_API_KEY = '';
 const EAGLE_GLEN_COURSE_ID = 'be42b7f5-e195-4004-9e6d-4d7e44fbe6a2';
