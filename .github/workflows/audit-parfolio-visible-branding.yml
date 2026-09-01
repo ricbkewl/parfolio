@@ -4,10 +4,17 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - '*.js'
+      - '*.css'
+      - 'index.html'
       - '.github/workflows/audit-parfolio-visible-branding.yml'
 
 permissions:
   contents: write
+
+concurrency:
+  group: parfolio-branding-audit
+  cancel-in-progress: true
 
 jobs:
   audit:
@@ -33,8 +40,7 @@ jobs:
           for file,needle,count in hits:lines.append(f'| `{file}` | `{needle}` | {count} |')
           lines+=['',f'**Legacy visible-brand hits: {sum(x[2] for x in hits)}**','']
           Path('PARFOLIO-BRANDING-AUDIT.md').write_text('\n'.join(lines))
-          if hits:
-            print('\n'.join(f'{a}: {b} ({c})' for a,b,c in hits))
+          if hits:print('\n'.join(f'{a}: {b} ({c})' for a,b,c in hits))
           PY
       - name: Commit branding audit
         shell: bash
