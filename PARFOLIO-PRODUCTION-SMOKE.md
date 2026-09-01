@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-01T19:19:28.643781+00:00
+Generated: 2026-09-01T19:44:08.428780+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
@@ -9,6 +9,7 @@ Production root: `200`
 | `app.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-google-vector-v149.js` | `200` | `application/javascript; charset=utf-8` |
 | `shared-course-library-v145.js` | `200` | `application/javascript; charset=utf-8` |
+| `ny-course-catalog-v158.js` | `200` | `application/javascript; charset=utf-8` |
 | `shared-osm-draft-v146.js` | `200` | `application/javascript; charset=utf-8` |
 | `mapping-reference-v110.js` | `200` | `application/javascript; charset=utf-8` |
 | `royale-remap-v112.js` | `200` | `application/javascript; charset=utf-8` |
@@ -73,4 +74,4 @@ Production root: `200`
 
 ## Result
 
-Checked **65** production assets. Missing/unhealthy: **0**.
+Checked **66** production assets. Missing/unhealthy: **0**.
