@@ -1,0 +1,86 @@
+name: Promote ParFolio Owner Super Admin
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/promote-rick-super-admin.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Promote ricbkewl@gmail.com in ParFolio Supabase
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+        shell: python
+        run: |
+          import json, os, sys, urllib.request, urllib.error
+
+          token = os.environ.get('SUPABASE_ACCESS_TOKEN') or os.environ.get('SUPABASE_TOKEN')
+          if not token:
+              print('No Supabase management token secret is configured in this repository.')
+              sys.exit(2)
+
+          project = 'unsysuuhykdmbsasdhzg'
+          endpoint = f'https://api.supabase.com/v1/projects/{project}/database/query'
+          sql = r'''
+          do $$
+          declare
+            v_user uuid;
+          begin
+            select id into v_user
+            from auth.users
+            where lower(email)=lower('ricbkewl@gmail.com')
+            order by created_at desc
+            limit 1;
+
+            if v_user is null then
+              raise exception 'ParFolio auth user ricbkewl@gmail.com was not found';
+            end if;
+
+            insert into public.app_admins (user_id, role)
+            values (v_user, 'super_admin')
+            on conflict (user_id) do update
+              set role = excluded.role;
+          end $$;
+
+          select u.email, a.role
+          from auth.users u
+          join public.app_admins a on a.user_id=u.id
+          where lower(u.email)=lower('ricbkewl@gmail.com');
+          '''
+
+          body = json.dumps({'query': sql}).encode()
+          req = urllib.request.Request(
+              endpoint,
+              data=body,
+              method='POST',
+              headers={
+                  'Authorization': 'Bearer ' + token,
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              }
+          )
+          try:
+              with urllib.request.urlopen(req, timeout=45) as r:
+                  raw = r.read().decode('utf-8', 'replace')
+                  print('Supabase SQL request status:', r.status)
+                  data = json.loads(raw) if raw else None
+          except urllib.error.HTTPError as e:
+              detail = e.read().decode('utf-8', 'replace')
+              print('Supabase management API returned HTTP', e.code)
+              print(detail[:1500])
+              sys.exit(3)
+
+          text = json.dumps(data)
+          if 'ricbkewl@gmail.com' not in text or 'super_admin' not in text:
+              print('Promotion request completed but verification did not return the expected super_admin row.')
+              print(text[:1500])
+              sys.exit(4)
+
+          print('VERIFIED: ricbkewl@gmail.com = super_admin')
