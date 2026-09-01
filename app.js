@@ -5,7 +5,7 @@ const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
 const APP_URL = 'https://parfolio-iota.vercel.app/';
 const GOOGLE_MAPS_API_KEY = 'AIzaSyB62ENrS5TIOb5SChgC0MbaL6XwW3GNaog';
-const GOOGLE_MAP_ID = 'c27152898adbf111a2dbd048';
+const GOOGLE_MAP_ID = '';
 const MAPTILER_API_KEY = '';
 const EAGLE_GLEN_COURSE_ID = 'be42b7f5-e195-4004-9e6d-4d7e44fbe6a2';
 const EAGLE_GLEN_DRAFT_POINTS = [
@@ -982,7 +982,7 @@ async function initInlineHoleMap(green){
   try{
     await loadGoogleMaps();if($('liveHoleMap')!==container||shotPlannerKey()!==key)return;
     document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
-    const rawMap=new google.maps.Map(container,{center:googlePoint(green.center),zoom:17,mapId:GOOGLE_MAP_ID,mapTypeId:liveMapStyle,heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'});
+    const rawMap=new google.maps.Map(container,{center:googlePoint(green.center),zoom:17,...(GOOGLE_MAP_ID?{mapId:GOOGLE_MAP_ID}:{}),mapTypeId:liveMapStyle,heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'});
     inlineHoleMap=googleMapFacade(rawMap,container);const label=document.querySelector('.forward-label');if(label)label.textContent='GOOGLE MAPS · FAIRWAY ROUTE · FORWARD';drawGoogleLiveHole(green);
     setTimeout(()=>{if(inlineHoleMap?.raw!==rawMap)return;rawMap.addListener('dragstart',showMapRecenterButton);rawMap.addListener('zoom_changed',showMapRecenterButton);rawMap.addListener('heading_changed',showMapRecenterButton);rawMap.addListener('tilt_changed',showMapRecenterButton)},650);
   }catch(error){
@@ -1313,7 +1313,7 @@ async function initMap(){
   try{
     await loadGoogleMaps();if($('courseMap')!==container||!draft)return;
     const g=draft.greens[draft.mapHole-1],existing=markerPoint(g,draft.target),any=g.center||g.aim1||g.aim2||g.tee||g.front||g.back,view=draft.mapView||existing||any||{lat:34.1,lng:-117.3},zoom=draft.mapView?.zoom??(existing||any?18:10);
-    const rawMap=new google.maps.Map(container,{center:googlePoint(view),zoom,mapId:GOOGLE_MAP_ID,mapTypeId:draft.mapStyle==='satellite'?'satellite':'roadmap',mapTypeControl:false,streetViewControl:false,fullscreenControl:false,gestureHandling:'greedy',clickableIcons:false,headingInteractionEnabled:true,tiltInteractionEnabled:true});map=googleMapFacade(rawMap,container);
+    const rawMap=new google.maps.Map(container,{center:googlePoint(view),zoom,...(GOOGLE_MAP_ID?{mapId:GOOGLE_MAP_ID}:{}),mapTypeId:draft.mapStyle==='satellite'?'satellite':'roadmap',mapTypeControl:false,streetViewControl:false,fullscreenControl:false,gestureHandling:'greedy',clickableIcons:false,headingInteractionEnabled:true,tiltInteractionEnabled:true});map=googleMapFacade(rawMap,container);
     const colors={tee:'#d8a93e',tee_black:'#111',tee_blue:'#2571d9',tee_white:'#f5f5f5',tee_red:'#d93636',aim1:'#c68b2c',aim2:'#9b6c22',front:'#f4a340',center:'#176b45',back:'#174f9c'},route=holeRoute(g);if(route.length>1)new google.maps.Polyline({map:rawMap,path:route.map(googlePoint),strokeColor:'#d29f31',strokeWeight:4,strokeOpacity:.9});
     for(const [key,point] of mapEditorMarkerEntries(g))new google.maps.Marker({map:rawMap,position:googlePoint(point),title:markerName(key),icon:{path:google.maps.SymbolPath.CIRCLE,scale:key.startsWith('tee_')?7:8,fillColor:colors[key]||'#174f9c',fillOpacity:.95,strokeColor:key==='tee_white'?'#222':'#fff',strokeWeight:2}});
     rawMap.addListener('click',event=>{const point=event.latLng;if(!point)return;setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:point.lat(),lng:point.lng()});render()});
