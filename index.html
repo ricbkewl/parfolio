@@ -17,9 +17,9 @@
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <button class="icon-button" id="menuButton" aria-label="Open menu"><span></span><span></span><span></span></button>
-      <button class="brand-mini brand-home" id="brandHome" aria-label="ParFolio home"><div class="pf-mark" aria-hidden="true">PF</div><span>ParFolio</span></button>
       <button class="profile-button" id="profileButton" aria-label="My profile">PF</button>
+      <button class="brand-mini brand-home" id="brandHome" aria-label="ParFolio home"><div class="pf-mark" aria-hidden="true">PF</div><span>ParFolio</span></button>
+      <button class="icon-button" id="menuButton" aria-label="Open menu"><span></span><span></span><span></span></button>
     </header>
 
     <main>
@@ -73,6 +73,7 @@
     <dialog id="contentDialog"><button class="dialog-close" id="dialogClose" aria-label="Close">×</button><div id="dialogContent"></div></dialog>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
   <script src="app.js"></script>
   <script src="founder.js"></script>
   <script src="clubs.js"></script>

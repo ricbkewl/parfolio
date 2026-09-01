@@ -91,7 +91,7 @@
     const user = await getUser();
     if (!user) return;
     if (clubs.length && !confirm('Add the standard clubs to your existing list?')) return;
-    const names = ['Driver','3 Wood','5 Wood','4 Hybrid','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Gap Wedge','Sand Wedge','Lob Wedge','Putter'];
+    const names = ['Driver','Mini Driver','2 Wood','3 Wood','4 Wood','5 Wood','7 Wood','9 Wood','2 Hybrid','3 Hybrid','4 Hybrid','5 Hybrid','6 Hybrid','2 Utility Iron','3 Utility Iron','4 Utility Iron','3 Iron','4 Iron','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Approach Wedge','Gap Wedge','46° Wedge','48° Wedge','50° Wedge','52° Wedge','54° Wedge','56° Wedge','58° Wedge','60° Wedge','62° Wedge','64° Wedge','Sand Wedge','Lob Wedge','Chipper','Putter'];
     const existing = new Set(clubs.map(c => c.club_name.toLowerCase()));
     const rows = names.filter(n => !existing.has(n.toLowerCase())).map((club_name, i) => ({ user_id:user.id, club_name, carry_yards:null, sort_order:(i+1)*10 }));
     if (!rows.length) return setMsg('Your standard set is already listed.', 'success');
