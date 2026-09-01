@@ -1,6 +1,6 @@
 # ParFolio Frontend ↔ Supabase Contract
 
-Generated: 2026-09-01T09:34:24.661694+00:00
+Generated: 2026-09-01T13:03:01.353052+00:00
 
 ## Frontend dependencies
 
