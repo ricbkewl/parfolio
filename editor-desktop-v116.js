@@ -1,6 +1,9 @@
-/* Version 116: MapTiler-first course editor, desktop mapping layout, scorecard logo */
+/* Version 116: desktop mapping layout, ParFolio branding, optional MapTiler editor */
 (function(){
   const priorMapCourse=mapCourse;
+  const priorInitMap=initMap;
+  const priorSetMapStyle=setMapStyle;
+
   mapCourse=function(){
     priorMapCourse();
     app.classList.add('course-editor-wide');
@@ -8,7 +11,7 @@
     if(title&&!title.previousElementSibling?.classList?.contains('course-editor-brand')){
       const brand=document.createElement('div');
       brand.className='course-editor-brand';
-      brand.innerHTML='<img src="agape-golf-logo.png" alt="ATG"><span><b>Course Mapping Editor</b><small>MapTiler viewing · phone & desktop ready</small></span>';
+      brand.innerHTML=`<img src="parfolio-app-icon.png" alt="ParFolio"><span><b>Course Mapping Editor</b><small>${MAPTILER_API_KEY?'MapTiler viewing':'Google / OpenStreetMap viewing'} · phone & desktop ready</small></span>`;
       title.before(brand);
     }
     const street=[...document.querySelectorAll('.map-layer-toggle button')].find(b=>b.textContent.trim()==='Street');
@@ -17,9 +20,12 @@
     if(sat)sat.textContent='Satellite';
   };
 
-  /* Course mapping deliberately uses Leaflet + MapTiler for clear flat cartography and satellite editing.
-     Live-play Google Maps remains unchanged. */
+  /* Use MapTiler when ParFolio has its own key. Until then, preserve the core Google/OSM
+     editor instead of attempting MapTiler requests with an empty key. */
   initMap=async function(){
+    if(!MAPTILER_API_KEY){
+      return priorInitMap();
+    }
     const container=$('courseMap');if(!container||!draft||!window.L)return;
     const g=draft.greens[draft.mapHole-1],existing=markerPoint(g,draft.target),any=g.center||g.aim1||g.aim2||g.tee||g.front||g.back;
     const fallback=draft.catalog_point||coursePreviewPoint(draft)||{lat:34.1,lng:-117.3};
@@ -40,6 +46,12 @@
   };
 
   setMapStyle=function(style){
+    if(!MAPTILER_API_KEY){
+      priorSetMapStyle(style);
+      const street=[...document.querySelectorAll('.map-layer-toggle button')].find(b=>b.textContent.trim()==='Street');
+      if(street)street.textContent='Map';
+      return;
+    }
     draft.mapStyle=style==='street'?'street':'satellite';
     if(map){const center=map.getCenter();if(center)draft.mapView={lat:center.lat,lng:center.lng,zoom:map.getZoom()};try{map.remove()}catch{}map=null;}
     const container=$('courseMap');if(container){container.innerHTML='';initMap();}
@@ -49,7 +61,7 @@
   function addScorecardLogo(){
     if(!['recap','historyDetailView'].includes(s?.v))return;
     const heading=app.querySelector('h1');if(!heading||app.querySelector('.scorecard-atg-brand'))return;
-    const brand=document.createElement('div');brand.className='scorecard-atg-brand';brand.innerHTML='<img src="agape-golf-logo.png" alt="ParFolio"><div><b>AGAPE TUMOUTOU GOLFERS</b><small>Play · Connect · Improve</small></div>';
+    const brand=document.createElement('div');brand.className='scorecard-atg-brand';brand.innerHTML='<img src="parfolio-app-icon.png" alt="ParFolio"><div><b>PARFOLIO</b><small>Your Game. Your Score. Your Story.</small></div>';
     heading.parentElement?.insertBefore(brand,heading.parentElement.firstChild);
   }
   const priorRecap=recap;
