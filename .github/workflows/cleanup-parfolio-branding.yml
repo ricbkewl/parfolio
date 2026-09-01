@@ -1,0 +1,62 @@
+name: Clean remaining ParFolio branding remnants
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cleanup-parfolio-branding.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace remaining ATG-only visible branding
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          replacements = {
+            "agape-golf-logo.png": "parfolio-app-icon.png",
+            "Saved to <span>Serve</span>": "Your Game. <span>Your Score. Your Story.</span>",
+            "Saved to serve · Ready to play": "Your Game. Your Score. Your Story.",
+            "Created for the Fellowship": "CREATED FOR GOLFERS",
+            "CREATED FOR THE FELLOWSHIP": "CREATED FOR GOLFERS",
+            "bring fellowship, course guidance, scoring and group communication together": "bring course guidance, scoring and group communication together",
+            "the ATG crest opens the round QR code": "the menu button opens the round QR code",
+            "with the ATG crest": "with the ParFolio crest",
+            "ParFolio · Saved to Serve": "ParFolio · Your Game. Your Score. Your Story.",
+            "Shared from ParFolio · Saved to Serve": "Shared from ParFolio · Your Game. Your Score. Your Story.",
+            "agape-scorecard-": "parfolio-scorecard-",
+            "Agape%20Golf%20App%20Suggestion": "ParFolio%20App%20Suggestion",
+            "This is not an ParFolio round QR.": "This is not a ParFolio round QR."
+          }
+
+          for filename in ["app.js", "guide-i18n.js"]:
+            p = Path(filename)
+            if not p.exists():
+              continue
+            text = p.read_text()
+            original = text
+            for old, new in replacements.items():
+              text = text.replace(old, new)
+            # Remove the legacy scripture block from the static home template itself.
+            text = text.replace("<p class=\"scripture\"><strong><em>“Who hath saved us, and called us<br>with a holy calling...”</em> <span>2 Tim. 1:9</span></strong></p>", "")
+            if text != original:
+              p.write_text(text)
+          PY
+
+      - name: Commit cleanup
+        run: |
+          git config user.name "ParFolio Branding"
+          git config user.email "parfolioproject@gmail.com"
+          git add app.js guide-i18n.js
+          git commit -m "Remove remaining ATG-only visible branding from ParFolio" || exit 0
+          git push origin main
