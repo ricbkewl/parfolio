@@ -5,7 +5,7 @@ const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
 const APP_URL = 'https://parfolio-iota.vercel.app/';
 const GOOGLE_MAPS_API_KEY = 'AIzaSyB62ENrS5TIOb5SChgC0MbaL6XwW3GNaog';
-const GOOGLE_MAP_ID = '';
+const GOOGLE_MAP_ID = 'DEMO_MAP_ID';
 const MAPTILER_API_KEY = '';
 const EAGLE_GLEN_COURSE_ID = 'be42b7f5-e195-4004-9e6d-4d7e44fbe6a2';
 const EAGLE_GLEN_DRAFT_POINTS = [
@@ -903,7 +903,7 @@ function googlePlannerLabelMarker(rawMap,position,kind){
 }
 function orientInlineHoleMap(green,origin=null,target=null){
   if(!inlineHoleMap||!selectedTee(green)||!green?.center)return;
-  const segment=activeRouteSegment(null,green),start=origin||segment?.origin||selectedTee(green),end=target||segment?.target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);
+  const start=origin||selectedTee(green),end=target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);
   if(inlineHoleMap.provider==='google'){
     if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
     if(!inlineUserMovedMap||inlineViewResetting)inlineHoleMap.raw.moveCamera({heading:bearing,tilt:LIVE_MAP_TILT});
