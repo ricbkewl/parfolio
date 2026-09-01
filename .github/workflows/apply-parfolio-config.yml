@@ -1,0 +1,41 @@
+name: Apply ParFolio browser configuration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-parfolio-config.yml'
+      - 'parfolio-public-config.json'
+
+permissions:
+  contents: write
+
+jobs:
+  configure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Patch ATG baseline with ParFolio browser config
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import json
+          cfg=json.loads(Path('parfolio-public-config.json').read_text())
+          p=Path('app.js')
+          t=p.read_text()
+          t=t.replace('__PARFOLIO_SUPABASE_URL__', cfg['supabase_url'])
+          t=t.replace('__PARFOLIO_SUPABASE_KEY__', cfg['supabase_publishable_key'])
+          t=t.replace('__PARFOLIO_GOOGLE_MAPS_KEY__', cfg['google_maps_browser_key'])
+          p.write_text(t)
+          PY
+
+      - name: Commit configured baseline
+        run: |
+          git config user.name "ParFolio Configuration"
+          git config user.email "parfolioproject@gmail.com"
+          git add app.js
+          git commit -m "Apply ParFolio backend and Maps browser configuration" || exit 0
+          git push origin main
