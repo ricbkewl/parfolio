@@ -1,0 +1,37 @@
+name: Isolate ParFolio Google Maps configuration
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/isolate-parfolio-maps.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove ATG Map ID dependency safely
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          text=p.read_text()
+          text=text.replace("const GOOGLE_MAP_ID = 'c27152898adbf111a2dbd048';", "const GOOGLE_MAP_ID = '';")
+          text=text.replace("zoom:17,mapId:GOOGLE_MAP_ID,mapTypeId:liveMapStyle,", "zoom:17,...(GOOGLE_MAP_ID?{mapId:GOOGLE_MAP_ID}:{}),mapTypeId:liveMapStyle,")
+          text=text.replace("zoom,mapId:GOOGLE_MAP_ID,mapTypeId:draft.mapStyle==='satellite'?'satellite':'roadmap',", "zoom,...(GOOGLE_MAP_ID?{mapId:GOOGLE_MAP_ID}:{}),mapTypeId:draft.mapStyle==='satellite'?'satellite':'roadmap',")
+          p.write_text(text)
+          PY
+      - name: Commit isolation
+        run: |
+          git config user.name "ParFolio Maps"
+          git config user.email "parfolioproject@gmail.com"
+          git add app.js
+          git commit -m "Remove ATG Google Map ID dependency from ParFolio" || exit 0
+          git push origin main
