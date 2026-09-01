@@ -1,0 +1,53 @@
+name: Normalize ParFolio round terminology
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/normalize-parfolio-round-terminology.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Normalize golfer-facing terminology
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          t=p.read_text()
+          replacements={
+            "item.textContent.includes('ATG crest opens')":"item.textContent.includes('legacy crest opens')",
+            "Please sign in to view your previous matches.":"Please sign in to view your previous rounds.",
+            "Your match history could not be loaded. Please try again.":"Your round history could not be loaded. Please try again.",
+            "No matches yet":"No rounds yet",
+            "Loading your matches…":"Loading your rounds…",
+            "Remove from My History":"Remove from Previous Rounds",
+            "The match could not be removed:":"The round could not be removed:",
+            "This scorecard could not be loaded.":"This round scorecard could not be loaded.",
+            "← Matches":"← Previous Rounds",
+            "Match Scorecard":"Round Scorecard",
+            "Removing hides this match only from your account.":"Removing hides this round only from your account.",
+            "Remove ${course} from your match history?":"Remove ${course} from your round history?",
+            "Current feature guide · Version 100 · Updated August 31, 2026":"Current feature guide · ATG v148 baseline · Updated September 1, 2026",
+            "Current feature guide · Version 90 · Updated August 30, 2026":"Current feature guide · ATG v148 baseline · Updated September 1, 2026"
+          }
+          for old,new in replacements.items():
+            t=t.replace(old,new)
+          p.write_text(t)
+          PY
+      - name: Commit terminology cleanup
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Normalize ParFolio Previous Rounds terminology'
+          git push
