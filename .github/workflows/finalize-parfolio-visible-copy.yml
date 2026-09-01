@@ -1,0 +1,45 @@
+name: Finalize ParFolio visible copy
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/finalize-parfolio-visible-copy.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Remove remaining ATG and match wording from golfer-facing copy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          t=p.read_text()
+          replacements={
+            'Remove a match from only your history, or let the host permanently delete it for everyone':'Remove a round from only your history, or let the host permanently delete it for everyone',
+            'Sign in to see your saved matches.':'Sign in to see your saved rounds.',
+            'Install the History Controls SQL update to remove or permanently delete matches.':'Install the History Controls SQL update to remove or permanently delete rounds.',
+            'Current feature guide · ATG v148 baseline · Updated September 1, 2026':'Current feature guide · ParFolio Beta · Updated September 1, 2026'
+          }
+          for old,new in replacements.items():
+            t=t.replace(old,new)
+          # When MapTiler is intentionally disabled, the flat fallback is an OSM course map, not Terrain.
+          t=t.replace("<button class=\"${liveMapStyle==='terrain'?'on':''}\" onclick=\"setLiveMapStyle('terrain')\">${esc(t('terrain'))}</button>","<button class=\"${liveMapStyle==='terrain'?'on':''}\" onclick=\"setLiveMapStyle('terrain')\">${esc(MAPTILER_API_KEY?t('terrain'):'Map')}</button>")
+          p.write_text(t)
+          PY
+      - name: Commit visible-copy cleanup
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Finalize ParFolio golfer-facing copy'
+          git push
