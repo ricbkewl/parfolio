@@ -9,6 +9,7 @@ on:
       - '*.js'
       - '*.css'
       - 'manifest.webmanifest'
+      - '.github/workflows/parfolio-production-smoke.yml'
 
 permissions:
   contents: write
@@ -25,7 +26,6 @@ jobs:
           python3 - <<'PY'
           import urllib.request, urllib.error, re, pathlib, datetime, time
           base='https://parfolio-iota.vercel.app/'
-          # Give Vercel a short window to deploy the commit that triggered this run.
           time.sleep(8)
           def get(path):
             url=base+path.lstrip('/')
@@ -47,7 +47,6 @@ jobs:
             if ref.startswith(('http://','https://','//','data:')): continue
             path=ref.split('?',1)[0].lstrip('./')
             if path and path not in local: local.append(path)
-          # Critical files that may be loaded dynamically rather than directly by index.
           for path in ['app.js','service-worker.js','manifest.webmanifest','parfolio-app-icon.png','rick-kulon-profile.jpg','shared-course-library-v145.js','parfolio-branding.js']:
             if path not in local: local.append(path)
           rows=[]
