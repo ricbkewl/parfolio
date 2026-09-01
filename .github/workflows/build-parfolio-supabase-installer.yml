@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
+      - 'supabase/parfolio-v148-legacy-schema-bridge.sql'
       - 'supabase/atg-v148-compatibility.sql'
       - 'supabase/parfolio-v148-courses-storage.sql'
       - 'supabase/parfolio-v148-security-hardening.sql'
@@ -11,6 +12,10 @@ on:
 
 permissions:
   contents: write
+
+concurrency:
+  group: parfolio-supabase-installer
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -24,8 +29,12 @@ jobs:
           {
             echo '-- ParFolio v148 complete Supabase installer'
             echo '-- Generated from the audited compatibility migrations. No ATG user/round/chat/private data is included.'
-            echo '-- Safe to re-run: table/function/policy/bucket operations are written to be idempotent.'
+            echo '-- Existing incompatible beta round_players data is preserved in a private legacy table.'
             echo
+            echo '-- ---- Legacy ParFolio schema bridge ----'
+            cat supabase/parfolio-v148-legacy-schema-bridge.sql
+            echo
+            echo '-- ---- ATG v148 compatibility schema ----'
             cat supabase/atg-v148-compatibility.sql
             echo
             echo '-- ---- ParFolio local courses + storage supplement ----'
@@ -37,9 +46,11 @@ jobs:
       - name: Commit installer
         shell: bash
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add supabase/parfolio-v148-full.sql
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Build complete ParFolio v148 Supabase installer'
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
