@@ -53,12 +53,12 @@
       sharedMappingStatus:payload.mapping_status,
       sharedLibraryLoadedAt:new Date().toISOString()
     };
-    try{localStorage.atgCourses=JSON.stringify(courses)}catch{}
+    try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
     try{
       const listed=LISTED_COURSE_CATALOG.find(c=>normalize(c.name)===SIERRA_NORMALIZED);
       if(listed){listed.sharedCourseId=payload.shared_course_id;listed.sharedMappingStatus=payload.mapping_status;listed.greens=sharedGreens;listed.pars=pars.length===18?pars:listed.pars;}
     }catch{}
-    window.ATG_SHARED_LIBRARY_PILOT={course:'Sierra Lakes Golf Club',sharedCourseId:payload.shared_course_id,status:payload.mapping_status,holes:sharedGreens.length,loaded:true};
+    window.PARFOLIO_SHARED_LIBRARY_PILOT={course:'Sierra Lakes Golf Club',sharedCourseId:payload.shared_course_id,status:payload.mapping_status,holes:sharedGreens.length,loaded:true};
     return true;
   }
   async function loadSharedSierraPilot({rerender=true,retries=6}={}){
@@ -77,7 +77,7 @@
       return false;
     }catch(error){
       console.warn('Shared Golf Course Library unavailable; ATG is retaining its existing Sierra Lakes data.',error);
-      window.ATG_SHARED_LIBRARY_PILOT={course:'Sierra Lakes Golf Club',loaded:false,error:String(error?.message||error)};
+      window.PARFOLIO_SHARED_LIBRARY_PILOT={course:'Sierra Lakes Golf Club',loaded:false,error:String(error?.message||error)};
       return false;
     }finally{sharedLoadBusy=false;}
   }

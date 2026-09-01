@@ -130,11 +130,11 @@
         const rows=await fetchCatalog();stats.catalogRows=rows.length;
         const merged=mergeCatalog(rows);stats.added=merged.added;stats.matched=merged.matched;
         const hydrated=await hydrateSafeSharedCourses(rows);stats.hydrated=hydrated.hydrated;stats.gpsActive=hydrated.gpsActive;
-        try{localStorage.atgCourses=JSON.stringify(courses)}catch{}
-        stats.loaded=true;stats.loadedAt=new Date().toISOString();window.ATG_SHARED_LIBRARY=stats;window.ATG_SHARED_LIBRARY_PILOT=stats;
+        try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
+        stats.loaded=true;stats.loadedAt=new Date().toISOString();window.PARFOLIO_SHARED_LIBRARY=stats;window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
         if(rerender&&typeof render==='function')render();return true;
       }catch(error){
-        stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();window.ATG_SHARED_LIBRARY=stats;window.ATG_SHARED_LIBRARY_PILOT=stats;
+        stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();window.PARFOLIO_SHARED_LIBRARY=stats;window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
         console.warn('Shared Golf Course Library catalog unavailable; ATG is retaining its existing course data.',error);return false;
       }finally{sharedLoadBusy=false;}
     })();

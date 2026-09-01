@@ -170,19 +170,19 @@
           }
         }
 
-        try{localStorage.atgCourses=JSON.stringify(courses)}catch{}
+        try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
         stats.loaded=true;
         stats.loadedAt=new Date().toISOString();
-        window.ATG_SHARED_LIBRARY=stats;
-        window.ATG_SHARED_LIBRARY_PILOT=stats;
+        window.PARFOLIO_SHARED_LIBRARY=stats;
+        window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
         if(rerender&&typeof render==='function')render();
         return true;
       }catch(error){
         stats.loaded=false;
         stats.errors.push({course:'',message:String(error?.message||error)});
         stats.loadedAt=new Date().toISOString();
-        window.ATG_SHARED_LIBRARY=stats;
-        window.ATG_SHARED_LIBRARY_PILOT=stats;
+        window.PARFOLIO_SHARED_LIBRARY=stats;
+        window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
         console.warn('Shared Golf Course Library unavailable; ATG is retaining its existing course data.',error);
         return false;
       }finally{

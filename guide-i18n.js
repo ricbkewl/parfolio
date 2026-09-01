@@ -65,5 +65,5 @@ fr:{summary:'Guide de l’application et À propos',created:'CRÉÉ POUR LA FRAT
 Object.values(guides).forEach(guide=>{guide.version=guide.version.replace('101','106')});
 const list=items=>`<ul class="guide-features">${items.map(item=>`<li>${item}</li>`).join('')}</ul>`;
 function render(lang){const g=guides[lang]||guides.en;return`<details class="app-guide" ontoggle="positionLocalizedGuide(this)"><summary><span>${g.summary}</span><b>＋</b></summary><div class="guide-body"><section class="founder-card"><img src="rick-kulon-profile.jpg" alt="Rick Kulon"><div><small class="guide-opening-line">${g.created}</small><h2>ParFolio</h2><p>${g.about}</p></div></section>${g.sections.map(([title,items],index)=>`${index===1?'':''}<h3>${title}</h3>${list(items)}`).join('')}<div class="guide-update">${g.version}</div><div class="guide-contact"><p>${g.contact}</p><a href="mailto:ricbkewl@gmail.com?subject=ParFolio%20App%20Suggestion">✉ ricbkewl@gmail.com</a><a href="sms:+16074383208">✆ 607.438.3208</a></div><button class="guide-close-button" onclick="closeAppGuide(this)">${g.close}</button></div></details>`}
-window.ATG_GUIDE={render};
+window.PARFOLIO_GUIDE={render};
 })();

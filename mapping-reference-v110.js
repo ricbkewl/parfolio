@@ -60,7 +60,7 @@
     }
   };
 
-  window.ATG_MAPPING_REFERENCE_V110=refs;
+  window.PARFOLIO_MAPPING_REFERENCE_V110=refs;
 
   try{
     const byId=id=>LISTED_COURSE_CATALOG.find(c=>c.id===id);

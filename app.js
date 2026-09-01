@@ -1,4 +1,15 @@
 const app = document.querySelector('#app');
+const PARFOLIO_STORAGE_MIGRATION = (()=>{
+  try{
+    const keys=[];
+    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith('atg'))keys.push(key)}
+    for(const oldKey of keys){
+      const newKey='parfolio'+oldKey.slice(3);
+      if(localStorage.getItem(newKey)===null)localStorage.setItem(newKey,localStorage.getItem(oldKey));
+    }
+  }catch{}
+  return true;
+})();
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
@@ -144,7 +155,7 @@ const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY,{
 });
 const CLUBS=['Driver','3 Wood','5 Wood','7 Wood','2 Hybrid','3 Hybrid','4 Hybrid','5 Hybrid','2 Iron','3 Iron','4 Iron','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Gap Wedge','Sand Wedge','Lob Wedge'];
 const roundDefault = {v:'home',course:'',courseId:null,catalogCourseId:null,royaleRoute:null,holes:18,players:[''],pars:[],scores:{},putts:{},hole:1,teeSet:'black',done:false,resumeView:null,ownerUserId:null,createdBy:null};
-let s = JSON.parse(localStorage.atgRound || 'null') || roundDefault;
+let s = JSON.parse(localStorage.parfolioRound || 'null') || roundDefault;
 if(!s.putts)s.putts={};
 if(!s.teeSet)s.teeSet='black';
 if(/^catalog-royale-(north|south|west)-jakarta$/.test(s.catalogCourseId||'')){s.royaleRoute=s.catalogCourseId.match(/^catalog-royale-(north|south|west)-jakarta$/)[1];s.catalogCourseId='catalog-royale-jakarta';const migrated=royaleRoundCourse(s.royaleRoute);s.course=migrated.name;s.holes=migrated.holes;s.pars=[...migrated.pars]}
@@ -169,10 +180,10 @@ const MENU_EXTRA_LABELS={
   fr:{clubs:'Mes clubs',manage:'Gérer / terminer la partie'}
 };
 function menuExtraLabel(key){return MENU_EXTRA_LABELS[appLanguage]?.[key]||MENU_EXTRA_LABELS.en[key]}
-let appLanguage=APP_LANGUAGES[localStorage.atgLanguage]?localStorage.atgLanguage:'en';
+let appLanguage=APP_LANGUAGES[localStorage.parfolioLanguage]?localStorage.parfolioLanguage:'en';
 document.documentElement.lang=appLanguage;
 function t(key){return I18N[appLanguage]?.[key]||I18N.en[key]||key}
-let courses = JSON.parse(localStorage.atgCourses||'[]');
+let courses = JSON.parse(localStorage.parfolioCourses||'[]');
 let currentUser = null;
 let adminRole = null;
 let cloudError = '';
@@ -189,22 +200,22 @@ let roundChannel=null,subscribedRoundId=null,realtimeTimer=null;
 let chatMessages=[],chatTimer=null,unreadChatCount=0,chatToastTimer=null,chatMediaReady=true;
 let qrScanner=null,qrScanLocked=false;
 let avatarCacheVersion=Date.now();
-let currentWeather=null,weatherLoading=false,weatherCache=JSON.parse(localStorage.atgWeatherCache||'{}');
+let currentWeather=null,weatherLoading=false,weatherCache=JSON.parse(localStorage.parfolioWeatherCache||'{}');
 let lastKnownPosition=null,lastGpsAccuracyYards=null,inlineHoleMap=null,inlineGolferMarker=null,inlineHoleGreen=null,inlineViewResetting=false,inlineUserMovedMap=false;
 let inlinePlannerMarker=null,inlinePlannerLines=[],inlinePlannerLabels=[],shotPlannerGreen=null;
 let googleMapsPromise=null,inlineGoogleOverlays=[];
 const shotPlannerAims={};
 let coursePreviewMaps=[];
-let liveMapStyle=localStorage.atgLiveMapStyle==='terrain'?'terrain':'satellite';
+let liveMapStyle=localStorage.parfolioLiveMapStyle==='terrain'?'terrain':'satellite';
 const LIVE_MAP_TILT=55;
-let pendingScores=JSON.parse(localStorage.atgPendingScores||'{}');
-let pendingHoleStats=JSON.parse(localStorage.atgPendingHoleStats||'{}');
+let pendingScores=JSON.parse(localStorage.parfolioPendingScores||'{}');
+let pendingHoleStats=JSON.parse(localStorage.parfolioPendingHoleStats||'{}');
 let scoreSyncPromise=null;
 let statsSyncPromise=null;
 let recoveryMode=false;
 let courseLibraryQuery='',courseLibraryLocation=null;
 let courseLibraryFilters={nearby:false,favorites:false,recent:false,holes:null,mapped:false,par3:false,difficulty:null};
-const save=()=>{localStorage.atgRound=JSON.stringify(s)};
+const save=()=>{localStorage.parfolioRound=JSON.stringify(s)};
 const rel=n=>n===0?'E':n>0?'+'+n:n;
 const parTotal=n=>s.pars.slice(0,n).reduce((a,b)=>a+b,0);
 const total=(p,n=s.holes)=>Array.from({length:n},(_,i)=>s.scores[p]?.[i+1]||0).reduce((a,b)=>a+b,0);
@@ -216,7 +227,7 @@ function avatarMarkup(path,name,className='profile-photo'){const label=name||'Go
 function render(){save();document.querySelector('meta[name="theme-color"]')?.setAttribute('content',s.v==='round'?'#f7faf8':'#064c32');stopLocation();if(inlineHoleMap){if(inlineHoleMap.provider==='google')clearInlineGoogleOverlays();inlineHoleMap.remove();inlineHoleMap=null;inlineGolferMarker=null;inlineHoleGreen=null;inlineViewResetting=false;inlineUserMovedMap=false;inlinePlannerMarker=null;inlinePlannerLines=[];inlinePlannerLabels=[];shotPlannerGreen=null}for(const previewMap of coursePreviewMaps){try{previewMap.remove()}catch{}}coursePreviewMaps=[];if(map){if(draft&&!draft.skipMapViewSave){const center=map.getCenter();if(center)draft.mapView={lat:center.lat,lng:center.lng,zoom:map.getZoom()}}map.remove();map=null}if(draft?.skipMapViewSave){delete draft.mapView;delete draft.skipMapViewSave}app.className='';({home,setup,pars,round,recap,coursesView,mapCourse,accountView,historyView,historyDetailView,clubsView,chatView,usersView,signupView,profileView,roundManageView}[s.v]||home)();addGlobalMenuButton()}
 function appGuide(){return`<details class="app-guide" ontoggle="positionExpandedGuide(this)"><summary><span>App Guide & About</span><b>＋</b></summary><div class="guide-body"><section class="founder-card"><img src="rick-kulon-profile.jpg" alt="Rick Kulon, creator of the ParFolio app"><div><small class="guide-opening-line">CREATED FOR GOLFERS</small><h2>ParFolio</h2><p>A mobile golf companion created by Rick Kulon to bring course guidance, scoring and group communication together in one simple app.</p></div></section><h3>Before Your First Round</h3><ol><li>Tap <b>Sign Up</b> and enter your first name, last name, email and phone number.</li><li>Open the verification email from Supabase and confirm your account.</li><li>Return to the app and sign in. Your login is remembered on that device.</li><li>Open <b>Account → My Profile & Picture</b> to finish your profile.</li><li>Open <b>My Clubs & Distances</b> and save the distance you normally carry each club.</li></ol><h3>Create or Join a Round</h3><ol><li>One golfer creates a protected 9- or 18-hole round.</li><li>Share the six-character round code, join link or QR code.</li><li>Every participant signs in before joining; the score sheet uses the golfer's profile first name, which remains editable.</li><li>Use <b>Resume Current Round</b> if you leave the round screen accidentally.</li></ol><h3>Google Maps Course View</h3><ul class="guide-features"><li>High-quality full-screen Google Map and Satellite views</li><li>Each hole automatically frames the complete route and aligns from the golfer or tee toward the next aim point or green</li><li>Pinch to zoom, drag to pan, twist to rotate and use a two-finger vertical gesture to tilt supported maps</li><li>Tap the crosshair below the weather panel to restore the aligned full-hole view</li><li>Hole number, mapped distance, par and live route remaining remain visible across the top</li><li>Temperature, weather icon and wind direction are shown relative to the playing direction</li><li>Previous and next-hole arrows sit along the map edges, and the menu button opens the round QR code</li></ul><h3>Shot Planner & Suggested Club</h3><ul class="guide-features"><li>Move the gold aim marker to plan where the ball should land</li><li>The thin solid and dotted gold route lines update as the planner moves</li><li>See <b>yards to hit</b>, route-aware <b>yards to go</b> and the suggested club together beside the route</li><li>Mapped Aim 1 and Aim 2 points guide dogleg holes</li><li>The planner begins from your current GPS position as you advance up the hole</li><li>Suggested Club uses your saved carry distances and stops recommending Driver after you move beyond the tee area</li></ul><div class="notice guide-tip"><b>Remember:</b> Club suggestions are guidance only. Consider wind, lie, elevation, hazards and your normal shot shape.</div><h3>Protected Scoring</h3><ul class="guide-features"><li>Your score begins at the hole's par</li><li>Use <b>−</b> or <b>+</b>, or tap the raised score button for exact strokes and optional putts</li><li>Tap <b>0 · 10–20</b> in the score-entry sheet to enter scores of 10 or more</li><li>Each signed-in golfer can edit their own score, including when the round host is another golfer</li><li>The Live Scorecard updates for the group</li><li>Scores wait safely on the phone while offline and synchronize after reconnecting</li><li>Share or download a branded scorecard image with the ParFolio crest</li></ul><h3>Private Round Chat & Photos</h3><ul class="guide-features"><li>Send messages to everyone participating in the current round</li><li>Unread badges and alerts identify new messages</li><li>Tap 📷 to take a photo or choose one from your photo library</li><li>Type before choosing a photo if you want to include a caption</li><li>Tap a shared photo to view it full-screen or save/download it</li><li>When the host permanently deletes the round, its chat photos are removed from app storage</li></ul><h3>Courses, Account & History</h3><ul class="guide-features"><li>See up to seven recommended courses based on location, favorites, recent play and mapping completeness</li><li>Search the complete shared course library or filter by distance, favorites, recent play, holes, mapping and difficulty</li><li>Tap the star on a course to save it as a favorite on that device</li><li>Tap a course name or map to start a new round at that location</li><li>Upload a golfer picture and edit your profile information</li><li>Review My Clubs & Distances or change your password</li><li>Open Previous Rounds to view and share completed scorecards</li><li>Remove a match from only your history, or let the host permanently delete it for everyone</li><li>Authorized administrators can map tees, dogleg aim points and front, center and back of greens with Google Maps</li><li>The Super Admin can manage course administrators and view the private registered-player directory</li></ul><h3>Save It to Your Home Screen</h3><div class="install-guide"><section><h4>iPhone or iPad</h4><ol><li>Open the app in <b>Safari</b>.</li><li>Tap <b>Share → Add to Home Screen → Add</b>.</li></ol></section><section><h4>Android</h4><ol><li>Open the app in <b>Chrome</b>.</li><li>Tap the menu, then <b>Install app</b> or <b>Add to Home screen</b>.</li></ol></section></div><div class="notice guide-tip"><b>Tip:</b> If the link opens inside Messages, Facebook or another app, choose <b>Open in Safari</b> or <b>Open in Chrome</b> first.</div><h3>Location & Privacy</h3><p>Allow precise location access for live GPS yardages, playing-direction alignment and club suggestions. Round scores, messages and photos are limited to participating golfers. Profile contact information is available only to you and the Super Admin.</p><div class="guide-update">Current feature guide · Version 90 · Updated August 30, 2026</div><div class="guide-contact"><p>Suggestions for improving the app are welcome.</p><a href="mailto:ricbkewl@gmail.com?subject=ParFolio%20App%20Suggestion">✉ ricbkewl@gmail.com</a><a href="sms:+16074383208">✆ Text 607.438.3208</a></div><button class="guide-close-button" onclick="closeAppGuide(this)">Close & Return Home</button></div></details>`}
 const appGuideEnglish=appGuide;
-appGuide=function(){return window.ATG_GUIDE?.render?window.ATG_GUIDE.render(appLanguage):appGuideEnglish()};
+appGuide=function(){return window.PARFOLIO_GUIDE?.render?window.PARFOLIO_GUIDE.render(appLanguage):appGuideEnglish()};
 function positionLocalizedGuide(details){if(!details.open)return;requestAnimationFrame(()=>details.querySelector('.guide-opening-line')?.scrollIntoView({behavior:'smooth',block:'start'}))}
 function positionExpandedGuide(details){
   if(!details.open)return;
@@ -275,7 +286,7 @@ function showLanguageMenu(){
   closeRoundQuickMenu();const overlay=document.createElement('div');overlay.className='app-menu-overlay';overlay.onclick=event=>{if(event.target===overlay)closeRoundQuickMenu()};
   overlay.innerHTML=`<section class="app-side-menu language-side-menu" role="dialog" aria-modal="true" aria-label="${esc(t('chooseLanguage'))}"><header><b>${esc(t('chooseLanguage'))}</b><button onclick="closeRoundQuickMenu()" aria-label="${esc(t('close'))}">×</button></header>${Object.entries(APP_LANGUAGES).map(([code,label])=>`<button class="language-choice ${appLanguage===code?'on':''}" onclick="setAppLanguage('${code}')"><span class="language-check">${appLanguage===code?'✓':''}</span><div>${esc(label)}<small>${appLanguage===code?esc(t('selected')):''}</small></div></button>`).join('')}</section>`;document.body.appendChild(overlay)
 }
-function setAppLanguage(code){if(!APP_LANGUAGES[code])return;appLanguage=code;localStorage.atgLanguage=code;document.documentElement.lang=code;closeRoundQuickMenu();render()}
+function setAppLanguage(code){if(!APP_LANGUAGES[code])return;appLanguage=code;localStorage.parfolioLanguage=code;document.documentElement.lang=code;closeRoundQuickMenu();render()}
 const TEE_LABELS={en:{black:'Black Tee',blue:'Blue Tee',white:'White Tee',red:'Red Tee'},es:{black:'Tee negro',blue:'Tee azul',white:'Tee blanco',red:'Tee rojo'},zh:{black:'黑色发球台',blue:'蓝色发球台',white:'白色发球台',red:'红色发球台'},id:{black:'Tee hitam',blue:'Tee biru',white:'Tee putih',red:'Tee merah'},hi:{black:'काली टी',blue:'नीली टी',white:'सफेद टी',red:'लाल टी'},fr:{black:'Départ noir',blue:'Départ bleu',white:'Départ blanc',red:'Départ rouge'}};
 function teeSetLabel(value=s.teeSet){return TEE_LABELS[appLanguage]?.[value]||TEE_LABELS.en[value]||TEE_LABELS.en.black}
 function selectedTee(green){return green?.tees?.[s.teeSet]||green?.tees?.black||green?.tee||null}
@@ -309,7 +320,7 @@ async function initializeCloud(){
   cloudLoading=false;render();
   await Promise.all([syncPendingScores(),syncPendingHoleStats()]);
   const linkedCode=new URLSearchParams(location.search).get('join');
-  const pendingCode=linkedCode||localStorage.atgPendingJoinCode;
+  const pendingCode=linkedCode||localStorage.parfolioPendingJoinCode;
   if(pendingCode&&!recoveryMode)setTimeout(()=>joinRoundWithCode(pendingCode),250);
 }
 async function loadAdminRole(){
@@ -328,7 +339,7 @@ async function loadGolferProfile(){
 async function loadCourses(){
   const {data,error}=await db.from('courses').select('id,name,holes,pars,greens,updated_at').order('name');
   if(error){courses=mergeListedCourseCatalog(courses);cloudError=courses.length?'You are offline. Using the courses saved on this device.':'Shared courses could not be loaded. Connect to the internet and try again.';return}
-  cloudError='';courses=mergeListedCourseCatalog(data||[]);localStorage.atgCourses=JSON.stringify(courses);
+  cloudError='';courses=mergeListedCourseCatalog(data||[]);localStorage.parfolioCourses=JSON.stringify(courses);
 }
 async function loadClubDistances(){
   clubDistances={};clubProfileError='';
@@ -479,7 +490,7 @@ async function changePassword(){
   if(error){alert('Password could not be changed: '+error.message);return false}
   recoveryMode=false;history.replaceState({},'',location.pathname);alert('Your password has been changed.');s.v='accountView';render();return true;
 }
-async function signOutAdmin(){await stopRoundRealtime();await db.auth.signOut();delete localStorage.atgPendingJoinCode;currentUser=null;adminRole=null;historyRounds=[];historyDetail=null;registeredGolfers=[];registeredGolfersError='';golferProfile=null;golferProfileError='';clubDistances={};clubProfileError='';s={...roundDefault};render()}
+async function signOutAdmin(){await stopRoundRealtime();await db.auth.signOut();delete localStorage.parfolioPendingJoinCode;currentUser=null;adminRole=null;historyRounds=[];historyDetail=null;registeredGolfers=[];registeredGolfersError='';golferProfile=null;golferProfileError='';clubDistances={};clubProfileError='';s={...roundDefault};render()}
 async function promoteCourseAdmin(){
   if(adminRole!=='super_admin'){alert('Only a super admin can add course administrators.');return}
   const email=prompt('Enter the email of an existing app user:');
@@ -535,12 +546,12 @@ async function joinRound(){
 }
 async function joinRoundWithCode(code){
   if(!code)return;
-  localStorage.atgPendingJoinCode=code.toUpperCase();
+  localStorage.parfolioPendingJoinCode=code.toUpperCase();
   if(!await requireGolferSignInToJoin())return;
   const name=scorecardNameForJoin();if(!name)return;
   const {data,error}=await db.rpc('join_shared_round',{p_join_code:code.trim(),p_display_name:name});
   if(error){alert('Could not join round: '+error.message);return}
-  delete localStorage.atgPendingJoinCode;history.replaceState({},'',location.pathname);
+  delete localStorage.parfolioPendingJoinCode;history.replaceState({},'',location.pathname);
   s={...roundDefault,v:'round',players:[name],scores:{},putts:{},sharedRoundId:data.round_id,joinCode:data.join_code,resumeView:'round',ownerUserId:currentUser.id};
   await loadSharedRound(false);render();
 }
@@ -570,7 +581,7 @@ async function loadSharedRound(showError=true){
 }
 async function refreshSharedRound(){if(await loadSharedRound())render()}
 function pendingScoreCount(){return Object.values(pendingScores).filter(x=>x.user_id===currentUser?.id).length}
-function persistPendingScores(){localStorage.atgPendingScores=JSON.stringify(pendingScores);updateSyncIndicator()}
+function persistPendingScores(){localStorage.parfolioPendingScores=JSON.stringify(pendingScores);updateSyncIndicator()}
 function pendingScoreKey(item){return`${item.round_id}:${item.user_id}:${item.hole}`}
 function updateSyncIndicator(){const el=$('syncStatus');if(!el)return;const pending=pendingScoreCount();el.textContent=!navigator.onLine?`Offline · ${pending} waiting`:pending?`Saving ${pending}…`:'Live';el.className='sync-status '+(!navigator.onLine||pending?'waiting':'live')}
 async function syncPendingScores(){
@@ -591,7 +602,7 @@ async function syncPendingScores(){
   try{return await scoreSyncPromise}finally{scoreSyncPromise=null}
 }
 function pendingHoleStatKey(item){return`${item.round_id}:${item.user_id}:${item.hole}`}
-function persistPendingHoleStats(){localStorage.atgPendingHoleStats=JSON.stringify(pendingHoleStats)}
+function persistPendingHoleStats(){localStorage.parfolioPendingHoleStats=JSON.stringify(pendingHoleStats)}
 async function syncPendingHoleStats(){
   if(!currentUser||!navigator.onLine)return false;
   if(statsSyncPromise)return statsSyncPromise;
@@ -858,7 +869,7 @@ function googleMapFacade(raw,container){
 function googleMarkerFacade(marker){return{raw:marker,setLatLng(point){marker.setPosition(googlePoint(point))},getLatLng(){const point=marker.getPosition();return point?{lat:point.lat(),lng:point.lng()}:null},setMap(value){marker.setMap(value)}}}
 function googlePolylineFacade(line){return{raw:line,setLatLngs(points){line.setPath(points.map(googlePoint))},setMap(value){line.setMap(value)}}}
 function createGoogleHtmlOverlay(position,className,html){
-  class AtgOverlay extends google.maps.OverlayView{
+  class ParFolioOverlay extends google.maps.OverlayView{
     constructor(){super();this.position=googlePoint(position);this.div=document.createElement('div');this.div.className=`${className} google-planner-label`;this.div.innerHTML=html;this.div.style.position='absolute';this.div.style.pointerEvents='none'}
     onAdd(){this.getPanes().overlayMouseTarget.appendChild(this.div)}
     draw(){
@@ -871,7 +882,7 @@ function createGoogleHtmlOverlay(position,className,html){
     onRemove(){this.div.remove()}
     setLatLng(point){this.position=googlePoint(point);if(this.getProjection())this.draw()}
   }
-  const overlay=new AtgOverlay();return overlay;
+  const overlay=new ParFolioOverlay();return overlay;
 }
 function resolveGooglePlannerLabelCollision(mapDiv){
   if(!mapDiv)return;const hit=mapDiv.querySelector('.google-planner-label.hit-label'),go=mapDiv.querySelector('.google-planner-label.go-label');if(!hit||!go||go.firstElementChild?.classList.contains('hidden'))return;
@@ -931,7 +942,7 @@ function fitLiveHoleView(green){
 }
 function resetLiveHoleView(){fitLiveHoleView(inlineHoleGreen)}
 function setLiveMapStyle(style){
-  liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.atgLiveMapStyle=liveMapStyle;
+  liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;
   render();
 }
 function enableForwardMapDragging(){
@@ -1064,7 +1075,7 @@ async function loadWeather(here,target,tee,force=false){
     const url=`https://api.open-meteo.com/v1/forecast?latitude=${encodeURIComponent(weatherPoint.lat)}&longitude=${encodeURIComponent(weatherPoint.lng)}&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto`;
     const response=await fetch(url);if(!response.ok)throw new Error('Weather unavailable');
     const payload=await response.json();currentWeather=payload.current||null;if(!currentWeather)throw new Error('Weather unavailable');
-    weatherCache[key]={savedAt:Date.now(),data:currentWeather};localStorage.atgWeatherCache=JSON.stringify(weatherCache);showWeather(currentWeather,here,target,tee);
+    weatherCache[key]={savedAt:Date.now(),data:currentWeather};localStorage.parfolioWeatherCache=JSON.stringify(weatherCache);showWeather(currentWeather,here,target,tee);
   }catch{showWeather(null,here,target,tee)}finally{weatherLoading=false}
 }
 function isMyPlayer(name){return !s.sharedRoundId||sharedPlayers.some(p=>p.display_name===name&&p.user_id===currentUser?.id)}
@@ -1214,10 +1225,10 @@ async function removeRoundPlayer(userId,encodedName){
 }
 function openCourses(returnView){if(returnView)coursesReturnView=returnView;s.v='coursesView';render()}
 function coursePreviewPoint(course){for(const green of course.greens||[]){const point=green?.center||green?.tee||green?.front||green?.back;if(point)return point}return null}
-function courseFavoritesKey(){return`atgCourseFavorites:${currentUser?.id||'guest'}`}
+function courseFavoritesKey(){return`parfolioCourseFavorites:${currentUser?.id||'guest'}`}
 function favoriteCourseIds(){try{return new Set(JSON.parse(localStorage.getItem(courseFavoritesKey())||'[]'))}catch{return new Set()}}
-function recentCourseIds(){try{return JSON.parse(localStorage.getItem(`atgRecentCourses:${currentUser?.id||'guest'}`)||'[]')}catch{return[]}}
-function rememberRecentCourse(id){const recent=[id,...recentCourseIds().filter(item=>item!==id)].slice(0,20);localStorage.setItem(`atgRecentCourses:${currentUser?.id||'guest'}`,JSON.stringify(recent))}
+function recentCourseIds(){try{return JSON.parse(localStorage.getItem(`parfolioRecentCourses:${currentUser?.id||'guest'}`)||'[]')}catch{return[]}}
+function rememberRecentCourse(id){const recent=[id,...recentCourseIds().filter(item=>item!==id)].slice(0,20);localStorage.setItem(`parfolioRecentCourses:${currentUser?.id||'guest'}`,JSON.stringify(recent))}
 function toggleCourseFavorite(id,event){event?.stopPropagation();const favorites=favoriteCourseIds();favorites.has(id)?favorites.delete(id):favorites.add(id);localStorage.setItem(courseFavoritesKey(),JSON.stringify([...favorites]));refreshCourseLibrary()}
 function courseDistanceMiles(course){const point=coursePreviewPoint(course)||course.catalog_point;return point&&courseLibraryLocation?distanceYards(courseLibraryLocation,point)/1760:null}
 function courseDifficulty(course){const distances=(course.greens||[]).map(mappedHoleDistance).filter(Number.isFinite);if(distances.length<Math.max(3,Math.ceil(course.holes*.5)))return'unknown';const average=distances.reduce((sum,value)=>sum+value,0)/distances.length;return average<310?'forward':average>390?'championship':'standard'}
@@ -1323,7 +1334,7 @@ function centerOnMe(){if(!navigator.geolocation){$('mapMessage').textContent='GP
 async function searchCourseAddress(){
   const input=$('courseSearch'),button=$('courseSearchButton'),box=$('courseSearchResults'),query=input?.value.trim();
   if(!query||query.length<3){box.innerHTML='<div class="search-error">Enter a course name or full address.</div>';return}
-  const cache=JSON.parse(localStorage.atgGeocodeCache||'{}'),key=query.toLowerCase();
+  const cache=JSON.parse(localStorage.parfolioGeocodeCache||'{}'),key=query.toLowerCase();
   if(cache[key]){showCourseSearchResults(cache[key]);return}
   if(Date.now()-lastCourseSearch<1100){box.innerHTML='<div class="search-error">Please wait a moment before searching again.</div>';return}
   lastCourseSearch=Date.now();button.disabled=true;button.textContent='Searching…';box.innerHTML='';
@@ -1332,7 +1343,7 @@ async function searchCourseAddress(){
     const response=await fetch(url,{headers:{Accept:'application/json'}});
     if(!response.ok)throw new Error('Search unavailable');
     const results=(await response.json()).map(x=>({lat:Number(x.lat),lon:Number(x.lon),name:x.display_name}));
-    cache[key]=results;localStorage.atgGeocodeCache=JSON.stringify(cache);showCourseSearchResults(results);
+    cache[key]=results;localStorage.parfolioGeocodeCache=JSON.stringify(cache);showCourseSearchResults(results);
   }catch(error){box.innerHTML='<div class="search-error">Location search is temporarily unavailable. You can still use your location or move the map manually.</div>'}
   finally{button.disabled=false;button.textContent='Search'}
 }
