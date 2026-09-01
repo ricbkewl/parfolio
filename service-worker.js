@@ -1,5 +1,16 @@
-const CACHE_NAME='agape-golf-v106';
-const APP_SHELL=['./','./index.html','./guide-i18n.js','./app.js','./styles.css','./manifest.webmanifest','./agape-golf-logo.png','./rick-kulon-profile.jpg','./icon-192.png','./icon-512.png'];
+const CACHE_NAME='parfolio-v148-20260901';
+const APP_SHELL=[
+  './',
+  './index.html',
+  './guide-i18n.js',
+  './app.js',
+  './styles.css',
+  './manifest.webmanifest',
+  './parfolio-app-icon.png',
+  './rick-kulon-profile.jpg',
+  './shared-course-library-v145.js',
+  './parfolio-branding.js'
+];
 
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
@@ -20,6 +31,15 @@ self.addEventListener('fetch',event=>{
     event.respondWith(fetch(event.request).then(response=>{
       const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put('./index.html',copy));return response;
     }).catch(()=>caches.match('./index.html')));
+    return;
+  }
+
+  // Network-first for application code so a copied ATG cache can never pin ParFolio to stale assets.
+  if(appAsset&&/\.(?:js|css|webmanifest)$/.test(url.pathname)){
+    event.respondWith(fetch(event.request).then(response=>{
+      if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
+      return response;
+    }).catch(()=>caches.match(event.request)));
     return;
   }
 
