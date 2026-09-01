@@ -1,15 +1,4 @@
 const app = document.querySelector('#app');
-const PARFOLIO_STORAGE_MIGRATION = (()=>{
-  try{
-    const keys=[];
-    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith('atg'))keys.push(key)}
-    for(const oldKey of keys){
-      const newKey='parfolio'+oldKey.slice(3);
-      if(localStorage.getItem(newKey)===null)localStorage.setItem(newKey,localStorage.getItem(oldKey));
-    }
-  }catch{}
-  return true;
-})();
 const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';

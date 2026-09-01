@@ -1,5 +1,5 @@
-/* Version 145: populate ATG search from the shared Golf Course Library.
-   The shared catalog is merged into ATG's in-memory course list. Existing ATG course IDs
+/* Version 145: populate ParFolio search from the shared Golf Course Library.
+   The shared catalog is merged into ParFolio's in-memory course list. Existing ParFolio course IDs
    are preserved. Catalog-only and GPS-draft rows are searchable but do not activate GPS. */
 (function(){
   const SHARED_LIBRARY_URL='https://qziemwgcjkohjchxdvnv.supabase.co';
@@ -126,7 +126,7 @@
           if(Array.isArray(courses)&&courses.length)break;
           if(attempt<retries)await new Promise(r=>setTimeout(r,180));
         }
-        if(!Array.isArray(courses))throw new Error('ATG course list is not ready.');
+        if(!Array.isArray(courses))throw new Error('ParFolio course list is not ready.');
         const rows=await fetchCatalog();stats.catalogRows=rows.length;
         const merged=mergeCatalog(rows);stats.added=merged.added;stats.matched=merged.matched;
         const hydrated=await hydrateSafeSharedCourses(rows);stats.hydrated=hydrated.hydrated;stats.gpsActive=hydrated.gpsActive;
@@ -135,7 +135,7 @@
         if(rerender&&typeof render==='function')render();return true;
       }catch(error){
         stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();window.PARFOLIO_SHARED_LIBRARY=stats;window.PARFOLIO_SHARED_LIBRARY_PILOT=stats;
-        console.warn('Shared Golf Course Library catalog unavailable; ATG is retaining its existing course data.',error);return false;
+        console.warn('Shared Golf Course Library catalog unavailable; ParFolio is retaining its existing course data.',error);return false;
       }finally{sharedLoadBusy=false;}
     })();
     return sharedLoadPromise;
