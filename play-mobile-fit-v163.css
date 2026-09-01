@@ -1,0 +1,117 @@
+/* ParFolio v163: final mobile-safe play-screen overlay layout.
+   Loaded last so every floating round control stays inside the visual viewport. */
+:root{--pf-play-edge:max(10px,env(safe-area-inset-left));--pf-play-edge-r:max(10px,env(safe-area-inset-right))}
+
+main.round-fullscreen,
+.round-fullscreen .live-hole-map,
+.round-fullscreen .live-map-viewport{width:100%;max-width:100vw;overflow:hidden}
+
+/* Top status bar and course strip */
+.round-fullscreen .round-map-summary{
+  left:max(8px,env(safe-area-inset-left))!important;
+  right:max(8px,env(safe-area-inset-right))!important;
+  width:auto!important;
+  max-width:none!important;
+}
+.round-fullscreen .round-course-name-strip{
+  max-width:calc(100vw - max(16px,env(safe-area-inset-left)) - max(16px,env(safe-area-inset-right)))!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Upper/right floating cards */
+.round-fullscreen .map-wind-card{
+  left:auto!important;
+  right:max(8px,env(safe-area-inset-right))!important;
+  width:min(84px,23vw)!important;
+  max-width:calc(100vw - 16px)!important;
+}
+.round-fullscreen .map-recenter-button{
+  left:auto!important;
+  right:max(10px,env(safe-area-inset-right))!important;
+  max-width:52px!important;
+}
+
+/* Left-side planner / club overlays */
+.round-fullscreen .shot-planner-controls{
+  left:max(8px,env(safe-area-inset-left))!important;
+  right:auto!important;
+  max-width:min(46vw,180px)!important;
+}
+.round-fullscreen .map-club-suggestion,
+.round-fullscreen .planner-on .map-club-suggestion{
+  left:max(8px,env(safe-area-inset-left))!important;
+  right:auto!important;
+  width:auto!important;
+  max-width:min(42vw,160px)!important;
+}
+
+/* Bottom score control: reserve enough room for map-style control on the right. */
+.round-fullscreen .round-floating-score{
+  left:40%!important;
+  right:auto!important;
+  width:min(220px,56vw)!important;
+  max-width:calc(100vw - 104px - env(safe-area-inset-left) - env(safe-area-inset-right))!important;
+  transform:translateX(-50%)!important;
+}
+
+/* Terrain / Satellite: always fully visible inside the right safe edge. */
+.round-fullscreen .live-map-style-toggle{
+  left:auto!important;
+  right:max(8px,env(safe-area-inset-right))!important;
+  width:min(76px,21vw)!important;
+  min-width:64px!important;
+  max-width:calc(100vw - 16px)!important;
+  height:auto!important;
+  min-height:78px!important;
+  padding:4px!important;
+  transform:none!important;
+  overflow:hidden!important;
+}
+.round-fullscreen .live-map-style-toggle button{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+/* Side hole arrows can never protrude outside the map. */
+.round-fullscreen .hole-edge-navigation{left:0!important;right:0!important;width:100%!important;max-width:100vw!important}
+.round-fullscreen .hole-edge-arrow.previous{left:max(2px,env(safe-area-inset-left))!important}
+.round-fullscreen .hole-edge-arrow.next{right:max(2px,env(safe-area-inset-right))!important}
+
+/* Labels / attribution remain readable without creating horizontal overflow. */
+.round-fullscreen .forward-label{
+  max-width:calc(100vw - 24px)!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.round-fullscreen .hole-map-attribution{
+  right:max(4px,env(safe-area-inset-right))!important;
+  max-width:calc(100vw - 8px)!important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+@media(max-width:430px){
+  .round-fullscreen .round-floating-score{left:39%!important;width:min(205px,55vw)!important}
+  .round-fullscreen .live-map-style-toggle{right:max(7px,env(safe-area-inset-right))!important;width:min(74px,20vw)!important}
+  .round-fullscreen .map-wind-card{right:max(7px,env(safe-area-inset-right))!important}
+}
+@media(max-width:390px){
+  .round-fullscreen .round-floating-score{left:38%!important;width:min(190px,54vw)!important}
+  .round-fullscreen .live-map-style-toggle{width:70px!important;min-width:0!important}
+  .round-fullscreen .shot-planner-controls{max-width:44vw!important}
+  .round-fullscreen .map-club-suggestion,
+  .round-fullscreen .planner-on .map-club-suggestion{max-width:40vw!important}
+}
+@media(max-width:350px){
+  .round-fullscreen .round-floating-score{left:37%!important;width:52vw!important}
+  .round-fullscreen .live-map-style-toggle{width:66px!important}
+  .round-fullscreen .live-map-style-toggle button{font-size:7.5px!important;padding-left:2px!important;padding-right:2px!important}
+}
