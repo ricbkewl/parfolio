@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-01T09:32:35.107121+00:00
+Generated: 2026-09-01T14:28:47.467641+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
