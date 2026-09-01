@@ -1,0 +1,54 @@
+name: ParFolio runtime isolation guard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.js'
+      - '*.html'
+      - 'manifest.webmanifest'
+  pull_request:
+    paths:
+      - '*.js'
+      - '*.html'
+      - 'manifest.webmanifest'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: JavaScript syntax checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          for f in *.js; do node --check "$f" >/dev/null; done
+      - name: Reject ATG private configuration and browser namespaces
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          files=[p for p in Path('.').glob('*.js') if p.name!='parfolio-branding.js']+[Path('index.html'),Path('manifest.webmanifest')]
+          forbidden={
+            'ATG Supabase project':'rntmqjqbmjfcpwbbflyz.supabase.co',
+            'ATG GitHub Pages URL':'ricbkewl.github.io/fairway-simple',
+            'ATG round browser key':'localStorage.atgRound',
+            'ATG course browser key':'localStorage.atgCourses',
+            'ATG language browser key':'localStorage.atgLanguage',
+            'ATG pending join key':'atgPendingJoinCode',
+            'ATG religious identity':'FAITH · FELLOWSHIP · FAIRWAYS',
+            'ATG full brand':'Agape Tumoutou Golfers'
+          }
+          hits=[]
+          for p in files:
+            if not p.exists(): continue
+            text=p.read_text(errors='ignore')
+            for label,value in forbidden.items():
+              if value in text:hits.append(f'{p}: {label}')
+          if hits:raise SystemExit('ParFolio isolation guard failed:\n'+'\n'.join(hits))
+          PY
