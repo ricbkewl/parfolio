@@ -14,27 +14,16 @@
 <body>
   <div class="app-shell">
     <header class="topbar">
-      <button class="icon-button" id="menuButton" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-      <div class="brand-mini" aria-label="ParFolio home">
-        <div class="pf-mark" aria-hidden="true">PF</div>
-        <span>ParFolio</span>
-      </div>
-      <button class="profile-button" aria-label="My profile">RG</button>
+      <button class="icon-button" id="menuButton" aria-label="Open menu"><span></span><span></span><span></span></button>
+      <button class="brand-mini brand-home" id="brandHome" aria-label="ParFolio home"><div class="pf-mark" aria-hidden="true">PF</div><span>ParFolio</span></button>
+      <button class="profile-button" id="profileButton" aria-label="My profile">PF</button>
     </header>
 
     <main>
       <section class="hero">
         <div class="hero-crest" aria-hidden="true">
           <svg viewBox="0 0 220 250" role="img" aria-label="ParFolio crest">
-            <defs>
-              <linearGradient id="gold" x1="0" x2="1">
-                <stop offset="0" stop-color="#d7b66d"/>
-                <stop offset="0.5" stop-color="#f2dfab"/>
-                <stop offset="1" stop-color="#b88a35"/>
-              </linearGradient>
-            </defs>
+            <defs><linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#d7b66d"/><stop offset="0.5" stop-color="#f2dfab"/><stop offset="1" stop-color="#b88a35"/></linearGradient></defs>
             <path d="M110 8 198 55v101c0 42-31 68-88 88-57-20-88-46-88-88V55Z" fill="#073e31" stroke="url(#gold)" stroke-width="9"/>
             <path d="M110 22 185 62v91c0 33-24 54-75 73-51-19-75-40-75-73V62Z" fill="none" stroke="#f0d891" stroke-width="3" opacity=".95"/>
             <path d="M49 104c34-22 83-30 121-8-20 7-39 17-56 33-20 18-40 33-73 38" fill="none" stroke="#8fa85c" stroke-width="12" stroke-linecap="round" opacity=".55"/>
@@ -70,30 +59,17 @@
     </main>
 
     <aside class="drawer" id="drawer" aria-hidden="true">
-      <div class="drawer-head">
-        <div class="brand-mini"><div class="pf-mark">PF</div><span>ParFolio</span></div>
-        <button class="close-button" id="closeMenu" aria-label="Close menu">×</button>
-      </div>
+      <div class="drawer-head"><div class="brand-mini"><div class="pf-mark">PF</div><span>ParFolio</span></div><button class="close-button" id="closeMenu" aria-label="Close menu">×</button></div>
       <nav>
-        <button data-screen="home">Home</button>
-        <button data-screen="courses">Courses</button>
-        <button data-screen="new-round">Start New Round</button>
-        <button data-screen="join-round">Join a Round</button>
-        <button data-screen="history">Previous Rounds</button>
-        <button data-screen="clubs">My Clubs</button>
-        <button data-screen="profile">My Account</button>
-        <button data-screen="guide">App Guide</button>
-        <button data-screen="about">About ParFolio</button>
+        <button data-screen="home">Home</button><button data-screen="courses">Courses</button><button data-screen="new-round">Start New Round</button><button data-screen="join-round">Join a Round</button><button data-screen="history">Previous Rounds</button><button data-screen="clubs">My Clubs</button><button data-screen="profile">My Account</button><button data-screen="guide">App Guide</button><button data-screen="about">About ParFolio</button>
       </nav>
-      <p class="drawer-version">ParFolio Beta · Design Foundation</p>
+      <p class="drawer-version">ParFolio Beta</p>
     </aside>
     <div class="scrim" id="scrim"></div>
 
-    <dialog id="contentDialog">
-      <button class="dialog-close" id="dialogClose" aria-label="Close">×</button>
-      <div id="dialogContent"></div>
-    </dialog>
+    <dialog id="contentDialog"><button class="dialog-close" id="dialogClose" aria-label="Close">×</button><div id="dialogContent"></div></dialog>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
