@@ -1,0 +1,295 @@
+name: Map New York OSM GPS Drafts
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/map-new-york-osm.yml'
+      - 'ny-course-catalog-v158.js'
+
+permissions:
+  contents: write
+
+jobs:
+  map-new-york:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build statewide GPS drafts from OpenStreetMap
+        shell: python
+        run: |
+          import json, math, pathlib, re, time, urllib.parse, urllib.request, datetime
+          from collections import defaultdict
+
+          catalog_text = pathlib.Path('ny-course-catalog-v158.js').read_text(encoding='utf-8')
+          marker = 'const NY='
+          start = catalog_text.index(marker) + len(marker)
+          end = catalog_text.index(';\n  const normalize', start)
+          courses = json.loads(catalog_text[start:end])
+
+          def norm(value):
+              value = str(value or '').lower().replace('&',' and ')
+              value = re.sub(r'\b(golf|course|club|country|links|the|at)\b',' ',value)
+              return re.sub(r'[^a-z0-9]+',' ',value).strip()
+
+          def tokens(value):
+              return set(norm(value).split())
+
+          def similarity(a,b):
+              aa,bb=tokens(a),tokens(b)
+              if not aa or not bb: return 0.0
+              return len(aa&bb)/max(len(aa),len(bb))
+
+          def dist_m(a,b):
+              if not a or not b: return 1e12
+              r=6371000.0
+              p1=math.radians(a['lat']); p2=math.radians(b['lat'])
+              dp=math.radians(b['lat']-a['lat']); dl=math.radians(b['lng']-a['lng'])
+              x=dl*math.cos((p1+p2)/2); y=dp
+              return math.hypot(x,y)*r
+
+          def points(el):
+              out=[]
+              for p in el.get('geometry') or []:
+                  if p and p.get('lat') is not None and p.get('lon') is not None:
+                      out.append({'lat':float(p['lat']),'lng':float(p['lon'])})
+              if out: return out
+              if el.get('lat') is not None and el.get('lon') is not None:
+                  return [{'lat':float(el['lat']),'lng':float(el['lon'])}]
+              c=el.get('center') or {}
+              if c.get('lat') is not None and c.get('lon') is not None:
+                  return [{'lat':float(c['lat']),'lng':float(c['lon'])}]
+              return []
+
+          def centroid(pts):
+              if not pts:return None
+              return {'lat':sum(p['lat'] for p in pts)/len(pts),'lng':sum(p['lng'] for p in pts)/len(pts)}
+
+          def bbox(pts):
+              if not pts:return None
+              return (min(p['lat'] for p in pts),min(p['lng'] for p in pts),max(p['lat'] for p in pts),max(p['lng'] for p in pts))
+
+          def in_bbox(p,b,pad_m=80):
+              if not p or not b:return False
+              pad_lat=pad_m/111320.0
+              pad_lng=pad_m/(111320.0*max(.2,math.cos(math.radians(p['lat']))))
+              return b[0]-pad_lat<=p['lat']<=b[2]+pad_lat and b[1]-pad_lng<=p['lng']<=b[3]+pad_lng
+
+          def point_in_poly(p,poly):
+              if not p or len(poly)<3:return False
+              x,y=p['lng'],p['lat']; inside=False
+              j=len(poly)-1
+              for i in range(len(poly)):
+                  xi,yi=poly[i]['lng'],poly[i]['lat']; xj,yj=poly[j]['lng'],poly[j]['lat']
+                  cross=((yi>y)!=(yj>y)) and (x < (xj-xi)*(y-yi)/((yj-yi) or 1e-12)+xi)
+                  if cross: inside=not inside
+                  j=i
+              return inside
+
+          def number_tag(value):
+              m=re.search(r'(?:hole\s*)?(\d{1,2})',str(value or ''),re.I)
+              if not m:return None
+              n=int(m.group(1)); return n if 1<=n<=36 else None
+
+          def hole_num(tags):
+              for key in ('ref','ref:hole','hole','name'):
+                  n=number_tag(tags.get(key))
+                  if n:return n
+              return None
+
+          def nearest(features,p,max_m):
+              best=None; bestd=max_m
+              for f in features:
+                  d=dist_m(f['center'],p)
+                  if d<bestd: best,bestd=f,d
+              return best
+
+          def route_length(pts):
+              return sum(dist_m(pts[i-1],pts[i]) for i in range(1,len(pts)))
+
+          def point_fraction(pts,f):
+              if not pts:return None
+              if len(pts)==1:return pts[0]
+              seg=[dist_m(pts[i-1],pts[i]) for i in range(1,len(pts))]
+              total=sum(seg)
+              if total<=0:return pts[0]
+              target=total*f; run=0
+              for i,d in enumerate(seg):
+                  if run+d>=target:
+                      t=(target-run)/d if d else 0; a,b=pts[i],pts[i+1]
+                      return {'lat':a['lat']+(b['lat']-a['lat'])*t,'lng':a['lng']+(b['lng']-a['lng'])*t}
+                  run+=d
+              return pts[-1]
+
+          def green_edges(tee,center,poly):
+              if not tee or not center or not poly:return (None,None)
+              ls=111320.0; xs=ls*math.cos(math.radians(center['lat']))
+              vx=(center['lng']-tee['lng'])*xs; vy=(center['lat']-tee['lat'])*ls
+              ln=math.hypot(vx,vy) or 1; ux,uy=vx/ln,vy/ln
+              vals=[]
+              for p in poly:
+                  dx=(p['lng']-center['lng'])*xs; dy=(p['lat']-center['lat'])*ls
+                  vals.append((dx*ux+dy*uy,p))
+              vals.sort(key=lambda x:x[0])
+              return vals[0][1],vals[-1][1]
+
+          query='''[out:json][timeout:900][maxsize:1073741824];\narea["ISO3166-2"="US-NY"][boundary="administrative"]->.ny;\n(\n  nwr["leisure"="golf_course"](area.ny);\n  nwr["golf"~"^(hole|tee|green|pin)$"](area.ny);\n);\nout tags center geom;'''
+          endpoints=['https://overpass.kumi.systems/api/interpreter','https://overpass-api.de/api/interpreter']
+          data=None; last=None
+          for endpoint in endpoints:
+              try:
+                  req=urllib.request.Request(endpoint,data=urllib.parse.urlencode({'data':query}).encode(),headers={'User-Agent':'ParFolio-NY-Mapper/1.0'})
+                  with urllib.request.urlopen(req,timeout=1000) as r:
+                      data=json.loads(r.read().decode('utf-8'))
+                  break
+              except Exception as e:
+                  last=e; print('Overpass failed:',endpoint,e); time.sleep(3)
+          if data is None: raise RuntimeError(f'All Overpass endpoints failed: {last}')
+
+          boundaries=[]; features=[]
+          for el in data.get('elements',[]):
+              pts=points(el); c=centroid(pts); tags=el.get('tags') or {}
+              if not pts or not c: continue
+              item={'id':el.get('id'),'type':el.get('type'),'tags':tags,'points':pts,'center':c,'bbox':bbox(pts)}
+              if tags.get('leisure')=='golf_course': boundaries.append(item)
+              elif tags.get('golf') in ('hole','tee','green','pin'): features.append(item)
+
+          holes_all=[f for f in features if f['tags'].get('golf')=='hole']
+          tees_all=[f for f in features if f['tags'].get('golf')=='tee']
+          greens_all=[f for f in features if f['tags'].get('golf')=='green']
+          pins_all=[f for f in features if f['tags'].get('golf')=='pin']
+
+          mapped={}; stats=defaultdict(int); examples=[]
+          course_centers=[({'lat':c['latitude'],'lng':c['longitude']},c) for c in courses if isinstance(c.get('latitude'),(int,float)) and isinstance(c.get('longitude'),(int,float))]
+
+          for idx,course in enumerate(courses,1):
+              cp={'lat':course.get('latitude'),'lng':course.get('longitude')}
+              if cp['lat'] is None or cp['lng'] is None:
+                  stats['no_catalog_point']+=1; continue
+
+              candidates=[]
+              for b in boundaries:
+                  d=dist_m(cp,b['center'])
+                  if d>2600: continue
+                  sim=similarity(course.get('name'),b['tags'].get('name'))
+                  exact=norm(course.get('name'))==norm(b['tags'].get('name')) and bool(norm(course.get('name')))
+                  score=(1.0 if exact else sim)*0.78 + max(0,1-d/2600)*0.22
+                  if exact or sim>=0.45: candidates.append((score,d,b))
+              candidates.sort(key=lambda x:(-x[0],x[1]))
+              boundary=candidates[0][2] if candidates and candidates[0][0]>=0.43 else None
+              boundary_score=candidates[0][0] if candidates else 0
+              ambiguous_boundary=bool(len(candidates)>1 and candidates[1][0]>=boundary_score-0.07)
+
+              selected=[]
+              if boundary:
+                  poly=boundary['points']; bb=boundary['bbox']; closed=len(poly)>=4 and dist_m(poly[0],poly[-1])<25
+                  for f in features:
+                      if not in_bbox(f['center'],bb,120): continue
+                      if closed and not point_in_poly(f['center'],poly) and dist_m(f['center'],boundary['center'])>1700: continue
+                      selected.append(f)
+              else:
+                  # Fallback only where this course is not in a dense/ambiguous cluster.
+                  nearby_courses=sum(1 for p,c in course_centers if c is not course and dist_m(cp,p)<1300)
+                  if nearby_courses<=1:
+                      selected=[f for f in features if dist_m(cp,f['center'])<=1450]
+
+              hs=[f for f in selected if f['tags'].get('golf')=='hole']
+              ts=[f for f in selected if f['tags'].get('golf')=='tee']
+              gs=[f for f in selected if f['tags'].get('golf')=='green']
+              ps=[f for f in selected if f['tags'].get('golf')=='pin']
+
+              numbered=defaultdict(list)
+              for h in hs:
+                  n=hole_num(h['tags'])
+                  if n and n<=18: numbered[n].append(h)
+              if not numbered:
+                  stats['no_numbered_osm_holes']+=1; continue
+
+              green_rows=[]; pars=[]; issues=[]
+              for n in sorted(numbered):
+                  choices=sorted(numbered[n],key=lambda h:route_length(h['points']),reverse=True)
+                  h=choices[0]; route=h['points'][:]
+                  if len(route)<2: continue
+                  s,e=route[0],route[-1]
+                  tee_s=nearest(ts,s,180); tee_e=nearest(ts,e,180)
+                  green_s=nearest(ps,s,150) or nearest(gs,s,190)
+                  green_e=nearest(ps,e,150) or nearest(gs,e,190)
+                  forward=(dist_m(tee_s['center'],s) if tee_s else 120)+(dist_m(green_e['center'],e) if green_e else 120)
+                  reverse=(dist_m(tee_e['center'],e) if tee_e else 120)+(dist_m(green_s['center'],s) if green_s else 120)
+                  if reverse+35<forward: route=list(reversed(route)); s,e=route[0],route[-1]
+                  tee_f=nearest(ts,s,180); green_f=nearest(gs,e,200); pin_f=nearest(ps,e,150)
+                  tee=(tee_f or {'center':s})['center']; center=(pin_f or green_f or {'center':e})['center']
+                  yard=dist_m(tee,center)*1.0936133
+                  if yard<45 or yard>850:
+                      issues.append(f'hole {n} implausible tee-center distance {yard:.0f} yd'); continue
+                  front=back=None
+                  if green_f: front,back=green_edges(tee,center,green_f['points'])
+                  par=None
+                  try:
+                      p=int(float(h['tags'].get('par')))
+                      if 3<=p<=6: par=p
+                  except Exception: pass
+                  aim1=aim2=None
+                  if len(route)>2 and par!=3:
+                      aim1=point_fraction(route,.34 if par==5 else .5)
+                      if par==5: aim2=point_fraction(route,.68)
+                  green_rows.append({'hole':n,'tee':tee,'center':center,'front':front,'back':back,'aim1':aim1,'aim2':aim2,'par':par,'yards':round(yard)})
+                  pars.append((n,par))
+
+              nums=sorted(r['hole'] for r in green_rows)
+              contiguous9=all(n in nums for n in range(1,10))
+              contiguous18=all(n in nums for n in range(1,19))
+              if not green_rows:
+                  stats['no_valid_holes']+=1; continue
+              if contiguous18: playable=18
+              elif contiguous9: playable=9
+              else: playable=None
+
+              confidence='high' if boundary and boundary_score>=0.60 and not ambiguous_boundary and playable else ('medium' if boundary and playable else 'partial')
+              review_ready=bool(playable and confidence in ('high','medium') and len(issues)<=1)
+              key=str(course.get('id'))
+              mapped[key]={
+                  'openGolfApiId':key,'name':course.get('name'),'city':course.get('city'),'state':'NY',
+                  'mappingStatus':'gps_draft','reviewReady':review_ready,'confidence':confidence,
+                  'boundaryMatch':boundary['tags'].get('name') if boundary else None,'boundaryScore':round(boundary_score,3),
+                  'ambiguousBoundary':ambiguous_boundary,'playableHoles':playable,'mappedHoleCount':len(green_rows),
+                  'numberedHoles':nums,'issues':issues[:8],
+                  'greens':green_rows
+              }
+              stats['mapped_courses']+=1
+              stats['mapped_holes']+=len(green_rows)
+              stats['review_ready' if review_ready else 'needs_review']+=1
+              if playable==18: stats['complete_18']+=1
+              elif playable==9: stats['complete_9']+=1
+              else: stats['partial']+=1
+              if len(examples)<12 and review_ready: examples.append(course.get('name'))
+              if idx%100==0: print('Processed',idx,'courses')
+
+          out={
+              'version':159,'generatedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              'source':'OpenStreetMap via Overpass','license':'ODbL 1.0','catalogCourses':len(courses),
+              'osmCourseBoundaries':len(boundaries),'osmGolfFeatures':len(features),'stats':dict(stats),'courses':mapped
+          }
+          pathlib.Path('data').mkdir(exist_ok=True)
+          pathlib.Path('data/ny-osm-gps-drafts-v159.json').write_text(json.dumps(out,separators=(',',':')),encoding='utf-8')
+
+          report=['# New York Automated GPS Mapping Report','',f"Generated: {out['generatedAt']}",'',f"Catalog courses scanned: **{len(courses)}**",f"OSM golf-course boundaries found statewide: **{len(boundaries)}**",f"OSM golf features found statewide: **{len(features)}**",f"Courses with at least one valid numbered GPS hole draft: **{stats['mapped_courses']}**",f"Total hole drafts generated: **{stats['mapped_holes']}**",f"Complete 18-hole drafts: **{stats['complete_18']}**",f"Complete 9-hole drafts: **{stats['complete_9']}**",f"Partial drafts: **{stats['partial']}**",f"Review-ready drafts: **{stats['review_ready']}**",f"Drafts needing manual review: **{stats['needs_review']}**",'', 'All automated mappings remain `gps_draft`. No NY course is promoted to playable GPS by this workflow.', '', '## Sample review-ready courses']
+          report += [f'- {x}' for x in examples] or ['- None']
+          pathlib.Path('NY-GPS-MAPPING-REPORT.md').write_text('\n'.join(report)+'\n',encoding='utf-8')
+          print('\n'.join(report[:14]))
+
+      - name: Commit generated NY GPS drafts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ny-osm-gps-drafts-v159.json NY-GPS-MAPPING-REPORT.md
+          if git diff --cached --quiet; then
+            echo "No GPS draft changes"
+            exit 0
+          fi
+          git commit -m "Generate New York statewide OSM GPS drafts"
+          git push
