@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/map-new-york-osm-v2.yml'
       - 'scripts/map_ny_osm_v2.py'
+      - 'scripts/map_ny_osm_current.py'
       - 'ny-course-catalog-v158.js'
 
 permissions:
@@ -24,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Build tiled statewide GPS drafts
-        run: python scripts/map_ny_osm_v2.py
+        run: python scripts/map_ny_osm_current.py
       - name: Commit generated mapping drafts
         run: |
           git config user.name "github-actions[bot]"
