@@ -33,13 +33,11 @@ jobs:
         run: |
           find . -maxdepth 1 -type f ! -name '.gitignore' -delete
           find . -maxdepth 1 -type d ! -name '.' ! -name '.git' ! -name '.github' -exec rm -rf {} +
-          cp -a /tmp/atg/. .
-          rm -rf .git .github
-          mkdir -p .github/workflows
-          cp /tmp/parfolio-preserve/workflow.yml .github/workflows/migrate-atg-v148.yml
+          rsync -a --exclude='.git' --exclude='.github' /tmp/atg/ ./
           cp /tmp/parfolio-preserve/parfolio-app-icon.png . 2>/dev/null || true
           cp /tmp/parfolio-preserve/appicon.png . 2>/dev/null || true
           cp /tmp/parfolio-preserve/founder.js . 2>/dev/null || true
+          cp /tmp/parfolio-preserve/workflow.yml .github/workflows/migrate-atg-v148.yml
 
       - name: Rebrand and isolate configuration placeholders
         run: |
