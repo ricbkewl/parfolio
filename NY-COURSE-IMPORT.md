@@ -1,7 +1,9 @@
 # New York Course Import
 
-Generated from OpenGolfAPI on 2026-09-01T19:16:22.637492+00:00.
+Generated from OpenGolfAPI on 2026-09-01T19:17:56.865033+00:00.
 
-Distinct OpenGolf NY course records bundled: **1075**.
+Raw NY rows: **1060**.
+
+Bundled distinct course/location records: **997**.
 
 These are catalog/search entries only unless ParFolio has separately verified GPS hole mapping.
