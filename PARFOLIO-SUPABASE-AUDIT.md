@@ -1,6 +1,6 @@
 # ParFolio Supabase Compatibility Audit
 
-Generated: 2026-09-01T09:24:43.616230+00:00
+Generated: 2026-09-01T09:32:49.047136+00:00
 PostgREST OpenAPI status: `ERROR: HTTP Error 401: Unauthorized`
 
 ## Expected tables
