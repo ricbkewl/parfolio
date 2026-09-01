@@ -1,8 +1,6 @@
 /* Version 117: ParFolio course-editor basemap selector.
    Uses ParFolio's own MapTiler account when configured; otherwise Google/OSM remain available. */
 (function(){
-  const priorInitMap117=initMap;
-
   function editorView(){
     if(!draft)return null;
     const g=draft.greens?.[draft.mapHole-1]||{};
@@ -63,6 +61,23 @@
 
   setMapStyle=function(style){normalizeProvider();setEditorBasemap(draft?.mapProvider||'osm',style)};
 
+  function drawLeafletEditor(container,g,view,zoom,provider,style,colors){
+    if(!window.L)return;
+    map=L.map(container,{zoomControl:true,attributionControl:true}).setView([view.lat,view.lng],zoom);
+    if(provider==='maptiler'&&MAPTILER_API_KEY){
+      const url=style==='satellite'
+        ?`https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}@2x.jpg?key=${encodeURIComponent(MAPTILER_API_KEY)}`
+        :`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=${encodeURIComponent(MAPTILER_API_KEY)}`;
+      L.tileLayer(url,{tileSize:256,maxZoom:22,crossOrigin:true,attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> · © OpenStreetMap contributors'}).addTo(map);
+    }else{
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'© OpenStreetMap contributors'}).addTo(map);
+    }
+    const route=holeRoute(g);if(route.length>1)L.polyline(route.map(p=>[p.lat,p.lng]),{color:'#d29f31',weight:4,opacity:.9,dashArray:'8 6'}).addTo(map);
+    mapEditorMarkerEntries(g).forEach(([key,p])=>L.circleMarker([p.lat,p.lng],{radius:key.startsWith('tee_')?7:8,color:colors[key]||'#174f9c',fillColor:colors[key]||'#174f9c',fillOpacity:.92,weight:key==='tee_white'?3:2}).addTo(map).bindTooltip(markerName(key)));
+    map.on('click',e=>{setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:e.latlng.lat,lng:e.latlng.lng});draft.mapView={lat:e.latlng.lat,lng:e.latlng.lng,zoom:map.getZoom()};render()});
+    const message=$('mapMessage');if(message)message.textContent=provider==='maptiler'?`MapTiler ${style==='street'?'Outdoor Map':'Satellite'} · Tap to set ${markerName(draft.target)} for Hole ${draft.mapHole}.`:`OpenStreetMap · Tap to set ${markerName(draft.target)} for Hole ${draft.mapHole}.`;
+  }
+
   initMap=async function(){
     const container=$('courseMap');if(!container||!draft)return;
     normalizeProvider();
@@ -81,25 +96,9 @@
         rawMap.addListener('click',event=>{const p=event.latLng;if(!p)return;setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:p.lat(),lng:p.lng()});draft.mapView={lat:p.lat(),lng:p.lng(),zoom:rawMap.getZoom()};render()});
         const message=$('mapMessage');if(message)message.textContent=`Google ${style==='street'?'Map':'Satellite'} · Tap to set ${markerName(draft.target)} for Hole ${draft.mapHole}.`;
         return;
-      }catch(error){console.warn('Google editor map unavailable; using OpenStreetMap.',error);draft.mapProvider='osm';draft.mapStyle='street';}
+      }catch(error){console.warn('Google editor map unavailable; using OpenStreetMap.',error);draft.mapProvider='osm';draft.mapStyle='street';drawLeafletEditor(container,g,view,zoom,'osm','street',colors);return;}
     }
 
-    if(provider==='maptiler'&&MAPTILER_API_KEY){
-      if(!window.L)return;
-      map=L.map(container,{zoomControl:true,attributionControl:true}).setView([view.lat,view.lng],zoom);
-      const url=style==='satellite'
-        ?`https://api.maptiler.com/maps/satellite/256/{z}/{x}/{y}@2x.jpg?key=${encodeURIComponent(MAPTILER_API_KEY)}`
-        :`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=${encodeURIComponent(MAPTILER_API_KEY)}`;
-      L.tileLayer(url,{tileSize:256,maxZoom:22,crossOrigin:true,attribution:'<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> · © OpenStreetMap contributors'}).addTo(map);
-      const route=holeRoute(g);if(route.length>1)L.polyline(route.map(p=>[p.lat,p.lng]),{color:'#d29f31',weight:4,opacity:.9,dashArray:'8 6'}).addTo(map);
-      mapEditorMarkerEntries(g).forEach(([key,p])=>L.circleMarker([p.lat,p.lng],{radius:key.startsWith('tee_')?7:8,color:colors[key]||'#174f9c',fillColor:colors[key]||'#174f9c',fillOpacity:.92,weight:key==='tee_white'?3:2}).addTo(map).bindTooltip(markerName(key)));
-      map.on('click',e=>{setMarkerPoint(draft.greens[draft.mapHole-1],draft.target,{lat:e.latlng.lat,lng:e.latlng.lng});draft.mapView={lat:e.latlng.lat,lng:e.latlng.lng,zoom:map.getZoom()};render()});
-      const message=$('mapMessage');if(message)message.textContent=`MapTiler ${style==='street'?'Outdoor Map':'Satellite'} · Tap to set ${markerName(draft.target)} for Hole ${draft.mapHole}.`;
-      return;
-    }
-
-    // Reuse the stable core editor's Google/OSM fallback for the open-map path.
-    draft.mapProvider='osm';draft.mapStyle='street';
-    return priorInitMap117();
+    drawLeafletEditor(container,g,view,zoom,provider,style,colors);
   };
 })();
