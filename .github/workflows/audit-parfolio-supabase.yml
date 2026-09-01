@@ -10,6 +10,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: parfolio-supabase-audit
+  cancel-in-progress: true
+
 jobs:
   audit:
     runs-on: ubuntu-latest
@@ -21,83 +25,50 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           import json, urllib.request, urllib.error, pathlib, datetime
-
           base='https://unsysuuhykdmbsasdhzg.supabase.co'
           key='sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f'
-          expected_tables=[
-            'app_admins','golfer_profiles','golfer_club_distances','shared_rounds',
-            'round_players','round_scores','round_hole_stats','round_messages',
-            'hidden_round_history','courses'
-          ]
-          expected_rpcs=[
-            'create_shared_round','join_shared_round','save_my_golfer_profile',
-            'save_my_avatar_path','save_my_club_distances','set_course_admin',
-            'list_registered_golfers','hide_round_from_my_history','delete_owned_round',
-            'manage_round_status','remove_round_player'
-          ]
+          expected_tables=['app_admins','golfer_profiles','golfer_club_distances','shared_rounds','round_players','round_scores','round_hole_stats','round_messages','hidden_round_history','courses']
+          expected_rpcs=['create_shared_round','join_shared_round','save_my_golfer_profile','save_my_avatar_path','save_my_club_distances','set_course_admin','list_registered_golfers','hide_round_from_my_history','delete_owned_round','manage_round_status','remove_round_player']
           expected_buckets=['golfer-avatars','round-chat-media']
-
           req=urllib.request.Request(base+'/rest/v1/',headers={'apikey':key,'Authorization':'Bearer '+key,'Accept':'application/openapi+json'})
           try:
-            with urllib.request.urlopen(req,timeout=20) as r:
-              schema=json.load(r)
-              schema_status=r.status
-          except Exception as e:
-            schema={}
-            schema_status=f'ERROR: {e}'
-
+            with urllib.request.urlopen(req,timeout=20) as r:schema=json.load(r);schema_status=r.status
+          except Exception as e:schema={};schema_status=f'ERROR: {e}'
           paths=set((schema.get('paths') or {}).keys())
-          table_status={t:('/'+t in paths) for t in expected_tables}
-          rpc_status={r:('/rpc/'+r in paths) for r in expected_rpcs}
-
-          # Direct REST probes distinguish missing relation from an existing relation hidden by RLS.
+          table_status={t:('/'+t in paths) for t in expected_tables};rpc_status={r:('/rpc/'+r in paths) for r in expected_rpcs}
           probes={}
           for t in expected_tables:
-            url=base+'/rest/v1/'+t+'?select=*&limit=0'
-            req=urllib.request.Request(url,headers={'apikey':key,'Authorization':'Bearer '+key})
+            req=urllib.request.Request(base+'/rest/v1/'+t+'?select=*&limit=0',headers={'apikey':key,'Authorization':'Bearer '+key})
             try:
-              with urllib.request.urlopen(req,timeout=15) as r:
-                probes[t]={'http':r.status,'body':r.read(300).decode('utf-8','replace')}
-            except urllib.error.HTTPError as e:
-              probes[t]={'http':e.code,'body':e.read(300).decode('utf-8','replace')}
-            except Exception as e:
-              probes[t]={'http':'ERROR','body':str(e)}
-
-          # Bucket listing may be denied by storage RLS; record response without treating denial as absence.
-          storage_probe={}
+              with urllib.request.urlopen(req,timeout=15) as r:probes[t]={'http':r.status,'body':r.read(300).decode('utf-8','replace')}
+            except urllib.error.HTTPError as e:probes[t]={'http':e.code,'body':e.read(300).decode('utf-8','replace')}
+            except Exception as e:probes[t]={'http':'ERROR','body':str(e)}
           req=urllib.request.Request(base+'/storage/v1/bucket',headers={'apikey':key,'Authorization':'Bearer '+key})
           try:
-            with urllib.request.urlopen(req,timeout=15) as r:
-              body=r.read().decode('utf-8','replace')
-              storage_probe={'http':r.status,'body':body[:1000]}
-          except urllib.error.HTTPError as e:
-            storage_probe={'http':e.code,'body':e.read(1000).decode('utf-8','replace')}
-          except Exception as e:
-            storage_probe={'http':'ERROR','body':str(e)}
-
+            with urllib.request.urlopen(req,timeout=15) as r:storage_probe={'http':r.status,'body':r.read(1000).decode('utf-8','replace')}
+          except urllib.error.HTTPError as e:storage_probe={'http':e.code,'body':e.read(1000).decode('utf-8','replace')}
+          except Exception as e:storage_probe={'http':'ERROR','body':str(e)}
           now=datetime.datetime.now(datetime.timezone.utc).isoformat()
-          lines=['# ParFolio Supabase Compatibility Audit','',f'Generated: {now}',f'PostgREST OpenAPI status: `{schema_status}`','']
-          lines+=['## Expected tables','', '| Table | OpenAPI | REST probe |','|---|---:|---:|']
-          for t in expected_tables:
-            lines.append(f"| `{t}` | {'YES' if table_status[t] else 'NO'} | `{probes[t]['http']}` |")
-          lines+=['','## Expected RPCs','', '| RPC | OpenAPI |','|---|---:|']
-          for r in expected_rpcs:
-            lines.append(f"| `{r}` | {'YES' if rpc_status[r] else 'NO'} |")
-          lines+=['','## Storage','',f"Expected buckets: {', '.join('`'+b+'`' for b in expected_buckets)}",'',f"Bucket-list probe HTTP: `{storage_probe.get('http')}`",'', '```text', storage_probe.get('body','')[:1000], '```','']
-          missing_tables=[t for t,v in table_status.items() if not v]
-          missing_rpcs=[r for r,v in rpc_status.items() if not v]
-          lines+=['## Summary','',f"Missing from public PostgREST schema: **{len(missing_tables)} tables** and **{len(missing_rpcs)} RPCs**.", '']
-          if missing_tables: lines.append('Missing tables: '+', '.join('`'+x+'`' for x in missing_tables))
-          if missing_rpcs: lines.append('Missing RPCs: '+', '.join('`'+x+'`' for x in missing_rpcs))
+          lines=['# ParFolio Supabase Compatibility Audit','',f'Generated: {now}',f'PostgREST OpenAPI status: `{schema_status}`','','## Expected tables','','| Table | OpenAPI | REST probe |','|---|---:|---:|']
+          for t in expected_tables:lines.append(f"| `{t}` | {'YES' if table_status[t] else 'NO'} | `{probes[t]['http']}` |")
+          lines+=['','## Expected RPCs','','| RPC | OpenAPI |','|---|---:|']
+          for r in expected_rpcs:lines.append(f"| `{r}` | {'YES' if rpc_status[r] else 'NO'} |")
+          lines+=['','## Storage','',f"Expected buckets: {', '.join('`'+b+'`' for b in expected_buckets)}",'',f"Bucket-list probe HTTP: `{storage_probe.get('http')}`",'','```text',storage_probe.get('body','')[:1000],'```','']
+          missing_tables=[t for t,v in table_status.items() if not v];missing_rpcs=[r for r,v in rpc_status.items() if not v]
+          lines+=['## Summary','',f"Missing from public PostgREST schema: **{len(missing_tables)} tables** and **{len(missing_rpcs)} RPCs**.",'']
+          if missing_tables:lines.append('Missing tables: '+', '.join('`'+x+'`' for x in missing_tables))
+          if missing_rpcs:lines.append('Missing RPCs: '+', '.join('`'+x+'`' for x in missing_rpcs))
           lines+=['','A `401` or `403` REST probe can still mean the relation exists and is correctly protected by RLS. A missing OpenAPI path is the stronger signal that the relation/function is not exposed or not installed.','']
           pathlib.Path('PARFOLIO-SUPABASE-AUDIT.md').write_text('\n'.join(lines),encoding='utf-8')
           PY
       - name: Commit audit report
         shell: bash
         run: |
+          set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add PARFOLIO-SUPABASE-AUDIT.md
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Audit ParFolio Supabase compatibility'
-          git push
+          git pull --rebase origin main
+          git push origin HEAD:main
