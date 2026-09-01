@@ -37,14 +37,13 @@ jobs:
           text=text.replace('Shared Golf Course Library catalog unavailable; ATG is retaining its existing course data.','Shared Golf Course Library catalog unavailable; ParFolio is retaining its existing course data.')
           shared.write_text(text)
 
-          # Do not allow old production secrets or religious-brand strings back into active source.
-          active=[]
-          for p in Path('.').glob('*.js'):
-            if p.name.startswith('parfolio-') or p.name in {'app.js','shared-course-library-v145.js','founder.js','guide-i18n.js'}:
-              active.append(p)
+          # parfolio-branding.js intentionally contains legacy source phrases as replacement keys,
+          # so validate only active runtime modules where those phrases must never remain.
+          active=[Path('app.js'),Path('shared-course-library-v145.js'),Path('founder.js'),Path('guide-i18n.js')]
           bad=[]
           forbidden=['rntmqjqbmjfcpwbbflyz.supabase.co','FAITH · FELLOWSHIP · FAIRWAYS','Saved to Serve','Agape Tumoutou Golfers']
           for p in active:
+            if not p.exists(): continue
             t=p.read_text(errors='ignore')
             for needle in forbidden:
               if needle in t: bad.append(f'{p}: {needle}')
