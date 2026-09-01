@@ -1,0 +1,32 @@
+name: Map California and Indonesia OSM GPS v160
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/map-ca-id-osm-v160.yml'
+      - 'scripts/map_ca_id_osm_v160.py'
+      - 'scripts/map_ny_osm_v2.py'
+
+permissions:
+  contents: write
+
+jobs:
+  map-ca-id:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build California and Indonesia GPS maps
+        run: python scripts/map_ca_id_osm_v160.py
+      - name: Commit generated maps
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/ca-id-osm-gps-v160.json CA-ID-GPS-MAPPING-REPORT.md
+          if git diff --cached --quiet; then echo "No mapping changes"; exit 0; fi
+          git commit -m "Generate California and Indonesia auto-published GPS maps v160"
+          git pull --rebase origin main
+          git push origin HEAD:main
