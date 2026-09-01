@@ -1,0 +1,63 @@
+/* Version 109: maximum-tilt play view, quick scorecard access, green scorecard */
+.round-score-stack{
+  position:absolute;
+  z-index:1500;
+  left:50%;
+  bottom:calc(14px + env(safe-area-inset-bottom));
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  transform:translateX(-50%);
+}
+.round-score-stack .round-floating-score{
+  position:relative;
+  left:auto;
+  bottom:auto;
+  transform:none;
+}
+.quick-scorecard-button{
+  width:86px;
+  min-height:25px;
+  padding:3px 7px;
+  border:1px solid rgba(224,189,102,.5);
+  border-radius:9px;
+  background:linear-gradient(155deg,rgba(18,63,43,.96),rgba(7,31,24,.96));
+  box-shadow:0 5px 16px rgba(0,0,0,.28);
+  color:#f5dfa8;
+  font:inherit;
+  font-size:10px;
+  font-weight:650;
+  line-height:1;
+  cursor:pointer;
+  backdrop-filter:blur(10px);
+}
+.quick-scorecard-button:active{transform:translateY(1px)}
+
+/* Live scorecard uses the same deep-green family as the ATG Home screen. */
+main.scorecard-green{
+  min-height:100vh;
+  background:radial-gradient(circle at 50% 0,rgba(213,175,83,.20),transparent 27%),linear-gradient(155deg,#123f2b 0%,#0a2b20 62%,#071f18 100%);
+  color:#fff;
+}
+.scorecard-green h1,
+.scorecard-green h2,
+.scorecard-green strong,
+.scorecard-green table td,
+.scorecard-green table th{color:#fff}
+.scorecard-green .muted{color:#bfd1c8}
+.scorecard-green .back{color:#f2d995}
+.scorecard-green .locate{background:rgba(255,255,255,.10);color:#f5dfa8}
+.scorecard-green .table-wrap{border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(255,255,255,.055);overflow:auto}
+.scorecard-green table{background:transparent}
+.scorecard-green th,
+.scorecard-green td{border-bottom-color:rgba(255,255,255,.12)}
+.scorecard-green .par-row th{background:rgba(224,189,102,.12);color:#f5dfa8}
+.scorecard-green .green{color:#f5dfa8}
+.scorecard-green .scorecard-actions .primary{background:linear-gradient(135deg,#d5ad51,#b88727);color:#12291f}
+.scorecard-green .scorecard-actions .secondary{border-color:rgba(224,189,102,.55);background:rgba(255,255,255,.045);color:#f5dfa8}
+
+@media(max-width:390px){
+  .round-score-stack{bottom:calc(10px + env(safe-area-inset-bottom))}
+  .quick-scorecard-button{width:80px;min-height:24px;font-size:9px}
+}
