@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-01T09:26:05.515487+00:00
+Generated: 2026-09-01T09:29:20.140434+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
@@ -38,7 +38,6 @@ Production root: `200`
 | `editor-marker-buttons-v144.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-corrections-v147.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-location-search-v148.js` | `200` | `application/javascript; charset=utf-8` |
-| `parfolio-branding.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
@@ -65,6 +64,7 @@ Production root: `200`
 | `course-location-search-v148.css` | `200` | `text/css; charset=utf-8` |
 | `service-worker.js` | `200` | `application/javascript; charset=utf-8` |
 | `rick-kulon-profile.jpg` | `200` | `image/jpeg` |
+| `parfolio-branding.js` | `200` | `application/javascript; charset=utf-8` |
 
 ## Result
 
