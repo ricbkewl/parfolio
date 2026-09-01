@@ -1,0 +1,41 @@
+name: Fix ParFolio map fallback labels
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-parfolio-map-fallback-labels.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Make fallback attribution accurate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          t=p.read_text()
+          old="if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href='https://www.maptiler.com/copyright/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent='© MapTiler · © OpenStreetMap';document.querySelector('.live-hole-map')?.append(attribution)}"
+          new="if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href=MAPTILER_API_KEY?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent=MAPTILER_API_KEY?'© MapTiler · © OpenStreetMap':'© OpenStreetMap';document.querySelector('.live-hole-map')?.append(attribution)}"
+          if old not in t: raise SystemExit('round attribution source pattern not found')
+          t=t.replace(old,new,1)
+          # Do not describe the non-satellite choice as Google Terrain while MapTiler is intentionally absent.
+          t=t.replace("oldMapChoice.textContent='High-quality full-screen Google Terrain and Satellite views'","oldMapChoice.textContent=MAPTILER_API_KEY?'High-quality MapTiler course map and Google Satellite views':'High-quality course map and Google Satellite views'",1)
+          p.write_text(t)
+          PY
+      - name: Commit map fallback labeling
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Make ParFolio map fallback attribution accurate'
+          git push
