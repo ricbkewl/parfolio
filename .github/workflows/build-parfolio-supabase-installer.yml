@@ -6,6 +6,7 @@ on:
     paths:
       - 'supabase/atg-v148-compatibility.sql'
       - 'supabase/parfolio-v148-courses-storage.sql'
+      - 'supabase/parfolio-v148-security-hardening.sql'
       - '.github/workflows/build-parfolio-supabase-installer.yml'
 
 permissions:
@@ -29,6 +30,9 @@ jobs:
             echo
             echo '-- ---- ParFolio local courses + storage supplement ----'
             cat supabase/parfolio-v148-courses-storage.sql
+            echo
+            echo '-- ---- ParFolio round/security hardening supplement ----'
+            cat supabase/parfolio-v148-security-hardening.sql
           } > supabase/parfolio-v148-full.sql
       - name: Commit installer
         shell: bash
