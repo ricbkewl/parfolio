@@ -1,0 +1,56 @@
+name: Restore ParFolio hole camera
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/restore-parfolio-hole-camera.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore ATG-style vector camera and center anchor
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          s=p.read_text()
+          old="const GOOGLE_MAP_ID = '';"
+          new="const GOOGLE_MAP_ID = 'DEMO_MAP_ID';"
+          if old in s:
+              s=s.replace(old,new,1)
+          elif new not in s:
+              raise SystemExit('GOOGLE_MAP_ID line not found')
+
+          old_orient="const segment=activeRouteSegment(null,green),start=origin||segment?.origin||selectedTee(green),end=target||segment?.target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);"
+          new_orient="const start=origin||selectedTee(green),end=target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);"
+          if old_orient in s:
+              s=s.replace(old_orient,new_orient,1)
+          elif new_orient not in s:
+              raise SystemExit('orientInlineHoleMap target expression not found')
+
+          p.write_text(s)
+          PY
+      - name: Verify patch
+        run: |
+          grep -F "const GOOGLE_MAP_ID = 'DEMO_MAP_ID';" app.js
+          grep -F "const start=origin||selectedTee(green),end=target||green.center" app.js
+          node --check app.js
+      - name: Commit restored camera behavior
+        run: |
+          if git diff --quiet; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js
+          git commit -m 'Restore tee-to-center vector hole camera and flyover'
+          git push
