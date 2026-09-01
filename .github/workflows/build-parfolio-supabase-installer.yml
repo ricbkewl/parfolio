@@ -6,6 +6,7 @@ on:
     paths:
       - 'supabase/parfolio-v148-legacy-schema-bridge.sql'
       - 'supabase/atg-v148-compatibility.sql'
+      - 'supabase/parfolio-v148-beta-account-bridge.sql'
       - 'supabase/parfolio-v148-courses-storage.sql'
       - 'supabase/parfolio-v148-security-hardening.sql'
       - '.github/workflows/build-parfolio-supabase-installer.yml'
@@ -30,12 +31,16 @@ jobs:
             echo '-- ParFolio v148 complete Supabase installer'
             echo '-- Generated from the audited compatibility migrations. No ATG user/round/chat/private data is included.'
             echo '-- Existing incompatible beta round_players data is preserved in a private legacy table.'
+            echo '-- Existing ParFolio beta profile, club-distance and admin-role data is preserved when compatible.'
             echo
             echo '-- ---- Legacy ParFolio schema bridge ----'
             cat supabase/parfolio-v148-legacy-schema-bridge.sql
             echo
             echo '-- ---- ATG v148 compatibility schema ----'
             cat supabase/atg-v148-compatibility.sql
+            echo
+            echo '-- ---- Existing ParFolio beta account-data bridge ----'
+            cat supabase/parfolio-v148-beta-account-bridge.sql
             echo
             echo '-- ---- ParFolio local courses + storage supplement ----'
             cat supabase/parfolio-v148-courses-storage.sql
