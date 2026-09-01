@@ -1,0 +1,47 @@
+name: Fix ParFolio shared GPS status and attribution
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/fix-parfolio-shared-gps-status.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Correct golfer-facing shared GPS status and map attribution
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          p=Path('app.js')
+          text=p.read_text()
+          old="function mappedCount(c){return(c?.greens||[]).filter(g=>(g.tee||g.tees?.black)&&g.front&&g.center&&g.back).length}"
+          new="function mappedCount(c){return(c?.greens||[]).filter(g=>(g.tee||g.tees?.black)&&g.center).length}"
+          if old not in text:
+            raise SystemExit('mappedCount source pattern not found')
+          text=text.replace(old,new,1)
+
+          old_attr="${mapPreview?'<a href=\"https://www.maptiler.com/copyright/\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">© MapTiler</a>':''}"
+          new_attr="${mapPreview?`<a href=\"${MAPTILER_API_KEY?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/'}\" target=\"_blank\" rel=\"noopener\" onclick=\"event.stopPropagation()\">${MAPTILER_API_KEY?'© MapTiler':'© OpenStreetMap'}</a>`:''}"
+          if old_attr not in text:
+            raise SystemExit('course preview attribution pattern not found')
+          text=text.replace(old_attr,new_attr,1)
+          p.write_text(text)
+          PY
+      - name: Commit fixes
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add app.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Fix ParFolio shared GPS status and OSM attribution'
+          git push
