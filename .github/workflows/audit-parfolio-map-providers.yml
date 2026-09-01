@@ -1,0 +1,44 @@
+name: Audit ParFolio map providers
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/audit-parfolio-map-providers.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan map-provider assumptions
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          rows=[]
+          needles=['MAPTILER_API_KEY','api.maptiler.com','GOOGLE_MAP_ID','GOOGLE_MAPS_API_KEY','agape-golf-logo.png','scorecard-atg-brand']
+          for p in sorted(Path('.').glob('*.js')):
+            text=p.read_text(errors='ignore')
+            counts={n:text.count(n) for n in needles}
+            if any(counts.values()):rows.append((p.name,counts))
+          lines=['# ParFolio Map/Legacy Provider Audit','','| File | MapTiler key | MapTiler URL | Google Map ID | Google key | Legacy image | Legacy CSS class |','|---|---:|---:|---:|---:|---:|---:|']
+          for name,c in rows:
+            lines.append(f"| `{name}` | {c['MAPTILER_API_KEY']} | {c['api.maptiler.com']} | {c['GOOGLE_MAP_ID']} | {c['GOOGLE_MAPS_API_KEY']} | {c['agape-golf-logo.png']} | {c['scorecard-atg-brand']} |")
+          Path('PARFOLIO-MAP-PROVIDER-AUDIT.md').write_text('\n'.join(lines))
+          PY
+      - name: Commit audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add PARFOLIO-MAP-PROVIDER-AUDIT.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Audit ParFolio map provider assumptions'
+          git pull --rebase origin main
+          git push origin HEAD:main
