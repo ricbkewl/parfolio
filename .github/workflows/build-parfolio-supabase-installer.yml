@@ -1,0 +1,41 @@
+name: Build consolidated ParFolio Supabase installer
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'supabase/atg-v148-compatibility.sql'
+      - 'supabase/parfolio-v148-courses-storage.sql'
+      - '.github/workflows/build-parfolio-supabase-installer.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build one idempotent installer
+        shell: bash
+        run: |
+          set -euo pipefail
+          {
+            echo '-- ParFolio v148 complete Supabase installer'
+            echo '-- Generated from the audited compatibility migrations. No ATG user/round/chat/private data is included.'
+            echo '-- Safe to re-run: table/function/policy/bucket operations are written to be idempotent.'
+            echo
+            cat supabase/atg-v148-compatibility.sql
+            echo
+            echo '-- ---- ParFolio local courses + storage supplement ----'
+            cat supabase/parfolio-v148-courses-storage.sql
+          } > supabase/parfolio-v148-full.sql
+      - name: Commit installer
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add supabase/parfolio-v148-full.sql
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Build complete ParFolio v148 Supabase installer'
+          git push
