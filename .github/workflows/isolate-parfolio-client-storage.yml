@@ -1,0 +1,100 @@
+name: Isolate ParFolio client storage
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/isolate-parfolio-client-storage.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  isolate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rename ATG client namespaces safely
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+
+          js_files = [p for p in Path('.').rglob('*.js') if '.git' not in p.parts]
+          changed = []
+
+          for path in js_files:
+              text = path.read_text(encoding='utf-8')
+              original = text
+
+              # Keep cross-module globals consistent while removing ATG-specific runtime names.
+              text = text.replace('ATG_', 'PARFOLIO_')
+              text = text.replace('AtgOverlay', 'ParFolioOverlay')
+
+              # Move device-local state to a ParFolio namespace.
+              replacements = {
+                  'localStorage.atgRound': 'localStorage.parfolioRound',
+                  'localStorage.atgLanguage': 'localStorage.parfolioLanguage',
+                  'localStorage.atgCourses': 'localStorage.parfolioCourses',
+                  'localStorage.atgWeatherCache': 'localStorage.parfolioWeatherCache',
+                  'localStorage.atgLiveMapStyle': 'localStorage.parfolioLiveMapStyle',
+                  'localStorage.atgPendingScores': 'localStorage.parfolioPendingScores',
+                  'localStorage.atgPendingHoleStats': 'localStorage.parfolioPendingHoleStats',
+                  'localStorage.atgPendingJoinCode': 'localStorage.parfolioPendingJoinCode',
+                  'localStorage.atgGeocodeCache': 'localStorage.parfolioGeocodeCache',
+                  '`atgCourseFavorites:': '`parfolioCourseFavorites:',
+                  '`atgRecentCourses:': '`parfolioRecentCourses:',
+              }
+              for old, new in replacements.items():
+                  text = text.replace(old, new)
+
+              # Update plain storage-key strings if any modules use getItem/setItem directly.
+              for old, new in {
+                  'atgRound':'parfolioRound',
+                  'atgLanguage':'parfolioLanguage',
+                  'atgCourses':'parfolioCourses',
+                  'atgWeatherCache':'parfolioWeatherCache',
+                  'atgLiveMapStyle':'parfolioLiveMapStyle',
+                  'atgPendingScores':'parfolioPendingScores',
+                  'atgPendingHoleStats':'parfolioPendingHoleStats',
+                  'atgPendingJoinCode':'parfolioPendingJoinCode',
+                  'atgGeocodeCache':'parfolioGeocodeCache',
+                  'atgCourseFavorites:':'parfolioCourseFavorites:',
+                  'atgRecentCourses:':'parfolioRecentCourses:',
+              }.items():
+                  text = text.replace(f"'{old}'", f"'{new}'").replace(f'"{old}"', f'"{new}"')
+
+              if text != original:
+                  path.write_text(text, encoding='utf-8')
+                  changed.append(str(path))
+
+          app = Path('app.js')
+          if app.exists():
+              text = app.read_text(encoding='utf-8')
+              marker = "const app = document.querySelector('#app');\n"
+              migration = """const PARFOLIO_STORAGE_MIGRATION = (()=>{\n  try{\n    const keys=[];\n    for(let i=0;i<localStorage.length;i++){const key=localStorage.key(i);if(key&&key.startsWith('atg'))keys.push(key)}\n    for(const oldKey of keys){\n      const newKey='parfolio'+oldKey.slice(3);\n      if(localStorage.getItem(newKey)===null)localStorage.setItem(newKey,localStorage.getItem(oldKey));\n    }\n  }catch{}\n  return true;\n})();\n"""
+              if marker in text and 'PARFOLIO_STORAGE_MIGRATION' not in text:
+                  text = text.replace(marker, marker + migration, 1)
+                  app.write_text(text, encoding='utf-8')
+                  if 'app.js' not in changed: changed.append('app.js')
+
+          print('Changed files:')
+          for item in changed: print(' -', item)
+          PY
+
+      - name: Commit isolation changes
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo 'No changes needed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add '*.js' '**/*.js' 2>/dev/null || true
+          git add -u
+          git commit -m 'Isolate ParFolio browser storage and runtime namespaces'
+          git push
