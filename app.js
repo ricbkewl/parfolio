@@ -1,6 +1,17 @@
 const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
-const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const COURSE_LIBRARY_URL = 'https://qziemwgcjkohjchxdvnv.supabase.co';
+const COURSE_LIBRARY_KEY = 'sb_publishable_vod_BeAVzOLwjbCwLLeUBw_i8Bfv5wh';
+const parfolioClients = window.parfolioClients ||= {};
+const sb = parfolioClients.app ||= window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+parfolioClients.courseLibrary ||= window.supabase.createClient(COURSE_LIBRARY_URL, COURSE_LIBRARY_KEY, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false,
+    storageKey: 'parfolio-course-library-readonly'
+  }
+});
 
 const drawer = document.getElementById('drawer');
 const scrim = document.getElementById('scrim');

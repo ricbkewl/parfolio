@@ -1,8 +1,5 @@
 (() => {
-  const client = window.supabase.createClient(
-    'https://unsysuuhykdmbsasdhzg.supabase.co',
-    'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f'
-  );
+  const client = window.parfolioClients.app;
 
   const esc = (v) => String(v ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
   let clubs = [];

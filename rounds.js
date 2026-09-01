@@ -1,9 +1,5 @@
 (() => {
-  const COURSE_LIBRARY_URL = 'https://qziemwgcjkohjchxdvnv.supabase.co';
-  const COURSE_LIBRARY_KEY = 'sb_publishable_vod_BeAVzOLwjbCwLLeUBw_i8Bfv5wh';
-  const library = window.supabase.createClient(COURSE_LIBRARY_URL, COURSE_LIBRARY_KEY, {
-    auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
-  });
+  const library = window.parfolioClients.courseLibrary;
 
   const style = document.createElement('style');
   style.textContent = `
