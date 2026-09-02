@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v165-20260901';
+const CACHE_NAME='parfolio-v168-20260901';
 const APP_SHELL=[
   './',
   './index.html',
@@ -12,6 +12,7 @@ const APP_SHELL=[
   './parfolio-home-bg-v162.webp',
   './course-map-browser-v163.css',
   './course-map-browser-v163.js',
+  './parfolio-contact-v168.js',
   './manifest.webmanifest',
   './parfolio-app-icon.png',
   './rick-kulon-profile.jpg',
