@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v186-20260902';
+const CACHE_NAME='parfolio-v187-20260902';
 const APP_SHELL=[
   './',
   './index.html',
@@ -42,6 +42,7 @@ const APP_SHELL=[
   './course-map-browser-v163.css',
   './home-premium-v175.css',
   './smart-course-search-v176.css',
+  './hole-jump-v187.css',
   './guide-i18n.js',
   './app.js',
   './parfolio-google-vector-v149.js',
@@ -93,6 +94,7 @@ const APP_SHELL=[
   './california-catalog-v185.js',
   './california-status-v185.js',
   './gps-search-priority-v186.js',
+  './hole-jump-v187.js',
   './assets/royale-west-jakarta.svg'
 ];
 
