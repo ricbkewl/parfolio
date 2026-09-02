@@ -1,7 +1,77 @@
 {
-  "generatedAt": "2026-09-02T22:55:08.970Z",
-  "youtubeEnabled": false,
+  "generatedAt": "2026-09-02T23:16:13.585Z",
+  "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Scrolling and Enjoy #golf #golfing #golfers",
+      "summary": "Want to stay up to date on all our other content follow us on all our socials links bellow: Instagram: ...",
+      "source": "PFG Golf",
+      "url": "https://www.youtube.com/watch?v=Svdbbl5eorE",
+      "publishedAt": "2026-09-02T22:00:33.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Svdbbl5eorE/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Why Your Driver Settings Matter More Than You Think | Cobra OPTM LS #golf #golfcoach #golfgear",
+      "summary": "In this video, we take you inside a real driver fitting at a Worldwide Golf retail location, where we fit Nico, a customer, into the ...",
+      "source": "Worldwide Golf",
+      "url": "https://www.youtube.com/watch?v=0uM1BExrg0I",
+      "publishedAt": "2026-09-02T22:00:24.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/0uM1BExrg0I/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "I showed Juliana how to golf and she got mad! #funny #shorts #golf #brainrot #trend",
+      "summary": "",
+      "source": "Big Bro Teo",
+      "url": "https://www.youtube.com/watch?v=17GQcNq94iQ",
+      "publishedAt": "2026-09-02T21:45:48.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/17GQcNq94iQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Work on face stability and stroke path with this drill #golf #putting #swingtips #golftips",
+      "summary": "",
+      "source": "Kyle Humphrey Golf",
+      "url": "https://www.youtube.com/watch?v=GDyB2sCUL-c",
+      "publishedAt": "2026-09-02T21:34:18.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/GDyB2sCUL-c/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "When you’re golfing and someone tries to give you tips😂 #djcece #trending #fyp #shorts #golf",
+      "summary": "",
+      "source": "DJ Cece",
+      "url": "https://www.youtube.com/watch?v=vc5bjijfTtE",
+      "publishedAt": "2026-09-02T21:02:18.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/vc5bjijfTtE/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Peace and happiness ⛳️ #fypシ #golf #peace #happiness #shortsfeed",
+      "summary": "",
+      "source": "Quazzy215",
+      "url": "https://www.youtube.com/watch?v=JyuwuDH9axY",
+      "publishedAt": "2026-09-02T19:33:10.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/JyuwuDH9axY/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "STOP SLICING! 🤯 This Simple Alignment Trick Can Fix Your Golf #shorts #golf",
+      "summary": "STOP SLICING! This Simple Alignment Trick Can Fix Your Golf #shorts #golf STOP SLICING! 🏌️‍♂️ Want to control your ...",
+      "source": "Golf spotlight",
+      "url": "https://www.youtube.com/watch?v=IqqUrR2ndlQ",
+      "publishedAt": "2026-09-02T16:22:13.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/IqqUrR2ndlQ/hqdefault.jpg"
+    },
     {
       "type": "article",
       "category": "Swing",
@@ -21,6 +91,16 @@
       "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5RWWRoZGtXXy1oZHJELWQ1UHBZSVpzT2VpOHFZT29JcFNGaVg5NVBJSlZvdUgwMGY4REdNMnAyVGdtQWx1aEpCNjRUWnMwOEFCNWpVMEl5eFBnaUFJS0FBOQ?oc=5",
       "publishedAt": "2026-09-02T14:53:38.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "How a Small Head Tilt Fixes Swaying and Improves Contact #golf #golfswing #golftips",
+      "summary": "Struggling to stay centered over the ball? This small head tilt can help. 🏌️ As you take the club back, feel like your lead eye ...",
+      "source": "US GOLF TV",
+      "url": "https://www.youtube.com/watch?v=Qx1ZQKcRqmI",
+      "publishedAt": "2026-09-02T14:00:29.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Qx1ZQKcRqmI/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -43,6 +123,16 @@
       "thumbnail": ""
     },
     {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "DO THIS IN YOUR TAKEAWAY",
+      "summary": "Matthew Huo, PGA PGA Class A Specialized Professional Helping golfers of all skill levels improve with simple, effective ...",
+      "source": "Matthew Huo",
+      "url": "https://www.youtube.com/watch?v=6BPVfXD7gWA",
+      "publishedAt": "2026-09-02T02:54:16.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/6BPVfXD7gWA/hqdefault.jpg"
+    },
+    {
       "type": "article",
       "category": "Courses",
       "title": "Stonelick Hills Golf Course in Batavia, Ohio, USA",
@@ -63,14 +153,34 @@
       "thumbnail": ""
     },
     {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Still working on my swing and advice would be great! #golf #golfswing",
+      "summary": "",
+      "source": "Alex Knight",
+      "url": "https://www.youtube.com/watch?v=DNhhxonGU80",
+      "publishedAt": "2026-09-01T19:19:08.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/DNhhxonGU80/hqdefault.jpg"
+    },
+    {
       "type": "article",
       "category": "Trends",
       "title": "This driver shaft (and brand) continues to dominate the PGA Tour",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwc1c3X014cThGRGhsUzVYMFhCSC0zNnlrclNIT2p5Um5kZkhadnRBem4xNUVscFZjM3g4ajNEcnpCdTBVcENfcF9tUDRuYlZTdnlsQklDN3J0ck0xYVVoc0xWcS1lVzBTblpSdjJIaFJic0Q5ZUJz?oc=5",
       "publishedAt": "2026-09-01T18:31:16.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Amateur vs Pro Golf Swing 🤯 The Difference Is HUGE! #Shorts #golf",
+      "summary": "Amateur vs Pro Golf Swing The Difference Is HUGE! #Shorts #golf Amateur vs Pro Golf Swing! 🏌️‍♂️⛳ Can you spot the ...",
+      "source": "Golf spotlight",
+      "url": "https://www.youtube.com/watch?v=s0C4MYdd4f8",
+      "publishedAt": "2026-09-01T16:44:52.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/s0C4MYdd4f8/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -81,6 +191,16 @@
       "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
       "publishedAt": "2026-09-01T16:15:43.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Move the Grip Like This!",
+      "summary": "The Chris Ryan Golf Academy App The all-in-one coaching platform designed to help you train smarter, practice better, and play ...",
+      "source": "ChrisRyanGolf",
+      "url": "https://www.youtube.com/watch?v=Ljtpx3dmUIk",
+      "publishedAt": "2026-09-01T16:00:05.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Ljtpx3dmUIk/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -117,7 +237,7 @@
       "category": "Trends",
       "title": "The winningest driver of the 2026 FedEx Cup season might surprise you",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE94QndoZGYxSEpyX3NjTkE5aVZSODN6Q2NpNlM5ZWJFeGNKNThHUzltSm54b0FpMUpqU29LcGJWcWl2MFFQNUd2S3hoTUJYUGFwelVfbW9QU1dpNlFHWDh3cVhTWkJxc3ZkVVpEVDJIM0o0MmtULU9kMEV1QQ?oc=5",
       "publishedAt": "2026-08-31T22:10:23.000Z",
       "thumbnail": ""
@@ -127,7 +247,7 @@
       "category": "Trends",
       "title": "This common swing fault could make you a better putter",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPUHR0bUZmYXV6dnJ5Y1RjOHdhVUkyMnZBTlBtM1FWaFZycmg1SXhfbHVPYm56dTU1TkhvSGg3WWJYVWJ0OTRENjAtN00zOUdNcTE3WU9pT2tYZzh1NXc2SUY5dndsb3BqTDdMR1RQOTREZFNLX1p5NEEzemQ2U2RBRA?oc=5",
       "publishedAt": "2026-08-31T21:01:57.000Z",
       "thumbnail": ""
@@ -137,7 +257,7 @@
       "category": "Trends",
       "title": "Shop August’s 3 best-selling irons",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE1adDk3dzhueElJdFJHb0E5N3ZtdnFnTkFRMGdrUDVqRDdWeEtjSFpVUVlDN25tbmJsajViOGYwWGI0NzVyMXRfbDV1ejYtbGEyQTg3aldDTkI3RGYzNlN6YzBqSWZTMGV2V09JWFpRaWRZUQ?oc=5",
       "publishedAt": "2026-08-31T21:00:40.000Z",
       "thumbnail": ""
@@ -147,7 +267,7 @@
       "category": "Trends",
       "title": "Irons",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1ReE8tVHdhWGVLX0tlRXNJbnc3X3lzREtGOXBfaFZkUUlvOW1FMmw2RTc5a0NCVWR5Z1kwTWlpdWRxQQ?oc=5",
       "publishedAt": "2026-08-31T17:00:40.000Z",
       "thumbnail": ""
@@ -157,7 +277,7 @@
       "category": "Trends",
       "title": "Scottie Scheffler’s clubs: New driver earns second win and FedEx Cup title",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1OQ3U1Q1Roc0IwTFYzQ1U0bjdSWFJ1WXBOaFhLSE1iX29CeHZPbzR1OWFIbkxsME9DeFlUQ2VuQkZIU0VWU1F3X3VOazZXTnJYQVpIcFlFMUFjYnRsZjVGVHpVak85VkF0b1g0Rk1HM1FmcFVzcXViag?oc=5",
       "publishedAt": "2026-08-30T22:37:13.000Z",
       "thumbnail": ""
@@ -177,129 +297,9 @@
       "category": "Trends",
       "title": "McLaren Golf Series 1 irons are being freshly restocked. Pre-order while you can!",
       "summary": "",
-      "source": "golf.com",
+      "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxObGU4Z1dXUFFBTFRBaHhLT0h6QnhLQjhDd3FwcHRPajBGWUctcm1oQVVwZjRNYWx6eFZiQ1QyUzdGRFMyS0h4YXEyTjR6Tm95M0NubG80UEc5R3dQTU96Y2NDOUdzVElBOFJoVUptUnVYaTJWajVCR1J3Y3hRMzIxZzV5V0w0LUE?oc=5",
       "publishedAt": "2026-08-29T14:02:15.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Broomsticks, Blades And Modular Mallets: Has Golf Equipment Marketing Gotten Out Of Hand?",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNb0NjbFZlQzgwdVB2MExxQUxONUFzaVRsV0pWV0ZINENfX1lMMHM2T29KYzR5aGs0QzlTbzNRbnBBZlRzbWtMckVMeDFHd0U0SHlzSU9nRnpkcndpSnA0ci11ck1USTc2WmVSOFk3Z2dCSWUtVTd5TUd4N3ZZNFZRdHVOaWozRTI0d2NCMlJvdWxLcW5nbldJZ09fcnd6ZjRjenlkMHIxVVZCQk5BdGUtT0dNbjZXbVMwc2p1WW5sc2Y?oc=5",
-      "publishedAt": "2026-08-28T12:51:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "Stop Throwing Away Shots: Short Game Shot Savers",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPeEdLU21ESEF0M0xGQS04LVpDVVZTVUZlUTVTb3FiOFk5MkV6d19OaHp0a180UmNESnp1anpsVVBYSlFkRG5hRnA3T2VLNWgwWXRTWFlzZXZ2YTZWN2tGTjRLa29hSURlbTQwZHdhZ0xwSG9NVWROSGtlQ1ZBbXVObnZQeExGamM?oc=5",
-      "publishedAt": "2026-08-28T12:06:38.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "This Wyndham Clark training aid helped me master low point in chipping",
-      "summary": "",
-      "source": "golf.com",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQSG05amNTLWd2OGdqc01sX3JmazNsUVgtaTVvZkFBNC1XQXZNd3NYOUF1UnJwRnlFNU5TMV9KZWJzMGVnLWYyOTFfZmxjdW40SnRRWkVuek53X3diX2RFb1lTbXdqQ2pialpLc0pZTUtOYWxtSldRejF3WkZRWlplaF9mVnUzdm9OMlphcQ?oc=5",
-      "publishedAt": "2026-08-28T11:28:37.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Why Rory McIlroy has been grinding on these two golf swing drills",
-      "summary": "",
-      "source": "Golf Digest",
-      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNWkltRVBmZFB3TVpWclVKc0o3UHdQcDRRYTNvSU9tY1dOQjVkOVVmSWhDcVh1N2pmYmxSYWltRURlTk5uejZDdlV0SHIyNTVmM2t5V3p1cjdlaVRMZDgwSzVIbUNKNy1GWmlaeWNDdkdMcmdXelhXTXFNbU1zOVNIYlR6Rm9qMW5WMjBVOHltSXlYSmV2RFg3cmEySFZTTWc?oc=5",
-      "publishedAt": "2026-08-27T18:48:01.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Callaway nixes Good Good partnership after driver-ad fallout",
-      "summary": "",
-      "source": "golf.com",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE51Y3ppMEZlWHBubUlLanFhTlFBcENEVnA5ZlNxdWxqQlg3UlpWUWRpSVdOVU5lLTk2RWVGOVFiRm5ITW8tVkJXUzZFTjl1YnNPVVFUQ1VDREpqQ05wNENoaTViTGxTV2lNYWc?oc=5",
-      "publishedAt": "2026-08-27T18:43:51.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "I Ranked LIV Golf's Top 40 Players... The Findings Were Interesting",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNRHc0OE1OUGUzOTJvbGJLQ2VPZG82ZDRWeVpnZ3FtT0pEUjFiNWpJU3I5bTNWblVZVEtIYUtIcTJuSllkd194M2NJZElDYlVLMm5aRnBvSERjemRzSDJJZmlHZnhpdUFnX3Buam15VnF4aDFRTUdLYzVFZndiV1k0OGU5X3FRbFlTWm5HNTVzRzdqdndQcVp4ZXUtUVNLamRYWkE?oc=5",
-      "publishedAt": "2026-08-27T14:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "4 swing tips from FedEx Cup winners",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQYlB5RDFSY1pvODVPZjh0M3lBLTR0MldnX0VFWW9SbjFhRm1hWEpfNVVZVHlfXzFRZ2E0X05wbW1XczhVMXlYVGMtYWFkSXRDbmUwZGJqUjJ3OVU1QmVYX2ppWVQzVGpBb2hxOHM4UGxxQnlPN0hMTTJReHlHbDUwS2pGQQ?oc=5",
-      "publishedAt": "2026-08-27T13:53:59.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "If Every Driver Is Fast Now, What Are You Paying $600 For?",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPYm1SRl9lLWJsMUJiQ3lEYTAxa3VrS2gxUEItREM1c1gyYzRhOWdjb3VIVE1Pc3g3SU4tNmc0dk5xeDc3c3dnSEUtOHZpekUxbjNZM0dQV3pvUzFWOUF3cnRsQ0xGTnY5U3V6NGNmVEwzZmJtcV9TRUxBc0lyemFWakt2Z1V0WTNyckpwS1RNczdic2tQRnc?oc=5",
-      "publishedAt": "2026-08-27T11:46:57.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Noted architect signs on to design courses part simulator, part real",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxPVkQwR2JIYW04RXVRZUlaLVBoUjB5cUgtUGVDV0ROdm14OXNneW5heGdWLWY0MUFTVEMySlpVeW1wMGtYU1d3X3dmaHlRZ1k2UHFzR281LW40Um1lRUQ1WENqSjRkU0hQOXJ0YWpDVktBYXA4V3R1OFpXTFUxaWlCZlRDZ3NvN2pLZy1COWRRa1NMSjRhdjd6NDQ0RmMwUzV3Q1FOMHd4STNRQnFpelI1X3lRbE5kdmh1SWdsSGlUMk9GZlE2QzFweW5GVkRCd0NacmxhMlFmTFBJTEcwUG9UbUhkb3N6cG9vdzJzRHJCRlZNcERvMEFaQ1ZR?oc=5",
-      "publishedAt": "2026-08-26T21:30:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Rory McIlroy applauds TaylorMade’s Qi4D driver decision",
-      "summary": "",
-      "source": "golf.com",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPd0g2UTRqZTh1cnlSc0k3bDFIM19zTU9UV25nYzJUZUVxQVNSVUlOaEtvTl9KR3Uzd19tX1hxdXZRUmRVWXQ5Q3VjRlNIU0lNUllqWVJoSlZ5V2ZnamY4LWRTU1hLODlVZ3p5QTVnV0Q1NnhBREJ0ZFd3UmVldTg0bW5mX04?oc=5",
-      "publishedAt": "2026-08-26T19:09:37.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "How Far Do Golfers Your Age Hit Their Driver? See The Full Handicap Chart",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQVHdLYTdxc21vU1hSbDh3eEljaVZ5VHMxU1FDWG5kM3NCVkROaWdyQXU4RzBkYm5DNnFuTV9RU0FiN0hZNzZ0RWM5SjU1aWRGWlRFUTBsMHR6dHlCbkNKSjJjRjJNVTZmeTRjRVdxM19tTW9lOUJ2NWVfSENLdkpOdUpMc2xBQjJ4dzZzSkZ3U0xNRnlNb1pKWmNqOWowOS1sNzFuMXFIWlBqa1o0?oc=5",
-      "publishedAt": "2026-08-26T14:44:26.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Can One Golf Ball Really Give You Low Driver Spin And High Wedge Spin?",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPMFZiR3RUcnBrUFA2UHFFSkNIUEg4QmpsZGRMVWF4SGZlaW5nYUlyaGdFX2RYWDdreFpfdWRSUURGbEpuTGEyV3k2Y3R5OEVpejJmY1gyYmFHQVU2c0RaY1U2bzc5ODJWc184TkdiaTJ5ZlZSakZoTWVxOE9idUNVQ3hwMlVfaFcxSFFQVl9fUGNhNDBoTl9STFFRQ3BuV0ZKVjRwU3pzR3Q?oc=5",
-      "publishedAt": "2026-08-26T14:44:26.000Z",
       "thumbnail": ""
     }
   ]
