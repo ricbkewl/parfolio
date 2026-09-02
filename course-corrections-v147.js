@@ -1,4 +1,4 @@
-/* Version 147: golfer-assisted course correction suggestions. */
+/* Version 183: golfer-assisted corrections for shared and catalog-only courses. */
 (function(){
   const SHARED_URL='https://qziemwgcjkohjchxdvnv.supabase.co';
   const SHARED_KEY='sb_publishable_vod_BeAVzOLwjbCwLLeUBw_i8Bfv5wh';
@@ -7,6 +7,10 @@
   function close(){document.querySelector('.course-correction-overlay')?.remove();correctionCourse=null;correctionGps=null}
   function preferredName(){return [golferProfile?.first_name,golferProfile?.last_name].filter(Boolean).join(' ')||currentUser?.user_metadata?.full_name||currentUser?.user_metadata?.name||''}
   function preferredEmail(){return golferProfile?.email||currentUser?.email||''}
+  function correctionRef(course){return String(course?.sharedCourseId||course?.openGolfApiId||course?.id||'').trim()}
+  window.courseCorrectionButton=function(course,index){
+    return correctionRef(course)?`<button class="course-correction-trigger" type="button" onclick="event.stopPropagation();showCourseCorrectionForm(${index})">✎ Suggest a Course Correction</button>`:'';
+  };
   window.closeCourseCorrectionForm=close;
   window.useCorrectionLocation=function(){
     const status=document.getElementById('correctionLocationStatus');
@@ -19,7 +23,7 @@
   };
   window.showCourseCorrectionForm=function(index){
     const course=courses?.[index];if(!course)return;
-    if(!course.sharedCourseId){alert('This course is not linked to the shared course library yet.');return}
+    if(!correctionRef(course)){alert('This course does not have a stable catalog reference yet.');return}
     correctionCourse=course;correctionGps=null;close();correctionCourse=course;
     const overlay=document.createElement('div');overlay.className='course-correction-overlay';overlay.onclick=e=>{if(e.target===overlay)close()};
     overlay.innerHTML=`<section class="course-correction-sheet" role="dialog" aria-modal="true" aria-label="Suggest a course correction">
@@ -36,23 +40,22 @@
     document.body.appendChild(overlay);
   };
   window.submitCourseCorrection=async function(){
-    if(!correctionCourse?.sharedCourseId)return;
+    if(!correctionRef(correctionCourse))return;
     const button=document.getElementById('correctionSubmit'),text=document.getElementById('correctionText')?.value.trim(),holeText=document.getElementById('correctionHole')?.value.trim();
     if(!text||text.length<5){alert('Please add a little more detail about the suggested change.');return}
     const hole=holeText?Number(holeText):null;if(hole!==null&&(!Number.isInteger(hole)||hole<1||hole>54)){alert('Enter a valid hole number.');return}
     button.disabled=true;button.textContent='Submitting…';
     try{
-      const {data,error}=await client().rpc('submit_course_correction',{
-        p_course_id:correctionCourse.sharedCourseId,
-        p_issue_type:document.getElementById('correctionType').value,
-        p_suggestion_text:text,
-        p_hole_number:hole,
-        p_suggested_lat:correctionGps?.lat??null,
-        p_suggested_lng:correctionGps?.lng??null,
+      const common={
+        p_issue_type:document.getElementById('correctionType').value,p_suggestion_text:text,p_hole_number:hole,
+        p_suggested_lat:correctionGps?.lat??null,p_suggested_lng:correctionGps?.lng??null,
         p_submitter_name:document.getElementById('correctionName')?.value.trim()||null,
-        p_submitter_email:document.getElementById('correctionEmail')?.value.trim()||null,
-        p_source_app:'atg'
-      });
+        p_submitter_email:document.getElementById('correctionEmail')?.value.trim()||null
+      };
+      const response=correctionCourse.sharedCourseId
+        ?await client().rpc('submit_course_correction',{p_course_id:correctionCourse.sharedCourseId,...common,p_source_app:'parfolio'})
+        :await db.rpc('submit_parfolio_course_correction',{p_course_ref:correctionRef(correctionCourse),p_open_golf_api_id:correctionCourse.openGolfApiId||null,p_course_name:correctionCourse.name,...common});
+      const {data,error}=response;
       if(error)throw error;
       close();alert('Thank you. Your suggested course change has been submitted for review.');
     }catch(error){console.error('Course correction submission failed',error);alert('The suggestion could not be submitted right now. Please try again.');button.disabled=false;button.textContent='Submit Suggested Change';}
@@ -61,7 +64,7 @@
     const priorCourseLibraryCard147=courseLibraryCard;
     courseLibraryCard=function(course,index,distance=null){
       let html=priorCourseLibraryCard147(course,index,distance);
-      if(course?.sharedCourseId)html=html.replace('</article>',`<button class="course-correction-trigger" type="button" onclick="event.stopPropagation();showCourseCorrectionForm(${index})">✎ Suggest a Course Correction</button></article>`);
+      const button=window.courseCorrectionButton(course,index);if(button)html=html.replace('</article>',`${button}</article>`);
       return html;
     };
   }

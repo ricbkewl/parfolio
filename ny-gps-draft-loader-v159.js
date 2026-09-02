@@ -1,11 +1,16 @@
-/* ParFolio v159: lazy-load New York OSM GPS drafts into the admin course editor.
-   Drafts never activate live play and never overwrite existing verified GPS. */
+/* ParFolio v183: load verified-source New York OSM geometry into the public catalog.
+   Complete 9/18-hole maps may be activated by regional-auto-publish-v160. Partial
+   geometry stays visibly partial and never overwrites existing GPS. */
 (function(){
   const URL='data/ny-osm-gps-drafts-v159.json?v=159';
   let cache=null,pending=null;
 
+  function point(value){
+    const lat=Number(value?.lat),lng=Number(value?.lng);
+    return Number.isFinite(lat)&&Number.isFinite(lng)&&Math.abs(lat)<=90&&Math.abs(lng)<=180&&!(lat===0&&lng===0)?{lat,lng}:null;
+  }
   function hasExistingGps(course){
-    return Array.isArray(course?.greens)&&course.greens.some(g=>g?.tee&&g?.center);
+    return Array.isArray(course?.greens)&&course.greens.some(g=>(point(g?.tee)||point(g?.tees?.black))&&point(g?.center));
   }
   function nyCourse(course){
     return String(course?.state||'').toUpperCase()==='NY' || String(course?.id||'').startsWith('opengolf-ny-');
@@ -23,23 +28,54 @@
 
   function applyMapping(course,mapping){
     if(!course||!mapping||hasExistingGps(course))return false;
-    const maxHole=Math.max(18,...(mapping.numberedHoles||[]).map(Number).filter(Number.isFinite));
-    const greens=Array.from({length:maxHole},emptyGreen),pars=Array.isArray(course.pars)?course.pars.slice():Array.from({length:maxHole},()=>4);
+    const numbered=(mapping.numberedHoles||[]).map(Number).filter(n=>Number.isInteger(n)&&n>0);
+    const mappedMaximum=Math.max(0,...numbered);
+    const declared=Number(mapping.playableHoles)||Number(course.holes)||mappedMaximum||18;
+    const holeCount=[9,18].includes(declared)?declared:(mappedMaximum<=9?9:18);
+    const greens=Array.from({length:holeCount},emptyGreen),priorPars=Array.isArray(course.pars)?course.pars:[];
+    const pars=Array.from({length:holeCount},(_,index)=>Number(priorPars[index])||4);
     for(const row of mapping.greens||[]){
-      const n=Number(row.hole);if(!Number.isInteger(n)||n<1||n>maxHole)continue;
-      greens[n-1]={tee:row.tee||null,tees:{black:row.tee||null,blue:null,white:null,red:null},aim1:row.aim1||null,aim2:row.aim2||null,front:row.front||null,center:row.center||null,back:row.back||null,_review:'osm-draft-review',_nyAutoMapped:true};
+      const n=Number(row.hole);if(!Number.isInteger(n)||n<1||n>holeCount)continue;
+      const tee=point(row.tee),center=point(row.center);
+      if(!tee||!center)continue;
+      greens[n-1]={tee,tees:{black:tee,blue:null,white:null,red:null},aim1:point(row.aim1),aim2:point(row.aim2),front:point(row.front),center,back:point(row.back),_review:'osm-draft-review',_nyAutoMapped:true};
       if(Number(row.par)>=3&&Number(row.par)<=6)pars[n-1]=Number(row.par);
     }
+    const mappedHoleCount=greens.filter(g=>g.tee&&g.center).length;
+    if(!mappedHoleCount)return false;
     course.greens=greens;
     course.pars=pars;
-    course.holes=mapping.playableHoles||course.holes||18;
+    course.holes=holeCount;
     course.catalogOnly=true;
     course.sharedLibraryGpsActive=false;
     course.sharedMappingStatus='gps_draft';
     course.mappingStatus='gps_draft';
-    course._nyAutoMap={version:159,reviewReady:Boolean(mapping.reviewReady),confidence:mapping.confidence||'partial',mappedHoleCount:mapping.mappedHoleCount||0,boundaryMatch:mapping.boundaryMatch||null,issues:mapping.issues||[]};
+    course._nyAutoMap={version:183,reviewReady:Boolean(mapping.reviewReady),confidence:mapping.confidence||'partial',mappedHoleCount,boundaryMatch:mapping.boundaryMatch||null,issues:mapping.issues||[]};
     return true;
   }
+
+  async function hydrateAll(){
+    try{
+      const payload=await data(),mappings=payload?.courses||{};
+      if(typeof courses==='undefined'||!Array.isArray(courses))return 0;
+      let newlyLoaded=0;
+      for(const course of courses){
+        if(!nyCourse(course)||hasExistingGps(course))continue;
+        const mapping=mappings[sourceId(course)];
+        if(!mapping||!applyMapping(course,mapping))continue;
+        newlyLoaded++;
+      }
+      const nyCourses=courses.filter(nyCourse),geometryCourses=nyCourses.filter(course=>course?._nyAutoMap?.mappedHoleCount>0);
+      const complete=geometryCourses.filter(course=>course._nyAutoMap.mappedHoleCount===course.holes).length,partial=geometryCourses.length-complete;
+      const loaded=geometryCourses.length;
+      window.PARFOLIO_NY_GPS_GEOMETRY={version:183,sourceCourses:Object.keys(mappings).length,loaded,complete,partial,locationOnly:Math.max(0,(courses.filter(nyCourse).length-loaded)),loadedAt:new Date().toISOString()};
+      if(newlyLoaded&&typeof window.autoPublishRegionalGps==='function')window.autoPublishRegionalGps();
+      if(newlyLoaded&&typeof render==='function'&&typeof s!=='undefined'&&s?.v!=='round')try{render()}catch{}
+      return loaded;
+    }catch(error){console.warn('NY GPS geometry could not be loaded',error);return 0;}
+  }
+
+  window.hydrateAllNyGpsGeometry=hydrateAll;
 
   window.loadNyGpsDraftForCourse=async function(course){
     if(!nyCourse(course)||hasExistingGps(course))return false;
@@ -48,6 +84,12 @@
       return mapping?applyMapping(course,mapping):false;
     }catch(error){console.warn('NY GPS draft unavailable',error);return false;}
   };
+
+  if(typeof loadSharedCourseLibrary==='function'){
+    const priorLoadSharedCourseLibrary=loadSharedCourseLibrary;
+    loadSharedCourseLibrary=async function(options){const result=await priorLoadSharedCourseLibrary(options);await hydrateAll();return result;};
+  }
+  [600,1800,4000].forEach(delay=>setTimeout(()=>hydrateAll(),delay));
 
   if(typeof mapCourse==='function'){
     const prior=mapCourse;

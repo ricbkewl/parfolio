@@ -14,7 +14,28 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v182-/,'service-worker cache must use the v182 namespace');
+assert.match(sw,/parfolio-v183-/,'service-worker cache must use the v183 namespace');
+
+const nyGeometry=JSON.parse(read('data/ny-osm-gps-drafts-v159.json'));
+const nyMappings=Object.values(nyGeometry.courses||{});
+const validPoint=point=>point&&Number.isFinite(Number(point.lat))&&Number.isFinite(Number(point.lng))&&Math.abs(Number(point.lat))<=90&&Math.abs(Number(point.lng))<=180&&!(Number(point.lat)===0&&Number(point.lng)===0);
+const usableNyMappings=nyMappings.filter(mapping=>(mapping.greens||[]).some(hole=>validPoint(hole.tee)&&validPoint(hole.center)));
+assert.equal(nyMappings.length,551,'NY geometry source count changed unexpectedly');
+assert.equal(usableNyMappings.length,551,'every NY geometry source needs at least one valid tee/center pair');
+assert.equal(usableNyMappings.reduce((sum,mapping)=>sum+(mapping.greens||[]).filter(hole=>validPoint(hole.tee)&&validPoint(hole.center)).length,0),8343,'NY mapped-hole count changed unexpectedly');
+const nyLoader=read('ny-gps-draft-loader-v159.js');
+assert.match(nyLoader,/hydrateAllNyGpsGeometry/,'NY geometry must hydrate the golfer-facing catalog');
+assert.match(nyLoader,/lat===0&&lng===0/,'NY geometry must reject the null-island coordinate');
+assert.match(nyLoader,/autoPublishRegionalGps/,'complete NY geometry must enter the regional publication policy');
+
+const corrections=read('course-corrections-v147.js');
+assert.match(corrections,/p_source_app:'parfolio'/,'shared corrections must identify ParFolio as the source app');
+assert.match(corrections,/submit_parfolio_course_correction/,'catalog-only courses must have a correction submission path');
+assert.match(corrections,/courseCorrectionButton/,'correction control must be reusable by all course views');
+assert.match(read('smart-course-search-v176.js'),/Course Located/,'located courses must be distinguished from pending locations');
+const correctionMigration=read('supabase/migrations/20260902000003_parfolio_v183_course_corrections.sql')+read('supabase/migrations/20260902000004_parfolio_v183_course_correction_invoker.sql');
+assert.match(correctionMigration,/enable row level security/i,'course corrections must use row-level security');
+assert.match(correctionMigration,/security invoker/i,'course correction RPC must execute as its caller');
 
 assert.match(app,/function playedScoreSummary\(/,'partial score helper is required');
 assert.match(app,/summary\.relative/,'live scorecard must compare score with played-hole par');
@@ -39,4 +60,4 @@ for(const legacyRpc of ['create_parfolio_round','join_parfolio_round','resume_pa
   assert.doesNotMatch(app,new RegExp(`rpc\\(['\"]${legacyRpc}`),`frontend still calls retired RPC ${legacyRpc}`);
 }
 
-console.log(`ParFolio v182 static checks passed: ${new Set(localRefs).size} index assets covered offline.`);
+console.log(`ParFolio v183 static checks passed: ${new Set(localRefs).size} index assets covered offline; 551 courses / 8,343 holes validated.`);

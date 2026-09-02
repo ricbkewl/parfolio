@@ -96,12 +96,14 @@
     const mapped=typeof mappedCount==='function'?mappedCount(course):0,holes=Number(course?.holes)||18;
     if(mapped>=holes)return'<span class="smart-gps-badge ready">● GPS Ready</span>';
     if(mapped>0)return'<span class="smart-gps-badge partial">● Partial GPS</span>';
-    return'<span class="smart-gps-badge catalog">Course Catalog</span>';
+    const p=course?.catalog_point,located=p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Math.abs(Number(p.lat))<=90&&Math.abs(Number(p.lng))<=180&&!(Number(p.lat)===0&&Number(p.lng)===0);
+    return`<span class="smart-gps-badge catalog">${located?'● Course Located':'Location Pending'}</span>`;
   }
 
   function compactCard(course,index,distance){
     const favorite=typeof favoriteCourseIds==='function'&&favoriteCourseIds().has(course.id),loc=[course.city,course.state].filter(Boolean).join(', '),miles=distance===null?'':` · ${distance<10?distance.toFixed(1):Math.round(distance)} mi`;
-    return `<article class="smart-course-row"><button class="smart-course-main" onclick="startCourseFromLibrary(${index})"><span class="smart-course-pin">⛳</span><span class="smart-course-copy"><b>${escSmart(course.name)}</b><small>${escSmart(loc||course.country||'Location pending')}${miles}</small><em>${Number(course.holes)||18} holes ${gpsBadge(course)}</em></span><i>›</i></button><button class="smart-row-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${escSmart(course.id)}',event)" aria-label="${favorite?'Remove from':'Add to'} favorites">${favorite?'★':'☆'}</button>${adminRole?`<button class="smart-row-admin" onclick="${course.catalogOnly?'mapCatalogCourse':'editCourse'}(${index})">${course.catalogOnly?'Map':'Edit'}</button>`:''}</article>`;
+    const correction=typeof window.courseCorrectionButton==='function'?window.courseCorrectionButton(course,index):'';
+    return `<article class="smart-course-row"><button class="smart-course-main" onclick="startCourseFromLibrary(${index})"><span class="smart-course-pin">⛳</span><span class="smart-course-copy"><b>${escSmart(course.name)}</b><small>${escSmart(loc||course.country||'Location pending')}${miles}</small><em>${Number(course.holes)||18} holes ${gpsBadge(course)}</em></span><i>›</i></button><button class="smart-row-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${escSmart(course.id)}',event)" aria-label="${favorite?'Remove from':'Add to'} favorites">${favorite?'★':'☆'}</button>${adminRole?`<button class="smart-row-admin" onclick="${course.catalogOnly?'mapCatalogCourse':'editCourse'}(${index})">${course.catalogOnly?'Map':'Edit'}</button>`:''}${correction}</article>`;
   }
 
   const originalCard=typeof courseLibraryCard==='function'?courseLibraryCard:null;

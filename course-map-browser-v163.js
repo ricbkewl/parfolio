@@ -15,12 +15,13 @@
 
   function courseMapPoint(course){
     const p=typeof coursePreviewPoint==='function'?coursePreviewPoint(course):null;
-    if(p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng)))return{lat:Number(p.lat),lng:Number(p.lng)};
-    if(course?.catalog_point&&Number.isFinite(Number(course.catalog_point.lat))&&Number.isFinite(Number(course.catalog_point.lng)))return{lat:Number(course.catalog_point.lat),lng:Number(course.catalog_point.lng)};
+    const valid=value=>value&&Number.isFinite(Number(value.lat))&&Number.isFinite(Number(value.lng))&&Math.abs(Number(value.lat))<=90&&Math.abs(Number(value.lng))<=180&&!(Number(value.lat)===0&&Number(value.lng)===0);
+    if(valid(p))return{lat:Number(p.lat),lng:Number(p.lng)};
+    if(valid(course?.catalog_point))return{lat:Number(course.catalog_point.lat),lng:Number(course.catalog_point.lng)};
     const greens=Array.isArray(course?.greens)?course.greens:[];
     for(const g of greens){
       const q=g?.center||g?.tee||g?.tees?.black||g?.front||g?.back;
-      if(q&&Number.isFinite(Number(q.lat))&&Number.isFinite(Number(q.lng)))return{lat:Number(q.lat),lng:Number(q.lng)};
+      if(valid(q))return{lat:Number(q.lat),lng:Number(q.lng)};
     }
     return null;
   }
