@@ -1,4 +1,4 @@
-/* ParFolio v200 — elevated wordmark and clearer homepage glass. */
+/* ParFolio v206 — elevated wordmark, clearer homepage glass and readable content contrast. */
 body.parfolio-home-active{background:#07140e!important;}
 .parfolio-fixed-home-bg{display:none;}
 body.parfolio-home-active .parfolio-fixed-home-bg{
@@ -15,94 +15,22 @@ body.parfolio-home-active .parfolio-fixed-home-bg{
   background-repeat:no-repeat;
   background-color:#07140e;
 }
-#app.home-page{
-  position:relative;
-  z-index:1;
-  background:transparent!important;
-}
-#app.home-page::before{
-  background:linear-gradient(90deg,rgba(0,0,0,.07),transparent 28%,transparent 72%,rgba(0,0,0,.07))!important;
-}
-
-/* Premium PF crest: clip away black square corners and add a restrained gold frame. */
-.home-page .logo-wrap{
-  width:min(232px,59vw)!important;
-  aspect-ratio:1!important;
-  margin:0 auto 18px!important;
-  padding:0!important;
-  overflow:hidden!important;
-  border-radius:24%!important;
-  background:rgba(7,31,24,.22)!important;
-  border:1.5px solid rgba(231,191,88,.78)!important;
-  box-shadow:
-    0 18px 44px rgba(0,0,0,.36),
-    0 0 0 1px rgba(255,255,255,.10) inset,
-    0 0 28px rgba(218,172,60,.14)!important;
-}
-.home-page .logo-wrap .landing-logo{
-  width:100%!important;
-  height:100%!important;
-  margin:0!important;
-  display:block!important;
-  object-fit:cover!important;
-  border-radius:inherit!important;
-  transform:scale(1.018);
-  filter:saturate(1.03) contrast(1.02) drop-shadow(0 8px 16px rgba(0,0,0,.20))!important;
-}
-
-/* Echo the PF logo: Par sits slightly higher than Folio while remaining one wordmark. */
+#app.home-page{position:relative;z-index:1;background:transparent!important;}
+#app.home-page::before{background:linear-gradient(90deg,rgba(0,0,0,.07),transparent 28%,transparent 72%,rgba(0,0,0,.07))!important;}
+.home-page .logo-wrap{width:min(232px,59vw)!important;aspect-ratio:1!important;margin:0 auto 18px!important;padding:0!important;overflow:hidden!important;border-radius:24%!important;background:rgba(7,31,24,.22)!important;border:1.5px solid rgba(231,191,88,.78)!important;box-shadow:0 18px 44px rgba(0,0,0,.36),0 0 0 1px rgba(255,255,255,.10) inset,0 0 28px rgba(218,172,60,.14)!important;}
+.home-page .logo-wrap .landing-logo{width:100%!important;height:100%!important;margin:0!important;display:block!important;object-fit:cover!important;border-radius:inherit!important;transform:scale(1.018);filter:saturate(1.03) contrast(1.02) drop-shadow(0 8px 16px rgba(0,0,0,.20))!important;}
 .home-page .parfolio-home-wordmark{align-items:baseline!important;}
-.home-page .parfolio-home-wordmark .parfolio-par{
-  display:inline-block;
-  transform:translateY(-11px);
-}
-.home-page .parfolio-home-wordmark .parfolio-folio{
-  display:inline-block;
-  transform:translateY(3px);
-}
-
-/* My Account should read as a clean text action, not a white tile. */
-.home-page .account-bar .back{
-  background:transparent!important;
-  border:0!important;
-  box-shadow:none!important;
-  color:#7b5900!important;
-  padding:8px 2px!important;
-}
-.home-page .account-bar .back:hover,
-.home-page .account-bar .back:focus-visible{
-  background:transparent!important;
-  border:0!important;
-  color:#173126!important;
-  text-decoration:underline;
-  text-underline-offset:3px;
-}
-
-/* Main course/action area and Readme use clearer glass so the course photo remains visible. */
-.home-page .home-actions{
-  background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(248,252,250,.11))!important;
-  border-color:rgba(255,255,255,.40)!important;
-  -webkit-backdrop-filter:blur(10px) saturate(1.10)!important;
-  backdrop-filter:blur(10px) saturate(1.10)!important;
-  box-shadow:0 16px 44px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.25)!important;
-}
-.home-page .app-guide{
-  background:linear-gradient(145deg,rgba(255,255,255,.24),rgba(248,252,250,.12))!important;
-  border-color:rgba(255,255,255,.42)!important;
-  -webkit-backdrop-filter:blur(10px) saturate(1.08)!important;
-  backdrop-filter:blur(10px) saturate(1.08)!important;
-  box-shadow:0 14px 38px rgba(0,0,0,.13),inset 0 1px 0 rgba(255,255,255,.25)!important;
-}
-.home-page .app-guide[open]{
-  background:linear-gradient(145deg,rgba(255,255,255,.31),rgba(248,252,250,.17))!important;
-}
-.home-page .app-guide summary span{
-  letter-spacing:.01em;
-}
-
-@media(max-width:480px){
-  body.parfolio-home-active .parfolio-fixed-home-bg{background-position:50% top;}
-  .home-page .logo-wrap{width:min(220px,58vw)!important;}
-  .home-page .parfolio-home-wordmark .parfolio-par{transform:translateY(-9px);}
-  .home-page .parfolio-home-wordmark .parfolio-folio{transform:translateY(3px);}
-}
+.home-page .parfolio-home-wordmark .parfolio-par{display:inline-block;transform:translateY(-11px);}
+.home-page .parfolio-home-wordmark .parfolio-folio{display:inline-block;transform:translateY(3px);}
+.home-page .account-bar .back{background:transparent!important;border:0!important;box-shadow:none!important;color:#f0cd6e!important;padding:8px 2px!important;text-shadow:0 1px 2px rgba(0,0,0,.5);}
+.home-page .account-bar .back:hover,.home-page .account-bar .back:focus-visible{background:transparent!important;border:0!important;color:#fff3c8!important;text-decoration:underline;text-underline-offset:3px;}
+.home-page .home-actions{background:linear-gradient(145deg,rgba(255,255,255,.22),rgba(248,252,250,.11))!important;border-color:rgba(255,255,255,.40)!important;-webkit-backdrop-filter:blur(10px) saturate(1.10)!important;backdrop-filter:blur(10px) saturate(1.10)!important;box-shadow:0 16px 44px rgba(0,0,0,.14),inset 0 1px 0 rgba(255,255,255,.25)!important;}
+.home-page .app-guide{background:linear-gradient(145deg,rgba(255,255,255,.48),rgba(248,252,250,.34))!important;border-color:rgba(255,255,255,.58)!important;-webkit-backdrop-filter:blur(12px) saturate(1.06)!important;backdrop-filter:blur(12px) saturate(1.06)!important;box-shadow:0 14px 38px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.30)!important;color:#14251e!important;}
+.home-page .app-guide[open]{background:linear-gradient(145deg,rgba(255,255,255,.60),rgba(248,252,250,.46))!important;}
+.home-page .app-guide summary,.home-page .app-guide summary span{color:#10271d!important;font-weight:800;text-shadow:0 1px 0 rgba(255,255,255,.38);letter-spacing:.01em;}
+.home-page .app-guide .guide-body,.home-page .app-guide .guide-body p,.home-page .app-guide .guide-body li{color:#14251e!important;}
+.home-page .app-guide .guide-body h2,.home-page .app-guide .guide-body h3,.home-page .app-guide .guide-body h4{color:#075635!important;font-weight:850;}
+.home-page .app-guide .muted,.home-page .app-guide small,.home-page .app-guide .guide-update{color:#31483d!important;}
+.home-page .app-guide a{color:#065a39!important;font-weight:750;}
+.home-page .app-guide .guide-tip,.home-page .app-guide .notice{color:#173026!important;background:rgba(255,255,255,.48)!important;}
+@media(max-width:480px){body.parfolio-home-active .parfolio-fixed-home-bg{background-position:50% top}.home-page .logo-wrap{width:min(220px,58vw)!important}.home-page .parfolio-home-wordmark .parfolio-par{transform:translateY(-9px)}.home-page .parfolio-home-wordmark .parfolio-folio{transform:translateY(3px)}}
