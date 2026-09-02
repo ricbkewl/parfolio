@@ -40,3 +40,9 @@
   setTimeout(apply,0);setTimeout(apply,350);
   window.applyParFolioHomeLanguage=apply;
 })();
+
+/* v208 bootstrap: keep social feature modular and load it after the existing menu/home layers. */
+(function(){
+  if(!document.querySelector('link[data-parfolio-social]')){const css=document.createElement('link');css.rel='stylesheet';css.href='social-v208.css?v=208';css.dataset.parfolioSocial='1';document.head.appendChild(css)}
+  if(!document.querySelector('script[data-parfolio-social]')){const js=document.createElement('script');js.src='social-v208.js?v=208';js.defer=true;js.dataset.parfolioSocial='1';document.body.appendChild(js)}
+})();
