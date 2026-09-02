@@ -1,10 +1,18 @@
-const CACHE_NAME='parfolio-v180-20260902';
+const CACHE_NAME='parfolio-v181-20260902';
 const APP_SHELL=[
   './',
   './index.html',
   './guide-i18n.js',
   './app.js',
   './styles.css',
+  './vendor/leaflet/leaflet.css',
+  './vendor/leaflet/leaflet.js',
+  './vendor/leaflet/images/marker-icon-2x.png',
+  './vendor/leaflet/images/marker-icon.png',
+  './vendor/leaflet/images/marker-shadow.png',
+  './vendor/supabase-v2.112.4.js',
+  './vendor/qrcode-v1.0.0.min.js',
+  './vendor/html5-qrcode-v2.3.8.min.js',
   './mobile-fit-v157.css',
   './mobile-fit-v157.js',
   './home-v162.css',
