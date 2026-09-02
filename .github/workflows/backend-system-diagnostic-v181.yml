@@ -1,0 +1,128 @@
+name: ParFolio Backend System Diagnostic v181
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/backend-system-diagnostic-v181.yml'
+      - 'supabase/**'
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Audit ParFolio backend through Supabase Management API
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_TOKEN: ${{ secrets.SUPABASE_TOKEN }}
+        shell: python
+        run: |
+          import json, os, sys, urllib.request, urllib.error
+          token=os.environ.get('SUPABASE_ACCESS_TOKEN') or os.environ.get('SUPABASE_TOKEN')
+          if not token:
+              print('BACKEND_DIAGNOSTIC_UNAVAILABLE: no Supabase management token secret configured')
+              sys.exit(2)
+          project='unsysuuhykdmbsasdhzg'
+          endpoint=f'https://api.supabase.com/v1/projects/{project}/database/query'
+          sql=r'''
+          with expected_tables(name, should_rls) as (
+            values
+              ('app_admins',true),('golfer_profiles',true),('golfer_club_distances',true),
+              ('shared_rounds',true),('round_players',true),('round_scores',true),
+              ('round_hole_stats',true),('round_messages',true),('hidden_round_history',true),('courses',true)
+          ),
+          table_check as (
+            select e.name,
+                   to_regclass('public.'||e.name) is not null as exists,
+                   coalesce(c.relrowsecurity,false) as rls_enabled,
+                   e.should_rls,
+                   coalesce((select count(*) from pg_policy p where p.polrelid=to_regclass('public.'||e.name)),0) as policy_count
+            from expected_tables e
+            left join pg_class c on c.oid=to_regclass('public.'||e.name)
+          ),
+          expected_functions(name) as (
+            values ('create_shared_round'),('join_shared_round'),('save_my_golfer_profile'),
+                   ('save_my_avatar_path'),('save_my_club_distances'),('set_course_admin'),
+                   ('list_registered_golfers'),('hide_round_from_my_history'),('delete_owned_round'),
+                   ('manage_round_status'),('remove_round_player')
+          ),
+          function_check as (
+            select e.name, exists(
+              select 1 from pg_proc p join pg_namespace n on n.oid=p.pronamespace
+              where n.nspname='public' and p.proname=e.name
+            ) as exists
+            from expected_functions e
+          ),
+          expected_realtime(name) as (
+            values ('shared_rounds'),('round_players'),('round_scores'),('round_hole_stats'),('round_messages')
+          ),
+          realtime_check as (
+            select e.name, exists(
+              select 1 from pg_publication_tables t
+              where t.pubname='supabase_realtime' and t.schemaname='public' and t.tablename=e.name
+            ) as published
+            from expected_realtime e
+          ),
+          expected_buckets(id) as (values ('golfer-avatars'),('round-chat-media')),
+          bucket_check as (
+            select e.id, exists(select 1 from storage.buckets b where b.id=e.id) as exists,
+                   coalesce((select b.public from storage.buckets b where b.id=e.id),false) as public
+            from expected_buckets e
+          )
+          select json_build_object(
+            'tables',(select json_agg(table_check order by name) from table_check),
+            'functions',(select json_agg(function_check order by name) from function_check),
+            'realtime',(select json_agg(realtime_check order by name) from realtime_check),
+            'buckets',(select json_agg(bucket_check order by id) from bucket_check),
+            'super_admin_count',(select count(*) from public.app_admins where role='super_admin'),
+            'courses_anon_select',has_table_privilege('anon','public.courses','SELECT'),
+            'courses_authenticated_select',has_table_privilege('authenticated','public.courses','SELECT')
+          ) as diagnostic;
+          '''
+          body=json.dumps({'query':sql}).encode()
+          req=urllib.request.Request(endpoint,data=body,method='POST',headers={
+              'Authorization':'Bearer '+token,'Content-Type':'application/json','Accept':'application/json'})
+          try:
+              with urllib.request.urlopen(req,timeout=45) as r:
+                  raw=r.read().decode('utf-8','replace')
+                  data=json.loads(raw) if raw else []
+          except urllib.error.HTTPError as e:
+              print('Supabase management API HTTP',e.code)
+              print(e.read().decode('utf-8','replace')[:2000])
+              sys.exit(3)
+          except Exception as e:
+              print('Supabase management API error:',e)
+              sys.exit(4)
+          try:
+              d=data[0]['diagnostic'] if isinstance(data,list) else data['diagnostic']
+              if isinstance(d,str): d=json.loads(d)
+          except Exception:
+              print('Unexpected diagnostic response:',json.dumps(data)[:3000])
+              sys.exit(5)
+          fails=[]
+          print('=== PARFOLIO BACKEND SYSTEM DIAGNOSTIC ===')
+          for x in d['tables']:
+              ok=x['exists'] and (not x['should_rls'] or x['rls_enabled']) and x['policy_count']>0
+              print(('PASS' if ok else 'FAIL'), 'TABLE',x['name'],f"exists={x['exists']} rls={x['rls_enabled']} policies={x['policy_count']}")
+              if not ok:fails.append('table:'+x['name'])
+          for x in d['functions']:
+              print(('PASS' if x['exists'] else 'FAIL'),'RPC',x['name'])
+              if not x['exists']:fails.append('rpc:'+x['name'])
+          for x in d['realtime']:
+              print(('PASS' if x['published'] else 'FAIL'),'REALTIME',x['name'])
+              if not x['published']:fails.append('realtime:'+x['name'])
+          for x in d['buckets']:
+              ok=x['exists']
+              print(('PASS' if ok else 'FAIL'),'BUCKET',x['id'],f"public={x['public']}")
+              if not ok:fails.append('bucket:'+x['id'])
+          admin_ok=int(d.get('super_admin_count') or 0)>=1
+          print(('PASS' if admin_ok else 'FAIL'),'SUPER_ADMIN','count='+str(d.get('super_admin_count')))
+          if not admin_ok:fails.append('super_admin')
+          print('INFO courses anon SELECT =',d.get('courses_anon_select'))
+          print('INFO courses authenticated SELECT =',d.get('courses_authenticated_select'))
+          print('TOTAL FAILURES',len(fails),','.join(fails) if fails else 'none')
+          if fails:sys.exit(1)
