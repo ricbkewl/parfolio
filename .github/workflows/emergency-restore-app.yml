@@ -1,0 +1,46 @@
+name: Emergency restore ParFolio startup
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/emergency-restore-app.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Remove Smart Data from global startup and bump cache
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s='\n'.join(line for line in s.splitlines() if 'smart-golf-data-v170.css' not in line and 'smart-golf-data-v170.js' not in line)
+          s=s.replace('?v=171','?v=173').replace('?v=172','?v=173')
+          p.write_text(s+'\n')
+          p=Path('service-worker.js')
+          s=p.read_text()
+          s=s.replace("const CACHE_NAME='parfolio-v172-20260901';","const CACHE_NAME='parfolio-v173-20260901';")
+          s=s.replace("const CACHE_NAME='parfolio-v171-20260901';","const CACHE_NAME='parfolio-v173-20260901';")
+          s='\n'.join(line for line in s.splitlines() if 'smart-golf-data-v170.css' not in line and 'smart-golf-data-v170.js' not in line)
+          p.write_text(s+'\n')
+          PY
+          node --check app.js
+          node --check startup-guard-v171.js
+      - name: Commit restore
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html service-worker.js
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Emergency restore ParFolio startup v173'
+          git pull --rebase origin main
+          git push origin main
