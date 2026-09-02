@@ -14,7 +14,7 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v184-/,'service-worker cache must use the v184 namespace');
+assert.match(sw,/parfolio-v209-/,'service-worker cache must use the current v209 namespace');
 
 const nyGeometry=JSON.parse(read('data/ny-osm-gps-drafts-v159.json'));
 const nyMappings=Object.values(nyGeometry.courses||{});
@@ -67,4 +67,4 @@ for(const legacyRpc of ['create_parfolio_round','join_parfolio_round','resume_pa
   assert.doesNotMatch(app,new RegExp(`rpc\\(['\"]${legacyRpc}`),`frontend still calls retired RPC ${legacyRpc}`);
 }
 
-console.log(`ParFolio v184 static checks passed: ${new Set(localRefs).size} index assets covered offline; GPS-prioritized search and 551 geometry courses validated.`);
+console.log(`ParFolio v209 static checks passed: ${new Set(localRefs).size} index assets covered offline; GPS-prioritized search and 551 geometry courses validated.`);

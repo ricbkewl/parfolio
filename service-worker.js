@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v208-20260902';
+const CACHE_NAME='parfolio-v209-20260902';
 const APP_SHELL=[
   './','./index.html','./manifest.webmanifest','./parfolio-app-icon.png','./rick-kulon-profile.jpg','./parfolio-home-bg-v162.webp','./data/golf-feed.json',
   './vendor/leaflet/leaflet.css','./vendor/leaflet/leaflet.js','./vendor/leaflet/images/marker-icon-2x.png','./vendor/leaflet/images/marker-icon.png','./vendor/leaflet/images/marker-shadow.png','./vendor/supabase-v2.112.4.js','./vendor/qrcode-v1.0.0.min.js','./vendor/html5-qrcode-v2.3.8.min.js',
