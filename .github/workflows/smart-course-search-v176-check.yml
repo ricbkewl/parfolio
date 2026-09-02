@@ -40,10 +40,9 @@ jobs:
             const page=await context.newPage();
             const errors=[];page.on('pageerror',e=>errors.push(e.message));
             await page.goto('https://ricbkewl.github.io/parfolio/?smartSearchQA=176',{waitUntil:'domcontentloaded',timeout:30000});
-            await page.waitForTimeout(5000);
-            const coursesButton=page.getByRole('button',{name:/courses/i}).first();
-            await coursesButton.click();
-            await page.waitForTimeout(5000);
+            await page.waitForFunction(()=>typeof courses!=='undefined'&&Array.isArray(courses)&&courses.length>100,{timeout:30000});
+            await page.evaluate(()=>{s.v='coursesView';render()});
+            await page.waitForTimeout(1800);
             const input=page.locator('.course-library-search input');
             if(await input.count()!==1)throw new Error('Universal course search input missing');
             const placeholder=await input.getAttribute('placeholder');
