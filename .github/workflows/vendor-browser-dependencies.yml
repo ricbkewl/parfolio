@@ -1,0 +1,44 @@
+name: Vendor ParFolio browser dependencies
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/vendor-browser-dependencies.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download pinned browser dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p vendor/leaflet/images
+          curl --fail --location --retry 3 'https://unpkg.com/@supabase/supabase-js@2.112.4/dist/umd/supabase.js' -o vendor/supabase-v2.112.4.js
+          curl --fail --location --retry 3 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js' -o vendor/leaflet/leaflet.js
+          curl --fail --location --retry 3 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css' -o vendor/leaflet/leaflet.css
+          curl --fail --location --retry 3 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png' -o vendor/leaflet/images/marker-icon.png
+          curl --fail --location --retry 3 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png' -o vendor/leaflet/images/marker-icon-2x.png
+          curl --fail --location --retry 3 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png' -o vendor/leaflet/images/marker-shadow.png
+          curl --fail --location --retry 3 'https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js' -o vendor/qrcode-v1.0.0.min.js
+          curl --fail --location --retry 3 'https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js' -o vendor/html5-qrcode-v2.3.8.min.js
+          test -s vendor/supabase-v2.112.4.js
+          test -s vendor/leaflet/leaflet.js
+          test -s vendor/leaflet/leaflet.css
+          test -s vendor/qrcode-v1.0.0.min.js
+          test -s vendor/html5-qrcode-v2.3.8.min.js
+      - name: Commit vendored dependencies
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add vendor
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Vendor browser dependencies for GitHub Pages'
+          git push
