@@ -1,0 +1,76 @@
+name: Smart Courses v176 browser QA
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'smart-course-search-v176.js'
+      - 'smart-course-search-v176.css'
+      - 'smart-course-search-v176-fix.js'
+      - 'course-map-browser-v163.js'
+      - 'index.html'
+      - '.github/workflows/smart-course-search-v176-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Test Smart Courses production UX
+        shell: bash
+        run: |
+          sleep 20
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const context=await browser.newContext({viewport:{width:390,height:844},geolocation:{latitude:34.1064,longitude:-117.5931},permissions:['geolocation']});
+            const page=await context.newPage();
+            const errors=[];page.on('pageerror',e=>errors.push(e.message));
+            await page.goto('https://ricbkewl.github.io/parfolio/?smartSearchQA=176',{waitUntil:'domcontentloaded',timeout:30000});
+            await page.waitForTimeout(5000);
+            const coursesButton=page.getByRole('button',{name:/courses/i}).first();
+            await coursesButton.click();
+            await page.waitForTimeout(5000);
+            const input=page.locator('.course-library-search input');
+            if(await input.count()!==1)throw new Error('Universal course search input missing');
+            const placeholder=await input.getAttribute('placeholder');
+            if(!/city|zip|area/i.test(placeholder||''))throw new Error('Universal search placeholder not installed');
+            if(await page.locator('.smart-course-quick-filters').count()!==1)throw new Error('Quick filters missing');
+            if(await page.locator('.course-location-search-panel:visible').count())throw new Error('Old location search panel is still visible');
+            if(await page.locator('.course-map-launch').count()!==1)throw new Error('Floating Map launcher missing');
+            await input.fill('Siera Lakes');
+            await page.waitForTimeout(800);
+            if(await page.locator('.smart-course-row').count()<1)throw new Error('Typo-tolerant search returned no compact results');
+            const body=(await page.locator('#courseLibraryGrid').innerText()).toLowerCase();
+            if(!body.includes('sierra'))throw new Error('Typo search did not recover Sierra result');
+            await input.fill('Cortland NY');
+            await page.waitForTimeout(800);
+            if(await page.locator('.smart-course-row').count()<1)throw new Error('City/state smart search returned no results');
+            await page.locator('.course-map-launch').click();
+            await page.waitForTimeout(1600);
+            if(await page.locator('.course-map-browser').count()!==1)throw new Error('Floating Map did not open');
+            if(errors.length)throw new Error('Page errors: '+errors.join(' | '));
+            console.log('Smart Courses v176 QA passed');
+            await page.screenshot({path:'smart-courses-v176.png',fullPage:true});
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: smart-courses-v176-browser
+          path: smart-courses-v176.png
+          if-no-files-found: ignore
