@@ -1,4 +1,4 @@
-/* ParFolio v175 — premium homepage polish. */
+/* ParFolio v199 — premium homepage polish. */
 body.parfolio-home-active{background:#07140e!important;}
 .parfolio-fixed-home-bg{display:none;}
 body.parfolio-home-active .parfolio-fixed-home-bg{
@@ -50,6 +50,17 @@ body.parfolio-home-active .parfolio-fixed-home-bg{
   filter:saturate(1.03) contrast(1.02) drop-shadow(0 8px 16px rgba(0,0,0,.20))!important;
 }
 
+/* Echo the PF logo: Par sits slightly higher than Folio while remaining one wordmark. */
+.home-page .parfolio-home-wordmark{align-items:baseline!important;}
+.home-page .parfolio-home-wordmark .parfolio-par{
+  display:inline-block;
+  transform:translateY(-7px);
+}
+.home-page .parfolio-home-wordmark .parfolio-folio{
+  display:inline-block;
+  transform:translateY(2px);
+}
+
 /* My Account should read as a clean text action, not a white tile. */
 .home-page .account-bar .back{
   background:transparent!important;
@@ -67,14 +78,23 @@ body.parfolio-home-active .parfolio-fixed-home-bg{
   text-underline-offset:3px;
 }
 
-/* Readme stays translucent so the fixed golf-course image remains visible while scrolling. */
+/* Main course/action area and Readme use clearer glass so the course photo remains visible. */
+.home-page .home-actions{
+  background:linear-gradient(145deg,rgba(255,255,255,.34),rgba(248,252,250,.22))!important;
+  border-color:rgba(255,255,255,.48)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.14)!important;
+  backdrop-filter:blur(16px) saturate(1.14)!important;
+  box-shadow:0 16px 44px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.30)!important;
+}
 .home-page .app-guide{
-  background:rgba(255,255,255,.60)!important;
-  -webkit-backdrop-filter:blur(16px) saturate(1.05)!important;
-  backdrop-filter:blur(16px) saturate(1.05)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.36),rgba(248,252,250,.24))!important;
+  border-color:rgba(255,255,255,.50)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.12)!important;
+  backdrop-filter:blur(16px) saturate(1.12)!important;
+  box-shadow:0 14px 38px rgba(0,0,0,.15),inset 0 1px 0 rgba(255,255,255,.30)!important;
 }
 .home-page .app-guide[open]{
-  background:rgba(255,255,255,.64)!important;
+  background:linear-gradient(145deg,rgba(255,255,255,.42),rgba(248,252,250,.28))!important;
 }
 .home-page .app-guide summary span{
   letter-spacing:.01em;
@@ -83,4 +103,5 @@ body.parfolio-home-active .parfolio-fixed-home-bg{
 @media(max-width:480px){
   body.parfolio-home-active .parfolio-fixed-home-bg{background-position:50% top;}
   .home-page .logo-wrap{width:min(220px,58vw)!important;}
+  .home-page .parfolio-home-wordmark .parfolio-par{transform:translateY(-6px);}
 }
