@@ -1,51 +1,54 @@
 # ParFolio Supabase Compatibility Audit
 
-Verified: 2026-09-02 UTC
-Project: `unsysuuhykdmbsasdhzg`
+Generated: 2026-09-02T08:12:59.792304+00:00
+PostgREST OpenAPI status: `ERROR: HTTP Error 401: Unauthorized`
 
-## Current lifecycle
+## Expected tables
 
-The current authenticated lifecycle schema is installed and protected by RLS:
+| Table | OpenAPI | REST probe |
+|---|---:|---:|
+| `app_admins` | NO | `401` |
+| `golfer_profiles` | NO | `401` |
+| `golfer_club_distances` | NO | `401` |
+| `shared_rounds` | NO | `401` |
+| `round_players` | NO | `401` |
+| `round_scores` | NO | `401` |
+| `round_hole_stats` | NO | `401` |
+| `round_messages` | NO | `401` |
+| `hidden_round_history` | NO | `401` |
+| `courses` | NO | `401` |
 
-- `golfer_profiles`, `golfer_club_distances`
-- `shared_rounds`, `round_players`, `round_scores`, `round_hole_stats`
-- `round_messages`, `hidden_round_history`
-- `courses`, `app_admins`
+## Expected RPCs
 
-The app-facing RPCs for profile, round creation/joining, host management,
-history, clubs and administration are installed. The five shared-round tables
-required for live play are in the `supabase_realtime` publication.
+| RPC | OpenAPI |
+|---|---:|
+| `create_shared_round` | NO |
+| `join_shared_round` | NO |
+| `save_my_golfer_profile` | NO |
+| `save_my_avatar_path` | NO |
+| `save_my_club_distances` | NO |
+| `set_course_admin` | NO |
+| `list_registered_golfers` | NO |
+| `hide_round_from_my_history` | NO |
+| `delete_owned_round` | NO |
+| `manage_round_status` | NO |
+| `remove_round_player` | NO |
 
-## v182 verification
+## Storage
 
-A two-user rollback test passed for:
+Expected buckets: `golfer-avatars`, `round-chat-media`
 
-1. authenticated round creation;
-2. second-golfer join;
-3. each golfer writing their own score;
-4. both golfers reading synchronized scores;
-5. rejection of cross-golfer score edits;
-6. participant chat writes;
-7. rejection of non-host round completion;
-8. host completion and rejection of post-completion scoring;
-9. previous-round membership.
+Bucket-list probe HTTP: `200`
 
-The transaction was rolled back, so the test did not add production rounds,
-players, scores or messages.
+```text
+[]
+```
 
-## Security and performance repair
+## Summary
 
-- Added `round_players_current_user_id_idx` for Previous Rounds lookups and its
-  current-table foreign key.
-- Fixed the mutable `set_updated_at` function search path.
-- Removed public/API execution from trigger and event-trigger helpers.
-- Preserved legacy v148 rows but quarantined their tables with revoked grants
-  and explicit deny policies.
-- Revoked the three broken v148 RPCs. The current app uses the shared-round RPCs.
-- Eliminated the legacy `auth.uid()` RLS initialization warnings.
+Missing from public PostgREST schema: **10 tables** and **11 RPCs**.
 
-Supabase still reports its general warning for intentionally authenticated
-`SECURITY DEFINER` lifecycle RPCs; those functions use a fixed empty search
-path and enforce `auth.uid()` authorization internally. Leaked-password
-protection remains a dashboard-level Auth setting and should be enabled when
-the project plan exposes it.
+Missing tables: `app_admins`, `golfer_profiles`, `golfer_club_distances`, `shared_rounds`, `round_players`, `round_scores`, `round_hole_stats`, `round_messages`, `hidden_round_history`, `courses`
+Missing RPCs: `create_shared_round`, `join_shared_round`, `save_my_golfer_profile`, `save_my_avatar_path`, `save_my_club_distances`, `set_course_admin`, `list_registered_golfers`, `hide_round_from_my_history`, `delete_owned_round`, `manage_round_status`, `remove_round_player`
+
+A `401` or `403` REST probe can still mean the relation exists and is correctly protected by RLS. A missing OpenAPI path is the stronger signal that the relation/function is not exposed or not installed.
