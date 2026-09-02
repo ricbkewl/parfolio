@@ -1,0 +1,66 @@
+name: Google Maps GitHub Pages diagnostic v177
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/google-maps-origin-diagnostic-v177.yml'
+      - 'editor-open-data-combined-v128.js'
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Test Google Maps from GitHub Pages origin
+        shell: bash
+        run: |
+          sleep 18
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:390,height:844}});
+            const consoleLines=[],pageErrors=[],failed=[];
+            page.on('console',m=>{const s=`${m.type()}: ${m.text()}`;consoleLines.push(s);console.log(s)});
+            page.on('pageerror',e=>{pageErrors.push(e.message);console.log('PAGEERROR:',e.message)});
+            page.on('requestfailed',r=>{failed.push(`${r.url()} :: ${r.failure()?.errorText||''}`)});
+            await page.goto('https://ricbkewl.github.io/parfolio/?googleMapsQA=177',{waitUntil:'domcontentloaded',timeout:30000});
+            await page.waitForFunction(()=>typeof loadGoogleMaps==='function',{timeout:20000});
+            const result=await page.evaluate(async()=>{
+              let authFailure=false;
+              window.gm_authFailure=()=>{authFailure=true;window.__PARFOLIO_GM_AUTH_FAILURE=true;};
+              try{
+                await Promise.race([loadGoogleMaps(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Google Maps load timeout')),12000))]);
+                const div=document.createElement('div');div.style.cssText='width:320px;height:240px';document.body.appendChild(div);
+                const ny=new google.maps.Map(div,{center:{lat:42.60,lng:-76.18},zoom:12,mapTypeId:'satellite'});
+                await new Promise(r=>setTimeout(r,2200));
+                ny.setCenter({lat:-6.27,lng:106.90});
+                await new Promise(r=>setTimeout(r,2200));
+                return {loaded:!!window.google?.maps,mapExists:!!ny,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};
+              }catch(e){return{loaded:false,error:String(e?.message||e),authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};}
+            });
+            console.log('RESULT',JSON.stringify(result));
+            console.log('FAILED REQUESTS',JSON.stringify(failed));
+            const joined=[...consoleLines,...pageErrors,...failed,result.error||''].join('\n');
+            const googleError=/(RefererNotAllowedMapError|ApiNotActivatedMapError|InvalidKeyMapError|BillingNotEnabledMapError|ExpiredKeyMapError|ApiProjectMapError|gm_authFailure)/i.test(joined)||result.authFailure;
+            if(!result.loaded||googleError){
+              console.error('GOOGLE_MAPS_DIAGNOSTIC_FAILED');
+              console.error(joined);
+              process.exitCode=1;
+            }
+            await browser.close();
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
