@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
 const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
-const APP_URL = 'https://parfolio-iota.vercel.app/';
+const APP_URL = new URL('./', window.location.href).href;
 const GOOGLE_MAPS_API_KEY = 'AIzaSyB62ENrS5TIOb5SChgC0MbaL6XwW3GNaog';
 const GOOGLE_MAP_ID = 'DEMO_MAP_ID';
 const MAPTILER_API_KEY = '';
