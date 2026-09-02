@@ -1,0 +1,15 @@
+/* ParFolio v205 — automatic Golf Feed shown below the README/About guide. */
+(function(){
+  const FEED_URL='data/golf-feed.json?v=205';
+  const escHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const relative=date=>{const t=new Date(date).getTime();if(!Number.isFinite(t))return'';const h=Math.max(0,Math.round((Date.now()-t)/3600000));if(h<24)return h<=1?'Just updated':`${h}h ago`;const d=Math.round(h/24);return d===1?'Yesterday':`${d}d ago`;};
+  const itemCard=item=>{const video=item.type==='video',thumb=item.thumbnail?`<div class="pf-golf-feed-thumb"><img src="${escHtml(item.thumbnail)}" alt="" loading="lazy">${video?'<span class="pf-golf-feed-play">▶</span>':''}</div>`:'';return `<a class="pf-golf-feed-card ${video?'video':''}" href="${escHtml(item.url)}" target="_blank" rel="noopener noreferrer">${thumb}<div class="pf-golf-feed-copy"><div class="pf-golf-feed-meta"><span>${video?'VIDEO':'ARTICLE'}</span><em>${escHtml(item.category||'Golf')}</em></div><h3>${escHtml(item.title)}</h3>${item.summary?`<p>${escHtml(item.summary)}</p>`:''}<footer><b>${escHtml(item.source||'Golf')}</b><span>${escHtml(relative(item.publishedAt))}</span></footer></div></a>`};
+  async function loadFeed(){
+    const host=document.querySelector('[data-parfolio-golf-feed]');if(!host)return;
+    try{const res=await fetch(FEED_URL,{cache:'no-store'});if(!res.ok)throw new Error('Feed unavailable');const data=await res.json(),items=(data.items||[]).slice(0,6);if(!items.length)throw new Error('No feed items');host.innerHTML=`<div class="pf-golf-feed-heading"><div><small>PARFOLIO GOLF FEED</small><h2>Golf Now</h2><p>Fresh tips, courses, videos and golf trends.</p></div><span>Auto-updated</span></div><div class="pf-golf-feed-grid">${items.map(itemCard).join('')}</div><div class="pf-golf-feed-foot"><small>Headlines and videos link to their original publishers.</small><button type="button" data-refresh-feed>Refresh</button></div>`;host.querySelector('[data-refresh-feed]')?.addEventListener('click',loadFeed);}catch(err){host.innerHTML='<div class="pf-golf-feed-heading"><div><small>PARFOLIO GOLF FEED</small><h2>Golf Now</h2><p>Fresh golf content is being prepared.</p></div></div>';}
+  }
+  function insertFeed(){const guide=document.querySelector('.app-guide');if(!guide||document.querySelector('[data-parfolio-golf-feed]'))return;const section=document.createElement('section');section.className='pf-golf-feed';section.dataset.parfolioGolfFeed='1';section.innerHTML='<div class="pf-golf-feed-loading">Loading the latest golf tips…</div>';guide.insertAdjacentElement('afterend',section);loadFeed();}
+  const priorHome=typeof home==='function'?home:null;if(priorHome)window.home=home=function(){const out=priorHome.apply(this,arguments);setTimeout(insertFeed,0);return out};
+  new MutationObserver(()=>requestAnimationFrame(insertFeed)).observe(document.documentElement,{childList:true,subtree:true});
+  setTimeout(insertFeed,400);
+})();
