@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/google-maps-origin-diagnostic-v177.yml'
+      - 'app.js'
+      - 'editor-provider-v117.js'
       - 'editor-open-data-combined-v128.js'
       - 'parfolio-google-vector-v149.js'
 
@@ -49,17 +51,20 @@ jobs:
                 await new Promise(r=>setTimeout(r,2200));
                 ny.setCenter({lat:-6.27,lng:106.90});
                 await new Promise(r=>setTimeout(r,2200));
-                return {loaded:!!window.google?.maps,mapExists:!!ny,constructorType:typeof google.maps.Map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};
+                const text=div.textContent||'';
+                return {loaded:!!window.google?.maps,mapExists:!!ny,constructorType:typeof google.maps.Map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE,errorOverlay:/oops!?\s*something went wrong|didn.t load google maps correctly/i.test(text)};
               }catch(e){return{loaded:false,error:String(e?.message||e),constructorType:typeof window.google?.maps?.Map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};}
             });
             console.log('RESULT',JSON.stringify(result));
             console.log('FAILED REQUESTS',JSON.stringify(failed));
             const joined=[...consoleLines,...pageErrors,...failed,result.error||''].join('\n');
-            const googleError=/(RefererNotAllowedMapError|ApiNotActivatedMapError|InvalidKeyMapError|BillingNotEnabledMapError|ExpiredKeyMapError|ApiProjectMapError|gm_authFailure)/i.test(joined)||result.authFailure;
+            const googleError=/(RefererNotAllowedMapError|ApiNotActivatedMapError|InvalidKeyMapError|BillingNotEnabledMapError|ExpiredKeyMapError|ApiProjectMapError|gm_authFailure)/i.test(joined)||result.authFailure||result.errorOverlay;
             if(!result.loaded||!result.mapExists||googleError){
               console.error('GOOGLE_MAPS_DIAGNOSTIC_FAILED');
               console.error(joined);
               process.exitCode=1;
+            } else {
+              console.log('GOOGLE_MAPS_DIAGNOSTIC_PASSED');
             }
             await browser.close();
           })().catch(e=>{console.error(e);process.exit(1)});
