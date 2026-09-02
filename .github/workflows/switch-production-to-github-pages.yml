@@ -1,0 +1,49 @@
+name: Switch ParFolio production URL to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/switch-production-to-github-pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  switch-url:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Replace hardcoded Vercel APP_URL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('app.js')
+          s=p.read_text()
+          old="const APP_URL = 'https://parfolio-iota.vercel.app/';"
+          new="const APP_URL = new URL('./', window.location.href).href;"
+          if old in s:
+              s=s.replace(old,new,1)
+              p.write_text(s)
+              print('Updated APP_URL to host-aware URL')
+          elif new in s:
+              print('APP_URL already host-aware')
+          else:
+              raise SystemExit('Expected APP_URL line not found')
+          PY
+
+      - name: Commit production URL change
+        run: |
+          if git diff --quiet -- app.js; then
+            echo 'No app.js change needed'
+            exit 0
+          fi
+          git config user.name 'ParFolio Automation'
+          git config user.email 'actions@users.noreply.github.com'
+          git add app.js
+          git commit -m 'Use host-aware ParFolio production URL'
+          git pull --rebase origin main
+          git push origin HEAD:main
