@@ -1,28 +1,97 @@
-/* Version 107: lighter menu typography and clearer round actions */
-.app-side-menu>button{
-  font-weight:600;
+/* Version 196: lighter frosted-glass menu typography and calmer actions */
+.app-menu-overlay{
+  background:rgba(3,18,12,.26)!important;
+  -webkit-backdrop-filter:blur(4px)!important;
+  backdrop-filter:blur(4px)!important;
 }
-.app-side-menu small{
-  font-weight:450;
+.app-side-menu{
+  background:linear-gradient(155deg,rgba(15,69,48,.58) 0%,rgba(8,48,34,.50) 62%,rgba(5,35,26,.46) 100%)!important;
+  border-color:rgba(255,255,255,.22)!important;
+  box-shadow:-14px 16px 42px rgba(0,0,0,.22)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(1.05)!important;
+  backdrop-filter:blur(22px) saturate(1.05)!important;
+}
+.app-side-menu header{
+  border-bottom-color:rgba(255,255,255,.16)!important;
+}
+.app-side-menu header .menu-close{
+  background:rgba(255,255,255,.10)!important;
+  border:1px solid rgba(255,255,255,.14)!important;
+  color:rgba(255,255,255,.90)!important;
+  font-weight:400!important;
+}
+.app-side-menu header .menu-about-logo{
+  color:rgba(255,255,255,.92)!important;
 }
 .menu-about-logo small{
-  font-weight:650!important;
+  color:rgba(255,255,255,.82)!important;
+  font-weight:550!important;
+  letter-spacing:.05em!important;
+}
+.app-side-menu>button{
+  color:rgba(255,255,255,.94)!important;
+  font-size:18px!important;
+  font-weight:500!important;
+  letter-spacing:0!important;
+}
+.app-side-menu>button>span{
+  color:rgba(239,199,94,.90)!important;
+  font-size:22px!important;
+  font-weight:500!important;
+}
+.app-side-menu>button:hover,
+.app-side-menu>button:focus-visible{
+  background:rgba(255,255,255,.10)!important;
+}
+.app-side-menu small{
+  color:rgba(226,239,232,.72)!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
 }
 .app-menu-round-tools button,
 .app-side-menu>.menu-start-round,
 .app-side-menu>.menu-finish-round,
 .app-side-menu>.menu-previous-matches{
-  font-weight:600;
+  font-weight:500!important;
+}
+.app-menu-round-tools button{
+  border-color:rgba(255,255,255,.18)!important;
+  background:rgba(255,255,255,.08)!important;
+  color:rgba(255,255,255,.90)!important;
+  font-size:14px!important;
+}
+.app-menu-round-tools button:hover{
+  background:rgba(255,255,255,.13)!important;
+}
+.app-side-menu>.menu-start-round{
+  background:rgba(224,189,102,.10)!important;
+  border-color:rgba(224,189,102,.28)!important;
+  color:#f7e5b8!important;
 }
 .app-side-menu>.menu-finish-round{
   margin:3px 0 1px;
-  border:1px solid rgba(224,189,102,.32);
-  background:rgba(255,255,255,.055);
-  color:#fff;
+  border:1px solid rgba(224,189,102,.24)!important;
+  background:rgba(255,255,255,.055)!important;
+  color:#fff!important;
 }
 .app-side-menu>.menu-finish-round>span{
-  color:#e0bd66;
+  color:#e0bd66!important;
 }
 .app-side-menu>.menu-previous-matches{
   min-height:44px;
+}
+.language-side-menu .language-choice{
+  font-size:17px!important;
+  font-weight:500!important;
+}
+.language-side-menu .language-choice.on{
+  background:rgba(255,255,255,.10)!important;
+}
+@media(max-width:360px){
+  .app-side-menu>button{font-size:17px!important}
+  .app-side-menu>button>span{font-size:20px!important}
+}
+@media(prefers-reduced-transparency:reduce){
+  .app-side-menu{-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background:rgba(12,58,40,.92)!important}
 }
