@@ -1,0 +1,15 @@
+/* ParFolio v187 — clickable hole number and jump-to-hole sheet */
+.round-map-summary .pf-hole-jump-trigger{cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent;border-radius:12px;transition:background .16s ease,transform .16s ease}
+.round-map-summary .pf-hole-jump-trigger:active{transform:scale(.97);background:rgba(255,255,255,.08)}
+.round-map-summary .pf-hole-jump-trigger #roundMapHole{display:inline-flex;align-items:center;gap:4px}
+.round-map-summary .pf-hole-jump-trigger #roundMapHole::after{content:'⌄';font-size:.45em;line-height:1;opacity:.8;transform:translateY(-1px)}
+.pf-hole-jump-overlay{position:fixed;z-index:10050;inset:0;display:flex;align-items:flex-end;justify-content:center;padding:max(12px,env(safe-area-inset-top)) max(10px,env(safe-area-inset-right)) max(10px,env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));background:rgba(4,20,13,.52);backdrop-filter:blur(8px)}
+.pf-hole-jump-sheet{width:min(520px,100%);max-height:min(78vh,680px);overflow:auto;border:1px solid rgba(255,255,255,.14);border-radius:24px 24px 18px 18px;background:#f8fbf9;color:#173126;box-shadow:0 -18px 48px rgba(4,20,13,.28)}
+.pf-hole-jump-sheet header{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 17px 12px;background:rgba(248,251,249,.96);backdrop-filter:blur(12px);border-bottom:1px solid #e4ece7}
+.pf-hole-jump-sheet header div{display:grid;gap:2px}.pf-hole-jump-sheet header small{font-size:10px;letter-spacing:.13em;color:#6d7d74;font-weight:800}.pf-hole-jump-sheet header b{font-size:19px}.pf-hole-jump-sheet header button{display:grid;place-items:center;width:36px;height:36px;border:0;border-radius:50%;background:#eaf1ed;color:#27483a;font-size:24px;line-height:1}
+.pf-hole-jump-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;padding:14px}
+.pf-hole-jump-grid button{display:grid;place-items:center;min-height:48px;border:1px solid #dbe7e0;border-radius:13px;background:#fff;color:#173126;font:inherit;font-size:15px;font-weight:800;box-shadow:0 3px 9px rgba(20,55,37,.04)}
+.pf-hole-jump-grid button.current{border-color:#176b45;background:#176b45;color:#fff;box-shadow:0 5px 14px rgba(23,107,69,.2)}
+.pf-hole-jump-grid button.scored:not(.current)::after{content:'•';position:absolute;margin:29px 0 0 28px;color:#b88a1f;font-size:16px}
+.pf-hole-jump-note{margin:0 14px 16px;color:#66766d;font-size:11px;line-height:1.45;text-align:center}
+@media(max-width:390px){.pf-hole-jump-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}.pf-hole-jump-grid button{min-height:45px}}
