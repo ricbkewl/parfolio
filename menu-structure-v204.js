@@ -55,3 +55,9 @@
     document.body.appendChild(overlay);
   };
 })();
+
+/* v205 bootstrap — automatic homepage Golf Feed. */
+(function(){
+  if(!document.querySelector('link[data-parfolio-golf-feed-v205]')){const link=document.createElement('link');link.rel='stylesheet';link.href='golf-feed-v205.css?v=205';link.dataset.parfolioGolfFeedV205='1';document.head.appendChild(link)}
+  if(!document.querySelector('script[data-parfolio-golf-feed-v205]')){const script=document.createElement('script');script.src='golf-feed-v205.js?v=205';script.async=false;script.dataset.parfolioGolfFeedV205='1';document.head.appendChild(script)}
+})();
