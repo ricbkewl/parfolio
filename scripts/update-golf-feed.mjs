@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 
+// v205 verification touch: triggers Golf Feed refresh after YouTube secret setup.
 const OUT='data/golf-feed.json';
 const year=new Date().getUTCFullYear();
 const TRUSTED='(site:golfdigest.com OR site:golf.com OR site:golfmonthly.com OR site:golfpass.com OR site:mygolfspy.com OR site:golfweek.usatoday.com)';
