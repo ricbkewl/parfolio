@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v176-20260902';
+const CACHE_NAME='parfolio-v176-20260902b';
 const APP_SHELL=[
   './',
   './index.html',
@@ -16,6 +16,7 @@ const APP_SHELL=[
   './course-map-browser-v163.js',
   './smart-course-search-v176.css',
   './smart-course-search-v176.js',
+  './smart-course-search-v176-fix.js',
   './parfolio-contact-v168.js',
   './manifest.webmanifest',
   './parfolio-app-icon.png',
