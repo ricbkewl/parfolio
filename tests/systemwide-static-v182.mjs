@@ -14,7 +14,7 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v183-/,'service-worker cache must use the v183 namespace');
+assert.match(sw,/parfolio-v184-/,'service-worker cache must use the v184 namespace');
 
 const nyGeometry=JSON.parse(read('data/ny-osm-gps-drafts-v159.json'));
 const nyMappings=Object.values(nyGeometry.courses||{});
@@ -32,7 +32,14 @@ const corrections=read('course-corrections-v147.js');
 assert.match(corrections,/p_source_app:'parfolio'/,'shared corrections must identify ParFolio as the source app');
 assert.match(corrections,/submit_parfolio_course_correction/,'catalog-only courses must have a correction submission path');
 assert.match(corrections,/courseCorrectionButton/,'correction control must be reusable by all course views');
-assert.match(read('smart-course-search-v176.js'),/Course Located/,'located courses must be distinguished from pending locations');
+const smartSearch=read('smart-course-search-v176.js'),smartSearchCss=read('smart-course-search-v176.css');
+assert.match(smartSearch,/smartCourseGpsState/,'course search needs one reusable GPS state classifier');
+assert.match(smartSearch,/No GPS Location/,'courses without geometry or location need an explicit red state');
+assert.match(smartSearch,/search\.relevance\+gps\.priority/,'search ranking must boost GPS-ready courses');
+assert.match(smartSearch,/smart-search-status/,'autocomplete suggestions need a floating GPS state');
+assert.match(smartSearchCss,/smart-search-status\.ready/,'GPS-ready suggestions need a green state');
+assert.match(smartSearchCss,/smart-search-status\.located/,'located suggestions need a yellow state');
+assert.match(smartSearchCss,/smart-search-status\.missing/,'unlocated suggestions need a red state');
 const correctionMigration=read('supabase/migrations/20260902000003_parfolio_v183_course_corrections.sql')+read('supabase/migrations/20260902000004_parfolio_v183_course_correction_invoker.sql');
 assert.match(correctionMigration,/enable row level security/i,'course corrections must use row-level security');
 assert.match(correctionMigration,/security invoker/i,'course correction RPC must execute as its caller');
@@ -60,4 +67,4 @@ for(const legacyRpc of ['create_parfolio_round','join_parfolio_round','resume_pa
   assert.doesNotMatch(app,new RegExp(`rpc\\(['\"]${legacyRpc}`),`frontend still calls retired RPC ${legacyRpc}`);
 }
 
-console.log(`ParFolio v183 static checks passed: ${new Set(localRefs).size} index assets covered offline; 551 courses / 8,343 holes validated.`);
+console.log(`ParFolio v184 static checks passed: ${new Set(localRefs).size} index assets covered offline; GPS-prioritized search and 551 geometry courses validated.`);

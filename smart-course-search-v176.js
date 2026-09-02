@@ -1,5 +1,6 @@
-/* ParFolio v176 — unified smart course discovery/search.
-   Keeps the existing floating 6-o'clock Map launcher and shared course catalog. */
+/* ParFolio v184 — GPS-prioritized smart course discovery/search.
+   Keeps exact-name matches trustworthy while lifting playable GPS courses and
+   showing a floating green/yellow/red GPS state in every search suggestion. */
 (function(){
   let visibleLimit=25;
   let lastQuery='';
@@ -12,6 +13,21 @@
   const escSmart=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const tokens=value=>norm(value).split(' ').filter(Boolean);
   const meaningful=value=>tokens(value).filter(t=>!STOP.has(t)&&!/^\d+$/.test(t));
+
+  function validCoursePoint(value){
+    const lat=Number(value?.lat),lng=Number(value?.lng);
+    return Number.isFinite(lat)&&Number.isFinite(lng)&&Math.abs(lat)<=90&&Math.abs(lng)<=180&&!(lat===0&&lng===0);
+  }
+
+  function courseGpsState(course){
+    const mapped=typeof mappedCount==='function'?mappedCount(course):0,holes=Math.max(1,Number(course?.holes)||18);
+    if(mapped>=holes)return{key:'ready',rank:3,priority:3000,label:'GPS Ready',shortLabel:'GPS Ready'};
+    if(mapped>0)return{key:'partial',rank:2,priority:1800,label:'Partial GPS',shortLabel:'Partial GPS'};
+    if(validCoursePoint(course?.catalog_point))return{key:'located',rank:2,priority:1200,label:'Course Located',shortLabel:'Located'};
+    return{key:'missing',rank:1,priority:0,label:'No GPS Location',shortLabel:'No Location'};
+  }
+
+  window.smartCourseGpsState=courseGpsState;
 
   function levenshtein(a,b){
     a=String(a||'');b=String(b||'');
@@ -87,17 +103,19 @@
       if(recentIndex>=0)discovery+=20000-recentIndex*100;
       if(distance!==null)discovery+=Math.max(0,10000-distance*100);
       if(typeof mappedCount==='function')discovery+=mappedCount(course)*8;
-      const search=searchInfo(course,index,courseLibraryQuery||'');
-      return{course,index,distance,score:courseLibraryQuery?search.relevance*100000+discovery:discovery,searchMatch:search.match,relevance:search.relevance};
+      const search=searchInfo(course,index,courseLibraryQuery||''),gps=courseGpsState(course);
+      return{course,index,distance,gps,score:courseLibraryQuery?(search.relevance+gps.priority)*100000+discovery:discovery,searchMatch:search.match,relevance:search.relevance};
     }).sort((a,b)=>b.score-a.score||a.course.name.localeCompare(b.course.name));
   };
 
   function gpsBadge(course){
-    const mapped=typeof mappedCount==='function'?mappedCount(course):0,holes=Number(course?.holes)||18;
-    if(mapped>=holes)return'<span class="smart-gps-badge ready">● GPS Ready</span>';
-    if(mapped>0)return'<span class="smart-gps-badge partial">● Partial GPS</span>';
-    const p=course?.catalog_point,located=p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Math.abs(Number(p.lat))<=90&&Math.abs(Number(p.lng))<=180&&!(Number(p.lat)===0&&Number(p.lng)===0);
-    return`<span class="smart-gps-badge catalog">${located?'● Course Located':'Location Pending'}</span>`;
+    const gps=courseGpsState(course);
+    return`<span class="smart-gps-badge ${gps.key}">● ${gps.label}</span>`;
+  }
+
+  function floatingGpsStatus(course){
+    const gps=courseGpsState(course);
+    return`<span class="smart-search-status ${gps.key}" aria-label="${gps.label}"><i>◎</i>${gps.shortLabel}</span>`;
   }
 
   function compactCard(course,index,distance){
@@ -114,15 +132,15 @@
 
   function suggestionsFor(query){
     if(norm(query).length<2)return[];
-    return (Array.isArray(courses)?courses:[]).map((course,index)=>({course,index,info:searchInfo(course,index,query),distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}))
-      .filter(x=>x.info.match).sort((a,b)=>b.info.relevance-a.info.relevance||(a.distance??Infinity)-(b.distance??Infinity)).slice(0,6);
+    return (Array.isArray(courses)?courses:[]).map((course,index)=>{const info=searchInfo(course,index,query),gps=courseGpsState(course);return{course,index,info,gps,weighted:info.relevance+gps.priority,distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}})
+      .filter(x=>x.info.match).sort((a,b)=>b.weighted-a.weighted||b.gps.rank-a.gps.rank||b.info.relevance-a.info.relevance||(a.distance??Infinity)-(b.distance??Infinity)).slice(0,6);
   }
 
   function renderSuggestions(query){
     const box=document.querySelector('.smart-course-suggestions');if(!box)return;
     const rows=suggestionsFor(query);
     box.classList.toggle('hidden',!rows.length);
-    box.innerHTML=rows.map(({course})=>`<button type="button" onclick="smartCourseChoose('${escSmart(course.name).replace(/'/g,'&#39;')}')"><b>${escSmart(course.name)}</b><span>${escSmart([course.city,course.state].filter(Boolean).join(', ')||course.country||'')}</span></button>`).join('');
+    box.innerHTML=rows.map(({course})=>`<button type="button" onclick="smartCourseChoose('${escSmart(course.name).replace(/'/g,'&#39;')}')"><span class="smart-suggestion-copy"><b>${escSmart(course.name)}</b><small>${escSmart([course.city,course.state].filter(Boolean).join(', ')||course.country||'Location pending')}</small></span>${floatingGpsStatus(course)}</button>`).join('');
   }
 
   window.smartCourseChoose=function(value){
@@ -189,7 +207,7 @@
     if(!document.querySelector('.smart-course-quick-filters'))tools.insertAdjacentHTML('afterend','<div class="smart-course-quick-filters"></div>');
     decorateQuickFilters();
     const sub=document.querySelector('h1 + .muted');if(sub)sub.textContent='Find nearby courses or search the complete ParFolio course library.';
-    const resultSub=document.querySelector('.course-results-heading span');if(resultSub)resultSub.textContent='Closest and most relevant first';
+    const resultSub=document.querySelector('.course-results-heading span');if(resultSub)resultSub.textContent='GPS-ready courses prioritized · exact matches preserved';
   }
 
   const priorCourses176=window.coursesView||coursesView;
