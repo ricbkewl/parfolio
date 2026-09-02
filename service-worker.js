@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v184-20260902';
+const CACHE_NAME='parfolio-v185-20260902';
 const APP_SHELL=[
   './',
   './index.html',
@@ -90,6 +90,8 @@ const APP_SHELL=[
   './home-premium-v175.js',
   './smart-course-search-v176.js',
   './smart-course-search-v176-fix.js',
+  './california-catalog-v185.js',
+  './california-status-v185.js',
   './assets/royale-west-jakarta.svg'
 ];
 
