@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-02T04:31:24.679575+00:00
+Generated: 2026-09-02T04:56:48.350912+00:00
 Production URL: `https://ricbkewl.github.io/parfolio/`
 Production root: `200`
 
@@ -53,6 +53,7 @@ Production root: `200`
 | `parfolio-contact-v168.js` | `200` | `application/javascript; charset=utf-8` |
 | `home-premium-v175.js` | `200` | `application/javascript; charset=utf-8` |
 | `smart-course-search-v176.js` | `200` | `application/javascript; charset=utf-8` |
+| `smart-course-search-v176-fix.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
@@ -88,4 +89,4 @@ Production root: `200`
 
 ## Result
 
-Checked **79** production assets. Missing/unhealthy: **0**.
+Checked **80** production assets. Missing/unhealthy: **0**.
