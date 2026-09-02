@@ -1,16 +1,20 @@
-/* ParFolio Google Maps loader v179.
-   Use the classic callback loader so ParFolio does not treat the Google script's
-   download event as API readiness. The course editor and play views can safely
-   consume google.maps only after the callback fires. */
+/* ParFolio Google Maps loader v181.
+   The production Google Maps browser key is supplied at deploy time through
+   parfolio-runtime-config.js. The repository keeps no production browser key
+   in this loader. */
 (function(){
   let readyPromise=null;
-  const callbackName='__parfolioGoogleMapsReady179';
+  const callbackName='__parfolioGoogleMapsReady181';
 
   function apiReady(){return typeof window.google?.maps?.Map==='function'}
 
   loadGoogleMaps=function(){
     if(apiReady())return Promise.resolve(window.google.maps);
     if(readyPromise)return readyPromise;
+
+    const runtimeKey=String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim();
+    const key=runtimeKey||String(typeof GOOGLE_MAPS_API_KEY!=='undefined'?GOOGLE_MAPS_API_KEY:'').trim();
+    if(!key)return Promise.reject(new Error('ParFolio Google Maps key is not configured'));
 
     readyPromise=new Promise((resolve,reject)=>{
       let settled=false;
@@ -28,17 +32,12 @@
         if(!settled){settled=true;reject(new Error('Google Maps callback fired without a Map constructor'))}
       };
 
-      /* Remove a stale/partial Google Maps script left by an earlier async load. */
       document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]').forEach(script=>{
         if(!apiReady())try{script.remove()}catch{}
       });
 
       const script=document.createElement('script');
-      const params=new URLSearchParams({
-        key:GOOGLE_MAPS_API_KEY,
-        v:'weekly',
-        callback:callbackName
-      });
+      const params=new URLSearchParams({key,v:'weekly',callback:callbackName});
       script.src=`https://maps.googleapis.com/maps/api/js?${params.toString()}`;
       script.async=true;
       script.defer=true;
@@ -51,7 +50,6 @@
       };
       document.head.appendChild(script);
 
-      /* Fail visibly instead of leaving the editor on an endless spinner. */
       setTimeout(()=>{
         if(settled)return;
         if(apiReady()){finish();return}
