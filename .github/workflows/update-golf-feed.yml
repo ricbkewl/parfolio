@@ -1,6 +1,13 @@
 name: Update ParFolio Golf Feed
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-golf-feed.yml'
+      - 'scripts/update-golf-feed.mjs'
+      - 'golf-feed-v205.js'
+      - 'golf-feed-v205.css'
   schedule:
     - cron: '17 1,13 * * *'
   workflow_dispatch:
