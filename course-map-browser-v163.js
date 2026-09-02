@@ -1,9 +1,10 @@
-/* ParFolio v163: visual course map browser for the Courses screen. */
+/* ParFolio v166: local-first visual course map browser for the Courses screen. */
 (function(){
   let courseMapBrowser=null;
   let courseMapMarkers=[];
+  let courseMapUserMarker=null;
 
-  const escMap=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const escMap=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
 
   function courseMapPoint(course){
     const p=typeof coursePreviewPoint==='function'?coursePreviewPoint(course):null;
@@ -44,7 +45,7 @@
 
   function destroyMap(){
     if(courseMapBrowser){try{courseMapBrowser.remove()}catch(_){}courseMapBrowser=null;}
-    courseMapMarkers=[];
+    courseMapMarkers=[];courseMapUserMarker=null;
   }
 
   window.closeCourseMapBrowser=function(){
@@ -52,6 +53,25 @@
     document.querySelector('.course-map-browser')?.remove();
     document.body.classList.remove('course-map-browser-open');
   };
+
+  function distanceMiles(a,b){
+    const R=3958.7613,toRad=x=>x*Math.PI/180;
+    const dLat=toRad(b.lat-a.lat),dLng=toRad(b.lng-a.lng),lat1=toRad(a.lat),lat2=toRad(b.lat);
+    const h=Math.sin(dLat/2)**2+Math.cos(lat1)*Math.cos(lat2)*Math.sin(dLng/2)**2;
+    return 2*R*Math.asin(Math.min(1,Math.sqrt(h)));
+  }
+
+  function showLocalArea(entries,here){
+    if(!courseMapBrowser)return;
+    courseMapBrowser.setView([here.lat,here.lng],10,{animate:false});
+    if(courseMapUserMarker)try{courseMapUserMarker.remove()}catch(_){}
+    courseMapUserMarker=L.circleMarker([here.lat,here.lng],{radius:7,weight:3,fillOpacity:1}).addTo(courseMapBrowser).bindTooltip('You are here',{direction:'top'});
+    const nearby=entries.map(e=>({...e,miles:distanceMiles(here,e.point)})).filter(e=>e.miles<=45).sort((a,b)=>a.miles-b.miles);
+    if(nearby.length>=2){
+      const bounds=L.latLngBounds([[here.lat,here.lng],...nearby.slice(0,25).map(e=>[e.point.lat,e.point.lng])]);
+      courseMapBrowser.fitBounds(bounds,{padding:[38,38],maxZoom:11});
+    }
+  }
 
   window.openCourseMapBrowser=function(){
     closeCourseMapBrowser();
@@ -70,28 +90,26 @@
     if(typeof addStreetLayer==='function')addStreetLayer(courseMapBrowser);else L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© OpenStreetMap'}).addTo(courseMapBrowser);
     L.control.zoom({position:'bottomright'}).addTo(courseMapBrowser);
 
-    const bounds=[];
     entries.forEach(({course,index,point})=>{
       const icon=L.divIcon({className:'parfolio-course-map-marker-wrap',html:'<span class="parfolio-course-map-marker">⛳</span>',iconSize:[38,38],iconAnchor:[19,36],popupAnchor:[0,-34]});
       const marker=L.marker([point.lat,point.lng],{icon,title:course.name||'Golf Course'}).addTo(courseMapBrowser).bindPopup(popupHtml(course,index),{maxWidth:270,closeButton:true});
-      marker.on('click',()=>marker.openPopup());
-      courseMapMarkers.push(marker);bounds.push([point.lat,point.lng]);
+      courseMapMarkers.push(marker);
     });
-
-    function fitAll(){if(bounds.length===1)courseMapBrowser.setView(bounds[0],13);else if(bounds.length>1)courseMapBrowser.fitBounds(bounds,{padding:[42,42],maxZoom:12});}
-    fitAll();
 
     const locate=overlay.querySelector('.course-map-locate');
-    locate?.addEventListener('click',()=>{
-      if(!navigator.geolocation){fitAll();return;}
-      locate.classList.add('loading');
+    function locateMe(){
+      if(!navigator.geolocation){courseMapBrowser.setView([fallback.lat,fallback.lng],10);return;}
+      locate?.classList.add('loading');
       navigator.geolocation.getCurrentPosition(pos=>{
-        locate.classList.remove('loading');
-        const here=[pos.coords.latitude,pos.coords.longitude];
-        courseMapBrowser.setView(here,11,{animate:true});
-        L.circleMarker(here,{radius:7,weight:3,fillOpacity:1}).addTo(courseMapBrowser).bindTooltip('You are here',{permanent:false,direction:'top'});
-      },()=>{locate.classList.remove('loading');fitAll()},{enableHighAccuracy:false,timeout:8000,maximumAge:300000});
-    });
+        locate?.classList.remove('loading');
+        showLocalArea(entries,{lat:pos.coords.latitude,lng:pos.coords.longitude});
+      },()=>{
+        locate?.classList.remove('loading');
+        courseMapBrowser.setView([fallback.lat,fallback.lng],10);
+      },{enableHighAccuracy:false,timeout:6500,maximumAge:300000});
+    }
+    locate?.addEventListener('click',locateMe);
+    setTimeout(locateMe,150);
   };
 
   function installMapButton(){
@@ -105,12 +123,8 @@
   }
 
   const priorRender=window.render;
-  if(typeof priorRender==='function'){
-    window.render=function(){const out=priorRender.apply(this,arguments);setTimeout(installMapButton,0);return out;};
-  }
+  if(typeof priorRender==='function')window.render=function(){const out=priorRender.apply(this,arguments);setTimeout(installMapButton,0);return out;};
   const priorCourses=window.coursesView||window.coursesView;
-  if(typeof priorCourses==='function'){
-    window.coursesView=function(){const out=priorCourses.apply(this,arguments);setTimeout(installMapButton,0);return out;};
-  }
+  if(typeof priorCourses==='function')window.coursesView=function(){const out=priorCourses.apply(this,arguments);setTimeout(installMapButton,0);return out;};
   setTimeout(installMapButton,300);
 })();
