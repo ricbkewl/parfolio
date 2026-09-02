@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-02T03:50:32.042682+00:00
+Generated: 2026-09-02T03:58:28.044740+00:00
 Production URL: `https://ricbkewl.github.io/parfolio/`
 Production root: `200`
 
@@ -56,7 +56,6 @@ Production root: `200`
 | `home-v162.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-map-browser-v163.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-contact-v168.js` | `200` | `application/javascript; charset=utf-8` |
-| `smart-golf-data-v170.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `vendor/leaflet/leaflet.css` | `200` | `text/css; charset=utf-8` |
@@ -73,7 +72,6 @@ Production root: `200`
 | `editor-osm-import-v126.css` | `200` | `text/css; charset=utf-8` |
 | `editor-opengolf-import-v127.css` | `200` | `text/css; charset=utf-8` |
 | `editor-open-data-combined-v128.css` | `200` | `text/css; charset=utf-8` |
-| `smart-golf-data-v170.css` | `200` | `text/css; charset=utf-8` |
 | `hole-flyover-v129.css` | `200` | `text/css; charset=utf-8` |
 | `editor-open-contribute-v134.css` | `200` | `text/css; charset=utf-8` |
 | `editor-route-yardages-v135.css` | `200` | `text/css; charset=utf-8` |
@@ -92,4 +90,4 @@ Production root: `200`
 
 ## Result
 
-Checked **83** production assets. Missing/unhealthy: **0**.
+Checked **81** production assets. Missing/unhealthy: **0**.
