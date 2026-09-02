@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-02T00:50:25.475051+00:00
+Generated: 2026-09-02T00:51:01.229668+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
@@ -41,6 +41,7 @@ Production root: `200`
 | `course-corrections-v147.js` | `200` | `application/javascript; charset=utf-8` |
 | `course-location-search-v148.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-route-center-v154.js` | `200` | `application/javascript; charset=utf-8` |
+| `planner-center-rule-v164.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-gps-quality-v156.js` | `200` | `application/javascript; charset=utf-8` |
 | `mobile-fit-v157.js` | `200` | `application/javascript; charset=utf-8` |
 | `ny-gps-draft-loader-v159.js` | `200` | `application/javascript; charset=utf-8` |
@@ -80,4 +81,4 @@ Production root: `200`
 
 ## Result
 
-Checked **72** production assets. Missing/unhealthy: **0**.
+Checked **73** production assets. Missing/unhealthy: **0**.
