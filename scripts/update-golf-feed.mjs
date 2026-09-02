@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises';
 
-// v205 verification touch: triggers Golf Feed refresh after YouTube secret setup.
 const OUT='data/golf-feed.json';
 const year=new Date().getUTCFullYear();
 const TRUSTED='(site:golfdigest.com OR site:golf.com OR site:golfmonthly.com OR site:golfpass.com OR site:mygolfspy.com OR site:golfweek.usatoday.com)';
@@ -12,6 +11,8 @@ const queries=[
   ['Travel',`${TRUSTED} golf travel resort destination stay play when:30d`]
 ];
 const BLOCKED=/\b(betting|odds|prediction|sportsbook|casino|cowboys|football|mini golf|miniature golf|fantasy picks?|parlay|dui|arrest|driving ban|plea deal)\b/i;
+const VIDEO_BLOCKED=/\b(funny|comedy|meme|brainrot|fyp|peace and happiness|prank|reaction|challenge|trend(?:ing)?|vlog)\b/i;
+const VIDEO_MATCH=/\b(tip|tips|trick|drill|swing|putt|putting|chip|chipping|pitch|bunker|wedge|driver|iron|contact|tempo|grip|slice|hook|alignment|setup|fitting|ball striking|short game)\b/i;
 const CATEGORY_MATCH={
   Swing:/\b(swing|backswing|downswing|tempo|grip|release|ball striking|ball-striking|contact|slice|hook|shank|setup|alignment|drill|instruction)\b/i,
   'Short Game':/\b(putt|putting|chip|chipping|pitch|pitching|bunker|wedge|short game|green-side|greenside)\b/i,
@@ -51,10 +52,15 @@ async function youtubeItems(){
   const publishedAfter=new Date(Date.now()-14*86400000).toISOString(),qs=['golf swing instruction tips','golf short game putting chipping tips','golf tips tricks'];
   const out=[];
   for(const q of qs){
-    const params=new URLSearchParams({part:'snippet',type:'video',maxResults:'6',order:'date',q,publishedAfter,videoDuration:'short',videoEmbeddable:'true',relevanceLanguage:'en',topicId:'/m/037hz',key});
+    const params=new URLSearchParams({part:'snippet',type:'video',maxResults:'8',order:'date',q,publishedAfter,videoDuration:'short',videoEmbeddable:'true',relevanceLanguage:'en',topicId:'/m/037hz',key});
     try{
       const r=await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`);if(!r.ok)throw new Error(`YouTube ${r.status}`);const data=await r.json();
-      for(const item of data.items||[]){const id=item?.id?.videoId,s=item?.snippet;if(!id||!s||BLOCKED.test(s.title+' '+s.description))continue;out.push({type:'video',category:'Tips & Tricks',title:strip(s.title),summary:strip(s.description).slice(0,180),source:strip(s.channelTitle)||'YouTube',url:`https://www.youtube.com/watch?v=${id}`,publishedAt:new Date(s.publishedAt).toISOString(),thumbnail:s.thumbnails?.high?.url||s.thumbnails?.medium?.url||''});}
+      for(const item of data.items||[]){
+        const id=item?.id?.videoId,s=item?.snippet;if(!id||!s)continue;
+        const text=strip(`${s.title||''} ${s.description||''}`);
+        if(BLOCKED.test(text)||VIDEO_BLOCKED.test(text)||!VIDEO_MATCH.test(text))continue;
+        out.push({type:'video',category:'Tips & Tricks',title:strip(s.title),summary:strip(s.description).slice(0,180),source:strip(s.channelTitle)||'YouTube',url:`https://www.youtube.com/watch?v=${id}`,publishedAt:new Date(s.publishedAt).toISOString(),thumbnail:s.thumbnails?.high?.url||s.thumbnails?.medium?.url||''});
+      }
     }catch(e){console.warn('YouTube feed skipped:',q,e.message)}
   }
   return out;
@@ -62,9 +68,9 @@ async function youtubeItems(){
 
 const [news,videos]=await Promise.all([newsItems(),youtubeItems()]);
 let prior={items:[]};try{prior=JSON.parse(await fs.readFile(OUT,'utf8'))}catch{}
-const preservedVideos=videos.length?[]:(prior.items||[]).filter(x=>x.type==='video').slice(0,4);
+const preservedVideos=videos.length?[]:(prior.items||[]).filter(x=>x.type==='video'&&VIDEO_MATCH.test(`${x.title||''} ${x.summary||''}`)&&!VIDEO_BLOCKED.test(`${x.title||''} ${x.summary||''}`)).slice(0,4);
 const seen=new Set(),combined=[...videos,...preservedVideos,...news].filter(item=>{const k=canonicalTitle(item.title);if(!k||seen.has(k))return false;seen.add(k);return true;});
 combined.sort((a,b)=>new Date(b.publishedAt)-new Date(a.publishedAt));
 const result={generatedAt:new Date().toISOString(),youtubeEnabled:Boolean(process.env.YOUTUBE_API_KEY),items:combined.slice(0,30)};
 await fs.mkdir('data',{recursive:true});await fs.writeFile(OUT,JSON.stringify(result,null,2)+'\n');
-console.log(`Golf Feed: ${result.items.length} items (${videos.length} new videos, ${news.length} relevant trusted news candidates)`);
+console.log(`Golf Feed: ${result.items.length} items (${videos.length} instructional videos, ${news.length} relevant trusted news candidates)`);
