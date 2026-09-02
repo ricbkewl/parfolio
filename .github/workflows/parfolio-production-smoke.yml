@@ -12,7 +12,7 @@ on:
       - '.github/workflows/parfolio-production-smoke.yml'
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   smoke:
@@ -63,12 +63,7 @@ jobs:
           if status!=200 or missing:
             raise SystemExit('Production smoke test found missing assets: '+', '.join(x[0] for x in missing))
           PY
-      - name: Commit smoke report
+      - name: Publish smoke summary
         shell: bash
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add PARFOLIO-PRODUCTION-SMOKE.md
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Record ParFolio production smoke test'
-          git push
+          cat PARFOLIO-PRODUCTION-SMOKE.md >> "$GITHUB_STEP_SUMMARY"

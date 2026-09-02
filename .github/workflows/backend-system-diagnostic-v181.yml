@@ -1,4 +1,4 @@
-name: ParFolio Backend System Diagnostic v181
+name: ParFolio Backend System Diagnostic v182
 
 on:
   workflow_dispatch:
@@ -24,8 +24,9 @@ jobs:
           import json, os, sys, urllib.request, urllib.error
           token=os.environ.get('SUPABASE_ACCESS_TOKEN') or os.environ.get('SUPABASE_TOKEN')
           if not token:
-              print('BACKEND_DIAGNOSTIC_UNAVAILABLE: no Supabase management token secret configured')
-              sys.exit(2)
+              print('::warning::Backend management audit skipped: configure SUPABASE_ACCESS_TOKEN or SUPABASE_TOKEN to enable it')
+              print('BACKEND_DIAGNOSTIC_SKIPPED: public/backend-contract workflows still run without a management token')
+              sys.exit(0)
           project='unsysuuhykdmbsasdhzg'
           endpoint=f'https://api.supabase.com/v1/projects/{project}/database/query'
           sql=r'''

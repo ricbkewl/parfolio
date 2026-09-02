@@ -166,20 +166,23 @@ jobs:
               try{
                 await Promise.race([loadGoogleMaps(),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),12000))]);
                 const div=document.createElement('div');div.style.cssText='position:fixed;left:-9999px;width:320px;height:240px';document.body.appendChild(div);
-                const map=new google.maps.Map(div,{center:{lat:34.1064,lng:-117.5931},zoom:15,mapTypeId:'satellite'});
+                const map=new google.maps.Map(div,{center:{lat:34.1064,lng:-117.5931},zoom:15,mapId:'DEMO_MAP_ID',renderingType:google.maps.RenderingType.VECTOR,mapTypeId:'satellite',heading:0,tilt:45});
                 await new Promise(r=>setTimeout(r,2600));
                 const text=div.textContent||'';
-                return{loaded:!!window.google?.maps,map:!!map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE,errorOverlay:/oops!?\s*something went wrong|didn.t load google maps correctly/i.test(text)};
+                return{loaded:!!window.google?.maps,map:!!map,vector:map.getRenderingType?.()===google.maps.RenderingType.VECTOR,heading:map.getHeading?.(),tilt:map.getTilt?.(),authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE,errorOverlay:/oops!?\s*something went wrong|didn.t load google maps correctly/i.test(text)};
               }catch(e){return{loaded:false,error:String(e),authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE}}
             });
             add(name,'Google Satellite initializes',gm.loaded&&gm.map&&!gm.authFailure&&!gm.errorOverlay,JSON.stringify(gm));
+            add(name,'Google Vector camera initializes',gm.vector&&Number.isFinite(gm.heading)&&Number.isFinite(gm.tilt),JSON.stringify(gm));
 
             const meaningfulBad=badResponses.filter(x=>!(/\/auth\/v1\/user\b/.test(x)&&x.startsWith('401 '))&&!(/\/rest\/v1\/courses\b/.test(x)&&x.startsWith('401 ')));
             const meaningfulConsole=consoleErrors.filter(x=>!(/Failed to load resource.*401/i.test(x)));
+            const cameraWarnings=consoleWarnings.filter(x=>/heading|tilt|raster|google\.maps\.Marker is deprecated|map id.*advanced marker/i.test(x));
             add(name,'No page JavaScript errors',pageErrors.length===0,pageErrors.join(' | '));
             add(name,'No failed network requests',failedRequests.length===0,failedRequests.join(' | '));
             add(name,'No unexpected HTTP 4xx/5xx',meaningfulBad.length===0,meaningfulBad.join(' | '));
             add(name,'No meaningful console errors',meaningfulConsole.length===0,meaningfulConsole.join(' | '));
+            add(name,'No Google camera or marker warnings',cameraWarnings.length===0,cameraWarnings.join(' | '));
             await context.close();
           }
 
