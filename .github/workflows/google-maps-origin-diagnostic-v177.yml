@@ -7,6 +7,7 @@ on:
     paths:
       - '.github/workflows/google-maps-origin-diagnostic-v177.yml'
       - 'editor-open-data-combined-v128.js'
+      - 'parfolio-google-vector-v149.js'
 
 permissions:
   contents: read
@@ -40,8 +41,7 @@ jobs:
             await page.goto('https://ricbkewl.github.io/parfolio/?googleMapsQA=177',{waitUntil:'domcontentloaded',timeout:30000});
             await page.waitForFunction(()=>typeof loadGoogleMaps==='function',{timeout:20000});
             const result=await page.evaluate(async()=>{
-              let authFailure=false;
-              window.gm_authFailure=()=>{authFailure=true;window.__PARFOLIO_GM_AUTH_FAILURE=true;};
+              window.gm_authFailure=()=>{window.__PARFOLIO_GM_AUTH_FAILURE=true;};
               try{
                 await Promise.race([loadGoogleMaps(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Google Maps load timeout')),12000))]);
                 const div=document.createElement('div');div.style.cssText='width:320px;height:240px';document.body.appendChild(div);
@@ -49,14 +49,14 @@ jobs:
                 await new Promise(r=>setTimeout(r,2200));
                 ny.setCenter({lat:-6.27,lng:106.90});
                 await new Promise(r=>setTimeout(r,2200));
-                return {loaded:!!window.google?.maps,mapExists:!!ny,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};
-              }catch(e){return{loaded:false,error:String(e?.message||e),authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};}
+                return {loaded:!!window.google?.maps,mapExists:!!ny,constructorType:typeof google.maps.Map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};
+              }catch(e){return{loaded:false,error:String(e?.message||e),constructorType:typeof window.google?.maps?.Map,authFailure:!!window.__PARFOLIO_GM_AUTH_FAILURE};}
             });
             console.log('RESULT',JSON.stringify(result));
             console.log('FAILED REQUESTS',JSON.stringify(failed));
             const joined=[...consoleLines,...pageErrors,...failed,result.error||''].join('\n');
             const googleError=/(RefererNotAllowedMapError|ApiNotActivatedMapError|InvalidKeyMapError|BillingNotEnabledMapError|ExpiredKeyMapError|ApiProjectMapError|gm_authFailure)/i.test(joined)||result.authFailure;
-            if(!result.loaded||googleError){
+            if(!result.loaded||!result.mapExists||googleError){
               console.error('GOOGLE_MAPS_DIAGNOSTIC_FAILED');
               console.error(joined);
               process.exitCode=1;
