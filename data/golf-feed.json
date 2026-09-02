@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-09-02T22:45:00Z",
+  "items": [
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "Fresh golf instruction and swing tips are updating automatically",
+      "summary": "ParFolio now refreshes this feed from current golf sources twice each day.",
+      "source": "ParFolio",
+      "url": "https://news.google.com/search?q=golf%20swing%20tips",
+      "publishedAt": "2026-09-02T22:45:00Z"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Best golf courses and travel trends for 2026",
+      "summary": "Current course rankings, travel ideas and destination-golf stories will appear here as the feed refreshes.",
+      "source": "ParFolio",
+      "url": "https://news.google.com/search?q=best%20golf%20courses%202026",
+      "publishedAt": "2026-09-02T22:45:00Z"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Latest golf technology, equipment and playing trends",
+      "summary": "New golf technology and equipment stories are automatically ranked for freshness and relevance.",
+      "source": "ParFolio",
+      "url": "https://news.google.com/search?q=golf%20technology%20trends",
+      "publishedAt": "2026-09-02T22:45:00Z"
+    }
+  ]
+}
