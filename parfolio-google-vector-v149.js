@@ -1,18 +1,19 @@
-/* ParFolio Google Maps compatibility.
-   Google Maps JS may expose google.maps before constructors are attached when
-   loading with loading=async. Import the native libraries, then bridge their
-   constructors onto google.maps for the existing ParFolio editor/play code. */
+/* ParFolio Google Maps compatibility v178.
+   Google Maps may expose placeholder properties before importLibrary() resolves.
+   Always install the real imported constructors so legacy editor/play code sees
+   usable constructors instead of async placeholders. */
 (function(){
   if(typeof loadGoogleMaps!=='function')return;
   const priorLoadGoogleMaps=loadGoogleMaps;
   let mapsLibraryPromise=null,markerLibraryPromise=null;
 
-  function expose(target,source,names){
+  function install(target,source,names){
     if(!target||!source)return;
     for(const name of names){
-      if(typeof target[name]==='undefined'&&typeof source[name]!=='undefined'){
-        try{target[name]=source[name]}catch{}
-      }
+      if(typeof source[name]==='undefined')continue;
+      if(target[name]===source[name])continue;
+      try{target[name]=source[name];continue}catch{}
+      try{Object.defineProperty(target,name,{value:source[name],writable:true,configurable:true,enumerable:true})}catch{}
     }
   }
 
@@ -24,12 +25,12 @@
     if(typeof maps.importLibrary==='function'){
       if(!mapsLibraryPromise)mapsLibraryPromise=maps.importLibrary('maps');
       const lib=await mapsLibraryPromise;
-      expose(maps,lib,['Map','Polyline','Polygon','Circle','Rectangle','InfoWindow','LatLng','LatLngBounds','MapTypeId','ControlPosition','SymbolPath','RenderingType']);
+      install(maps,lib,['Map','Polyline','Polygon','Circle','Rectangle','InfoWindow','LatLng','LatLngBounds','MapTypeId','ControlPosition','SymbolPath','RenderingType']);
 
       try{
         if(!markerLibraryPromise)markerLibraryPromise=maps.importLibrary('marker');
         const markerLib=await markerLibraryPromise;
-        expose(maps,markerLib,['Marker','AdvancedMarkerElement','PinElement']);
+        install(maps,markerLib,['Marker','AdvancedMarkerElement','PinElement']);
       }catch(error){console.warn('Google marker library unavailable',error)}
     }
 
