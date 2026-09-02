@@ -1,4 +1,4 @@
-/* ParFolio v166: local-first visual course map browser for the Courses screen. */
+/* ParFolio v167: local-first visual course map browser for the Courses screen. */
 (function(){
   let courseMapBrowser=null;
   let courseMapMarkers=[];
@@ -115,15 +115,21 @@
   function installMapButton(){
     if(s?.v!=='coursesView')return;
     if(document.querySelector('.course-map-launch'))return;
-    const tools=document.querySelector('.course-discovery-tools');
-    if(!tools)return;
     const button=document.createElement('button');
-    button.type='button';button.className='course-map-launch';button.innerHTML='<span>▰</span><b>Map</b>';button.setAttribute('aria-label','Show courses on map');button.addEventListener('click',openCourseMapBrowser);
-    tools.insertAdjacentElement('afterend',button);
+    button.type='button';
+    button.className='course-map-launch';
+    button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 6.5 8.5 4l7 2.5 5-2.5v13.5l-5 2.5-7-2.5-5 2.5V6.5Z" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><path d="M8.5 4v13.5M15.5 6.5V20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg><span>Map</span>';
+    button.setAttribute('aria-label','Show courses on map');
+    button.addEventListener('click',openCourseMapBrowser);
+    document.body.appendChild(button);
+  }
+
+  function removeMapButtonOutsideCourses(){
+    if(s?.v!=='coursesView')document.querySelector('.course-map-launch')?.remove();
   }
 
   const priorRender=window.render;
-  if(typeof priorRender==='function')window.render=function(){const out=priorRender.apply(this,arguments);setTimeout(installMapButton,0);return out;};
+  if(typeof priorRender==='function')window.render=function(){const out=priorRender.apply(this,arguments);setTimeout(()=>{removeMapButtonOutsideCourses();installMapButton();},0);return out;};
   const priorCourses=window.coursesView||window.coursesView;
   if(typeof priorCourses==='function')window.coursesView=function(){const out=priorCourses.apply(this,arguments);setTimeout(installMapButton,0);return out;};
   setTimeout(installMapButton,300);
