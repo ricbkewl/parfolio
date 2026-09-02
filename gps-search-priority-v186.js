@@ -23,26 +23,27 @@
   }
   window.smartCourseGpsState=gpsState;
 
-  // Re-rank the full search result list. Keep the existing relevance matcher,
-  // but make GPS readiness the strongest quality signal among matched courses.
-  const priorRanked=window.rankedSharedCourses||globalThis.rankedSharedCourses;
-  if(typeof priorRanked==='function'){
-    const wrapped=function(){
+  // Re-rank search results after the existing matcher has decided relevance.
+  // GPS-ready matches float first, followed by Partial GPS / located courses,
+  // then courses with no usable location. Non-search recommendations are unchanged.
+  const priorRanked=typeof rankedSharedCourses==='function'?rankedSharedCourses:null;
+  if(priorRanked){
+    rankedSharedCourses=function(){
       const rows=priorRanked();
-      if(!String(globalThis.courseLibraryQuery||'').trim())return rows;
+      const query=String(typeof courseLibraryQuery!=='undefined'?courseLibraryQuery:'').trim();
+      if(!query)return rows;
       return rows.map(row=>{
         const gps=gpsState(row.course);
-        const relevance=Number(row.relevance)||Number(window.smartCourseSearchScore?.(row.course,globalThis.courseLibraryQuery||''))||0;
+        const relevance=Number(row.relevance)||Number(window.smartCourseSearchScore?.(row.course,query))||0;
         return{...row,gps,_v186Score:gps.priority*100000000+relevance*100000+(Number(row.score)||0)%100000};
       }).sort((a,b)=>b._v186Score-a._v186Score||String(a.course?.name||'').localeCompare(String(b.course?.name||'')));
     };
-    window.rankedSharedCourses=globalThis.rankedSharedCourses=wrapped;
   }
 
   function normalizeIndicators(root=document){
     root.querySelectorAll?.('.smart-course-row').forEach(row=>{
       const name=row.querySelector('.smart-course-copy b')?.textContent?.trim();
-      const course=(globalThis.courses||[]).find(c=>c?.name===name);if(!course)return;
+      const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
       const gps=gpsState(course),badge=row.querySelector('.smart-gps-badge');
       if(badge){badge.className=`smart-gps-badge ${gps.key}`;badge.textContent=`● ${gps.label}`;}
     });
@@ -51,14 +52,14 @@
       const buttons=[...suggestionBox.querySelectorAll('button')];
       buttons.forEach(button=>{
         const name=button.querySelector('b')?.textContent?.trim();
-        const course=(globalThis.courses||[]).find(c=>c?.name===name);if(!course)return;
+        const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
         const gps=gpsState(course),badge=button.querySelector('.smart-search-status');
-        button.dataset.gpsRank=String(gps.rank);button.dataset.gpsPriority=String(gps.priority);
+        button.dataset.gpsPriority=String(gps.priority);
         if(badge){badge.className=`smart-search-status ${gps.key}`;badge.setAttribute('aria-label',gps.label);badge.innerHTML=`<i>◎</i>${gps.shortLabel}`;}
       });
-      // The original autocomplete function is closure-scoped. Reorder its
-      // already-matched six suggestions so complete GPS courses float first.
-      buttons.sort((a,b)=>Number(b.dataset.gpsPriority||0)-Number(a.dataset.gpsPriority||0)).forEach(b=>suggestionBox.appendChild(b));
+      // Autocomplete is closure-scoped in the older search module. Reorder its
+      // already-matched suggestions after render so green GPS-ready choices lead.
+      buttons.sort((a,b)=>Number(b.dataset.gpsPriority||0)-Number(a.dataset.gpsPriority||0)).forEach(button=>suggestionBox.appendChild(button));
     }
   }
   window.normalizeParFolioGpsIndicators=normalizeIndicators;
