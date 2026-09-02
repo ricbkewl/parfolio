@@ -27,12 +27,12 @@
 
   window.atgHoleFinalCamera=function(green){
     const tee=selectedTee(green);if(!tee||!green?.center)return null;
-    const route=holeRoute(green),firstTarget=route[1]||green.center;
+    const route=holeRoute(green);
     const yards=mappedHoleDistance(green)||Math.round(distanceYards(tee,green.center));
     return{
-      center:pointAlongRoute(route,.46)||pointBetween(tee,green.center,.46),
+      center:pointBetween(tee,green.center,.5),
       zoom:zoomForHole(yards),
-      heading:bearingDegrees(tee,firstTarget),
+      heading:bearingDegrees(tee,green.center),
       tilt:MAX_PLAY_TILT,
       yards
     };
@@ -46,10 +46,10 @@
     if(inlineHoleMap?.provider!=='google'){priorOrient137(green,origin,target);return;}
     if(!selectedTee(green)||!green?.center)return;
     const camera=atgHoleFinalCamera(green),container=$('liveHoleMap');if(!camera)return;
-    const start=origin||selectedTee(green),end=target||(holeRoute(green)[1]||green.center),heading=origin&&target?bearingDegrees(start,end):camera.heading;
+    const start=origin||selectedTee(green),end=target||green.center,heading=origin&&target?bearingDegrees(start,end):camera.heading;
     if(container){container.dataset.forwardBearing=String(heading);container.style.setProperty('--map-bearing','0deg');container.style.transform='none';}
     if(!inlineUserMovedMap||inlineViewResetting){
-      try{inlineHoleMap.raw.moveCamera({...camera,heading});}catch{}
+      moveGoogleCamera(inlineHoleMap.raw,{...camera,heading});
     }
   };
 
@@ -60,7 +60,7 @@
   initInlineHoleMap=async function(green){
     await priorInit137(green);
     if(inlineHoleMap?.provider!=='google'||inlineUserMovedMap)return;
-    const apply=()=>{const camera=atgHoleFinalCamera(green);if(camera&&inlineHoleMap?.provider==='google'){try{inlineHoleMap.raw.moveCamera(camera);}catch{}}};
+    const apply=()=>{const camera=atgHoleFinalCamera(green);if(camera&&inlineHoleMap?.provider==='google')moveGoogleCamera(inlineHoleMap.raw,camera)};
     apply();setTimeout(apply,220);setTimeout(apply,700);
   };
 })();

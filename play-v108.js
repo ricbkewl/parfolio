@@ -8,7 +8,7 @@
     const segment=activeRouteSegment(null,green),start=segment?.origin||selectedTee(green),end=segment?.target||green.center;
     if(!start||!end)return;
     const heading=bearingDegrees(start,end);
-    rawMap.moveCamera({heading,tilt:MAX_PLAY_TILT});
+    moveGoogleCamera(rawMap,{heading,tilt:MAX_PLAY_TILT});
   }
 
   const priorOrientInlineHoleMap=orientInlineHoleMap;
@@ -17,7 +17,7 @@
     const segment=activeRouteSegment(null,green),start=origin||segment?.origin||selectedTee(green),end=target||segment?.target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);
     if(inlineHoleMap.provider==='google'){
       if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
-      if(!inlineUserMovedMap||inlineViewResetting)inlineHoleMap.raw.moveCamera({heading:bearing,tilt:MAX_PLAY_TILT});
+      if(!inlineUserMovedMap||inlineViewResetting)moveGoogleCamera(inlineHoleMap.raw,{heading:bearing,tilt:MAX_PLAY_TILT});
       return;
     }
     priorOrientInlineHoleMap(green,origin,target);

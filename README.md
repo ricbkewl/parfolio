@@ -2,7 +2,7 @@
 
 ![Rick Kulon, app creator](rick-kulon-profile.jpg)
 
-A mobile-first fellowship golf companion created by Rick Kulon, featuring shared course mapping, live GPS yardages, protected individual scoring, group scorecards and private round chat.
+A mobile-first golf companion created by Rick Kulon, featuring shared course mapping, live GPS yardages, protected individual scoring, group scorecards and private round chat.
 
 ## Quick Start
 
@@ -18,10 +18,10 @@ A mobile-first fellowship golf companion created by Rick Kulon, featuring shared
 - Protected 9- and 18-hole group scoring
 - Personal score entry defaulted to each hole's par
 - Live full-group scorecards and previous-match history
-- Branded shareable scorecard images with the Agape crest and a copyable text summary
+- Branded shareable scorecard images with the ParFolio crest and a copyable text summary
 - Six-character round codes, share links and QR joining
 - In-app QR camera scanner
-- Private round chat with unread alerts, a fixed composer and a stationary Agape crest watermark
+- Private round chat with unread alerts, photo sharing and a fixed composer
 - Front, center and back green GPS yardages
 - Compact in-round GPS, club, yardage and weather panel
 - Taller active-hole map with a compact icon-free Suggested Club panel
@@ -35,7 +35,7 @@ A mobile-first fellowship golf companion created by Rick Kulon, featuring shared
 - Tee-aware recommendations that stop suggesting Driver after the golfer moves up the hole
 - My Clubs completion reminder for signed-in golfers
 - Searchable shared-course library with mapped satellite previews
-- Direction-corrected dragging on forward-facing hole maps
+- Deterministic tee-at-6 / green-at-12 vector satellite framing
 - Compact center-only yardage display and map-based wind information
 - Larger personal scoring and Live Scorecard controls
 - Optional Aim 1 and Aim 2 markers for single and double dogleg holes
@@ -49,7 +49,7 @@ A mobile-first fellowship golf companion created by Rick Kulon, featuring shared
 - Shared course maps with course-name and address search
 - Administrator-only course mapping and editing
 - Street and MapTiler satellite course-mapping controls
-- Always-visible forward-facing hole maps rotated from tee toward green
+- Helicopter transitions that land on the same tee-at-6 / green-at-12 view
 - Measured tee-to-center hole distance and course-based relative wind arrows
 - Golfer profile-completion reminders
 - Personal match-history removal and host-only permanent round deletion
@@ -76,19 +76,15 @@ Suggestions for improving the app are welcome.
 - Email: [ricbkewl@gmail.com](mailto:ricbkewl@gmail.com)
 - Text: [607.438.3208](sms:+16074383208)
 
-**Last updated:** August 28, 2026
+**Last updated:** September 2, 2026
 
 ## Deployment Notes
 
-Upload the app files to the repository root and publish the `main` branch from `/(root)` in GitHub Pages settings.
+The production site is published from the repository root on `main` with GitHub Pages at `https://ricbkewl.github.io/parfolio/`.
 
-Before deploying the required golfer-profile signup, run `supabase-golfer-profiles.sql` in the Supabase SQL Editor. Under **Authentication → URL Configuration**, set the Site URL to `https://ricbkewl.github.io/fairway-simple/` and include the same address in Redirect URLs so verification links return to the app.
+Apply the SQL files under `supabase/migrations/` in timestamp order when provisioning another Supabase project. Under **Authentication → URL Configuration**, use the production URL above as the Site URL and Redirect URL.
 
-Before deploying round-management controls, run `supabase-round-management.sql`. Satellite mapping requires a protected MapTiler API key in `MAPTILER_API_KEY` near the top of `app.js`; without it, street mapping continues to work and the Satellite button remains disabled.
-
-Before enabling match removal and permanent host deletion, run `supabase-history-controls.sql` once in the Supabase SQL Editor.
-
-The forward-facing hole map requires a Tee marker and center-green marker for each hole. Existing green data remains unchanged; administrators only need to revisit a course and add its Tee markers.
+Google Satellite play uses the browser-restricted Google Maps key configured for this origin. The open-map fallback remains available when Google Maps is unavailable. A playable mapped hole requires a tee and center-green marker; existing course data is preserved when administrators add or correct points.
 
 Location access requires HTTPS and user permission. Mapped courses, accounts, scores and chat messages are stored through Supabase security policies. Run each supplied Supabase SQL upgrade only when its corresponding feature has not already been installed.
 

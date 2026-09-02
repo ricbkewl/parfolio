@@ -1,10 +1,11 @@
-const CACHE_NAME='parfolio-v181-20260902';
+const CACHE_NAME='parfolio-v182-20260902';
 const APP_SHELL=[
   './',
   './index.html',
-  './guide-i18n.js',
-  './app.js',
-  './styles.css',
+  './manifest.webmanifest',
+  './parfolio-app-icon.png',
+  './rick-kulon-profile.jpg',
+  './parfolio-home-bg-v162.webp',
   './vendor/leaflet/leaflet.css',
   './vendor/leaflet/leaflet.js',
   './vendor/leaflet/images/marker-icon-2x.png',
@@ -13,29 +14,83 @@ const APP_SHELL=[
   './vendor/supabase-v2.112.4.js',
   './vendor/qrcode-v1.0.0.min.js',
   './vendor/html5-qrcode-v2.3.8.min.js',
+  './styles.css',
+  './menu-v107.css',
+  './play-v108.css',
+  './royale-v111.css',
+  './editor-desktop-v116.css',
+  './editor-provider-v117.css',
+  './editor-actions-v120.css',
+  './editor-actions-v121.css',
+  './royale-loop-editor-v121.css',
+  './editor-readiness-v125.css',
+  './editor-osm-import-v126.css',
+  './editor-opengolf-import-v127.css',
+  './editor-open-data-combined-v128.css',
+  './hole-flyover-v129.css',
+  './editor-open-contribute-v134.css',
+  './editor-route-yardages-v135.css',
+  './course-location-v136.css',
+  './editor-edited-holes-v138.css',
+  './history-select-delete-v141.css',
+  './editor-marker-buttons-v144.css',
+  './course-corrections-v147.css',
+  './course-location-search-v148.css',
   './mobile-fit-v157.css',
-  './mobile-fit-v157.js',
   './home-v162.css',
-  './home-v162.js',
-  './home-premium-v175.css',
-  './home-premium-v175.js',
-  './parfolio-home-bg-v162.webp',
+  './play-mobile-fit-v163.css',
   './course-map-browser-v163.css',
-  './course-map-browser-v163.js',
+  './home-premium-v175.css',
   './smart-course-search-v176.css',
-  './smart-course-search-v176.js',
-  './smart-course-search-v176-fix.js',
+  './guide-i18n.js',
+  './app.js',
   './parfolio-google-vector-v149.js',
-  './editor-provider-v117.js',
-  './parfolio-contact-v168.js',
-  './manifest.webmanifest',
-  './parfolio-app-icon.png',
-  './rick-kulon-profile.jpg',
   './shared-course-library-v145.js',
   './ny-course-catalog-v158.js',
+  './shared-osm-draft-v146.js',
+  './mapping-reference-v110.js',
+  './royale-remap-v112.js',
+  './course-editor-v114.js',
+  './menu-v107.js',
+  './play-v108.js',
+  './play-camera-v137.js',
+  './royale-v111.js',
+  './editor-desktop-v116.js',
+  './editor-provider-v117.js',
+  './editor-continuity-v118.js',
+  './editor-markers-v119.js',
+  './editor-actions-v120.js',
+  './editor-actions-v121.js',
+  './royale-loop-editor-v121.js',
+  './royale-save-verify-v123.js',
+  './editor-autosave-v124.js',
+  './editor-readiness-v125.js',
+  './editor-osm-import-v126.js',
+  './editor-opengolf-import-v127.js',
+  './editor-open-data-combined-v128.js',
+  './hole-flyover-v129.js',
+  './editor-open-contribute-v134.js',
+  './editor-route-yardages-v135.js',
+  './course-location-v136.js',
+  './editor-edited-holes-v138.js',
+  './history-select-delete-v141.js',
+  './editor-marker-buttons-v144.js',
+  './course-corrections-v147.js',
+  './course-location-search-v148.js',
+  './parfolio-route-center-v154.js',
+  './planner-center-rule-v164.js',
+  './parfolio-gps-quality-v156.js',
+  './mobile-fit-v157.js',
   './ny-gps-draft-loader-v159.js',
   './regional-auto-publish-v160.js',
-  './parfolio-admin-role-v161.js'
+  './parfolio-admin-role-v161.js',
+  './home-v162.js',
+  './course-map-browser-v163.js',
+  './parfolio-contact-v168.js',
+  './home-premium-v175.js',
+  './smart-course-search-v176.js',
+  './smart-course-search-v176-fix.js',
+  './assets/royale-west-jakarta.svg'
 ];
 
 self.addEventListener('install',event=>{
@@ -56,7 +111,7 @@ self.addEventListener('fetch',event=>{
   if(event.request.mode==='navigate'){
     event.respondWith(fetch(event.request).then(response=>{
       const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put('./index.html',copy));return response;
-    }).catch(()=>caches.match('./index.html')));
+    }).catch(()=>caches.match('./index.html',{ignoreSearch:true})));
     return;
   }
 
@@ -64,11 +119,11 @@ self.addEventListener('fetch',event=>{
     event.respondWith(fetch(event.request).then(response=>{
       if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
       return response;
-    }).catch(()=>caches.match(event.request)));
+    }).catch(()=>caches.match(event.request,{ignoreSearch:true})));
     return;
   }
 
-  event.respondWith(caches.match(event.request).then(cached=>{
+  event.respondWith(caches.match(event.request,{ignoreSearch:true}).then(cached=>{
     const fresh=fetch(event.request).then(response=>{
       if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
       return response;

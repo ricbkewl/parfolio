@@ -6,7 +6,7 @@
   let readyPromise=null;
   const callbackName='__parfolioGoogleMapsReady181';
 
-  function apiReady(){return typeof window.google?.maps?.Map==='function'}
+  function apiReady(){return typeof window.google?.maps?.Map==='function'&&typeof window.google?.maps?.marker?.AdvancedMarkerElement==='function'}
 
   loadGoogleMaps=function(){
     if(apiReady())return Promise.resolve(window.google.maps);
@@ -37,7 +37,7 @@
       });
 
       const script=document.createElement('script');
-      const params=new URLSearchParams({key,v:'weekly',callback:callbackName});
+      const params=new URLSearchParams({key,v:'weekly',loading:'async',libraries:'marker',callback:callbackName});
       script.src=`https://maps.googleapis.com/maps/api/js?${params.toString()}`;
       script.async=true;
       script.defer=true;

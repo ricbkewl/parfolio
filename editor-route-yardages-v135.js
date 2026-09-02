@@ -38,7 +38,7 @@
 
   function googleYardageLabel(rawMap,segment){
     const size=Math.max(21,Math.min(29,18+String(segment.yards).length*2.5));
-    return new google.maps.Marker({
+    return createGoogleMarker({
       map:rawMap,
       position:googlePoint(segment.mid),
       clickable:false,

@@ -37,7 +37,7 @@
     if($('roundMapDistance'))$('roundMapDistance').textContent=yards;
     if($('roundMapPar'))$('roundMapPar').textContent=par;
     if($('centerYards'))$('centerYards').textContent=yards;
-    $('liveHoleMap')?.setAttribute('aria-label',`Forward-facing course view of Hole ${targetHole}`);
+    $('liveHoleMap')?.setAttribute('aria-label',`Tee-at-6 and green-at-12 course view of Hole ${targetHole}`);
     const previous=document.querySelector('.hole-edge-arrow.previous');if(previous)previous.disabled=targetHole===1;
     const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,targetHole);
     if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;
@@ -86,16 +86,16 @@
           const p=smoothstep((t-.69)/.31);
           center=destination;zoom=lerp(cruiseZoom,finalZoom,p);tilt=lerp(31,camera.tilt,p);cameraHeading=heading;
         }
-        try{raw.moveCamera({center,zoom,heading:cameraHeading,tilt});}catch{}
+        moveGoogleCamera(raw,{center,zoom,heading:cameraHeading,tilt});
         if(t>=1){
           /* This is both the last animation frame and the normal next-hole camera. */
-          try{raw.moveCamera(camera);}catch{}
+          moveGoogleCamera(raw,camera);
           finishFlyover(targetHole,green);return;
         }
         flyoverFrame=requestAnimationFrame(frame);
       }
       const originalResolve=flyoverResolve;
-      flyoverResolve=value=>{if(value==='skip'){if(!adopted)adoptNextHoleBeforeLanding(targetHole);try{raw.moveCamera(camera);}catch{}finishFlyover(targetHole,green);return;}originalResolve(value)};
+      flyoverResolve=value=>{if(value==='skip'){if(!adopted)adoptNextHoleBeforeLanding(targetHole);moveGoogleCamera(raw,camera);finishFlyover(targetHole,green);return;}originalResolve(value)};
       flyoverFrame=requestAnimationFrame(frame);
     });
   }

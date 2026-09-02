@@ -1,4 +1,4 @@
-name: ParFolio Systemwide Production Diagnostic v181
+name: ParFolio Systemwide Production Diagnostic v182
 
 on:
   workflow_dispatch:
@@ -8,7 +8,13 @@ on:
       - '.github/workflows/systemwide-production-diagnostic-v181.yml'
       - 'index.html'
       - 'app.js'
+      - 'play-v108.js'
+      - 'play-camera-v137.js'
+      - 'hole-flyover-v129.js'
+      - 'editor-route-yardages-v135.js'
+      - 'editor-edited-holes-v138.js'
       - 'service-worker.js'
+      - 'tests/systemwide-static-v182.mjs'
       - 'smart-course-search-v176.js'
       - 'smart-course-search-v176-fix.js'
       - 'course-map-browser-v163.js'
@@ -21,7 +27,18 @@ permissions:
   contents: read
 
 jobs:
+  static:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Run v182 source and offline checks
+        run: node tests/systemwide-static-v182.mjs
+
   browser:
+    needs: static
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,7 +69,7 @@ jobs:
             page.on('response',r=>{if(r.status()>=400)badResponses.push(`${r.status()} ${r.url()}`)});
             page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text());if(m.type()==='warning'||m.type()==='warn')consoleWarnings.push(m.text())});
             let gotoError='';
-            try{await page.goto(BASE+'?systemwide=181&view='+name,{waitUntil:'domcontentloaded',timeout:30000});}catch(e){gotoError=e.message}
+            try{await page.goto(BASE+'?systemwide=182&view='+name,{waitUntil:'domcontentloaded',timeout:30000});}catch(e){gotoError=e.message}
             await page.waitForTimeout(7000);
             const shell=await page.evaluate(()=>({
               ready:document.readyState,

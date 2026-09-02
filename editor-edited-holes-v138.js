@@ -61,9 +61,9 @@
       const emphasized=h===focus;
       new google.maps.Polyline({map:rawMap,path:route.map(googlePoint),strokeColor:emphasized?'#f1c75b':'#ffffff',strokeOpacity:emphasized?.9:.42,strokeWeight:emphasized?5:2,zIndex:emphasized?5:1});
       const tee=selectedTee(g)||g.tee,center=g.center,labelPoint=routeLabelPoint(route);
-      if(tee)new google.maps.Marker({map:rawMap,position:googlePoint(tee),title:`Hole ${h} tee`,icon:{path:google.maps.SymbolPath.CIRCLE,scale:emphasized?7:5,fillColor:emphasized?'#f1c75b':'#ffffff',fillOpacity:.9,strokeColor:'#173126',strokeWeight:1.5},zIndex:emphasized?7:2});
-      if(center)new google.maps.Marker({map:rawMap,position:googlePoint(center),title:`Hole ${h} green`,icon:{path:google.maps.SymbolPath.CIRCLE,scale:emphasized?6:4,fillColor:'#176b45',fillOpacity:.85,strokeColor:'#ffffff',strokeWeight:1.5},zIndex:emphasized?6:2});
-      if(labelPoint)new google.maps.Marker({map:rawMap,position:googlePoint(labelPoint),title:`Hole ${h}`,label:{text:`Hole ${h}`,color:'#173126',fontSize:'12px',fontWeight:'800'},icon:{path:google.maps.SymbolPath.CIRCLE,scale:12,fillColor:emphasized?'#f1c75b':'#ffffff',fillOpacity:.92,strokeColor:'#173126',strokeOpacity:.3,strokeWeight:1},zIndex:emphasized?10:8});
+      if(tee)createGoogleMarker({map:rawMap,position:googlePoint(tee),title:`Hole ${h} tee`,icon:{path:google.maps.SymbolPath.CIRCLE,scale:emphasized?7:5,fillColor:emphasized?'#f1c75b':'#ffffff',fillOpacity:.9,strokeColor:'#173126',strokeWeight:1.5},zIndex:emphasized?7:2});
+      if(center)createGoogleMarker({map:rawMap,position:googlePoint(center),title:`Hole ${h} green`,icon:{path:google.maps.SymbolPath.CIRCLE,scale:emphasized?6:4,fillColor:'#176b45',fillOpacity:.85,strokeColor:'#ffffff',strokeWeight:1.5},zIndex:emphasized?6:2});
+      if(labelPoint)createGoogleMarker({map:rawMap,position:googlePoint(labelPoint),title:`Hole ${h}`,label:{text:`Hole ${h}`,color:'#173126',fontSize:'12px',fontWeight:'800'},icon:{path:google.maps.SymbolPath.CIRCLE,scale:12,fillColor:emphasized?'#f1c75b':'#ffffff',fillOpacity:.92,strokeColor:'#173126',strokeOpacity:.3,strokeWeight:1},zIndex:emphasized?10:8});
     });
   }
   function addLeafletReferences(leafletMap){
