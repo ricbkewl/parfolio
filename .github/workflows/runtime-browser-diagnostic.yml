@@ -1,0 +1,68 @@
+name: ParFolio runtime browser diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '*.js'
+      - '*.css'
+      - '.github/workflows/runtime-browser-diagnostic.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright Chromium
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Open production app in a real browser
+        run: |
+          node <<'NODE'
+          const { chromium } = require('playwright');
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            const page=await browser.newPage({viewport:{width:390,height:844}});
+            const consoleLines=[]; const failed=[]; const pageErrors=[];
+            page.on('console',m=>consoleLines.push(`${m.type()}: ${m.text()}`));
+            page.on('pageerror',e=>pageErrors.push(e.stack||e.message||String(e)));
+            page.on('requestfailed',r=>failed.push(`${r.method()} ${r.url()} :: ${r.failure()?.errorText||'failed'}`));
+            const start=Date.now();
+            let gotoError='';
+            try{await page.goto('https://ricbkewl.github.io/parfolio/?runtime=1',{waitUntil:'domcontentloaded',timeout:30000});}catch(e){gotoError=e.message;}
+            await page.waitForTimeout(8000);
+            const result=await page.evaluate(()=>({
+              href:location.href,
+              title:document.title,
+              readyState:document.readyState,
+              appText:document.querySelector('#app')?.innerText?.slice(0,1000)||'',
+              appHtmlLength:document.querySelector('#app')?.innerHTML?.length||0,
+              bodyText:document.body?.innerText?.slice(0,1500)||'',
+              supabase:typeof window.supabase,
+              leaflet:typeof window.L,
+              hasRender:typeof window.render,
+              hasHome:typeof window.home,
+              controller:!!navigator.serviceWorker?.controller
+            }));
+            console.log('=== PARFOLIO RUNTIME RESULT ===');
+            console.log(JSON.stringify({elapsedMs:Date.now()-start,gotoError,result,pageErrors,failed,consoleLines},null,2));
+            await page.screenshot({path:'parfolio-runtime.png',fullPage:true});
+            await browser.close();
+            if(gotoError||pageErrors.length||result.appHtmlLength===0) process.exitCode=1;
+          })();
+          NODE
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: parfolio-runtime-browser
+          path: parfolio-runtime.png
