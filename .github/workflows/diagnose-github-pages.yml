@@ -1,0 +1,126 @@
+name: Diagnose ParFolio GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '*.js'
+      - '*.css'
+      - 'service-worker.js'
+      - '.github/workflows/diagnose-github-pages.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check local JavaScript syntax
+        shell: bash
+        run: |
+          set +e
+          : > /tmp/js-syntax.txt
+          failed=0
+          while IFS= read -r -d '' file; do
+            if node --check "$file" >/tmp/nodecheck.out 2>&1; then
+              echo "OK|$file" >> /tmp/js-syntax.txt
+            else
+              echo "FAIL|$file|$(tr '\n' ' ' </tmp/nodecheck.out | sed 's/|/ /g')" >> /tmp/js-syntax.txt
+              failed=1
+            fi
+          done < <(find . -maxdepth 1 -type f -name '*.js' -print0)
+          echo "$failed" > /tmp/js-failed
+          exit 0
+
+      - name: Probe actual GitHub Pages production
+        shell: bash
+        run: |
+          set +e
+          sleep 25
+          python3 - <<'PY'
+          import urllib.request, urllib.error, re, pathlib, datetime
+          base='https://ricbkewl.github.io/parfolio/'
+          def get(path):
+              url=base+path.lstrip('/')
+              req=urllib.request.Request(url,headers={'User-Agent':'ParFolio-GitHub-Pages-diagnostic/1.0','Cache-Control':'no-cache'})
+              try:
+                  with urllib.request.urlopen(req,timeout=25) as r:
+                      body=r.read().decode('utf-8','replace')
+                      return r.status,body,r.headers.get('content-type',''),r.geturl()
+              except urllib.error.HTTPError as e:
+                  return e.code,e.read().decode('utf-8','replace'),e.headers.get('content-type',''),url
+              except Exception as e:
+                  return 'ERROR',str(e),'',url
+
+          status,index,ctype,final_url=get('')
+          refs=[]
+          if status==200:
+              refs += re.findall(r'<script[^>]+src=["\']([^"\']+)', index, re.I)
+              refs += re.findall(r'<link[^>]+href=["\']([^"\']+)', index, re.I)
+          local=[]
+          for ref in refs:
+              if ref.startswith(('http://','https://','//','data:')):
+                  continue
+              path=ref.split('?',1)[0].lstrip('./')
+              if path and path not in local:
+                  local.append(path)
+          for path in ['index.html','app.js','service-worker.js','manifest.webmanifest','parfolio-app-icon.png','smart-golf-data-v170.js','smart-golf-data-v170.css']:
+              if path not in local:
+                  local.append(path)
+          rows=[]
+          for path in local:
+              s,body,ct,u=get(path)
+              rows.append((path,s,ct))
+
+          js_lines=pathlib.Path('/tmp/js-syntax.txt').read_text().splitlines() if pathlib.Path('/tmp/js-syntax.txt').exists() else []
+          js_failed=pathlib.Path('/tmp/js-failed').read_text().strip() if pathlib.Path('/tmp/js-failed').exists() else 'unknown'
+          bad_assets=[r for r in rows if r[1]!=200]
+          now=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          out=[
+              '# ParFolio GitHub Pages Diagnostic','',
+              f'Generated: {now}',
+              f'URL tested: `{base}`',
+              f'Final URL: `{final_url}`',
+              f'Production root HTTP: `{status}`',
+              f'Production root content-type: `{ctype}`','',
+              '## Production assets','',
+              '| Asset | HTTP | Content-Type |','|---|---:|---|'
+          ]
+          for path,s,ct in rows:
+              out.append(f'| `{path}` | `{s}` | `{ct}` |')
+          out += ['', '## Local JavaScript syntax', '']
+          failures=[]
+          for line in js_lines:
+              parts=line.split('|',2)
+              if parts[0]=='OK':
+                  continue
+              failures.append(line)
+          if failures:
+              out.append('JavaScript syntax failures detected:')
+              for line in failures:
+                  out.append(f'- `{line}`')
+          else:
+              out.append('All top-level JavaScript files passed `node --check`.')
+          out += ['', '## Result', '']
+          if status==200 and not bad_assets and not failures:
+              out.append('GitHub Pages is serving the app shell and referenced local assets, and top-level JavaScript syntax is valid.')
+              out.append('If a device still cannot open the app, focus next on service-worker/browser cache or runtime/CDN dependency errors.')
+          else:
+              out.append(f'Root healthy: **{status==200}** · Missing/unhealthy assets: **{len(bad_assets)}** · JS syntax failures: **{len(failures)}**.')
+          pathlib.Path('PARFOLIO-GITHUB-PAGES-DIAGNOSTIC.md').write_text('\n'.join(out)+'\n')
+          PY
+
+      - name: Commit diagnostic report
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add PARFOLIO-GITHUB-PAGES-DIAGNOSTIC.md
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Record GitHub Pages diagnostic'
+          git push
