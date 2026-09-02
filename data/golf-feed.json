@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-02T23:17:17.880Z",
+  "generatedAt": "2026-09-02T23:30:57.796Z",
   "youtubeEnabled": true,
   "items": [
     {
@@ -31,6 +31,16 @@
       "url": "https://www.youtube.com/watch?v=xnDO2v_Z2J4",
       "publishedAt": "2026-09-02T18:50:55.000Z",
       "thumbnail": "https://i.ytimg.com/vi/xnDO2v_Z2J4/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Most golfers think about the swing",
+      "summary": "Most golfers think about the swing. The best golfers think about the shot - and there's a big difference. Visualisation isn't vague ...",
+      "source": "Tom Gibbs Golf",
+      "url": "https://www.youtube.com/watch?v=bsjJQWJyR3E",
+      "publishedAt": "2026-09-02T18:39:04.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/bsjJQWJyR3E/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -205,12 +215,12 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "The Operation Drill That Adds Shaft Lean to Your Chip Shot",
-      "summary": "Attach an alignment stick and feel it stay away from your lead rib cage as you chip through. No shaft lean and it shocks you — just ...",
-      "source": "Impact Golf Lab",
-      "url": "https://www.youtube.com/watch?v=-sXmkbMUgBk",
-      "publishedAt": "2026-09-01T12:41:00.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/-sXmkbMUgBk/hqdefault.jpg"
+      "title": "Golfers, Any Tips For My Swing?",
+      "summary": "",
+      "source": "Agat Katya",
+      "url": "https://www.youtube.com/watch?v=JFEVYHs-nrE",
+      "publishedAt": "2026-09-01T12:01:41.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/JFEVYHs-nrE/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -290,16 +300,6 @@
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNb0NjbFZlQzgwdVB2MExxQUxONUFzaVRsV0pWV0ZINENfX1lMMHM2T29KYzR5aGs0QzlTbzNRbnBBZlRzbWtMckVMeDFHd0U0SHlzSU9nRnpkcndpSnA0ci11ck1USTc2WmVSOFk3Z2dCSWUtVTd5TUd4N3ZZNFZRdHVOaWozRTI0d2NCMlJvdWxLcW5nbldJZ09fcnd6ZjRjenlkMHIxVVZCQk5BdGUtT0dNbjZXbVMwc2p1WW5sc2Y?oc=5",
       "publishedAt": "2026-08-28T12:51:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "Stop Throwing Away Shots: Short Game Shot Savers",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPeEdLU21ESEF0M0xGQS04LVpDVVZTVUZlUTVTb3FiOFk5MkV6d19OaHp0a180UmNESnp1anpsVVBYSlFkRG5hRnA3T2VLNWgwWXRTWFlzZXZ2YTZWN2tGTjRLa29hSURlbTQwZHdhZ0xwSG9NVWROSGtlQ1ZBbXVObnZQeExGamM?oc=5",
-      "publishedAt": "2026-08-28T12:06:38.000Z",
       "thumbnail": ""
     }
   ]
