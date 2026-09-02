@@ -16,12 +16,18 @@
     postal:norm(document.getElementById('courseLocationPostal')?.value),
     country:norm(document.getElementById('courseLocationCountry')?.value)
   }}
+  function adminAction(c,index){
+    if(!adminRole)return'';
+    return c.catalogOnly
+      ?`<button type="button" class="course-location-admin" onclick="event.stopPropagation();mapCatalogCourse(${index})">Map</button>`
+      :`<button type="button" class="course-location-admin" onclick="event.stopPropagation();editCourse(${index})">Edit</button>`;
+  }
   window.searchCoursesByLocation=function(){
     const box=document.getElementById('courseLocationResults');if(!box)return;
     const f=values();
     if(!f.city&&!f.state&&!f.postal&&!f.country){box.innerHTML='<div class="course-location-search-empty">Enter at least one location field.</div>';return}
     const found=(Array.isArray(courses)?courses:[]).map((c,index)=>({c,index})).filter(x=>matches(x.c,f)).slice(0,100);
-    box.innerHTML=found.length?`<div class="course-location-search-count">${found.length}${found.length===100?'+':''} course${found.length===1?'':'s'} found</div>${found.map(({c,index})=>`<button type="button" class="course-location-result" onclick="startCourseFromLibrary(${index})"><b>${escHtml(c.name)}</b><span>${escHtml(locationText(c)||'Location details pending')}</span><small>${Number(c.holes)||18} holes · ${String(c.sharedMappingStatus||'catalog_only').replaceAll('_',' ')}</small></button>`).join('')}`:'<div class="course-location-search-empty">No courses match those location fields.</div>';
+    box.innerHTML=found.length?`<div class="course-location-search-count">${found.length}${found.length===100?'+':''} course${found.length===1?'':'s'} found</div>${found.map(({c,index})=>`<article class="course-location-result"><button type="button" class="course-location-main" onclick="startCourseFromLibrary(${index})"><b>${escHtml(c.name)}</b><span>${escHtml(locationText(c)||'Location details pending')}</span><small>${Number(c.holes)||18} holes · ${String(c.sharedMappingStatus||'catalog_only').replaceAll('_',' ')}</small></button>${adminAction(c,index)}</article>`).join('')}`:'<div class="course-location-search-empty">No courses match those location fields.</div>';
   };
   window.clearCourseLocationSearch=function(){
     ['courseLocationCity','courseLocationState','courseLocationPostal','courseLocationCountry'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});
