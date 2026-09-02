@@ -1,7 +1,16 @@
-const CACHE_NAME='parfolio-v170-20260901';
+const CACHE_NAME='parfolio-v171-20260901';
 const APP_SHELL=[
   './',
   './index.html',
+  './startup-guard-v171.js',
+  './vendor/leaflet/leaflet.css',
+  './vendor/leaflet/leaflet.js',
+  './vendor/leaflet/images/marker-icon.png',
+  './vendor/leaflet/images/marker-icon-2x.png',
+  './vendor/leaflet/images/marker-shadow.png',
+  './vendor/supabase-v2.112.4.js',
+  './vendor/qrcode-v1.0.0.min.js',
+  './vendor/html5-qrcode-v2.3.8.min.js',
   './guide-i18n.js',
   './app.js',
   './styles.css',
@@ -37,8 +46,7 @@ self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   const appAsset=url.origin===self.location.origin;
-  const dependency=['unpkg.com','cdn.jsdelivr.net'].includes(url.hostname);
-  if(!appAsset&&!dependency)return;
+  if(!appAsset)return;
 
   if(event.request.mode==='navigate'){
     event.respondWith(fetch(event.request).then(response=>{
@@ -47,7 +55,7 @@ self.addEventListener('fetch',event=>{
     return;
   }
 
-  if(appAsset&&/\.(?:js|css|webmanifest|json|webp)$/.test(url.pathname)){
+  if(/\.(?:js|css|webmanifest|json|webp)$/.test(url.pathname)){
     event.respondWith(fetch(event.request).then(response=>{
       if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
       return response;
