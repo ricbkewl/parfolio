@@ -91,3 +91,9 @@
   window.addEventListener('online',decorate);window.addEventListener('offline',decorate);
   restore();setTimeout(decorate,300);
 })();
+
+/* v194 UI bootstrap: country-code phone entry and one Edit action for map editing. */
+(function(){
+  if(document.querySelector('script[data-parfolio-ui-v194]'))return;
+  const script=document.createElement('script');script.src='ui-consistency-v194.js?v=194';script.async=false;script.dataset.parfolioUiV194='1';document.head.appendChild(script);
+})();
