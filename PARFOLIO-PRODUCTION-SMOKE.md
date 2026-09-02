@@ -1,16 +1,11 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-02T03:58:28.044740+00:00
+Generated: 2026-09-02T04:01:40.200423+00:00
 Production URL: `https://ricbkewl.github.io/parfolio/`
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
 |---|---:|---|
-| `startup-guard-v171.js` | `200` | `application/javascript; charset=utf-8` |
-| `vendor/leaflet/leaflet.js` | `200` | `application/javascript; charset=utf-8` |
-| `vendor/supabase-v2.112.4.js` | `200` | `application/javascript; charset=utf-8` |
-| `vendor/qrcode-v1.0.0.min.js` | `200` | `application/javascript; charset=utf-8` |
-| `vendor/html5-qrcode-v2.3.8.min.js` | `200` | `application/javascript; charset=utf-8` |
 | `guide-i18n.js` | `200` | `application/javascript; charset=utf-8` |
 | `app.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-google-vector-v149.js` | `200` | `application/javascript; charset=utf-8` |
@@ -58,7 +53,6 @@ Production root: `200`
 | `parfolio-contact-v168.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
-| `vendor/leaflet/leaflet.css` | `200` | `text/css; charset=utf-8` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
 | `menu-v107.css` | `200` | `text/css; charset=utf-8` |
 | `play-v108.css` | `200` | `text/css; charset=utf-8` |
@@ -90,4 +84,4 @@ Production root: `200`
 
 ## Result
 
-Checked **81** production assets. Missing/unhealthy: **0**.
+Checked **75** production assets. Missing/unhealthy: **0**.
