@@ -1,0 +1,86 @@
+/* ParFolio v175 — premium homepage polish. */
+body.parfolio-home-active{background:#07140e!important;}
+.parfolio-fixed-home-bg{display:none;}
+body.parfolio-home-active .parfolio-fixed-home-bg{
+  display:block;
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(180deg,rgba(2,12,8,.22) 0%,rgba(2,12,8,.30) 32%,rgba(2,12,8,.60) 62%,rgba(2,12,8,.86) 100%),
+    url('parfolio-home-bg-v162.webp');
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-color:#07140e;
+}
+#app.home-page{
+  position:relative;
+  z-index:1;
+  background:transparent!important;
+}
+#app.home-page::before{
+  background:linear-gradient(90deg,rgba(0,0,0,.07),transparent 28%,transparent 72%,rgba(0,0,0,.07))!important;
+}
+
+/* Premium PF crest: clip away black square corners and add a restrained gold frame. */
+.home-page .logo-wrap{
+  width:min(232px,59vw)!important;
+  aspect-ratio:1!important;
+  margin:0 auto 18px!important;
+  padding:0!important;
+  overflow:hidden!important;
+  border-radius:24%!important;
+  background:rgba(7,31,24,.22)!important;
+  border:1.5px solid rgba(231,191,88,.78)!important;
+  box-shadow:
+    0 18px 44px rgba(0,0,0,.36),
+    0 0 0 1px rgba(255,255,255,.10) inset,
+    0 0 28px rgba(218,172,60,.14)!important;
+}
+.home-page .logo-wrap .landing-logo{
+  width:100%!important;
+  height:100%!important;
+  margin:0!important;
+  display:block!important;
+  object-fit:cover!important;
+  border-radius:inherit!important;
+  transform:scale(1.018);
+  filter:saturate(1.03) contrast(1.02) drop-shadow(0 8px 16px rgba(0,0,0,.20))!important;
+}
+
+/* My Account should read as a clean text action, not a white tile. */
+.home-page .account-bar .back{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:#7b5900!important;
+  padding:8px 2px!important;
+}
+.home-page .account-bar .back:hover,
+.home-page .account-bar .back:focus-visible{
+  background:transparent!important;
+  border:0!important;
+  color:#173126!important;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+
+/* Readme stays translucent so the fixed golf-course image remains visible while scrolling. */
+.home-page .app-guide{
+  background:rgba(255,255,255,.60)!important;
+  -webkit-backdrop-filter:blur(16px) saturate(1.05)!important;
+  backdrop-filter:blur(16px) saturate(1.05)!important;
+}
+.home-page .app-guide[open]{
+  background:rgba(255,255,255,.64)!important;
+}
+.home-page .app-guide summary span{
+  letter-spacing:.01em;
+}
+
+@media(max-width:480px){
+  body.parfolio-home-active .parfolio-fixed-home-bg{background-position:50% top;}
+  .home-page .logo-wrap{width:min(220px,58vw)!important;}
+}
