@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-02T04:28:54.962722+00:00
+Generated: 2026-09-02T04:30:18.851133+00:00
 Production URL: `https://ricbkewl.github.io/parfolio/`
 Production root: `200`
 
@@ -52,6 +52,7 @@ Production root: `200`
 | `course-map-browser-v163.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-contact-v168.js` | `200` | `application/javascript; charset=utf-8` |
 | `home-premium-v175.js` | `200` | `application/javascript; charset=utf-8` |
+| `smart-course-search-v176.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
@@ -81,9 +82,10 @@ Production root: `200`
 | `play-mobile-fit-v163.css` | `200` | `text/css; charset=utf-8` |
 | `course-map-browser-v163.css` | `200` | `text/css; charset=utf-8` |
 | `home-premium-v175.css` | `200` | `text/css; charset=utf-8` |
+| `smart-course-search-v176.css` | `200` | `text/css; charset=utf-8` |
 | `service-worker.js` | `200` | `application/javascript; charset=utf-8` |
 | `rick-kulon-profile.jpg` | `200` | `image/jpeg` |
 
 ## Result
 
-Checked **77** production assets. Missing/unhealthy: **0**.
+Checked **79** production assets. Missing/unhealthy: **0**.
