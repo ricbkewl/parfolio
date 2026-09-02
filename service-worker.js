@@ -1,16 +1,7 @@
-const CACHE_NAME='parfolio-v173-20260901';
+const CACHE_NAME='parfolio-v174-20260901';
 const APP_SHELL=[
   './',
   './index.html',
-  './startup-guard-v171.js',
-  './vendor/leaflet/leaflet.css',
-  './vendor/leaflet/leaflet.js',
-  './vendor/leaflet/images/marker-icon.png',
-  './vendor/leaflet/images/marker-icon-2x.png',
-  './vendor/leaflet/images/marker-shadow.png',
-  './vendor/supabase-v2.112.4.js',
-  './vendor/qrcode-v1.0.0.min.js',
-  './vendor/html5-qrcode-v2.3.8.min.js',
   './guide-i18n.js',
   './app.js',
   './styles.css',
@@ -32,8 +23,6 @@ const APP_SHELL=[
   './parfolio-admin-role-v161.js'
 ];
 
-const timeout=(ms)=>new Promise((_,reject)=>setTimeout(()=>reject(new Error('network timeout')),ms));
-
 self.addEventListener('install',event=>{
   event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()));
 });
@@ -46,37 +35,21 @@ self.addEventListener('fetch',event=>{
   if(event.request.method!=='GET')return;
   const url=new URL(event.request.url);
   const appAsset=url.origin===self.location.origin;
-  if(!appAsset)return;
+  const dependency=['unpkg.com','cdn.jsdelivr.net'].includes(url.hostname);
+  if(!appAsset&&!dependency)return;
 
   if(event.request.mode==='navigate'){
-    event.respondWith((async()=>{
-      try{
-        const response=await Promise.race([fetch(event.request,{cache:'no-store'}),timeout(4500)]);
-        if(response&&response.ok){
-          const copy=response.clone();
-          caches.open(CACHE_NAME).then(cache=>cache.put('./index.html',copy));
-          return response;
-        }
-        throw new Error('navigation failed');
-      }catch(error){
-        const cached=await caches.match('./index.html');
-        if(cached)return cached;
-        return new Response('<!doctype html><meta name="viewport" content="width=device-width,initial-scale=1"><body style="font-family:system-ui;background:#064c32;color:white;padding:32px"><h1>ParFolio</h1><p>The network is taking too long. Close this tab and reopen ParFolio.</p></body>',{headers:{'Content-Type':'text/html; charset=utf-8'}});
-      }
-    })());
+    event.respondWith(fetch(event.request).then(response=>{
+      const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put('./index.html',copy));return response;
+    }).catch(()=>caches.match('./index.html')));
     return;
   }
 
-  if(/\.(?:js|css|webmanifest|json|webp)$/.test(url.pathname)){
-    event.respondWith((async()=>{
-      try{
-        const response=await Promise.race([fetch(event.request,{cache:'no-store'}),timeout(5000)]);
-        if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
-        return response;
-      }catch(error){
-        return (await caches.match(event.request))||Response.error();
-      }
-    })());
+  if(appAsset&&/\.(?:js|css|webmanifest|json|webp)$/.test(url.pathname)){
+    event.respondWith(fetch(event.request).then(response=>{
+      if(response&&response.status<400){const copy=response.clone();caches.open(CACHE_NAME).then(cache=>cache.put(event.request,copy))}
+      return response;
+    }).catch(()=>caches.match(event.request)));
     return;
   }
 
