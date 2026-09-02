@@ -1,6 +1,6 @@
 # ParFolio Production Smoke Test
 
-Generated: 2026-09-01T22:03:03.352901+00:00
+Generated: 2026-09-02T00:50:25.475051+00:00
 Production root: `200`
 
 | Asset | HTTP | Content-Type |
@@ -46,6 +46,7 @@ Production root: `200`
 | `ny-gps-draft-loader-v159.js` | `200` | `application/javascript; charset=utf-8` |
 | `regional-auto-publish-v160.js` | `200` | `application/javascript; charset=utf-8` |
 | `parfolio-admin-role-v161.js` | `200` | `application/javascript; charset=utf-8` |
+| `home-v162.js` | `200` | `application/javascript; charset=utf-8` |
 | `manifest.webmanifest` | `200` | `application/manifest+json; charset=utf-8` |
 | `parfolio-app-icon.png` | `200` | `image/png` |
 | `styles.css` | `200` | `text/css; charset=utf-8` |
@@ -71,10 +72,12 @@ Production root: `200`
 | `course-corrections-v147.css` | `200` | `text/css; charset=utf-8` |
 | `course-location-search-v148.css` | `200` | `text/css; charset=utf-8` |
 | `mobile-fit-v157.css` | `200` | `text/css; charset=utf-8` |
+| `home-v162.css` | `200` | `text/css; charset=utf-8` |
+| `play-mobile-fit-v163.css` | `200` | `text/css; charset=utf-8` |
 | `service-worker.js` | `200` | `application/javascript; charset=utf-8` |
 | `rick-kulon-profile.jpg` | `200` | `image/jpeg` |
 | `parfolio-branding.js` | `200` | `application/javascript; charset=utf-8` |
 
 ## Result
 
-Checked **69** production assets. Missing/unhealthy: **0**.
+Checked **72** production assets. Missing/unhealthy: **0**.
