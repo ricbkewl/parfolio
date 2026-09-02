@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v174-20260901';
+const CACHE_NAME='parfolio-v175-20260901';
 const APP_SHELL=[
   './',
   './index.html',
@@ -9,6 +9,8 @@ const APP_SHELL=[
   './mobile-fit-v157.js',
   './home-v162.css',
   './home-v162.js',
+  './home-premium-v175.css',
+  './home-premium-v175.js',
   './parfolio-home-bg-v162.webp',
   './course-map-browser-v163.css',
   './course-map-browser-v163.js',
