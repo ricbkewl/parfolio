@@ -23,9 +23,6 @@
   }
   window.smartCourseGpsState=gpsState;
 
-  // Re-rank search results after the existing matcher has decided relevance.
-  // GPS-ready matches float first, followed by Partial GPS / located courses,
-  // then courses with no usable location. Non-search recommendations are unchanged.
   const priorRanked=typeof rankedSharedCourses==='function'?rankedSharedCourses:null;
   if(priorRanked){
     rankedSharedCourses=function(){
@@ -40,12 +37,24 @@
     };
   }
 
+  function setBadge(badge,gps,kind){
+    if(!badge)return;
+    const className=`${kind} ${gps.key}`,label=kind==='smart-gps-badge'?`● ${gps.label}`:gps.shortLabel;
+    if(badge.className!==className)badge.className=className;
+    if(badge.getAttribute('aria-label')!==gps.label)badge.setAttribute('aria-label',gps.label);
+    if(kind==='smart-gps-badge'){
+      if(badge.textContent!==label)badge.textContent=label;
+    }else{
+      const desired=`<i>◎</i>${label}`;
+      if(badge.innerHTML!==desired)badge.innerHTML=desired;
+    }
+  }
+
   function normalizeIndicators(root=document){
     root.querySelectorAll?.('.smart-course-row').forEach(row=>{
       const name=row.querySelector('.smart-course-copy b')?.textContent?.trim();
       const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
-      const gps=gpsState(course),badge=row.querySelector('.smart-gps-badge');
-      if(badge){badge.className=`smart-gps-badge ${gps.key}`;badge.textContent=`● ${gps.label}`;}
+      setBadge(row.querySelector('.smart-gps-badge'),gpsState(course),'smart-gps-badge');
     });
     const suggestionBox=root.querySelector?.('.smart-course-suggestions');
     if(suggestionBox){
@@ -53,13 +62,12 @@
       buttons.forEach(button=>{
         const name=button.querySelector('b')?.textContent?.trim();
         const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
-        const gps=gpsState(course),badge=button.querySelector('.smart-search-status');
-        button.dataset.gpsPriority=String(gps.priority);
-        if(badge){badge.className=`smart-search-status ${gps.key}`;badge.setAttribute('aria-label',gps.label);badge.innerHTML=`<i>◎</i>${gps.shortLabel}`;}
+        const gps=gpsState(course);button.dataset.gpsPriority=String(gps.priority);
+        setBadge(button.querySelector('.smart-search-status'),gps,'smart-search-status');
       });
-      // Autocomplete is closure-scoped in the older search module. Reorder its
-      // already-matched suggestions after render so green GPS-ready choices lead.
-      buttons.sort((a,b)=>Number(b.dataset.gpsPriority||0)-Number(a.dataset.gpsPriority||0)).forEach(button=>suggestionBox.appendChild(button));
+      const sorted=[...buttons].sort((a,b)=>Number(b.dataset.gpsPriority||0)-Number(a.dataset.gpsPriority||0));
+      const changed=sorted.some((button,index)=>button!==buttons[index]);
+      if(changed)sorted.forEach(button=>suggestionBox.appendChild(button));
     }
   }
   window.normalizeParFolioGpsIndicators=normalizeIndicators;
