@@ -1321,7 +1321,7 @@ function setMapStyle(style){
   }
   render();
 }
-function addStreetLayer(targetMap){return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:20,attribution:'© OpenStreetMap'}).addTo(targetMap)}
+function addStreetLayer(targetMap){return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxNativeZoom:19,maxZoom:22,attribution:'© OpenStreetMap'}).addTo(targetMap)}
 function addCourseMapLayer(targetMap,onFallback){
   const layer=L.tileLayer(`https://api.maptiler.com/maps/outdoor-v2/256/{z}/{x}/{y}@2x.png?key=${encodeURIComponent(MAPTILER_API_KEY)}`,{tileSize:256,maxZoom:22,crossOrigin:true,attribution:'© MapTiler · © OpenStreetMap'});let failures=0,fellBack=false;
   layer.on('tileerror',()=>{if(fellBack||++failures<3)return;fellBack=true;targetMap.removeLayer(layer);addStreetLayer(targetMap);if(onFallback)onFallback()});return layer.addTo(targetMap)
