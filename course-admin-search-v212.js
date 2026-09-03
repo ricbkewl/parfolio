@@ -70,3 +70,13 @@
   observer.observe(document.documentElement,{childList:true,subtree:true});
   setTimeout(queueDecorate,250);
 })();
+
+/* v215 systemwide Google Maps authorization/rendering guard. */
+(function(){
+  if(document.querySelector('script[data-parfolio-google-health]'))return;
+  const js=document.createElement('script');
+  js.src='google-maps-health-v215.js?v=215';
+  js.defer=true;
+  js.dataset.parfolioGoogleHealth='1';
+  document.body.appendChild(js);
+})();
