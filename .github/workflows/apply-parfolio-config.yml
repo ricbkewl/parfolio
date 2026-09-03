@@ -29,6 +29,8 @@ jobs:
           t=t.replace('__PARFOLIO_SUPABASE_URL__', cfg['supabase_url'])
           t=t.replace('__PARFOLIO_SUPABASE_KEY__', cfg['supabase_publishable_key'])
           t=t.replace('__PARFOLIO_GOOGLE_MAPS_KEY__', cfg['google_maps_browser_key'])
+          import re
+          t=re.sub(r"const GOOGLE_MAPS_API_KEY = '[^']*';", f"const GOOGLE_MAPS_API_KEY = '{cfg['google_maps_browser_key']}';", t, count=1)
           p.write_text(t)
           PY
 

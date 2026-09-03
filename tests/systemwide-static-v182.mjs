@@ -5,6 +5,7 @@ import path from 'node:path';
 const root=path.resolve(import.meta.dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const app=read('app.js'),html=read('index.html'),loader=read('parfolio-google-vector-v149.js'),sw=read('service-worker.js');
+const publicConfig=JSON.parse(read('parfolio-public-config.json'));
 
 const localRefs=[...html.matchAll(/(?:src|href)="([^"]+)"/g)]
   .map(match=>match[1].split('?')[0])
@@ -14,8 +15,10 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v217-/,'service-worker cache must use the v217 namespace');
+assert.match(sw,/parfolio-v218-/,'service-worker cache must use the v218 namespace');
 assert.match(app,/function addStreetLayer\(targetMap\)\{return L\.tileLayer\([^\n]+maxNativeZoom:19,maxZoom:22/,'close golf-hole zoom must upscale the last native OpenStreetMap tiles instead of requesting unavailable zoom-20 tiles');
+const configuredGoogleKey=app.match(/const GOOGLE_MAPS_API_KEY = '([^']*)';/)?.[1];
+assert.equal(configuredGoogleKey,publicConfig.google_maps_browser_key,'the live app and ParFolio public configuration must use the same Google Maps browser key');
 
 const nyGeometry=JSON.parse(read('data/ny-osm-gps-drafts-v159.json'));
 const nyMappings=Object.values(nyGeometry.courses||{});
