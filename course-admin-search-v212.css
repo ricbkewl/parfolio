@@ -1,0 +1,6 @@
+/* ParFolio v212 — larger course Edit action and cleaner search dropdown behavior. */
+.smart-row-admin{right:8px;bottom:8px;min-width:58px;min-height:34px;padding:7px 12px;border:1px solid rgba(23,107,69,.22);border-radius:10px;background:#eaf6ef;color:#176b45;font-size:13px;font-weight:850;box-shadow:0 3px 10px rgba(20,55,37,.08)}
+.smart-course-main{padding-right:78px}
+.course-map-admin-action{min-width:64px;min-height:36px;padding:8px 13px!important;border-radius:10px!important;font-size:13px!important;font-weight:850!important}
+.smart-course-suggestions.hidden{display:none!important}
+@media(max-width:420px){.smart-row-admin{min-width:56px;min-height:33px;padding:6px 11px;font-size:12px}.smart-course-main{padding-right:74px}}
