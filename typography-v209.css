@@ -1,0 +1,88 @@
+/* ParFolio v209 — larger, familiar social-app typography systemwide. */
+:root{
+  --pf-font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --pf-base:17px;
+}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;font-size:var(--pf-base)}
+body,button,input,select,textarea{font-family:var(--pf-font)!important}
+body{font-size:17px;line-height:1.45}
+
+/* Core reading and form sizes */
+p,li,.muted,.card,.notice,.error-notice{font-size:1rem}
+label{font-size:15px!important}
+input,select,textarea{font-size:16px!important;line-height:1.35}
+.primary,.secondary,.choice,.back,.search-row button,.admin-tool{font-size:16px!important}
+.small,.eyebrow{font-size:14px!important}
+table{font-size:14px!important}
+
+/* Headings use the same familiar native sans-serif family. */
+h1,h2,h3,h4,h5,h6,.brand,.home-page h1,.scripture strong{font-family:var(--pf-font)!important}
+h1{font-size:36px}
+h2{font-size:25px}
+h3{font-size:20px}
+
+/* Homepage */
+.home-brand{font-size:16px!important}
+.home-page h1{font-size:clamp(40px,9.5vw,54px)!important;line-height:1.02!important;font-weight:800!important}
+.home-hero>p{font-size:17px!important;line-height:1.55!important}
+.feature-pills span{font-size:13px!important}
+.account-status{font-size:15px!important}
+.home-footer{font-size:11px!important}
+.active-round-card small{font-size:11px!important}
+.active-round-card b{font-size:17px!important}
+.active-round-card span{font-size:14px!important}
+.active-round-actions button{font-size:13px!important}
+.app-guide summary{font-size:16px!important}
+.guide-body{font-size:15px!important;line-height:1.55!important}
+.founder-card small{font-size:10px!important}
+.founder-card h2{font-size:20px!important}
+.founder-card p{font-size:14px!important}
+.guide-body h3{font-size:17px!important}
+.guide-body h4{font-size:16px!important}
+.guide-update{font-size:13px!important}
+
+/* Menus and navigation */
+.app-side-menu button,.app-side-menu button>div{font-size:16px!important}
+.app-side-menu button>div small{font-size:12px!important}
+.app-side-menu .menu-section-label{font-size:12px!important}
+.bottom-nav button{font-size:12px!important}
+
+/* Course/search/list content */
+.search-results>button{font-size:16px!important}
+.search-results span{font-size:13px!important}
+.search-error{font-size:14px!important}
+.search-divider{font-size:12px!important}
+.course-card,.course-card button,.course-list button{font-family:var(--pf-font)!important}
+
+/* Friends + Messages */
+.pf-social-head b{font-size:21px!important}
+.pf-social-head small{font-size:14px!important}
+.pf-social-tabs button{font-size:15px!important}
+.pf-social-card-copy b{font-size:16px!important}
+.pf-social-card-copy small{font-size:14px!important}
+.pf-social-action{font-size:14px!important}
+.pf-social-search input,.pf-social-compose textarea{font-size:16px!important}
+.pf-social-search button,.pf-social-compose button{font-size:15px!important}
+.pf-social-bubble{font-size:16px!important;line-height:1.4!important}
+.pf-social-bubble small{font-size:11px!important}
+.pf-social-empty,.pf-social-error{font-size:15px!important;line-height:1.5!important}
+
+/* Golf Feed */
+.pf-golf-feed-heading small{font-size:12px!important}
+.pf-golf-feed-heading h2{font-size:30px!important}
+.pf-golf-feed-heading p{font-size:16px!important}
+.pf-golf-feed-card h3{font-size:17px!important}
+.pf-golf-feed-card p{font-size:14px!important}
+.pf-golf-feed-meta span,.pf-golf-feed-meta em,.pf-golf-feed-card footer{font-size:11px!important}
+
+/* Keep precision/map UI compact enough to avoid covering the course. */
+.leaflet-container,.leaflet-control,.map-toolbar,.marker-tab,.gps-card,.yardages,.play-map,.play-map button{font-family:var(--pf-font)!important}
+.map-toolbar,.marker-tab{font-size:14px!important}
+.yardages small{font-size:13px!important}
+
+@media(max-width:420px){
+  body{font-size:17px}
+  h1{font-size:33px}
+  .home-page h1{font-size:42px!important}
+  .app-side-menu button,.app-side-menu button>div{font-size:16px!important}
+}
