@@ -1,0 +1,164 @@
+name: ParFolio Systemwide Production Diagnostic v212
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/systemwide-production-diagnostic-v212.yml'
+      - 'index.html'
+      - 'app.js'
+      - 'service-worker.js'
+      - 'shared-course-library-v145.js'
+      - 'smart-course-search-v176.js'
+      - 'smart-course-search-v176-fix.js'
+      - 'course-map-browser-v163.js'
+      - 'parfolio-google-vector-v149.js'
+      - 'editor-provider-v117.js'
+      - 'california-catalog-v185.js'
+      - 'texas-catalog-v191.js'
+      - 'indonesia-catalog-v197.js'
+      - 'social-v208.js'
+      - 'social-v211.js'
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install browser test runtime
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install playwright@1.55.0 >/dev/null 2>&1
+          npx playwright install --with-deps chromium >/dev/null
+      - name: Run current production diagnostic
+        shell: bash
+        run: |
+          sleep 12
+          node <<'NODE'
+          const {chromium}=require('playwright');
+          const fs=require('fs');
+          const BASE='https://ricbkewl.github.io/parfolio/';
+          const results=[];
+          const add=(area,test,ok,detail='')=>results.push({area,test,ok:!!ok,detail:String(detail||'')});
+
+          // Static integrity: every local script/style referenced by index must exist in repo.
+          const index=fs.readFileSync('index.html','utf8');
+          const sw=fs.readFileSync('service-worker.js','utf8');
+          const refs=[...index.matchAll(/(?:src|href)="([^"]+)"/g)].map(m=>m[1].split('?')[0]).filter(x=>x&&!x.startsWith('http')&&!x.startsWith('#')&&!x.startsWith('data:'));
+          const missing=[...new Set(refs)].filter(x=>!fs.existsSync(x));
+          add('static','All index assets exist locally',missing.length===0,missing.join(' | '));
+          add('static','No critical CDN dependency',!/https:\/\/(?:unpkg\.com|cdn\.jsdelivr\.net)/i.test(index),'index.html');
+          add('static','No Vercel runtime dependency',!/vercel\.app|vercel\.com/i.test(index),'GitHub Pages primary');
+          add('static','No service-role secret in client',!/service_role|sb_secret_[A-Za-z0-9_-]+/i.test(index+fs.readFileSync('app.js','utf8')),'client scan');
+          add('static','Current service-worker cache',/CACHE_NAME=['"]parfolio-v(?:21[1-9]|2[2-9][0-9]|[3-9][0-9]{2})/i.test(sw),sw.match(/CACHE_NAME=([^;]+)/)?.[1]||'');
+          add('static','Dangerous Smart Golf v169 not loaded',!/<script[^>]+smart-golf-data-v169\.js/i.test(index),'index.html');
+          add('static','Old clock camera v151 not loaded',!/<script[^>]+parfolio-clock-camera-v151\.js/i.test(index),'index.html');
+
+          async function checkView(browser,label,viewport){
+            const context=await browser.newContext({viewport,geolocation:{latitude:34.1064,longitude:-117.5931},permissions:['geolocation']});
+            const page=await context.newPage();
+            const pageErrors=[],failed=[],bad=[],consoleErrors=[];
+            page.on('pageerror',e=>pageErrors.push(e.message||String(e)));
+            page.on('requestfailed',r=>failed.push(`${r.method()} ${r.url()} ${r.failure()?.errorText||''}`));
+            page.on('response',r=>{if(r.status()>=400)bad.push(`${r.status()} ${r.url()}`)});
+            page.on('console',m=>{if(m.type()==='error')consoleErrors.push(m.text())});
+            let navError='';
+            try{await page.goto(BASE+'?systemwide=212&view='+label,{waitUntil:'domcontentloaded',timeout:30000})}catch(e){navError=e.message}
+            await page.waitForTimeout(7000);
+            const shell=await page.evaluate(()=>({
+              ready:document.readyState,
+              appLen:document.querySelector('#app')?.innerHTML.length||0,
+              text:document.body.innerText||'',
+              overflow:document.documentElement.scrollWidth-window.innerWidth,
+              supabase:typeof supabase,
+              leaflet:typeof L,
+              render:typeof render,
+              count:typeof courses!=='undefined'&&Array.isArray(courses)?courses.length:-1
+            }));
+            add(label,'Production shell loads',!navError&&shell.ready==='complete'&&shell.appLen>1000,navError||`app=${shell.appLen}`);
+            add(label,'ParFolio branding visible',/Par\s*Folio/i.test(shell.text),'home');
+            add(label,'No ATG religious branding visible',!/Agape Tumou|Faith · Fellowship|Saved to Serve|2 Timothy/i.test(shell.text),'visible text');
+            add(label,'No horizontal overflow',shell.overflow<=3,`overflow=${shell.overflow}px`);
+            add(label,'Core libraries initialized',shell.supabase==='object'&&shell.leaflet==='object'&&shell.render==='function',JSON.stringify({supabase:shell.supabase,leaflet:shell.leaflet,render:shell.render}));
+
+            const manifest=await page.evaluate(async()=>{try{const r=await fetch('manifest.webmanifest',{cache:'no-store'});return{status:r.status,name:(await r.json()).name}}catch(e){return{status:0,error:String(e)}}});
+            add(label,'Manifest loads',manifest.status===200&&manifest.name==='ParFolio',JSON.stringify(manifest));
+            const swState=await page.evaluate(async()=>{try{const reg=await navigator.serviceWorker.register('./service-worker.js');await navigator.serviceWorker.ready;return{active:!!reg.active,scope:reg.scope}}catch(e){return{active:false,error:String(e)}}});
+            add(label,'Service worker active',swState.active,swState.error||swState.scope||'');
+
+            const auth=await page.evaluate(async()=>{try{const r=await fetch(`${SUPABASE_URL}/auth/v1/settings`,{headers:{apikey:SUPABASE_PUBLISHABLE_KEY}});return r.status}catch{return 0}});
+            add(label,'Supabase Auth reachable',auth===200,`status=${auth}`);
+
+            const shared=await page.evaluate(async()=>{
+              try{if(typeof loadSharedCourseLibrary==='function')await loadSharedCourseLibrary({rerender:false,retries:0});
+                const list=typeof courses!=='undefined'&&Array.isArray(courses)?courses:[];
+                const countState=s=>list.filter(c=>String(c.state||c.state_code||'').toUpperCase()===s).length;
+                const indonesia=list.filter(c=>/indonesia/i.test(String(c.country||''))||String(c.country_code||'').toUpperCase()==='ID').length;
+                return{status:window.PARFOLIO_SHARED_LIBRARY||null,total:list.length,ca:countState('CA'),ny:countState('NY'),tx:countState('TX'),indonesia};
+              }catch(e){return{error:String(e),status:window.PARFOLIO_SHARED_LIBRARY||null,total:-1}}
+            });
+            add(label,'Shared Golf Course Library loads',!!shared.status?.loaded&&shared.status.catalogRows>100,JSON.stringify(shared));
+            add(label,'Combined catalog is substantial',shared.total>1000,`total=${shared.total}`);
+            add(label,'California catalog present',shared.ca>100,`CA=${shared.ca}`);
+            add(label,'New York catalog present',shared.ny>100,`NY=${shared.ny}`);
+            add(label,'Texas catalog present',shared.tx>100,`TX=${shared.tx}`);
+            add(label,'Indonesia catalog present',shared.indonesia>25,`ID=${shared.indonesia}`);
+
+            try{
+              await page.evaluate(()=>{s.v='coursesView';render()});
+              await page.waitForTimeout(1000);
+              const cview=await page.evaluate(()=>({placeholder:document.querySelector('.course-library-search input')?.placeholder||'',map:!!document.querySelector('.course-map-launch'),overflow:document.documentElement.scrollWidth-window.innerWidth}));
+              add(label,'Universal course search present',/course|city|zip|area/i.test(cview.placeholder),cview.placeholder);
+              add(label,'Floating map launcher present',cview.map,'6 o’clock');
+              add(label,'Courses view fits viewport',cview.overflow<=3,`overflow=${cview.overflow}px`);
+              const input=page.locator('.course-library-search input').first();
+              await input.fill('Siera Lakes'); await page.waitForTimeout(600);
+              add(label,'Typo search finds Sierra Lakes',(await page.locator('#app').innerText()).toLowerCase().includes('sierra lakes'),'Siera Lakes');
+              await input.fill('Cortland NY'); await page.waitForTimeout(600);
+              add(label,'Cortland NY search returns results',/cortland|course[s]? found/i.test(await page.locator('#app').innerText()),'Cortland NY');
+              await input.fill('Jakarta'); await page.waitForTimeout(600);
+              add(label,'Indonesia search returns Jakarta results',/jakarta/i.test(await page.locator('#app').innerText()),'Jakarta');
+            }catch(e){add(label,'Courses/search interaction',false,e.message||String(e))}
+
+            const gm=await page.evaluate(async()=>{
+              window.__PF_GM_AUTH=false;window.gm_authFailure=()=>{window.__PF_GM_AUTH=true};
+              try{await Promise.race([loadGoogleMaps(),new Promise((_,rej)=>setTimeout(()=>rej(new Error('timeout')),12000))]);const div=document.createElement('div');div.style.cssText='position:fixed;left:-9999px;width:320px;height:240px';document.body.appendChild(div);const map=new google.maps.Map(div,{center:{lat:42.60,lng:-76.18},zoom:13,mapTypeId:'satellite'});await new Promise(r=>setTimeout(r,2200));map.setCenter({lat:-6.27,lng:106.90});await new Promise(r=>setTimeout(r,1800));const text=div.textContent||'';return{loaded:true,auth:window.__PF_GM_AUTH,overlay:/oops!?\s*something went wrong|didn.t load google maps correctly/i.test(text)}}catch(e){return{loaded:false,error:String(e),auth:window.__PF_GM_AUTH}}
+            });
+            add(label,'Google Satellite works NY + Indonesia',gm.loaded&&!gm.auth&&!gm.overlay,JSON.stringify(gm));
+
+            const meaningfulBad=bad.filter(x=>!(/^401 .*\/auth\/v1\/user\b/.test(x))&&!(/^401 .*\/rest\/v1\/courses\b/.test(x)));
+            const meaningfulConsole=consoleErrors.filter(x=>!/Failed to load resource.*401/i.test(x));
+            add(label,'No JavaScript page errors',pageErrors.length===0,pageErrors.join(' | '));
+            add(label,'No failed network requests',failed.length===0,failed.join(' | '));
+            add(label,'No unexpected HTTP errors',meaningfulBad.length===0,meaningfulBad.join(' | '));
+            add(label,'No meaningful console errors',meaningfulConsole.length===0,meaningfulConsole.join(' | '));
+            await context.close();
+          }
+
+          (async()=>{
+            const browser=await chromium.launch({headless:true});
+            await checkView(browser,'mobile',{width:390,height:844});
+            await checkView(browser,'desktop',{width:1440,height:900});
+            await browser.close();
+            const failures=results.filter(r=>!r.ok);
+            const report={generated:new Date().toISOString(),total:results.length,pass:results.length-failures.length,fail:failures.length,failures,results};
+            fs.writeFileSync('parfolio-systemwide-v212.json',JSON.stringify(report,null,2));
+            console.log(JSON.stringify(report,null,2));
+            if(failures.length)process.exitCode=1;
+          })().catch(e=>{console.error(e);process.exit(1)});
+          NODE
+      - name: Upload diagnostic report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: parfolio-systemwide-v212
+          path: parfolio-systemwide-v212.json
+          if-no-files-found: warn
+          retention-days: 7
