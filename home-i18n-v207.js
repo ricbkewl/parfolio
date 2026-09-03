@@ -53,8 +53,8 @@
   if(!document.querySelector('script[data-parfolio-social-v211]')){const js=document.createElement('script');js.src='social-v211.js?v=211';js.defer=true;js.dataset.parfolioSocialV211='1';document.body.appendChild(js)}
 })();
 
-/* v212 bootstrap: course search/admin editing usability fixes. */
+/* v213 bootstrap: course search/admin UX with responsive typing fix. */
 (function(){
-  if(!document.querySelector('link[data-parfolio-course-v212]')){const css=document.createElement('link');css.rel='stylesheet';css.href='course-admin-search-v212.css?v=212';css.dataset.parfolioCourseV212='1';document.head.appendChild(css)}
-  if(!document.querySelector('script[data-parfolio-course-v212]')){const js=document.createElement('script');js.src='course-admin-search-v212.js?v=212';js.defer=true;js.dataset.parfolioCourseV212='1';document.body.appendChild(js)}
+  if(!document.querySelector('link[data-parfolio-course-v212]')){const css=document.createElement('link');css.rel='stylesheet';css.href='course-admin-search-v212.css?v=213';css.dataset.parfolioCourseV212='1';document.head.appendChild(css)}
+  if(!document.querySelector('script[data-parfolio-course-v212]')){const js=document.createElement('script');js.src='course-admin-search-v212.js?v=213';js.defer=true;js.dataset.parfolioCourseV212='1';document.body.appendChild(js)}
 })();
