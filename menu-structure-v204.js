@@ -16,17 +16,19 @@
   function injectStyle(){
     if(document.getElementById('parfolio-menu-v204-style'))return;
     const style=document.createElement('style');style.id='parfolio-menu-v204-style';style.textContent=`
-      .app-side-menu.menu-v204{padding-bottom:max(18px,env(safe-area-inset-bottom));overflow-y:auto}
-      .app-side-menu.menu-v204>.menu-section-label{margin:15px 24px 6px;color:rgba(240,203,91,.82);font-size:11px;font-weight:700;letter-spacing:.15em}
-      .app-side-menu.menu-v204>button{min-height:58px;margin:0 14px;padding:10px 16px;border-radius:16px}
-      .app-side-menu.menu-v204>button.menu-home-v204{margin-top:8px}
-      .app-side-menu.menu-v204>button.menu-start-round{margin-top:8px;border:1px solid rgba(231,190,76,.52);background:rgba(223,184,74,.08)}
-      .app-side-menu.menu-v204>button .menu-line-icon{display:inline-grid;place-items:center;width:38px;min-width:38px;color:#e1bd58;font-size:29px;line-height:1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:400}
-      .app-side-menu.menu-v204>button>div{display:flex;flex-direction:column;align-items:flex-start;gap:1px}
-      .app-side-menu.menu-v204>button>div small{font-size:.58em;opacity:.66}
-      .app-side-menu.menu-v204 .menu-divider-v204{height:1px;margin:9px 20px;background:rgba(255,255,255,.12)}
-      .app-side-menu.menu-v204 header{margin-bottom:5px}
-      @media(max-height:760px){.app-side-menu.menu-v204>button{min-height:52px;padding-top:8px;padding-bottom:8px}.app-side-menu.menu-v204>.menu-section-label{margin-top:10px}}
+      .app-side-menu.menu-v204{padding-bottom:max(12px,env(safe-area-inset-bottom));overflow-y:auto}
+      .app-side-menu.menu-v204>.menu-section-label{margin:9px 20px 3px;color:rgba(240,203,91,.86);font-size:10px;font-weight:750;letter-spacing:.14em;line-height:1.15}
+      .app-side-menu.menu-v204>button{min-height:47px;margin:0 12px;padding:6px 14px;border-radius:14px;line-height:1.08}
+      .app-side-menu.menu-v204>button.menu-home-v204{margin-top:4px}
+      .app-side-menu.menu-v204>button.menu-start-round{margin-top:5px;border:1px solid rgba(231,190,76,.52);background:rgba(223,184,74,.08)}
+      .app-side-menu.menu-v204>button .menu-line-icon{display:inline-grid;place-items:center;width:32px;min-width:32px;color:#e1bd58;font-size:24px;line-height:1;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-weight:400}
+      .app-side-menu.menu-v204>button>div{display:flex;flex-direction:column;align-items:flex-start;gap:0;line-height:1.08}
+      .app-side-menu.menu-v204>button>div small{font-size:.60em;line-height:1.05;opacity:.68;margin-top:1px}
+      .app-side-menu.menu-v204 .menu-divider-v204{height:1px;margin:5px 18px;background:rgba(255,255,255,.12)}
+      .app-side-menu.menu-v204 header{margin-bottom:2px;min-height:64px}
+      .app-side-menu.menu-v204 .pf-social-menu-section.menu-section-label{margin-top:9px!important;margin-bottom:3px!important}
+      .app-side-menu.menu-v204>button.pf-social-menu-section{min-height:47px!important;margin-top:0!important;margin-bottom:0!important;padding-top:6px!important;padding-bottom:6px!important}
+      @media(max-height:760px){.app-side-menu.menu-v204>button{min-height:44px;padding-top:5px;padding-bottom:5px}.app-side-menu.menu-v204>.menu-section-label{margin-top:7px}.app-side-menu.menu-v204 header{min-height:58px}}
     `;document.head.appendChild(style);
   }
 
