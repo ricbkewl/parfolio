@@ -58,3 +58,8 @@
   if(!document.querySelector('link[data-parfolio-course-v212]')){const css=document.createElement('link');css.rel='stylesheet';css.href='course-admin-search-v212.css?v=213';css.dataset.parfolioCourseV212='1';document.head.appendChild(css)}
   if(!document.querySelector('script[data-parfolio-course-v212]')){const js=document.createElement('script');js.src='course-admin-search-v212.js?v=213';js.defer=true;js.dataset.parfolioCourseV212='1';document.body.appendChild(js)}
 })();
+
+/* v214 bootstrap: normalize all course shapes before opening the editor. */
+(function(){
+  if(!document.querySelector('script[data-parfolio-course-edit-v214]')){const js=document.createElement('script');js.src='course-edit-guard-v214.js?v=214';js.defer=true;js.dataset.parfolioCourseEditV214='1';document.body.appendChild(js)}
+})();
