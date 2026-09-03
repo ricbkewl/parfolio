@@ -46,3 +46,9 @@
   if(!document.querySelector('link[data-parfolio-social]')){const css=document.createElement('link');css.rel='stylesheet';css.href='social-v208.css?v=208';css.dataset.parfolioSocial='1';document.head.appendChild(css)}
   if(!document.querySelector('script[data-parfolio-social]')){const js=document.createElement('script');js.src='social-v208.js?v=208';js.defer=true;js.dataset.parfolioSocial='1';document.body.appendChild(js)}
 })();
+
+/* v211 bootstrap: denser menu plus DM photo/delete upgrades. */
+(function(){
+  if(!document.querySelector('link[data-parfolio-social-v211]')){const css=document.createElement('link');css.rel='stylesheet';css.href='social-v211.css?v=211';css.dataset.parfolioSocialV211='1';document.head.appendChild(css)}
+  if(!document.querySelector('script[data-parfolio-social-v211]')){const js=document.createElement('script');js.src='social-v211.js?v=211';js.defer=true;js.dataset.parfolioSocialV211='1';document.body.appendChild(js)}
+})();
