@@ -14,7 +14,8 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v184-/,'service-worker cache must use the v184 namespace');
+assert.match(sw,/parfolio-v217-/,'service-worker cache must use the v217 namespace');
+assert.match(app,/function addStreetLayer\(targetMap\)\{return L\.tileLayer\([^\n]+maxNativeZoom:19,maxZoom:22/,'close golf-hole zoom must upscale the last native OpenStreetMap tiles instead of requesting unavailable zoom-20 tiles');
 
 const nyGeometry=JSON.parse(read('data/ny-osm-gps-drafts-v159.json'));
 const nyMappings=Object.values(nyGeometry.courses||{});
