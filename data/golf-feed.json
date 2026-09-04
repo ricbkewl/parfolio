@@ -1,43 +1,73 @@
 {
-  "generatedAt": "2026-09-03T17:04:02.853Z",
+  "generatedAt": "2026-09-04T05:58:10.169Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Solo l'1% conosce questo esercizio segreto #golftips #golfitalia #golftips #golfer",
-      "summary": "Esercizio \"Stretta di Mano\": Lo Swing non è mai stato così fluido! 🏌️‍♂️ Ti senti bloccato e forzi troppo il colpo? In questo ...",
-      "source": "Coach Stefano – Golfitness",
-      "url": "https://www.youtube.com/watch?v=LKGtuCrnTj4",
-      "publishedAt": "2026-09-03T16:00:04.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/LKGtuCrnTj4/hqdefault.jpg"
+      "title": "Martin Chuck's Wedge Drill for Pure Contact #golfswing #golftips #golfdrills #pga",
+      "summary": "If you're looking for golf swing tips, golf practice drills, better ball striking, or practical golf instruction on how to get better at golf, ...",
+      "source": "Tour Striker Golf",
+      "url": "https://www.youtube.com/watch?v=Z48S2ArrCSY",
+      "publishedAt": "2026-09-04T01:00:25.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Z48S2ArrCSY/hqdefault.jpg"
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Let’s go golf and work on hitting my driver!Swing tips are accepted",
-      "summary": "Let's go golf and work on hitting my driver! Swing tips are accepted ‍♀️⛳️ Bag- @sundaygolf Headcover/towel- ...",
-      "source": "Play With Kelsey",
-      "url": "https://www.youtube.com/watch?v=aPdPt7hjNv0",
-      "publishedAt": "2026-09-03T15:51:58.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/aPdPt7hjNv0/hqdefault.jpg"
+      "title": "STOP Using Your Trail Elbow to Square the Clubface! #golftips #golfinstruction #golfswing",
+      "summary": "Learn More about my “SWING FOR LIFE” GOLF SCHOOLS https://www.emerygolfcoaching.com/a-swing-for-life ...",
+      "source": "Andrew Emery",
+      "url": "https://www.youtube.com/watch?v=ICbFXStHeK0",
+      "publishedAt": "2026-09-03T23:06:40.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/ICbFXStHeK0/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Subscribe for more golf tips and help me to 500 subs!",
+      "type": "article",
+      "category": "Courses",
+      "title": "Industry Hills Golf Club at Pacific Palms Resort - Eisenhower Course",
       "summary": "",
-      "source": "Mark Spitzer Golf",
-      "url": "https://www.youtube.com/watch?v=rYFVgeVD5Zg",
-      "publishedAt": "2026-09-03T15:28:15.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/rYFVgeVD5Zg/hqdefault.jpg"
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNSncxQ0pnYU5lVzJLTV82bUNLbXp5d1BYeFJWeEt3NnZEVURxNEpUWlRNYXdVQ2VSc1dQY0h3LXNXZE9zbFFiZmVLUlc0cUl3LTBHb2hySGxFNzJKTHNnc0RQRnp4Y3B2VExubEFFTm82STE4TUNjeDFwSW9CaFdNdTNvU193Zk9CSkN5VUw1RjBHaWlLRXlyeTVGTll0eWdVaEd4cFh6b0RPVTE4SXNmVVoyeU1ybnBFeFNCRA?oc=5",
+      "publishedAt": "2026-09-03T22:35:40.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Island West Golf Club in Bluffton, South Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPNFBKdld2ZTVkczFveEpudGcxb21ZbUI4cVJSOEIxUUdzMXg1RTFPUU93WUVDeHU2d0xZRDFER1VSMm1UU3diN1ZMN3JSMXRTTGJnZ1ExVEhpTFJSVExyQWFkVlBEb1AyU2ZKeDc5UVQzbThOU2h0ZWJ4b3d3SF9sUA?oc=5",
+      "publishedAt": "2026-09-03T21:47:55.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Perfect Your Swing: Easy Backyard Golf Drills #shorts",
+      "summary": "golf #golfclubs #pga Transform your backyard into a custom practice zone to groove a consistent swing and hone your short game ...",
+      "source": "Schupak Sports",
+      "url": "https://www.youtube.com/watch?v=R7kt1oqMchs",
+      "publishedAt": "2026-09-03T20:00:13.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/R7kt1oqMchs/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "It’s Official: The New Mizuno Pro S-4 Irons Prove We Have An All-New Irons Category",
+      "summary": "",
+      "source": "mygolfspy.com",
+      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPNlE0cnF6Q0dLa01NN1gyRHBFeFFzeUEyTnJhajBYaEpMdkNiM3htclFqVVNSeG5ZNmcyOEtVeGV0OUNTZ0hYUVhHVU9TMG12ekx3YnRCR204VWtVajJsbEJuVDhUM29ySFVkNXVlZVJBNWNsNnlBNU1WSU1LVG0tZzN2YmlaVEsyaFFyblgwZjlhaFlWS0lTdjM5dVRYTno3UGpYc0pvSUdIRFpGdWt4UFlpbEdELS0w?oc=5",
+      "publishedAt": "2026-09-03T15:58:41.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
       "category": "Trends",
       "title": "Mizuno Pro S-4 irons offer forged feel with more forgiveness",
       "summary": "",
-      "source": "Golfweek",
+      "source": "golfweek.usatoday.com",
       "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOWEdWXzBvRjBzek9oYzVxR3kwWERpMVhnUnNZMUxENHVrY21uZXJPcEJOYi1udFlPSmlHSHJpYjY0cGtnNk4wcG5WaEhQT3YtbVowUUQ0b0JJY1FSUnhmdWxwb0NkRUtfM19iOVM1UDJkNTlFbHo1Z2JzSGRmaTNJdm5NRXJpM2d6QzRXMjNMdFFnWHlyMEdoS0JXdjhPYks5dmVnSE5zR3RIekROM2RJeGZGcHhQcktjVFljYjJLQ0hSb3lhMzZwc1NBbGFqWWN2aFZJTWJ3?oc=5",
       "publishedAt": "2026-09-03T13:30:00.000Z",
       "thumbnail": ""
@@ -55,12 +85,42 @@
     {
       "type": "article",
       "category": "Courses",
-      "title": "Industry Hills Golf Club at Pacific Palms Resort - Eisenhower Course",
+      "title": "'I Find It Rather Rude When Someone I’m Playing With Pulls Out A Mobile On The 1st Hole And Doesn’t Put It Away Again' – Has Phone Usage Become Too Widespread On The Golf Course?",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNSncxQ0pnYU5lVzJLTV82bUNLbXp5d1BYeFJWeEt3NnZEVURxNEpUWlRNYXdVQ2VSc1dQY0h3LXNXZE9zbFFiZmVLUlc0cUl3LTBHb2hySGxFNzJKTHNnc0RQRnp4Y3B2VExubEFFTm82STE4TUNjeDFwSW9CaFdNdTNvU193Zk9CSkN5VUw1RjBHaWlLRXlyeTVGTll0eWdVaEd4cFh6b0RPVTE4SXNmVVoyeU1ybnBFeFNCRA?oc=5",
-      "publishedAt": "2026-09-02T19:56:11.000Z",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMisgJBVV95cUxPTGUwNkdzOWhCOHFGZGZydWpkUllSS0Z5TVAwRjU2TUM1Nm1fODFiYlVEQ3A2eThuR041NkVTYVV0WVViNnhGdGV1YW4yemMyNlZrZExHTnMwY2U1dGtzRkxLdU0wZ3BpZHJYekRhdGZQbnlZMFZxamRxYkhPTWNjOUJoQkxLcndTclpoZk9FUjJ0dlp2X09JTDhjZWk4SjA2SDIyRGZIUUd6SFpud3VjYlFEYWNVb1FZLWtzelFQYWdZV2luZldXU1lhMmYyYXdIYkJGeTEwUXRhWUVocV90b1FwSE1LWlg0MEdjNXE3SE9MNjdfRGs3eEJkNHFUYXNvNGppcmNfUnZKdlM4YzZhc3VXSWZ3cXJkQzRXUjZRTDlSUG5wX0hGbGVoYUJFTFI3Y0E?oc=5",
+      "publishedAt": "2026-09-03T12:33:14.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "The Steepness Drill That Forces a Steep Chip Shot Every Time",
+      "summary": "Place an alignment stick 4 inches behind the ball with your trail foot against it. Hit the stick and you chunked it. Avoid it by going up ...",
+      "source": "Impact Golf Lab",
+      "url": "https://www.youtube.com/watch?v=UpTCUxHQrZI",
+      "publishedAt": "2026-09-03T12:12:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/UpTCUxHQrZI/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "5 driver headcovers with big personality",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPUmNHVzFGZEVZLS1IWXRvdTBNMHdxTzd4MzRNUUkxTjVFNDRwZVUxUWxvUXN1dTZLTnVXZFd3VmlzeU1wY2dxNEpMelY5aEhJcmtvWDVuM1lhNmVMc1pLbG1wZHdlbEtKYWlVU3B5ZTFpN1JFc2tJcXRHRDF0Sl9PanBsZzV3MUk?oc=5",
+      "publishedAt": "2026-09-03T10:50:51.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Subscribe for more golf tips!",
+      "summary": "",
+      "source": "Mark Spitzer Golf",
+      "url": "https://www.youtube.com/watch?v=2-hbiAhbsBg",
+      "publishedAt": "2026-09-02T17:49:10.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/2-hbiAhbsBg/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -153,14 +213,14 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Still working on my swing and advice would be great! #golf #golfswing",
+      "type": "article",
+      "category": "Courses",
+      "title": "Oak Valley Golf Club in Advance, North Carolina, USA",
       "summary": "",
-      "source": "Alex Knight",
-      "url": "https://www.youtube.com/watch?v=DNhhxonGU80",
-      "publishedAt": "2026-09-01T19:19:08.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/DNhhxonGU80/hqdefault.jpg"
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBXUUZTLVREZjdsdlRiYU9kQ1Z4VWs4SUNEVC04TU9jSGc4ZzZVZjVjaEpENTNMVHZ1bEoxNFkybTRJZDEtNnd0bGxfUmpCS05DRGJsU1R5R2d1dXNrUWc1OFkwN1kxOGg0SUtIVDgyclpNc3haWmpHM28yZEdpUQ?oc=5",
+      "publishedAt": "2026-09-02T00:57:17.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -170,36 +230,6 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwc1c3X014cThGRGhsUzVYMFhCSC0zNnlrclNIT2p5Um5kZkhadnRBem4xNUVscFZjM3g4ajNEcnpCdTBVcENfcF9tUDRuYlZTdnlsQklDN3J0ck0xYVVoc0xWcS1lVzBTblpSdjJIaFJic0Q5ZUJz?oc=5",
       "publishedAt": "2026-09-01T18:31:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "No1. Yip tip #golf #golfswing #golfer #golfnetwork",
-      "summary": "",
-      "source": "Green and Bear it",
-      "url": "https://www.youtube.com/watch?v=UxLBQkAJkas",
-      "publishedAt": "2026-09-01T18:09:56.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/UxLBQkAJkas/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Amateur vs Pro Golf Swing 🤯 The Difference Is HUGE! #Shorts #golf",
-      "summary": "Amateur vs Pro Golf Swing The Difference Is HUGE! #Shorts #golf Amateur vs Pro Golf Swing! 🏌️‍♂️⛳ Can you spot the ...",
-      "source": "Golf spotlight",
-      "url": "https://www.youtube.com/watch?v=s0C4MYdd4f8",
-      "publishedAt": "2026-09-01T16:44:52.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/s0C4MYdd4f8/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Travel",
-      "title": "Jones at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
-      "publishedAt": "2026-09-01T16:15:43.000Z",
       "thumbnail": ""
     },
     {
@@ -220,6 +250,16 @@
       "source": "mygolfspy.com",
       "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNU0NLelpOV3NXOWxHUDlHemdsOUtfdFU3ZlNLSXF3cURTU28tajhWSEp6ZFJTYlY3Zkw1RFBja3dFdG9XMHlnTXVMNEh1cWNENFBEQS02MWNUSjB4a3pQbWg1U2xqc1ZKMnZEYVVjUENyWVZaYXZuT0hrdjUxY1ZnbA?oc=5",
       "publishedAt": "2026-09-01T14:30:47.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Every Winning Putter Used Throughout The 2026 PGA Tour Season",
+      "summary": "",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQM2hiUmFGM2t6VF83eGlvN29TSlJPT2IxZENudVphc2IyWUFUSFF3TENCYWs1QzFpcnNnUGlrQk1fMFJiTEVZSnppZEJ6WEpFUi1vVVhLSzhKSXA4alZkTWV2Xy10OG9nUmFmRjZOdWJPVlM0QXV1Wm9NSE9jUG1kdnR0YXhJOElpX0tVSmVJNVdtSlppVU14Ym9B?oc=5",
+      "publishedAt": "2026-09-01T09:15:19.000Z",
       "thumbnail": ""
     },
     {
@@ -260,46 +300,6 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1ReE8tVHdhWGVLX0tlRXNJbnc3X3lzREtGOXBfaFZkUUlvOW1FMmw2RTc5a0NCVWR5Z1kwTWlpdWRxQQ?oc=5",
       "publishedAt": "2026-08-31T17:00:40.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Scottie Scheffler’s clubs: New driver earns second win and FedEx Cup title",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1OQ3U1Q1Roc0IwTFYzQ1U0bjdSWFJ1WXBOaFhLSE1iX29CeHZPbzR1OWFIbkxsME9DeFlUQ2VuQkZIU0VWU1F3X3VOazZXTnJYQVpIcFlFMUFjYnRsZjVGVHpVak85VkF0b1g0Rk1HM1FmcFVzcXViag?oc=5",
-      "publishedAt": "2026-08-30T22:37:13.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Travel",
-      "title": "Puntacana Resort & Club - La Cana Club - Hacienda Course in Punta Cana, La Altagracia, Dominican Republic",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPRHoySVhXb1VXcHFiUWRhd1NvNHVVN0hsZ2lGTmZPTFh2SE9FblUzNEg4bFI1bExmd1BlS1hRaGdTRW5WaWVIcXpRendTWUlMZ1A0TUpYU0tYSUFvM2tGRnBkS0h2V1I4b0FJYkFHS3RMRnRzSzNicmcxdm5UMlpwUG9jTkNid2pUZXJORk9PQmtBVFVoWktlSTVnd3o4V2JQLUNGMWpmaw?oc=5",
-      "publishedAt": "2026-08-30T18:33:19.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "McLaren Golf Series 1 irons are being freshly restocked. Pre-order while you can!",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxObGU4Z1dXUFFBTFRBaHhLT0h6QnhLQjhDd3FwcHRPajBGWUctcm1oQVVwZjRNYWx6eFZiQ1QyUzdGRFMyS0h4YXEyTjR6Tm95M0NubG80UEc5R3dQTU96Y2NDOUdzVElBOFJoVUptUnVYaTJWajVCR1J3Y3hRMzIxZzV5V0w0LUE?oc=5",
-      "publishedAt": "2026-08-29T14:02:15.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Broomsticks, Blades And Modular Mallets: Has Golf Equipment Marketing Gotten Out Of Hand?",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNb0NjbFZlQzgwdVB2MExxQUxONUFzaVRsV0pWV0ZINENfX1lMMHM2T29KYzR5aGs0QzlTbzNRbnBBZlRzbWtMckVMeDFHd0U0SHlzSU9nRnpkcndpSnA0ci11ck1USTc2WmVSOFk3Z2dCSWUtVTd5TUd4N3ZZNFZRdHVOaWozRTI0d2NCMlJvdWxLcW5nbldJZ09fcnd6ZjRjenlkMHIxVVZCQk5BdGUtT0dNbjZXbVMwc2p1WW5sc2Y?oc=5",
-      "publishedAt": "2026-08-28T12:51:09.000Z",
       "thumbnail": ""
     }
   ]
