@@ -4,7 +4,7 @@ const esc = value => String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;',
 const SUPABASE_URL = 'https://unsysuuhykdmbsasdhzg.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_lNH7z0PA6wVEztP3Bp4IUQ_xxBa38_f';
 const APP_URL = new URL('./', window.location.href).href;
-const GOOGLE_MAPS_API_KEY = 'AIzaSyAARVLbB4YN6vWgD1epj49ftEHq8WFhl88';
+const GOOGLE_MAPS_API_KEY = 'AIzaSyB62ENrS5TIOb5SChgC0MbaL6XwW3GNaog';
 const GOOGLE_MAP_ID = 'DEMO_MAP_ID';
 const MAPTILER_API_KEY = '';
 const EAGLE_GLEN_COURSE_ID = 'be42b7f5-e195-4004-9e6d-4d7e44fbe6a2';
