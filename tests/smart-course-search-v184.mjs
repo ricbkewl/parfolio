@@ -36,3 +36,11 @@ context.courseLibraryQuery='spring valley';
 assert.equal(context.rankedSharedCourses()[0].course.id,'missing','an exact requested course must remain findable even without GPS');
 
 console.log('Smart course search checks passed: ready, partial, located and missing states rank and classify correctly.');
+
+vm.runInContext(fs.readFileSync(path.join(root,'smart-course-search-v176-fix.js'),'utf8'),context);
+assert.equal(context.smartCourseMatchesQuery({name:'Sierra Lakes',city:'Fontana',postal_code:'92336'},'92336'),true);
+assert.equal(context.smartCourseMatchesQuery({name:'Recreation Park 9',postal_code:'90804'},'92336'),false);
+assert.equal(context.smartCourseMatchesQuery({name:'Double J Ranch',city:'Wimberley',state:'TX'},'Jakarta'),false);
+assert.equal(context.smartCourseMatchesQuery({name:'Sierra Lakes',city:'Fontana'},'Siera Lakes'),true);
+assert.equal(context.smartCourseMatchesQuery({name:'Sierra La Verne',city:'La Verne'},'Siera Lakes'),false);
+console.log('Strict ZIP and single-term search regressions passed.');

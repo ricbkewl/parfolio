@@ -1,0 +1,37 @@
+begin;
+create temporary table pf_audit_result(test text,passed boolean) on commit drop;
+grant select,insert on pf_audit_result to authenticated;
+select set_config('pf.audit.a',gen_random_uuid()::text,true),set_config('pf.audit.b',gen_random_uuid()::text,true),set_config('pf.audit.c',gen_random_uuid()::text,true);
+insert into auth.users(id,email,raw_user_meta_data,raw_app_meta_data)
+select current_setting('pf.audit.'||v)::uuid,'parfolio-audit-'||v||'@example.invalid','{}','{}' from (values('a'),('b'),('c')) x(v);
+set local role authenticated;
+select set_config('request.jwt.claim.sub',current_setting('pf.audit.a'),true);
+select set_config('pf.audit.round',public.create_shared_round(null,'ParFolio rollback audit',9::smallint,'[4,4,4,4,4,4,4,4,4]'::jsonb,'Audit A')::text,true);
+insert into pf_audit_result values('create round',jsonb_extract_path_text(current_setting('pf.audit.round')::jsonb,'join_code') ~ '^[A-Z0-9]{6}$');
+select set_config('pf.audit.rid',current_setting('pf.audit.round')::jsonb->>'round_id',true);
+insert into public.round_scores(round_id,user_id,hole,strokes) values(current_setting('pf.audit.rid')::uuid,auth.uid(),1,4);
+insert into pf_audit_result values('own score insert',exists(select 1 from public.round_scores where round_id=current_setting('pf.audit.rid')::uuid));
+select set_config('request.jwt.claim.sub',current_setting('pf.audit.b'),true);
+select public.join_shared_round(current_setting('pf.audit.round')::jsonb->>'join_code','Audit B');
+insert into pf_audit_result values('join and shared scorecard',exists(select 1 from public.round_scores where round_id=current_setting('pf.audit.rid')::uuid));
+with changed as(update public.round_scores set strokes=9 where round_id=current_setting('pf.audit.rid')::uuid and user_id=current_setting('pf.audit.a')::uuid returning *) insert into pf_audit_result select 'other golfer score update denied',count(*)=0 from changed;
+insert into public.round_messages(round_id,user_id,message) values(current_setting('pf.audit.rid')::uuid,auth.uid(),'rollback-only audit message');
+insert into pf_audit_result values('participant chat write',exists(select 1 from public.round_messages where round_id=current_setting('pf.audit.rid')::uuid));
+do $$begin
+  begin perform public.manage_round_status(current_setting('pf.audit.rid')::uuid,'complete');insert into pf_audit_result values('non-host end denied',false);
+  exception when insufficient_privilege then insert into pf_audit_result values('non-host end denied',true);end;
+  begin perform public.list_registered_golfers();insert into pf_audit_result values('non-admin directory denied',false);
+  exception when insufficient_privilege then insert into pf_audit_result values('non-admin directory denied',true);end;
+  begin perform public.set_course_admin('parfolio-audit-b@example.invalid');insert into pf_audit_result values('non-admin promotion denied',false);
+  exception when insufficient_privilege then insert into pf_audit_result values('non-admin promotion denied',true);end;
+end $$;
+select set_config('request.jwt.claim.sub',current_setting('pf.audit.c'),true);
+insert into pf_audit_result select 'outsider rounds hidden',count(*)=0 from public.shared_rounds where id=current_setting('pf.audit.rid')::uuid;
+insert into pf_audit_result select 'outsider scores hidden',count(*)=0 from public.round_scores where round_id=current_setting('pf.audit.rid')::uuid;
+insert into pf_audit_result select 'outsider chat hidden',count(*)=0 from public.round_messages where round_id=current_setting('pf.audit.rid')::uuid;
+select set_config('request.jwt.claim.sub',current_setting('pf.audit.a'),true);
+select public.manage_round_status(current_setting('pf.audit.rid')::uuid,'complete');
+with changed as(update public.round_scores set strokes=7 where round_id=current_setting('pf.audit.rid')::uuid returning *) insert into pf_audit_result select 'completed round score immutable',count(*)=0 from changed;
+insert into pf_audit_result select 'completed round history visible',count(*)=1 from public.shared_rounds where id=current_setting('pf.audit.rid')::uuid and status='complete';
+select jsonb_agg(to_jsonb(r)) results from pf_audit_result r;
+rollback;

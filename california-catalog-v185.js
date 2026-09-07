@@ -24,7 +24,7 @@
     const common={parfolioCatalogId:row.catalog_id,parfolioMappingClass:mapping,parfolioMappedHoleCount:Number(row.mapped_holes)||0,parfolioCaliforniaAudit:true,openGolfApiId:row.source_id||null,city:row.city||'',state:row.state_code||STATE,postal_code:row.postal_code||'',country:'United States',country_code:row.country_code||'US',address:row.address||'',catalog_point:location,par_total:Number(row.par)||null,course_type:row.course_type||'',sourceLicense:row.source_license||'ODbL-1.0',sourceAttribution:row.source_attribution||'',osmCourseUri:row.osm_course_uri||null,catalogApproved:mapping!=='quarantined',catalogOnly:mapping!=='gps_ready'};
     if(idx>=0){
       const prior=courses[idx],existingMapped=actualMappedCount(prior);
-      courses[idx]={...prior,...common,name:prior.name||row.name,holes:Number(row.holes)||prior.holes||18,pars:Array.isArray(prior.pars)?prior.pars:[],greens:Array.isArray(prior.greens)?prior.greens:[]};
+      courses[idx]={...prior,...common,postal_code:row.postal_code||prior.postal_code||'',address:row.address||prior.address||'',name:prior.name||row.name,holes:Number(row.holes)||prior.holes||18,pars:Array.isArray(prior.pars)?prior.pars:[],greens:Array.isArray(prior.greens)?prior.greens:[]};
       if(existingMapped>=Number(prior.holes||row.holes||18))courses[idx].parfolioPreservedVerifiedGeometry=true;
       return{added:false,course:courses[idx]};
     }

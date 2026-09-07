@@ -17,6 +17,7 @@ async function check(engine,label,viewport){
  const response=await page.goto(BASE,{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>typeof cloudLoading!=='undefined'&&!cloudLoading,{timeout:45000});
  await page.waitForFunction(()=>typeof courses!=='undefined'&&courses.length>1000,{timeout:60000});
+ await page.waitForFunction(()=>window.PARFOLIO_TX_CATALOG?.loaded&&window.PARFOLIO_ID_CATALOG?.loaded,{timeout:60000});
  add(label,'page load',response.status()===200);
  add(label,'home overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3));
  const home=await page.locator('body').innerText();
@@ -79,7 +80,7 @@ async function check(engine,label,viewport){
  add(label,'no console errors',consoleErrors.length===0,[...new Set(consoleErrors)]);
  const sw=await page.evaluate(async()=>{const r=await Promise.race([navigator.serviceWorker.ready,new Promise(r=>setTimeout(()=>r(null),12000))]);return !!r?.active});
  add(label,'service worker active',sw);
- if(sw){await context.setOffline(true);await page.reload({waitUntil:'domcontentloaded'});await page.waitForTimeout(2000);add(label,'offline shell',await page.locator('#app').innerText().then(t=>t.length>100));}
+ if(sw){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);try{await page.reload({waitUntil:'domcontentloaded'});await page.waitForTimeout(2000);add(label,'offline shell',await page.locator('#app').innerText().then(t=>t.length>100));}catch(e){add(label,'offline shell',false,scrub(e.message));}}
  evidence[label]={errors,bad,failed,consoleErrors};
  }catch(e){add(label,'audit completion',false,scrub(e.stack));}
  await context.close();await browser.close();

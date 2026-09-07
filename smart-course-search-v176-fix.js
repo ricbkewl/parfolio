@@ -26,13 +26,16 @@
     return prev[b.length];
   }
   function strictTokenMatch(qt,ft){
-    if(ft===qt||ft.startsWith(qt)||qt.startsWith(ft))return true;
+    if(ft===qt)return true;
+    if(Math.min(ft.length,qt.length)>=3&&(ft.startsWith(qt)||qt.startsWith(ft)))return true;
     if(qt.length<4||ft.length<4)return false;
     const d=strictLev(qt,ft),max=Math.max(qt.length,ft.length);
     return d<=1||(d===2&&max>=6);
   }
   function strictMultiMatch(course,query){
-    const terms=strictTerms(query);if(terms.length<2)return null;
+    const normalized=strictNorm(query);
+    if(/^\d{3,5}$/.test(normalized))return String(course?.postal_code||'').startsWith(normalized);
+    const terms=strictTerms(query);if(!terms.length)return null;
     const fields=[course?.name,course?.city,course?.state,course?.postal_code,course?.country,course?.country_code,course?.address]
       .filter(Boolean).flatMap(v=>strictNorm(v).split(' ').filter(Boolean));
     return terms.every(qt=>fields.some(ft=>strictTokenMatch(qt,ft)));
@@ -48,8 +51,7 @@
   if(priorRankedStrict)rankedSharedCourses=function(){
     const rows=priorRankedStrict.apply(this,arguments);
     const query=String(typeof courseLibraryQuery!=='undefined'?courseLibraryQuery:'').trim();
-    if(strictTerms(query).length<2)return rows;
-    return rows.map(row=>({...row,searchMatch:strictMultiMatch(row.course,query)===true}));
+    return rows.map(row=>{const strict=strictMultiMatch(row.course,query);return {...row,searchMatch:strict===null?row.searchMatch:strict}});
   };
 
   // Autocomplete names may contain apostrophes. Handle suggestion selection in
