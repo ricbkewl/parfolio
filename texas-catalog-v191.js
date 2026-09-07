@@ -23,9 +23,11 @@
       parfolioMappedHoleCount:Number(row.mapped_holes)||0,
       parfolioTexasAudit:true,
       openGolfApiId:row.source_id||null,
+      website:row.website||'',
       sourceLicense:row.source_license||'ODbL-1.0',
       sourceAttribution:row.source_attribution||'',
       osmCourseUri:row.osm_course_uri||null,
+      imageUrl:row.image_url||'',imageSourceUrl:row.image_source_url||'',imageLicense:row.image_license||'',imageAttribution:row.image_attribution||'',imageStatus:row.image_status||'satellite_fallback',imageReviewedAt:row.image_reviewed_at||null,
       catalogApproved:mapping!=='quarantined',
       catalogOnly:mapping!=='gps_ready'
     };

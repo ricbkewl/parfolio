@@ -27,6 +27,8 @@
       sourceLicense:row.source_license||'ODbL-1.0',
       sourceAttribution:row.source_attribution||'Contains data from OpenStreetMap contributors, ODbL 1.0',
       osmCourseUri:row.osm_course_uri||null,
+      website:row.website||'',
+      imageUrl:row.image_url||'',imageSourceUrl:row.image_source_url||'',imageLicense:row.image_license||'',imageAttribution:row.image_attribution||'',imageStatus:row.image_status||'satellite_fallback',imageReviewedAt:row.image_reviewed_at||null,
       catalogApproved:mapping!=='quarantined',
       catalogOnly:mapping!=='gps_ready'
     };
@@ -60,7 +62,7 @@
     for(let from=0;;from+=500){
       const to=from+499;
       const {data,error}=await db.from('course_catalog')
-        .select('id,source_id,source_name,normalized_name,name,city,state_code,postal_code,country_code,address,latitude,longitude,holes,par,course_type,phone,website,osm_course_uri,mapping_class,source_license,source_attribution,is_active,rejection_reason')
+        .select('id,source_id,source_name,normalized_name,name,city,state_code,postal_code,country_code,address,latitude,longitude,holes,par,course_type,phone,website,osm_course_uri,mapping_class,source_license,source_attribution,image_url,image_source_url,image_license,image_attribution,image_status,image_reviewed_at,is_active,rejection_reason')
         .eq('country_code',COUNTRY_CODE)
         .eq('is_active',true)
         .is('rejection_reason',null)
