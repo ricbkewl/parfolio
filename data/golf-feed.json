@@ -1,7 +1,87 @@
 {
-  "generatedAt": "2026-09-06T16:19:18.639Z",
+  "generatedAt": "2026-09-07T06:09:22.152Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "#GolfChallenge #GolfSkills #GolfShots #Golfer",
+      "summary": "Welcome to our Golf Channel! 🏌️‍♂️ Discover amazing golf shots, golf tips, swing techniques, training drills, course highlights, ...",
+      "source": "Parati Tarachai",
+      "url": "https://www.youtube.com/watch?v=c1siMO-fLRE",
+      "publishedAt": "2026-09-07T05:00:12.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/c1siMO-fLRE/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | Leonie Tavares",
+      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
+      "source": "GOLF Channel Shorts",
+      "url": "https://www.youtube.com/watch?v=eWwXBr954GA",
+      "publishedAt": "2026-09-07T03:36:23.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/eWwXBr954GA/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Listen up and practice! #golf #golftips #golfswing #golfer",
+      "summary": "Quick drill to play better.",
+      "source": "Scratch Over Night",
+      "url": "https://www.youtube.com/watch?v=kIdK_zjY9Mw",
+      "publishedAt": "2026-09-07T03:13:15.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/kIdK_zjY9Mw/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Headlines Changing the Game This Week",
+      "summary": "1. Dunning outfits the U.S. Women's PGA Cup team for 2026. 2. Hawaii golfers get new club fitting options with PGA pro Rich ...",
+      "source": "HomeTown Stix",
+      "url": "https://www.youtube.com/watch?v=s8RamH5LFa8",
+      "publishedAt": "2026-09-07T02:00:34.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/s8RamH5LFa8/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Travel",
+      "title": "Jones at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
+      "publishedAt": "2026-09-07T01:46:23.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Island West Golf Club in Bluffton, South Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPNFBKdld2ZTVkczFveEpudGcxb21ZbUI4cVJSOEIxUUdzMXg1RTFPUU93WUVDeHU2d0xZRDFER1VSMm1UU3diN1ZMN3JSMXRTTGJnZ1ExVEhpTFJSVExyQWFkVlBEb1AyU2ZKeDc5UVQzbThOU2h0ZWJ4b3d3SF9sUA?oc=5",
+      "publishedAt": "2026-09-07T00:47:35.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Is Your Swing Too Fast? Do This Instead #golf #golfswing",
+      "summary": "Master your rhythm with the 3-2-1 golf swing drill for better tempo. This simple sequence forces a deliberate transition at the top of ...",
+      "source": "Jim LaBuda Golf",
+      "url": "https://www.youtube.com/watch?v=UxyQ1tzpCWs",
+      "publishedAt": "2026-09-06T21:09:02.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/UxyQ1tzpCWs/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Tips From the Tour: Billings ⛳️",
+      "summary": "Getting dumped under in the downswing? Chris gives you a simple feel to clean it up: Take your hands, smack through, and get ...",
+      "source": "Chowardgolf",
+      "url": "https://www.youtube.com/watch?v=Sxk2ATbRxq0",
+      "publishedAt": "2026-09-06T20:04:32.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Sxk2ATbRxq0/hqdefault.jpg"
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -11,16 +91,6 @@
       "url": "https://www.youtube.com/watch?v=L5k9rFf7rCg",
       "publishedAt": "2026-09-06T16:10:15.000Z",
       "thumbnail": "https://i.ytimg.com/vi/L5k9rFf7rCg/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Learn how to turn the pelvis and create some tilts in your golf swing! If you are interested in",
-      "summary": "Learn how to turn the pelvis and create some tilts in your golf swing! If you are interested in learning more about your game and ...",
-      "source": "Alex Clapp Golf",
-      "url": "https://www.youtube.com/watch?v=iVzhhCJWHOI",
-      "publishedAt": "2026-09-06T16:05:33.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/iVzhhCJWHOI/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -43,26 +113,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "SENIOR GOLFERS: YOUR SWING IS YOUR THUMBPRINT",
-      "summary": "Your swing and thumbprint are alike; they are both unique to you. No two senior golfers are exactly alike. We don't have the same ...",
-      "source": "Coffee & Tee Addict",
-      "url": "https://www.youtube.com/watch?v=0VEQN4T31XE",
-      "publishedAt": "2026-09-06T14:00:25.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/0VEQN4T31XE/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Alignment is SO important! If you’re a lefty, just do the opposite for the alignment stick tips •",
-      "summary": "\"Welcome to our golf journey! ⛳ We are a golf-loving couple from the USA sharing fun matches, challenges, trick shots, and ...",
-      "source": "Couple of birdie",
-      "url": "https://www.youtube.com/watch?v=aDHTvCTNIS4",
-      "publishedAt": "2026-09-06T13:14:56.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/aDHTvCTNIS4/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "What’s more important: the shaft or the head? According to a fitter",
@@ -71,6 +121,26 @@
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5rWUNIYVI3YlVKbUFIOXJFRHQ1eFU3OGdhRWRwNmhkOFlqS1VKenNqalplem13SmQwM3BwdGlFOEI0MF95d3ZiX2c5SXlhaE1QUF9JNEl5TmhkNmkyMVJmMWVORXVhbktvN25SdjZJTUxmWk05S2h3bTdESUdSQWc?oc=5",
       "publishedAt": "2026-09-05T18:40:24.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf: best tip for ball first contact at impact",
+      "summary": "Golf: best tip for ball first contact at impact When you're hitting wedges and really all irons and even hybrids/woods, it's best to ...",
+      "source": "Mason Domecq",
+      "url": "https://www.youtube.com/watch?v=Z3gE6o1hhsQ",
+      "publishedAt": "2026-09-05T18:09:28.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Z3gE6o1hhsQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Par 5 from the tips. Can I walk the talk? #golfswing #golftips #golftok #utahgolf",
+      "summary": "",
+      "source": "Jesse Garlick",
+      "url": "https://www.youtube.com/watch?v=3FTMvCJFe5g",
+      "publishedAt": "2026-09-05T16:34:24.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/3FTMvCJFe5g/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -93,44 +163,14 @@
       "thumbnail": "https://i.ytimg.com/vi/XNOrGjcQEVI/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Struggle with your POSITION at The Top of YOUR BACKSWING? Do this drill! #golf #golfswing",
-      "summary": "Improving your golf swing requires attention to detail, especially at the top of your backswing. Many golfers struggle with their ...",
-      "source": "DewsweeperTV",
-      "url": "https://www.youtube.com/watch?v=nJ6NqSviaD8",
-      "publishedAt": "2026-09-05T12:52:24.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/nJ6NqSviaD8/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | #golf #shorts",
-      "summary": "Welcome to our golf channel! ⛳ Whether you're a beginner or an experienced golfer, you'll find helpful golf lessons, swing tips, ...",
-      "source": "GOLF Channel",
-      "url": "https://www.youtube.com/watch?v=vf3gnJaywy0",
-      "publishedAt": "2026-09-05T12:00:17.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/vf3gnJaywy0/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "3 Easy Driver Tips For The best Tee Shots Of Your Life",
-      "summary": "Stop slicing your driver and missing fairways due to poor strikes with these easy-to-follow golf tips. Fix your arm structure, ball ...",
-      "source": "Mark Crossfield",
-      "url": "https://www.youtube.com/watch?v=HIJD2j5ryyU",
-      "publishedAt": "2026-09-05T11:00:14.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/HIJD2j5ryyU/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Day 9️⃣ of giving you one golf tip every day. Follow for more tips ⛳️ #golf #golftips #golfcoach",
+      "type": "article",
+      "category": "Courses",
+      "title": "Trump offers presidential golf course in West Palm | Exclusive",
       "summary": "",
-      "source": "Michael Farrier-Twist",
-      "url": "https://www.youtube.com/watch?v=osy9z8ew0cI",
-      "publishedAt": "2026-09-05T08:26:44.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/osy9z8ew0cI/hqdefault.jpg"
+      "source": "golfweek.usatoday.com",
+      "url": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPU0FIdTZwQ1k2bGJTZy1oV2xqTWZFZFFLRVdQZUxNdm1jNDQ1RW1aOG05dFJ0TTRHY216ZS1aUUdjX1ZnazViN2ZMdmZUblU1ZXpCNUphcUpWMEJ4T1ZNLTlUZFphdXZsSFVHclREU3FuQzFvS1hoQURlcWRzdGFFV3I0TWZ6Zkx0N3ZMbzBlUEY3Z1I4TmRKOXBubldQUFJTdDBQNFlHaElZck9fa0ZFSk1Oc2hnckthS2s1Q3BWVktmUVMyb1diX0M1RQ?oc=5",
+      "publishedAt": "2026-09-04T23:49:00.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -185,16 +225,6 @@
     {
       "type": "article",
       "category": "Trends",
-      "title": "We Asked Which Driver This 115-MPH Golfer Should Buy. Nobody Would Pick One",
-      "summary": "",
-      "source": "mygolfspy.com",
-      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPNERfN0M1OXRHeGN6SjhDd1hSY3dJY2F5WkJ4clVPOWpIUGUzM3ZGLUNBZjU2eldQTTlUbmJoQ3pySmlKMFUyRTRwc0xpZ2I3TFc5MEpGcExEZDdzakpfQXJlVlNDRWQtalcyUW5iTFkzWFR0QXFDSzZJZnA4UWNDSklaVXRGNnJMbG9ERTFNUEYwX1BWT1hfU3dLZFdFaE1MMFpJaUVacngtZ3h3VlAw?oc=5",
-      "publishedAt": "2026-09-04T11:53:41.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
       "title": "Kirkland Vs. Vokey SM11: How Does The $67 Wedge Really Compare?",
       "summary": "",
       "source": "mygolfspy.com",
@@ -215,19 +245,9 @@
     {
       "type": "article",
       "category": "Trends",
-      "title": "It’s Official: The New Mizuno Pro S-4 Irons Prove We Have An All-New Irons Category",
-      "summary": "",
-      "source": "mygolfspy.com",
-      "url": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPNlE0cnF6Q0dLa01NN1gyRHBFeFFzeUEyTnJhajBYaEpMdkNiM3htclFqVVNSeG5ZNmcyOEtVeGV0OUNTZ0hYUVhHVU9TMG12ekx3YnRCR204VWtVajJsbEJuVDhUM29ySFVkNXVlZVJBNWNsNnlBNU1WSU1LVG0tZzN2YmlaVEsyaFFyblgwZjlhaFlWS0lTdjM5dVRYTno3UGpYc0pvSUdIRFpGdWt4UFlpbEdELS0w?oc=5",
-      "publishedAt": "2026-09-03T15:58:41.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
       "title": "Mizuno Pro S-4 irons offer forged feel with more forgiveness",
       "summary": "",
-      "source": "Golfweek",
+      "source": "golfweek.usatoday.com",
       "url": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxOWEdWXzBvRjBzek9oYzVxR3kwWERpMVhnUnNZMUxENHVrY21uZXJPcEJOYi1udFlPSmlHSHJpYjY0cGtnNk4wcG5WaEhQT3YtbVowUUQ0b0JJY1FSUnhmdWxwb0NkRUtfM19iOVM1UDJkNTlFbHo1Z2JzSGRmaTNJdm5NRXJpM2d6QzRXMjNMdFFnWHlyMEdoS0JXdjhPYks5dmVnSE5zR3RIekROM2RJeGZGcHhQcktjVFljYjJLQ0hSb3lhMzZwc1NBbGFqWWN2aFZJTWJ3?oc=5",
       "publishedAt": "2026-09-03T13:30:00.000Z",
       "thumbnail": ""
@@ -247,7 +267,7 @@
       "category": "Courses",
       "title": "'I Find It Rather Rude When Someone I’m Playing With Pulls Out A Mobile On The 1st Hole And Doesn’t Put It Away Again' – Has Phone Usage Become Too Widespread On The Golf Course?",
       "summary": "",
-      "source": "Golf Monthly",
+      "source": "golfmonthly.com",
       "url": "https://news.google.com/rss/articles/CBMisgJBVV95cUxPTGUwNkdzOWhCOHFGZGZydWpkUllSS0Z5TVAwRjU2TUM1Nm1fODFiYlVEQ3A2eThuR041NkVTYVV0WVViNnhGdGV1YW4yemMyNlZrZExHTnMwY2U1dGtzRkxLdU0wZ3BpZHJYekRhdGZQbnlZMFZxamRxYkhPTWNjOUJoQkxLcndTclpoZk9FUjJ0dlp2X09JTDhjZWk4SjA2SDIyRGZIUUd6SFpud3VjYlFEYWNVb1FZLWtzelFQYWdZV2luZldXU1lhMmYyYXdIYkJGeTEwUXRhWUVocV90b1FwSE1LWlg0MEdjNXE3SE9MNjdfRGs3eEJkNHFUYXNvNGppcmNfUnZKdlM4YzZhc3VXSWZ3cXJkQzRXUjZRTDlSUG5wX0hGbGVoYUJFTFI3Y0E?oc=5",
       "publishedAt": "2026-09-03T12:33:14.000Z",
       "thumbnail": ""
@@ -277,29 +297,9 @@
       "category": "Swing",
       "title": "Top PGA Pro Solves Common Short Game Problem (With One Simple Drill)",
       "summary": "",
-      "source": "Golf Monthly",
+      "source": "golfmonthly.com",
       "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPQVdwcTN4WHo1b1lQRlpiTkZ5STF4ZkpNYUg2OXoyV0duTXNCX3JwUDRuR2V2eFBEc3h2SFJhZTQ5WDNPeEJWcTN4eUNpWkRkb3dwRGFod1dLSFQ0Q0xHd2NscWJLZFRCaHlGNzkzSzhyQUFIZnJXZVRoMGVySkx3WmNrbVd4dTBSVWpsOQ?oc=5",
       "publishedAt": "2026-09-02T13:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "This driver shaft (and brand) continues to dominate the PGA Tour",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFAwc1c3X014cThGRGhsUzVYMFhCSC0zNnlrclNIT2p5Um5kZkhadnRBem4xNUVscFZjM3g4ajNEcnpCdTBVcENfcF9tUDRuYlZTdnlsQklDN3J0ck0xYVVoc0xWcS1lVzBTblpSdjJIaFJic0Q5ZUJz?oc=5",
-      "publishedAt": "2026-09-01T18:31:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Stable Legs Putting Drill",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1fVmg2S1FRVHk4TVg1Z0RRam55aUh2TmNYMV83djhDWS1LdFc2dC14aXRVTXBGUGtVMlhITFhqdzktVVZFbU1aRmg2bVZvQ1VicVNjWVlTcDNfM2RjWWQzMm1YTnQ0V2kzMmtGV1pGS21MUUJ6QXlYamVwQl9xZw?oc=5",
-      "publishedAt": "2026-09-01T14:48:00.000Z",
       "thumbnail": ""
     }
   ]
