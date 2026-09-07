@@ -348,7 +348,12 @@ async function loadCourses(){
   if(!currentUser){courses=mergeListedCourseCatalog(courses);cloudError='';return}
   const {data,error}=await db.from('courses').select('id,name,holes,pars,greens,updated_at').order('name');
   if(error){courses=mergeListedCourseCatalog(courses);cloudError=courses.length?'You are offline. Using the courses saved on this device.':'Shared courses could not be loaded. Connect to the internet and try again.';return}
-  cloudError='';courses=mergeListedCourseCatalog(data||[]);localStorage.parfolioCourses=JSON.stringify(courses);
+  // Regional loaders run once. Refresh private editor rows without discarding
+  // the already-loaded reference catalog; deleted UUID-backed rows are not retained.
+  const references=courses.filter(c=>/^(shared-|catalog-|parfolio-|opengolf-ny-)/.test(String(c.id)));
+  const merged=new Map(references.map(c=>[c.id,c]));
+  for(const row of data||[])merged.set(row.id,row);
+  cloudError='';courses=mergeListedCourseCatalog([...merged.values()]);localStorage.parfolioCourses=JSON.stringify(courses);
 }
 async function loadClubDistances(){
   clubDistances={};clubProfileError='';
