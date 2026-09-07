@@ -15,7 +15,7 @@ for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref))
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
 for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v218-/,'service-worker cache must use the v218 namespace');
+assert.match(sw,/parfolio-v219-/,'service-worker cache must use the v219 namespace');
 assert.match(app,/function addStreetLayer\(targetMap\)\{return L\.tileLayer\([^\n]+maxNativeZoom:19,maxZoom:22/,'close golf-hole zoom must upscale the last native OpenStreetMap tiles instead of requesting unavailable zoom-20 tiles');
 const configuredGoogleKey=app.match(/const GOOGLE_MAPS_API_KEY = '([^']*)';/)?.[1];
 assert.equal(configuredGoogleKey,publicConfig.google_maps_browser_key,'the live app and ParFolio public configuration must use the same Google Maps browser key');
