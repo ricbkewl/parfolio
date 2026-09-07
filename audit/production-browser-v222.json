@@ -1,0 +1,799 @@
+{
+  "url": "https://ricbkewl.github.io/parfolio/",
+  "commit": "daf77c20ddd23d4811e39a2410df5bf1fb0545d1",
+  "total": 96,
+  "passed": 95,
+  "failed": 1,
+  "results": [
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "page load"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "home overflow"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "home branding"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "home background"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "scripts load once"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "background_color": "#0a2b20",
+        "description": "Your Game. Your Score. Your Story.",
+        "display": "standalone",
+        "icons": [
+          {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          },
+          {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          }
+        ],
+        "name": "ParFolio",
+        "short_name": "ParFolio",
+        "start_url": "./",
+        "theme_color": "#176b45"
+      },
+      "ok": true,
+      "test": "PWA manifest"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "emailEnabled": true,
+        "status": 200
+      },
+      "ok": true,
+      "test": "Supabase Auth"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "indonesia": 139,
+        "shared": {
+          "added": 1213,
+          "catalogRows": 1251,
+          "error": null,
+          "gpsActive": 20,
+          "hydrated": 27,
+          "loaded": true,
+          "loadedAt": "2026-09-07T13:56:09.377Z",
+          "matched": 38,
+          "version": 145
+        },
+        "states": [
+          {
+            "count": 1150,
+            "state": "CA"
+          },
+          {
+            "count": 970,
+            "state": "NY"
+          },
+          {
+            "count": 609,
+            "state": "TX"
+          }
+        ],
+        "total": 2867
+      },
+      "ok": true,
+      "test": "catalog populated"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "added": 1213,
+        "catalogRows": 1251,
+        "error": null,
+        "gpsActive": 20,
+        "hydrated": 27,
+        "loaded": true,
+        "loadedAt": "2026-09-07T13:56:09.377Z",
+        "matched": 38,
+        "version": 145
+      },
+      "ok": true,
+      "test": "shared library pagination"
+    },
+    {
+      "area": "android-mobile",
+      "detail": 1150,
+      "ok": true,
+      "test": "CA courses"
+    },
+    {
+      "area": "android-mobile",
+      "detail": 970,
+      "ok": true,
+      "test": "NY courses"
+    },
+    {
+      "area": "android-mobile",
+      "detail": 609,
+      "ok": true,
+      "test": "TX courses"
+    },
+    {
+      "area": "android-mobile",
+      "detail": 139,
+      "ok": true,
+      "test": "Indonesia courses"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "height": 78,
+        "width": 78,
+        "x": 156,
+        "y": 744
+      },
+      "ok": true,
+      "test": "floating Map at 6 o’clock"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "course layout overflow"
+    },
+    {
+      "area": "android-mobile",
+      "detail": "⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nSierra Star Golf Club\nMammoth Lakes, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction",
+      "ok": true,
+      "test": "search Siera Lakes"
+    },
+    {
+      "area": "android-mobile",
+      "detail": "⛳\nCortland Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nElm Tree Golf Course\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWalden Oaks Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nHollow Brook Golf Course\nCortlandt Manor, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nVan Cortlandt Park Golf Course\nBronx, NY\n18 holes\n● Partial GPS\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWhite Red At Willowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWillowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nYellow Whit",
+      "ok": true,
+      "test": "search Cortland NY"
+    },
+    {
+      "area": "android-mobile",
+      "detail": "⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction",
+      "ok": true,
+      "test": "search 92336"
+    },
+    {
+      "area": "android-mobile",
+      "detail": "⛳\nJakarta Golf Club\nIndonesia\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nDamai Indah Golf & Country Club\nNorth Jakarta\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nPadang Golf Takara\nTangerang\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nGolf Bandar Kemayoran\nDKI Jakarta\n18 holes\n● Partial GPS\n›\n☆\n✎ Suggest a Course Correction\n⛳\nTopgolf Jakarta\nIndonesia\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nPadang Golf Halim\nEast Jakarta\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nRoyale Jakarta Golf Club\nEast Jakarta, Jakarta\n27 holes\n● Quarantined\n›\n☆\n✎ Suggest a Course Correction\n⛳\nSuvarna Jakarta\nIndonesia\n18 holes\n● Quarant",
+      "ok": true,
+      "test": "search Jakarta"
+    },
+    {
+      "area": "android-mobile",
+      "detail": "Show 230 Courses",
+      "ok": true,
+      "test": "Partial GPS filter"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "floating course map opens"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "signed-out protected routes"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "greens": 18,
+        "hole": 7,
+        "target": "back"
+      },
+      "ok": true,
+      "test": "editor preserves hole and marker"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite California"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite New York"
+    },
+    {
+      "area": "android-mobile",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite Indonesia"
+    },
+    {
+      "area": "android-mobile",
+      "detail": [],
+      "ok": true,
+      "test": "no JavaScript exceptions"
+    },
+    {
+      "area": "android-mobile",
+      "detail": [],
+      "ok": true,
+      "test": "no HTTP errors"
+    },
+    {
+      "area": "android-mobile",
+      "detail": [],
+      "ok": true,
+      "test": "no failed requests"
+    },
+    {
+      "area": "android-mobile",
+      "detail": [],
+      "ok": true,
+      "test": "no console errors"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "service worker active"
+    },
+    {
+      "area": "android-mobile",
+      "ok": true,
+      "test": "offline shell"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "page load"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "home overflow"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "home branding"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "home background"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "scripts load once"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "background_color": "#0a2b20",
+        "description": "Your Game. Your Score. Your Story.",
+        "display": "standalone",
+        "icons": [
+          {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          },
+          {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          }
+        ],
+        "name": "ParFolio",
+        "short_name": "ParFolio",
+        "start_url": "./",
+        "theme_color": "#176b45"
+      },
+      "ok": true,
+      "test": "PWA manifest"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "emailEnabled": true,
+        "status": 200
+      },
+      "ok": true,
+      "test": "Supabase Auth"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "indonesia": 139,
+        "shared": {
+          "added": 1213,
+          "catalogRows": 1251,
+          "error": null,
+          "gpsActive": 20,
+          "hydrated": 27,
+          "loaded": true,
+          "loadedAt": "2026-09-07T13:56:51.050Z",
+          "matched": 38,
+          "version": 145
+        },
+        "states": [
+          {
+            "count": 1150,
+            "state": "CA"
+          },
+          {
+            "count": 970,
+            "state": "NY"
+          },
+          {
+            "count": 609,
+            "state": "TX"
+          }
+        ],
+        "total": 2867
+      },
+      "ok": true,
+      "test": "catalog populated"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "added": 1213,
+        "catalogRows": 1251,
+        "error": null,
+        "gpsActive": 20,
+        "hydrated": 27,
+        "loaded": true,
+        "loadedAt": "2026-09-07T13:56:51.050Z",
+        "matched": 38,
+        "version": 145
+      },
+      "ok": true,
+      "test": "shared library pagination"
+    },
+    {
+      "area": "desktop",
+      "detail": 1150,
+      "ok": true,
+      "test": "CA courses"
+    },
+    {
+      "area": "desktop",
+      "detail": 970,
+      "ok": true,
+      "test": "NY courses"
+    },
+    {
+      "area": "desktop",
+      "detail": 609,
+      "ok": true,
+      "test": "TX courses"
+    },
+    {
+      "area": "desktop",
+      "detail": 139,
+      "ok": true,
+      "test": "Indonesia courses"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "height": 78,
+        "width": 78,
+        "x": 681,
+        "y": 800
+      },
+      "ok": true,
+      "test": "floating Map at 6 o’clock"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "course layout overflow"
+    },
+    {
+      "area": "desktop",
+      "detail": "⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nSierra Star Golf Club\nMammoth Lakes, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction",
+      "ok": true,
+      "test": "search Siera Lakes"
+    },
+    {
+      "area": "desktop",
+      "detail": "⛳\nCortland Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nElm Tree Golf Course\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWalden Oaks Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nHollow Brook Golf Course\nCortlandt Manor, NY\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nVan Cortlandt Park Golf Course\nBronx, NY\n18 holes\n● Partial GPS\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWhite Red At Willowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nWillowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nYellow Whit",
+      "ok": true,
+      "test": "search Cortland NY"
+    },
+    {
+      "area": "desktop",
+      "detail": "⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction",
+      "ok": true,
+      "test": "search 92336"
+    },
+    {
+      "area": "desktop",
+      "detail": "⛳\nJakarta Golf Club\nIndonesia\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nDamai Indah Golf & Country Club\nNorth Jakarta\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nPadang Golf Takara\nTangerang\n18 holes\n● GPS Ready\n›\n☆\n✎ Suggest a Course Correction\n⛳\nGolf Bandar Kemayoran\nDKI Jakarta\n18 holes\n● Partial GPS\n›\n☆\n✎ Suggest a Course Correction\n⛳\nTopgolf Jakarta\nIndonesia\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nPadang Golf Halim\nEast Jakarta\n18 holes\n● Course Located\n›\n☆\n✎ Suggest a Course Correction\n⛳\nRoyale Jakarta Golf Club\nEast Jakarta, Jakarta\n27 holes\n● Quarantined\n›\n☆\n✎ Suggest a Course Correction\n⛳\nSuvarna Jakarta\nIndonesia\n18 holes\n● Quarant",
+      "ok": true,
+      "test": "search Jakarta"
+    },
+    {
+      "area": "desktop",
+      "detail": "Show 230 Courses",
+      "ok": true,
+      "test": "Partial GPS filter"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "floating course map opens"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "signed-out protected routes"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "greens": 18,
+        "hole": 7,
+        "target": "back"
+      },
+      "ok": true,
+      "test": "editor preserves hole and marker"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite California"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite New York"
+    },
+    {
+      "area": "desktop",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite Indonesia"
+    },
+    {
+      "area": "desktop",
+      "detail": [],
+      "ok": true,
+      "test": "no JavaScript exceptions"
+    },
+    {
+      "area": "desktop",
+      "detail": [],
+      "ok": true,
+      "test": "no HTTP errors"
+    },
+    {
+      "area": "desktop",
+      "detail": [],
+      "ok": true,
+      "test": "no failed requests"
+    },
+    {
+      "area": "desktop",
+      "detail": [],
+      "ok": true,
+      "test": "no console errors"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "service worker active"
+    },
+    {
+      "area": "desktop",
+      "ok": true,
+      "test": "offline shell"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "page load"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "home overflow"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "home branding"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "home background"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "scripts load once"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "background_color": "#0a2b20",
+        "description": "Your Game. Your Score. Your Story.",
+        "display": "standalone",
+        "icons": [
+          {
+            "purpose": "any",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          },
+          {
+            "purpose": "maskable",
+            "sizes": "512x512",
+            "src": "parfolio-app-icon.png",
+            "type": "image/png"
+          }
+        ],
+        "name": "ParFolio",
+        "short_name": "ParFolio",
+        "start_url": "./",
+        "theme_color": "#176b45"
+      },
+      "ok": true,
+      "test": "PWA manifest"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "emailEnabled": true,
+        "status": 200
+      },
+      "ok": true,
+      "test": "Supabase Auth"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "indonesia": 139,
+        "shared": {
+          "added": 1213,
+          "catalogRows": 1251,
+          "error": null,
+          "gpsActive": 20,
+          "hydrated": 27,
+          "loaded": true,
+          "loadedAt": "2026-09-07T13:57:33.319Z",
+          "matched": 38,
+          "version": 145
+        },
+        "states": [
+          {
+            "count": 1150,
+            "state": "CA"
+          },
+          {
+            "count": 970,
+            "state": "NY"
+          },
+          {
+            "count": 609,
+            "state": "TX"
+          }
+        ],
+        "total": 2867
+      },
+      "ok": true,
+      "test": "catalog populated"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "added": 1213,
+        "catalogRows": 1251,
+        "error": null,
+        "gpsActive": 20,
+        "hydrated": 27,
+        "loaded": true,
+        "loadedAt": "2026-09-07T13:57:33.319Z",
+        "matched": 38,
+        "version": 145
+      },
+      "ok": true,
+      "test": "shared library pagination"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": 1150,
+      "ok": true,
+      "test": "CA courses"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": 970,
+      "ok": true,
+      "test": "NY courses"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": 609,
+      "ok": true,
+      "test": "TX courses"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": 139,
+      "ok": true,
+      "test": "Indonesia courses"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "height": 78,
+        "width": 78,
+        "x": 156,
+        "y": 744
+      },
+      "ok": true,
+      "test": "floating Map at 6 o’clock"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "course layout overflow"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "\n⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n\n⛳\nSierra Star Golf Club\nMammoth Lakes, CA\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n",
+      "ok": true,
+      "test": "search Siera Lakes"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "\n⛳\nCortland Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nElm Tree Golf Course\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nWalden Oaks Country Club\nCortland, NY\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nHollow Brook Golf Course\nCortlandt Manor, NY\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nVan Cortlandt Park Golf Course\nBronx, NY\n18 holes\n● Partial GPS\n›\n☆✎ Suggest a Course Correction\n\n⛳\nWhite Red At Willowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n\n⛳\nWillowbrook Golf Club\nCortland, NY\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n\n⛳\nYellow Whi",
+      "ok": true,
+      "test": "search Cortland NY"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "\n⛳\nSierra Lakes Golf Club\nFontana, CA\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n",
+      "ok": true,
+      "test": "search 92336"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "\n⛳\nJakarta Golf Club\nIndonesia\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nDamai Indah Golf & Country Club\nNorth Jakarta\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nPadang Golf Takara\nTangerang\n18 holes\n● GPS Ready\n›\n☆✎ Suggest a Course Correction\n\n⛳\nGolf Bandar Kemayoran\nDKI Jakarta\n18 holes\n● Partial GPS\n›\n☆✎ Suggest a Course Correction\n\n⛳\nTopgolf Jakarta\nIndonesia\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n\n⛳\nPadang Golf Halim\nEast Jakarta\n18 holes\n● Course Located\n›\n☆✎ Suggest a Course Correction\n\n⛳\nRoyale Jakarta Golf Club\nEast Jakarta, Jakarta\n27 holes\n● Quarantined\n›\n☆✎ Suggest a Course Correction\n\n⛳\nSuvarna Jakarta\nIndonesia\n18 holes\n● Quaran",
+      "ok": true,
+      "test": "search Jakarta"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "Show 230 Courses",
+      "ok": true,
+      "test": "Partial GPS filter"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "floating course map opens"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "signed-out protected routes"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "greens": 18,
+        "hole": 7,
+        "target": "back"
+      },
+      "ok": true,
+      "test": "editor preserves hole and marker"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite California"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite New York"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": {
+        "error": false,
+        "tiles": true
+      },
+      "ok": true,
+      "test": "Google Satellite Indonesia"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": [],
+      "ok": true,
+      "test": "no JavaScript exceptions"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": [],
+      "ok": true,
+      "test": "no HTTP errors"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": [],
+      "ok": true,
+      "test": "no failed requests"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": [],
+      "ok": true,
+      "test": "no console errors"
+    },
+    {
+      "area": "iphone-webkit",
+      "ok": true,
+      "test": "service worker active"
+    },
+    {
+      "area": "iphone-webkit",
+      "detail": "page.reload: WebKit encountered an internal error\nCall log:\n  - waiting for navigation until \"domcontentloaded\"\n",
+      "ok": false,
+      "test": "offline shell"
+    }
+  ]
+}
