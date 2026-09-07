@@ -1,0 +1,33 @@
+name: Production audit v221
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Deploy ParFolio to GitHub Pages"]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  audit:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit regressions
+        run: |
+          for test in tests/*.mjs; do node "$test"; done
+      - name: Browser dependencies
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium webkit
+      - name: Live production audit
+        run: node tests/production-audit-v221.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: production-audit-v221
+          path: audit-results/
+          retention-days: 14

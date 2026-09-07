@@ -56,7 +56,7 @@
     const q=String(courseLibraryQuery||'').trim();return (Array.isArray(courses)?courses:[]).filter(c=>courseMatchesFilters(c)&&(!q||(typeof window.smartCourseMatchesQuery==='function'?window.smartCourseMatchesQuery(c,q):[c.name,c.city,c.state,c.country,c.postal_code].filter(Boolean).join(' ').toLowerCase().includes(q.toLowerCase())))).length;
   }
   function chip(label,value,key='gpsStatus'){const on=extra[key]===value;return `<button type="button" class="pf203-chip ${on?'on':''}" data-extra-key="${key}" data-extra-value="${value}">${label}</button>`}
-  function boolChip(label,key,legacy=false){const on=legacy?!!courseLibraryFilters[key]:!!extra[key];return `<button type="button" class="pf203-chip ${on?'on':''}" data-bool-key="${key}" data-legacy="${legacy?'1':'0'}">${label}</button>`}
+  function boolChip(label,key,legacy=false){const on=key==='holes18'?courseLibraryFilters.holes===18:key==='holes9'?courseLibraryFilters.holes===9:legacy?!!courseLibraryFilters[key]:!!extra[key];return `<button type="button" class="pf203-chip ${on?'on':''}" data-bool-key="${key}" data-legacy="${legacy?'1':'0'}">${label}</button>`}
 
   renderCourseFilterSheet=function(){
     const sheet=document.querySelector('.course-filter-sheet');if(!sheet)return;

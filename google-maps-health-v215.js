@@ -75,7 +75,8 @@
     if(errorNode||/this page can.t load google maps correctly|for development purposes only/.test(bodyText))markUnhealthy('Google Maps rejected browser authorization');
   }
 
-  const observer=new MutationObserver(()=>{if(!unhealthy)requestAnimationFrame(inspect)});
+  let inspectionPending=false;
+  const observer=new MutationObserver(()=>{if(!unhealthy&&!inspectionPending){inspectionPending=true;requestAnimationFrame(()=>{inspectionPending=false;inspect()})}});
   observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
   window.addEventListener('error',event=>{
     const message=String(event?.message||'');

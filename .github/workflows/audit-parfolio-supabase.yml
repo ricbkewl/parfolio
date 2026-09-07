@@ -8,7 +8,7 @@ on:
       - 'supabase/**'
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: parfolio-supabase-audit
@@ -58,17 +58,10 @@ jobs:
           lines+=['## Summary','',f"Missing from public PostgREST schema: **{len(missing_tables)} tables** and **{len(missing_rpcs)} RPCs**.",'']
           if missing_tables:lines.append('Missing tables: '+', '.join('`'+x+'`' for x in missing_tables))
           if missing_rpcs:lines.append('Missing RPCs: '+', '.join('`'+x+'`' for x in missing_rpcs))
-          lines+=['','A `401` or `403` REST probe can still mean the relation exists and is correctly protected by RLS. A missing OpenAPI path is the stronger signal that the relation/function is not exposed or not installed.','']
+          lines+=['','A 401/403 or missing anonymous OpenAPI path is expected for protected objects; it does not prove an object is missing. Verify installation through privileged schema inspection, never by widening public grants.','']
           pathlib.Path('PARFOLIO-SUPABASE-AUDIT.md').write_text('\n'.join(lines),encoding='utf-8')
           PY
-      - name: Commit audit report
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add PARFOLIO-SUPABASE-AUDIT.md
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m 'Audit ParFolio Supabase compatibility'
-          git pull --rebase origin main
-          git push origin HEAD:main
+      - uses: actions/upload-artifact@v4
+        with:
+          name: supabase-compatibility-report
+          path: PARFOLIO-SUPABASE-AUDIT.md

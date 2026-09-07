@@ -133,7 +133,7 @@
   function suggestionsFor(query){
     if(norm(query).length<2)return[];
     return (Array.isArray(courses)?courses:[]).map((course,index)=>{const info=searchInfo(course,index,query),gps=courseGpsState(course);return{course,index,info,gps,weighted:info.relevance+gps.priority,distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}})
-      .filter(x=>x.info.match).sort((a,b)=>b.weighted-a.weighted||b.gps.rank-a.gps.rank||b.info.relevance-a.info.relevance||(a.distance??Infinity)-(b.distance??Infinity)).slice(0,6);
+      .filter(x=>x.info.match&&(!window.smartCourseMatchesQuery||window.smartCourseMatchesQuery(x.course,query))).sort((a,b)=>b.weighted-a.weighted||b.gps.rank-a.gps.rank||b.info.relevance-a.info.relevance||(a.distance??Infinity)-(b.distance??Infinity)).slice(0,6);
   }
 
   function renderSuggestions(query){

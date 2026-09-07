@@ -67,12 +67,4 @@
   window.PARFOLIO_UI_CONSISTENCY={version:VERSION,enhancePhones:()=>enhancePhones(document),unifyEditActions:()=>unifyEditActions(document)};
 })();
 
-/* v197 country-level Indonesia catalog bootstrap. */
-(function(){
-  if(document.querySelector('script[data-parfolio-indonesia-v197]'))return;
-  const script=document.createElement('script');
-  script.src='indonesia-catalog-v197.js?v=197';
-  script.async=false;
-  script.dataset.parfolioIndonesiaV197='1';
-  document.head.appendChild(script);
-})();
+/* Indonesia catalog is loaded once by index.html. */

@@ -19,8 +19,8 @@
     const sourceGreens=Array.isArray(c.greens)?c.greens:[];
     c.greens=Array.from({length:holes},(_,i)=>normalizeGreen(sourceGreens[i]));
     c.pars=Array.from({length:holes},(_,i)=>Number(c.pars?.[i])||4);
-    c.mapHole=1;
-    c.target=c.greens[0]?.tees?'center':catalog?'tee':'center';
+    c.mapHole=Math.max(1,Math.min(holes,Number(c.mapHole)||1));
+    c.target=c.target||(c.greens[c.mapHole-1]?.tees?'center':catalog?'tee':'center');
     c.mapStyle=c.mapStyle||'satellite';
     if(validPoint(c.catalog_point)&&!c.mapView)c.mapView={lat:Number(c.catalog_point.lat),lng:Number(c.catalog_point.lng),zoom:17};
     return c;
