@@ -636,7 +636,14 @@ async function syncPendingHoleStats(){
   })();
   try{return await statsSyncPromise}finally{statsSyncPromise=null}
 }
-function scheduleRealtimeRefresh(){clearTimeout(realtimeTimer);realtimeTimer=setTimeout(async()=>{if(!s.sharedRoundId)return;await loadSharedRound(false);if(['round','recap'].includes(s.v))render()},350)}
+function refreshLiveRoundUi(){
+  if(s.v!=='round'||s.done||!inlineHoleMap)return false;
+  const name=myRoundPlayerName(),par=Number(s.pars[s.hole-1])||4,holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);
+  if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;
+  if($('roundScoreTotal'))$('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
+  updateSyncIndicator();return true;
+}
+function scheduleRealtimeRefresh(){clearTimeout(realtimeTimer);realtimeTimer=setTimeout(async()=>{if(!s.sharedRoundId)return;const activeView=s.v;await loadSharedRound(false);if(activeView==='round'&&refreshLiveRoundUi())return;if(['round','recap'].includes(s.v))render()},350)}
 function scheduleChatRefresh(){clearTimeout(chatTimer);chatTimer=setTimeout(async()=>{if(!s.sharedRoundId)return;await loadRoundMessages(false);if(s.v==='chatView')render()},250)}
 function updateChatBadge(){const badge=$('chatUnreadBadge');if(!badge)return;badge.textContent=unreadChatCount>99?'99+':String(unreadChatCount);badge.classList.toggle('hidden',!unreadChatCount)}
 function showChatToast(item){
@@ -972,6 +979,9 @@ function fitLiveHoleView(green){
   inlineViewResetting=true;inlineUserMovedMap=false;inlineHoleGreen=green;$('mapRecenterButton')?.classList.add('hidden');
   const points=[...holeRoute(green),green.front,green.back].filter(Boolean);
   if(inlineHoleMap.provider==='google'){
+    if(typeof window.applyParFolioHoleCamera==='function'){
+      window.applyParFolioHoleCamera(green,true);inlineViewResetting=false;inlineUserMovedMap=false;$('mapRecenterButton')?.classList.add('hidden');return;
+    }
     const rawMap=inlineHoleMap.raw,bounds=new google.maps.LatLngBounds();points.forEach(point=>bounds.extend(googlePoint(point)));if(googleDirectionalCameraSupported(rawMap)){rawMap.setHeading(0);rawMap.setTilt(0)}
     google.maps.event.addListenerOnce(rawMap,'idle',async()=>{if(inlineHoleMap?.raw!==rawMap)return;orientInlineHoleMap(green);await onceGoogleMapIdle(rawMap);if(inlineHoleMap?.raw!==rawMap)return;await maximizeGoogleHoleZoom(rawMap,points);if(inlineHoleMap?.raw!==rawMap)return;inlineViewResetting=false;inlineUserMovedMap=false;$('mapRecenterButton')?.classList.add('hidden')});
     rawMap.fitBounds(bounds,{top:145,right:48,bottom:72,left:48});return;
@@ -1424,7 +1434,7 @@ db.auth.onAuthStateChange((event,session)=>{
     setTimeout(()=>changePassword(),250);
   }
 });
-window.addEventListener('online',async()=>{await Promise.all([syncPendingScores(),syncPendingHoleStats()]);await loadCourses();if(s.sharedRoundId)await loadSharedRound(false);render()});
+window.addEventListener('online',async()=>{const activeView=s.v;await Promise.all([syncPendingScores(),syncPendingHoleStats()]);await loadCourses();if(s.sharedRoundId)await loadSharedRound(false);if(activeView==='round'&&refreshLiveRoundUi())return;render()});
 window.addEventListener('offline',updateSyncIndicator);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 initializeCloud();

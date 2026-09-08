@@ -71,6 +71,13 @@
     }
   }
   window.normalizeParFolioGpsIndicators=normalizeIndicators;
-  new MutationObserver(()=>normalizeIndicators()).observe(document.documentElement,{childList:true,subtree:true});
+  let normalizationPending=false;
+  new MutationObserver(()=>{
+    if(typeof s!=='undefined'&&s?.v!=='coursesView')return;
+    if(!document.querySelector('.smart-course-row,.smart-course-suggestions'))return;
+    if(normalizationPending)return;
+    normalizationPending=true;
+    requestAnimationFrame(()=>{normalizationPending=false;normalizeIndicators()});
+  }).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
   setTimeout(normalizeIndicators,300);
 })();

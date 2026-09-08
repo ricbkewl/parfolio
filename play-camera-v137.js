@@ -2,6 +2,7 @@
 (function(){
   const MAX_PLAY_TILT=67.5;
   const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+  const appliedCamera=new WeakMap();
 
   function pointAlongRoute(route,fraction=.46){
     if(!route?.length)return null;
@@ -38,19 +39,27 @@
     };
   };
 
+  function cameraSignature(camera){
+    return [Number(s?.hole)||1,camera.center.lat.toFixed(7),camera.center.lng.toFixed(7),camera.zoom.toFixed(3),camera.heading.toFixed(3),camera.tilt].join(':');
+  }
+
+  window.applyParFolioHoleCamera=function(green,force=false){
+    if(inlineHoleMap?.provider!=='google'||!selectedTee(green)||!green?.center)return false;
+    if(inlineUserMovedMap&&!inlineViewResetting&&!force)return false;
+    const camera=atgHoleFinalCamera(green),rawMap=inlineHoleMap.raw,container=$('liveHoleMap');if(!camera||!rawMap)return false;
+    const signature=cameraSignature(camera);
+    if(!force&&appliedCamera.get(rawMap)===signature)return false;
+    if(container){container.dataset.forwardBearing=String(camera.heading);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
+    moveGoogleCamera(rawMap,camera);appliedCamera.set(rawMap,signature);return true;
+  };
+
   /* Override only Google's automatic orientation. MapTiler keeps its existing fit.
      This makes every mapped Google hole use the same framing rules instead of
      inheriting the prior hole's zoom. */
   const priorOrient137=orientInlineHoleMap;
   orientInlineHoleMap=function(green,origin=null,target=null){
     if(inlineHoleMap?.provider!=='google'){priorOrient137(green,origin,target);return;}
-    if(!selectedTee(green)||!green?.center)return;
-    const camera=atgHoleFinalCamera(green),container=$('liveHoleMap');if(!camera)return;
-    const start=origin||selectedTee(green),end=target||green.center,heading=origin&&target?bearingDegrees(start,end):camera.heading;
-    if(container){container.dataset.forwardBearing=String(heading);container.style.setProperty('--map-bearing','0deg');container.style.transform='none';}
-    if(!inlineUserMovedMap||inlineViewResetting){
-      moveGoogleCamera(inlineHoleMap.raw,{...camera,heading});
-    }
+    applyParFolioHoleCamera(green,false);
   };
 
   /* The base initializer can fit bounds before the tilt enhancement runs. Reapply
@@ -59,8 +68,6 @@
   const priorInit137=initInlineHoleMap;
   initInlineHoleMap=async function(green){
     await priorInit137(green);
-    if(inlineHoleMap?.provider!=='google'||inlineUserMovedMap)return;
-    const apply=()=>{const camera=atgHoleFinalCamera(green);if(camera&&inlineHoleMap?.provider==='google')moveGoogleCamera(inlineHoleMap.raw,camera)};
-    apply();setTimeout(apply,220);setTimeout(apply,700);
+    applyParFolioHoleCamera(green,false);
   };
 })();

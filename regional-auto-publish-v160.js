@@ -16,6 +16,8 @@
     const holes=Number(course?.holes)||18,mapped=completeCount(course);
     const complete=(holes===9&&mapped>=9)||(holes!==9&&mapped>=18);
     if(!complete)return false;
+    const alreadyPublished=course.catalogOnly===false&&course.catalogApproved===true&&course.sharedLibraryGpsActive===true&&course.sharedMappingStatus==='published'&&course.mappingStatus==='published'&&course.gpsStatus==='published'&&course._autoPublished?.version===160&&course._autoPublished?.region===region&&course._autoPublished?.mappedHoles===mapped&&course.greens.every(g=>!g?.tee||!g?.center||g._review==='published-gps');
+    if(alreadyPublished)return false;
     course.catalogOnly=false;
     course.catalogApproved=true;
     course.sharedLibraryGpsActive=true;
@@ -38,7 +40,8 @@
     const prior=loadSharedCourseLibrary;
     loadSharedCourseLibrary=async function(options){const result=await prior(options);sweep();return result;};
   }
-  const observer=new MutationObserver(()=>sweep());
-  observer.observe(document.documentElement,{childList:true,subtree:true});
-  [0,500,1500,3500].forEach(ms=>setTimeout(sweep,ms));
+  // Catalog publication is a data lifecycle event, not a DOM lifecycle event.
+  // Watching the whole document caused every Google Maps tile/control mutation
+  // to rescan and serialize the complete catalog on mobile Safari.
+  [0,800,2500].forEach(ms=>setTimeout(sweep,ms));
 })();

@@ -70,14 +70,20 @@
 
   function inspect(){
     if(unhealthy)return;
-    const bodyText=(document.body?.innerText||'').toLowerCase();
     const errorNode=document.querySelector('.gm-err-container,.gm-err-message');
-    if(errorNode||/this page can.t load google maps correctly|for development purposes only/.test(bodyText))markUnhealthy('Google Maps rejected browser authorization');
+    const errorText=(errorNode?.textContent||'').toLowerCase();
+    if(errorNode&&/can.t load google maps correctly|google maps.*error|development purposes only/.test(errorText))markUnhealthy('Google Maps rejected browser authorization');
   }
 
   let inspectionPending=false;
-  const observer=new MutationObserver(()=>{if(!unhealthy&&!inspectionPending){inspectionPending=true;requestAnimationFrame(()=>{inspectionPending=false;inspect()})}});
-  observer.observe(document.documentElement,{childList:true,subtree:true,characterData:true});
+  const isErrorSurface=node=>node?.nodeType===1&&(node.matches?.('.gm-err-container,.gm-err-message')||node.querySelector?.('.gm-err-container,.gm-err-message'));
+  const observer=new MutationObserver(records=>{
+    if(unhealthy||inspectionPending)return;
+    const relevant=records.some(record=>isErrorSurface(record.target)||[...record.addedNodes].some(isErrorSurface));
+    if(!relevant)return;
+    inspectionPending=true;requestAnimationFrame(()=>{inspectionPending=false;inspect()});
+  });
+  observer.observe(document.documentElement,{childList:true,subtree:true});
   window.addEventListener('error',event=>{
     const message=String(event?.message||'');
     if(/google maps|maps javascript api|referernotallowed|billingnotenabled|invalidkeymaperror|apiprojectmaperror/i.test(message))markUnhealthy(message);
