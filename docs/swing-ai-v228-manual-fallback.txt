@@ -1,0 +1,1 @@
+Manual phase and overlay controls remain intentionally available as correction tools even after automatic detectors are added.
