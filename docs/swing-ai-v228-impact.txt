@@ -1,0 +1,1 @@
+Impact detection is a priority validation target because it is fast, visually difficult at low frame rate and important for phase/club analysis.
