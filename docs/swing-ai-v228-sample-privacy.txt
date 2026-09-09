@@ -1,0 +1,1 @@
+IMG_7593.mp4 itself is not stored in GitHub. Only dimensions/frame-rate/duration metadata are used for the development note.
