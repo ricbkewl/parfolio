@@ -1,0 +1,1 @@
+Production release requires merge to main and successful deployment verification. Branch creation or branch commits alone are not a live production release.
