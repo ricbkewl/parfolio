@@ -1,0 +1,1 @@
+Current v228 automatic-first foundation is ready to open as a pull request for review; full CV detector work remains explicitly pending.
