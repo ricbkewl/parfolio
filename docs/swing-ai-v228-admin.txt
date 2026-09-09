@@ -1,0 +1,1 @@
+ParFolio AI remains restricted to course_admin and super_admin during this development phase.
