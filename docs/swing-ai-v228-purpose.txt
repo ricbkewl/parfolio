@@ -1,0 +1,1 @@
+Goal: make automatic detection the normal Swing AI workflow and manual marking the exception.
