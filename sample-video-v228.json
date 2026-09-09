@@ -1,0 +1,1 @@
+{"sample":"IMG_7593.mp4","purpose":"first automatic swing detector validation sample","observed":{"fps":30,"frames":279,"width":512,"height":910,"duration_seconds":9.3},"privacy":"local test metadata only; video itself is not committed","notes":"Use to validate automatic-first phase workflow. Do not treat timing-only proposals as verified biomechanics."}
