@@ -1,0 +1,1 @@
+Checkpoint: v228 automatic-first phase proposal workflow is implemented on feature branch; full body/club CV and production merge remain outstanding.
