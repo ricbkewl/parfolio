@@ -1,0 +1,1 @@
+v228 is automatic-first, not full computer vision. It proposes phase timing automatically and preserves manual correction. Body skeleton and club tracking remain pending real CV integration. Do not describe timing proposals as verified swing measurements.
