@@ -1,23 +1,42 @@
-/* ParFolio Google Maps loader v181.
-   The production Google Maps browser key is supplied at deploy time through
-   parfolio-runtime-config.js. The repository keeps no production browser key
-   in this loader. */
+/* ParFolio Google Maps loader v238.
+   Production browser key is supplied by Vercel at runtime through /api/runtime-config.
+   The browser key is intentionally not stored in the GitHub repository. */
 (function(){
-  let readyPromise=null;
-  const callbackName='__parfolioGoogleMapsReady181';
+  let readyPromise=null,configPromise=null;
+  const callbackName='__parfolioGoogleMapsReady238';
 
   function apiReady(){return typeof window.google?.maps?.Map==='function'&&typeof window.google?.maps?.marker?.AdvancedMarkerElement==='function'}
+  function configuredKey(){return String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim()||String(typeof GOOGLE_MAPS_API_KEY!=='undefined'?GOOGLE_MAPS_API_KEY:'').trim()}
+
+  function loadRuntimeConfig(){
+    const existing=configuredKey();
+    if(existing)return Promise.resolve(existing);
+    if(configPromise)return configPromise;
+    configPromise=new Promise((resolve,reject)=>{
+      const old=document.querySelector('script[data-parfolio-runtime-config]');
+      if(old)old.remove();
+      const script=document.createElement('script');
+      script.src='/api/runtime-config?ts='+Date.now();
+      script.async=false;
+      script.dataset.parfolioRuntimeConfig='1';
+      script.onload=()=>{
+        const key=configuredKey();
+        if(key)resolve(key);
+        else{configPromise=null;reject(new Error('ParFolio Google Maps key is not configured in Vercel'))}
+      };
+      script.onerror=()=>{configPromise=null;reject(new Error('ParFolio runtime config endpoint could not be loaded'))};
+      document.head.appendChild(script);
+    });
+    return configPromise;
+  }
 
   loadGoogleMaps=function(){
     if(apiReady())return Promise.resolve(window.google.maps);
     if(readyPromise)return readyPromise;
 
-    const runtimeKey=String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim();
-    const key=runtimeKey||String(typeof GOOGLE_MAPS_API_KEY!=='undefined'?GOOGLE_MAPS_API_KEY:'').trim();
-    if(!key)return Promise.reject(new Error('ParFolio Google Maps key is not configured'));
-
-    readyPromise=new Promise((resolve,reject)=>{
+    readyPromise=loadRuntimeConfig().then(key=>new Promise((resolve,reject)=>{
       let settled=false;
+      const fail=message=>{if(settled)return;settled=true;readyPromise=null;try{delete window[callbackName]}catch{}reject(new Error(message))};
       const finish=()=>{
         if(settled)return;
         if(apiReady()){
@@ -29,7 +48,7 @@
 
       window[callbackName]=()=>{
         finish();
-        if(!settled){settled=true;reject(new Error('Google Maps callback fired without a Map constructor'))}
+        if(!settled)fail('Google Maps callback fired without required constructors');
       };
 
       document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]').forEach(script=>{
@@ -41,24 +60,15 @@
       script.src=`https://maps.googleapis.com/maps/api/js?${params.toString()}`;
       script.async=true;
       script.defer=true;
-      script.onerror=()=>{
-        if(settled)return;
-        settled=true;
-        readyPromise=null;
-        try{delete window[callbackName]}catch{}
-        reject(new Error('Google Maps JavaScript API could not be downloaded'));
-      };
+      script.onerror=()=>fail('Google Maps JavaScript API could not be downloaded');
       document.head.appendChild(script);
 
       setTimeout(()=>{
         if(settled)return;
         if(apiReady()){finish();return}
-        settled=true;
-        readyPromise=null;
-        try{delete window[callbackName]}catch{}
-        reject(new Error('Google Maps did not become ready within 12 seconds'));
+        fail('Google Maps did not become ready within 12 seconds');
       },12000);
-    });
+    })).catch(error=>{readyPromise=null;throw error});
 
     return readyPromise;
   };
