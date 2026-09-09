@@ -1,0 +1,1 @@
+Current automatic phase times are low-confidence timing proposals, not computer-vision-verified golf phases. Skeleton and clubhead tracking are not yet automatic. The UI must state this until validated detectors replace these placeholders.
