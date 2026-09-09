@@ -1,12 +1,12 @@
-/* ParFolio Google Maps loader v238.
-   Production browser key is supplied by Vercel at runtime through /api/runtime-config.
-   The browser key is intentionally not stored in the GitHub repository. */
+/* ParFolio Google Maps loader v239.
+   Production browser key is supplied only by Vercel at runtime through /api/runtime-config.
+   No repository constant is used as a fallback. */
 (function(){
   let readyPromise=null,configPromise=null;
-  const callbackName='__parfolioGoogleMapsReady238';
+  const callbackName='__parfolioGoogleMapsReady239';
 
   function apiReady(){return typeof window.google?.maps?.Map==='function'&&typeof window.google?.maps?.marker?.AdvancedMarkerElement==='function'}
-  function configuredKey(){return String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim()||String(typeof GOOGLE_MAPS_API_KEY!=='undefined'?GOOGLE_MAPS_API_KEY:'').trim()}
+  function configuredKey(){return String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim()}
 
   function loadRuntimeConfig(){
     const existing=configuredKey();
