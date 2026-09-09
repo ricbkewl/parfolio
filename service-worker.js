@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v245-20260909';
+const CACHE_NAME='parfolio-v249-20260909';
 const APP_SHELL=[
   './',
   './index.html',
