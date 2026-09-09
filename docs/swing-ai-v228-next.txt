@@ -1,0 +1,1 @@
+Next implementation: add a validated browser-compatible human pose detector for automatic body landmarks, then use pose trajectories to improve phase detection before adding golf-specific club tracking.
