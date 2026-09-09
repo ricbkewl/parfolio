@@ -1,0 +1,1 @@
+Record Video and Choose Existing Video remain separate controls. Current selected media stays local in the browser preview via object URL; there is no backend video upload in v228.
