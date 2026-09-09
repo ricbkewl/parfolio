@@ -1,0 +1,1 @@
+Development branch has automatic-first upload wiring, phase proposal module, v228 cache/version bump and sample metadata. Full pose/club CV remains a subsequent implementation step.
