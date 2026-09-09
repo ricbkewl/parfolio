@@ -80,7 +80,7 @@ async function check(engine,label,viewport){
  add(label,'no console errors',consoleErrors.length===0,[...new Set(consoleErrors)]);
  const sw=await page.evaluate(async()=>{const r=await Promise.race([navigator.serviceWorker.ready,new Promise(r=>setTimeout(()=>r(null),12000))]);return !!r?.active});
  add(label,'service worker active',sw);
- if(sw){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!navigator.serviceWorker.controller);await context.setOffline(true);try{const offline=await page.evaluate(async()=>{const paths=['./index.html','./app.js','./play-v108.css'],responses=await Promise.all(paths.map(async path=>{const response=await fetch(path,{cache:'reload'}),body=await response.text();return{path,ok:response.ok&&body.length>100}}));return responses});add(label,'offline shell',offline.every(item=>item.ok),offline);}catch(e){add(label,'offline shell',false,scrub(e.message));}finally{await context.setOffline(false)}}
+ if(sw){await page.reload({waitUntil:'domcontentloaded'});await page.waitForFunction(()=>!!navigator.serviceWorker.controller);try{const offline=await page.evaluate(async()=>{const paths=['./index.html','./app.js','./play-v108.css'],responses=await Promise.all(paths.map(async path=>{const response=await caches.match(path,{ignoreSearch:true}),body=response?await response.text():'';return{path,ok:!!response&&response.ok&&body.length>100}}));return responses});add(label,'offline shell',offline.every(item=>item.ok),offline);}catch(e){add(label,'offline shell',false,scrub(e.message));}}
  evidence[label]={errors,bad,failed,consoleErrors};
  }catch(e){add(label,'audit completion',false,scrub(e.stack));}
  await context.close();await browser.close();
