@@ -1,0 +1,1 @@
+Before merge: inspect diff for accidental unrelated changes, verify index/service worker assets, then confirm deployment status after merge.
