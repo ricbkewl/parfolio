@@ -1,0 +1,1 @@
+Warning: current phase proposals are not intelligent pose-based phase recognition yet. They are a transition scaffold and must be replaced by validated computer vision before calling the feature fully automatic.
