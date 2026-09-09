@@ -62,7 +62,8 @@
     if(!['recap','historyDetailView'].includes(s?.v))return;
     const heading=app.querySelector('h1');if(!heading||app.querySelector('.scorecard-atg-brand'))return;
     const brand=document.createElement('div');brand.className='scorecard-atg-brand';brand.innerHTML='<img src="parfolio-app-icon.png" alt="ParFolio"><div><b>PARFOLIO</b><small>Your Game. Your Score. Your Story.</small></div>';
-    heading.parentElement?.insertBefore(brand,heading.parentElement.firstChild);
+    const scorecardHeading=heading.closest('.scorecard-heading');
+    (scorecardHeading||heading).parentElement?.insertBefore(brand,scorecardHeading||heading);
   }
   const priorRecap=recap;
   recap=function(){priorRecap();addScorecardLogo();};
