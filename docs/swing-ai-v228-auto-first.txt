@@ -1,0 +1,1 @@
+Primary UX principle: analyze automatically; ask the golfer to intervene only when confidence is low or a correction is desired.
