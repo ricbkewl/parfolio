@@ -1,0 +1,1 @@
+Automatic results first; user correction second. Manual marking remains available because confidence-aware correction is required for production-quality sports computer vision.
