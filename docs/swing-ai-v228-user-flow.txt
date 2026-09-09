@@ -1,0 +1,1 @@
+User flow: choose camera view and club -> Record Video or Choose Existing Video -> automatic analysis first pass -> review results -> correct only if necessary -> verified analytics -> AI Coach.
