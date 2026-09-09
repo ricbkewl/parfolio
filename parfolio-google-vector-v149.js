@@ -1,6 +1,4 @@
-/* ParFolio Google Maps loader v239.
-   Production browser key is supplied only by Vercel at runtime through /api/runtime-config.
-   No repository constant is used as a fallback. */
+/* ParFolio Google Maps loader v256.\n   The public, referrer-restricted browser key is read from ParFolio's same-origin public config so GitHub Pages and Vercel use the same map runtime. */
 (function(){
   let readyPromise=null,configPromise=null;
   const callbackName='__parfolioGoogleMapsReady239';
@@ -12,21 +10,16 @@
     const existing=configuredKey();
     if(existing)return Promise.resolve(existing);
     if(configPromise)return configPromise;
-    configPromise=new Promise((resolve,reject)=>{
-      const old=document.querySelector('script[data-parfolio-runtime-config]');
-      if(old)old.remove();
-      const script=document.createElement('script');
-      script.src='/api/runtime-config?ts='+Date.now();
-      script.async=false;
-      script.dataset.parfolioRuntimeConfig='1';
-      script.onload=()=>{
-        const key=configuredKey();
-        if(key)resolve(key);
-        else{configPromise=null;reject(new Error('ParFolio Google Maps key is not configured in Vercel'))}
-      };
-      script.onerror=()=>{configPromise=null;reject(new Error('ParFolio runtime config endpoint could not be loaded'))};
-      document.head.appendChild(script);
-    });
+    const configUrl=new URL('./parfolio-public-config.json',document.baseURI);
+    configPromise=fetch(configUrl,{cache:'no-store'})
+      .then(response=>{if(!response.ok)throw new Error('ParFolio public map config could not be loaded');return response.json()})
+      .then(config=>{
+        const key=String(config?.google_maps_browser_key||'').trim();
+        if(!key)throw new Error('ParFolio Google Maps key is not configured');
+        window.PARFOLIO_GOOGLE_MAPS_API_KEY=key;
+        return key;
+      })
+      .catch(error=>{configPromise=null;throw error});
     return configPromise;
   }
 

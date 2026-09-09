@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v255-20260909';
+const CACHE_NAME='parfolio-v256-20260909';
 const APP_SHELL=[
   './','./index.html','./manifest.webmanifest','./parfolio-app-icon.png','./parfolio-home-bg-v162.webp','./vendor/leaflet/leaflet.css','./vendor/leaflet/leaflet.js','./vendor/supabase-v2.112.4.js','./styles.css','./menu-v107.css','./home-v162.css','./parfolio-ai-v225.css','./app.js','./tennessee-catalog-v255.js'
 ];

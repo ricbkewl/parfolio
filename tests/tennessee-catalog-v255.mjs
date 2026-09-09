@@ -84,11 +84,11 @@ assert.equal(ready.greens.length,18);
 assert.ok(ready.greens.every(hole=>hole.tee&&hole.center));
 assert.equal(ready.catalogOnly,false);
 
-const html=read('index.html'),sw=read('service-worker.js');
+const html=read('index.html'),sw=read('service-worker.js'),vector=read('parfolio-google-vector-v149.js');
 assert.match(html,/tennessee-catalog-v255\.js\?v=255/);
 assert.match(sw,/parfolio-v255-/);
 assert.match(sw,/\.\/tennessee-catalog-v255\.js/);
-assert.match(read('play-camera-v137.js'),/heading:bearingDegrees\(tee,green\.center\)/);
+assert.match(vector,/new URL\('\.\/parfolio-public-config\.json',document\.baseURI\)/);\nassert.doesNotMatch(vector,/script\.src='\/api\/runtime-config/);\nassert.match(html,/parfolio-google-vector-v149\.js\?v=256/);\nassert.match(sw,/parfolio-v256-/);\nassert.match(read('play-camera-v137.js'),/heading:bearingDegrees\(tee,green\.center\)/);
 assert.match(read('hole-flyover-v129.js'),/const FLYOVER_MS=2750/);
 assert.match(read('course-corrections-v147.js'),/submit_parfolio_course_correction/);
 assert.match(read('course-corrections-v147.js'),/p_source_app:'parfolio'/);
