@@ -1,0 +1,1 @@
+Automatic-first preview: phase proposals now; full pose and club computer vision next. Manual marking is correction/fallback, not intended normal workflow.
