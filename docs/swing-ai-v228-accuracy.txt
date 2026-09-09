@@ -1,0 +1,1 @@
+Accuracy policy: uncertain detections are visibly uncertain. ParFolio should prefer asking for correction over confidently displaying a wrong phase, body landmark or club path.
