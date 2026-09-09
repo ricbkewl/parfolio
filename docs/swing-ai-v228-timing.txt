@@ -1,0 +1,1 @@
+Source video frame timing should be preserved. Slow-motion playback metadata must not be confused with original capture frame rate during future detector processing.
