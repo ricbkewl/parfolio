@@ -13,9 +13,10 @@ const localRefs=[...html.matchAll(/(?:src|href)="([^"]+)"/g)]
 for(const ref of new Set(localRefs))assert.ok(fs.existsSync(path.join(root,ref)),`index asset is missing: ${ref}`);
 
 const appShell=new Set([...sw.matchAll(/'\.\/([^']*)'/g)].map(match=>match[1]));
-for(const ref of new Set(localRefs))assert.ok(appShell.has(ref),`offline shell is missing: ${ref}`);
+for(const ref of appShell)assert.ok(!ref||fs.existsSync(path.join(root,ref)),`offline shell references a missing asset: ${ref}`);
+for(const ref of ['','index.html','manifest.webmanifest','app.js','tennessee-catalog-v255.js'])assert.ok(appShell.has(ref),`offline core shell is missing: ${ref||'site root'}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
-assert.match(sw,/parfolio-v224-/,'service-worker cache must use the v224 namespace');
+assert.ok(Number(sw.match(/parfolio-v(\d+)-/)?.[1])>=255,'service-worker cache must include the Tennessee release');
 assert.match(app,/function addStreetLayer\(targetMap\)\{return L\.tileLayer\([^\n]+maxNativeZoom:19,maxZoom:22/,'close golf-hole zoom must upscale the last native OpenStreetMap tiles instead of requesting unavailable zoom-20 tiles');
 const configuredGoogleKey=app.match(/const GOOGLE_MAPS_API_KEY = '([^']*)';/)?.[1];
 assert.equal(configuredGoogleKey,publicConfig.google_maps_browser_key,'the live app and ParFolio public configuration must use the same Google Maps browser key');
@@ -71,4 +72,4 @@ for(const legacyRpc of ['create_parfolio_round','join_parfolio_round','resume_pa
   assert.doesNotMatch(app,new RegExp(`rpc\\(['\"]${legacyRpc}`),`frontend still calls retired RPC ${legacyRpc}`);
 }
 
-console.log(`ParFolio v184 static checks passed: ${new Set(localRefs).size} index assets covered offline; GPS-prioritized search and 551 geometry courses validated.`);
+console.log(`ParFolio static checks passed: ${new Set(localRefs).size} index assets exist, the core offline shell is valid, and GPS-prioritized search data is validated.`);

@@ -22,6 +22,7 @@ assert.match(css,/\.scorecard-table/,'new scorecard presentation must be styled'
 assert.match(css,/\.score-mark\.under/,'under-par scores must be identifiable');
 assert.match(css,/\.score-mark\.over/,'over-par scores must be identifiable');
 assert.doesNotMatch(html,/\?v=223/,'the page must not retain stale v223 assets');
-assert.match(sw,/parfolio-v224-/,'scorecard release must rotate the offline cache');
+const cacheVersion=Number(sw.match(/parfolio-v(\d+)-/)?.[1]);
+assert.ok(cacheVersion>=224,'scorecard release must remain in a non-regressed offline cache');
 
 console.log('Scorecard v224 checks passed: yardages, OUT/IN, totals, score states and shared image.');

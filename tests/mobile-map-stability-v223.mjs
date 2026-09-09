@@ -30,7 +30,8 @@ assert.doesNotMatch(camera,/origin&&target\?bearingDegrees/,'GPS updates must no
 assert.match(app,/function refreshLiveRoundUi\(/,'live score updates need an in-place UI refresh');
 assert.match(app,/activeView==='round'&&refreshLiveRoundUi\(\)/,'Realtime and reconnect updates must preserve the active map');
 assert.match(app,/window\.applyParFolioHoleCamera\(green,true\)/,'initial view and recenter must use the authoritative camera');
-assert.match(read('service-worker.js'),/parfolio-v224-/,'Safari stability fix must remain active in the v224 cache');
+const cacheVersion=Number(read('service-worker.js').match(/parfolio-v(\d+)-/)?.[1]);
+assert.ok(cacheVersion>=224,'Safari stability fix must remain active in a non-regressed cache');
 assert.doesNotMatch(read('index.html'),/\?v=223/,'the page must not reference stale v223 assets');
 
 let catalogWrites=0;
