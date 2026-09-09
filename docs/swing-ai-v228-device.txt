@@ -1,0 +1,1 @@
+Target current iOS Safari/PWA and Android Chrome/PWA. Exact camera and media-picker presentation may vary by device/browser.
