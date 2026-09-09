@@ -26,6 +26,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 CATALOG_URL = "https://raw.githubusercontent.com/opengolfapi/data/main/opengolfapi-us.csv"
 CENSUS_URL = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer/0/query"
 OUT = ROOT / "data/tn-osm-gps-v255.json"
+SHARD_GLOB = "tn-osm-gps-v255-courses-*.json"
 REPORT = ROOT / "TN-GPS-MAPPING-REPORT.md"
 STATE = "TN"
 STATE_FIPS = "47"
@@ -556,7 +557,20 @@ def write_outputs(payload):
         "",
         "Only complete, unambiguous 9-hole or 18-hole layouts are GPS Ready. Partial and ambiguous geometry is retained for review and never promoted to playable GPS.",
     ]
+    courses = payload.pop("courses")
+    source_ids = sorted(courses)
+    shard_names = []
+    for index in range(0, len(source_ids), 50):
+        shard_name = f"tn-osm-gps-v255-courses-{index // 50 + 1}.json"
+        shard_names.append(shard_name)
+        shard = {source_id: courses[source_id] for source_id in source_ids[index:index + 50]}
+        (OUT.parent / shard_name).write_text(json.dumps(shard, separators=(",", ":")), encoding="utf-8")
+    for stale in OUT.parent.glob(SHARD_GLOB):
+        if stale.name not in shard_names:
+            stale.unlink()
+    payload["courseShards"] = shard_names
     OUT.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+    payload["courses"] = courses
     REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines), flush=True)
 
@@ -626,6 +640,10 @@ def build():
 
 def reconcile_existing():
     payload = json.loads(OUT.read_text(encoding="utf-8"))
+    if "courseShards" in payload:
+        payload["courses"] = {}
+        for shard_name in payload.pop("courseShards"):
+            payload["courses"].update(json.loads((OUT.parent / shard_name).read_text(encoding="utf-8")))
     payload["sourceLicenses"] = {"OpenGolf": "ODbL 1.0 / DbCL 1.0 contents", "OpenStreetMap": "ODbL 1.0", "US Census boundary": "U.S. public domain"}
     for course in payload["courses"].values():
         course["issues"] = [issue for issue in course.get("issues", []) if issue != "reconciled exact-name OSM facility boundary"]

@@ -6,13 +6,31 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "data/tn-osm-gps-v255.json"
-TARGET = ROOT / "supabase/migrations/20260909202253_parfolio_tennessee_catalog_v255.sql"
+TARGETS = [
+    ROOT / "supabase/migrations/20260909202253_parfolio_tennessee_catalog_v255.sql",
+    ROOT / "supabase/migrations/20260909203825_parfolio_tennessee_catalog_v255_part2.sql",
+    ROOT / "supabase/migrations/20260909203854_parfolio_tennessee_catalog_v255_part3.sql",
+    ROOT / "supabase/migrations/20260909203903_parfolio_tennessee_catalog_v255_part4.sql",
+]
 
 
-def main():
-    payload = json.loads(SOURCE.read_text(encoding="utf-8"))
-    compact = json.dumps(payload, separators=(",", ":")).replace("$tn$", "$ tn $")
-    sql = f"""-- ParFolio v255: audited Tennessee catalog and validated OSM geometry.
+def lean_courses(courses):
+    migration_courses = {}
+    course_fields = (
+        "sourceId", "sourceName", "name", "city", "postalCode", "address", "latitude", "longitude",
+        "declaredHoles", "sourceHoles", "sourcePar", "courseType", "phone", "website", "osmCourseUri", "mappingClass",
+    )
+    hole_fields = ("hole", "par", "tee", "aim1", "aim2", "front", "center", "back", "route", "osmHoleUri")
+    for source_id, course in courses.items():
+        lean = {field: course.get(field) for field in course_fields}
+        lean["greens"] = [{field: hole.get(field) for field in hole_fields} for hole in course.get("greens", [])]
+        migration_courses[source_id] = lean
+    return migration_courses
+
+
+def migration_sql(courses, part):
+    compact = json.dumps({"courses": lean_courses(courses)}, separators=(",", ":")).replace("$tn$", "$ tn $")
+    return f"""-- ParFolio v255: audited Tennessee catalog and validated OSM geometry (part {part}/4).
 -- OpenGolfAPI and OpenStreetMap database content is ODbL 1.0.
 do $migration$
 declare
@@ -130,8 +148,21 @@ begin
 end
 $migration$;
 """
-    TARGET.write_text(sql, encoding="utf-8")
-    print(f"Wrote {TARGET.relative_to(ROOT)} ({len(sql):,} bytes)")
+
+
+def main():
+    payload = json.loads(SOURCE.read_text(encoding="utf-8"))
+    if "courseShards" in payload:
+        shards = [json.loads((SOURCE.parent / shard_name).read_text(encoding="utf-8")) for shard_name in payload["courseShards"]]
+    else:
+        course_items = list(payload["courses"].items())
+        shards = [dict(course_items[index:index + 50]) for index in range(0, len(course_items), 50)]
+    if len(shards) != len(TARGETS):
+        raise RuntimeError(f"expected {len(TARGETS)} Tennessee migration shards, got {len(shards)}")
+    for part, (target, courses) in enumerate(zip(TARGETS, shards), 1):
+        sql = migration_sql(courses, part)
+        target.write_text(sql, encoding="utf-8")
+        print(f"Wrote {target.relative_to(ROOT)} ({len(sql):,} bytes)")
 
 
 if __name__ == "__main__":

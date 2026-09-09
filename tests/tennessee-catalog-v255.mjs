@@ -6,6 +6,10 @@ import vm from 'node:vm';
 const root=path.resolve(import.meta.dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
 const audit=JSON.parse(read('data/tn-osm-gps-v255.json'));
+if(Array.isArray(audit.courseShards)){
+  audit.courses={};
+  for(const shard of audit.courseShards)Object.assign(audit.courses,JSON.parse(read(`data/${shard}`)));
+}
 const all=Object.values(audit.courses||{});
 const validPoint=point=>point&&Number.isFinite(Number(point.lat))&&Number.isFinite(Number(point.lng))&&Math.abs(Number(point.lat))<=90&&Math.abs(Number(point.lng))<=180&&!(Number(point.lat)===0&&Number(point.lng)===0);
 
