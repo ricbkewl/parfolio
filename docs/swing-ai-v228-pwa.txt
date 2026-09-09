@@ -1,0 +1,1 @@
+AI asset query version is v228 and service worker cache name is parfolio-v228-20260909 on the development branch.
