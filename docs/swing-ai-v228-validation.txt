@@ -1,0 +1,1 @@
+Do not promote automatic body/club detections to production claims until tested against representative face-on and down-the-line swing videos with manual ground-truth review.
