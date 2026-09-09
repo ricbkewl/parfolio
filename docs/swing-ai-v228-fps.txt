@@ -1,0 +1,1 @@
+30 fps sample accepted. Prefer 120 fps for future swing capture when lighting/device support permits; 240 fps may help impact but increases size/light demands.
