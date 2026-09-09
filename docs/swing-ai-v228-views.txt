@@ -1,0 +1,1 @@
+Automatic detector must support both down-the-line and face-on capture. Measurements and coaching interpretations must account for the selected camera view.
