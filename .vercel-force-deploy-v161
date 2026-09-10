@@ -1,2 +1,2 @@
-ParFolio v161 production rebuild trigger.
-Includes resilient super-admin role loading and current main branch state.
+ParFolio production rebuild trigger.
+2026-09-09: redeploy after adding PARFOLIO_GOOGLE_MAPS_API_KEY to Vercel Production environment.
