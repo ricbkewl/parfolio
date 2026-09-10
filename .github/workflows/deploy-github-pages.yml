@@ -1,4 +1,4 @@
-name: Deploy ParFolio to GitHub Pages
+name: Redirect ParFolio GitHub Pages to Vercel
 
 on:
   push:
@@ -21,19 +21,57 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:
           enablement: true
 
-      - name: Upload ParFolio site
+      - name: Build redirect-only site
+        shell: bash
+        run: |
+          mkdir -p _site
+          cat > _site/index.html <<'HTML'
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width,initial-scale=1">
+            <meta name="robots" content="noindex">
+            <meta http-equiv="refresh" content="1;url=https://parfolio-iota.vercel.app/">
+            <link rel="canonical" href="https://parfolio-iota.vercel.app/">
+            <title>ParFolio moved</title>
+          </head>
+          <body>
+            <main style="font-family:system-ui,sans-serif;max-width:38rem;margin:12vh auto;padding:1.5rem;text-align:center">
+              <h1>ParFolio has moved</h1>
+              <p>Opening the current ParFolio production app…</p>
+              <p><a href="https://parfolio-iota.vercel.app/">Continue to ParFolio</a></p>
+            </main>
+            <script>
+              (async()=>{
+                try{
+                  if('serviceWorker' in navigator){
+                    const regs=await navigator.serviceWorker.getRegistrations();
+                    await Promise.all(regs.map(r=>r.unregister()));
+                  }
+                  if('caches' in window){
+                    const keys=await caches.keys();
+                    await Promise.all(keys.map(k=>caches.delete(k)));
+                  }
+                }catch(e){}
+                location.replace('https://parfolio-iota.vercel.app/'+location.search+location.hash);
+              })();
+            </script>
+          </body>
+          </html>
+          HTML
+          cp _site/index.html _site/404.html
+
+      - name: Upload redirect site
         uses: actions/upload-pages-artifact@v4
         with:
-          path: '.'
+          path: _site
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy redirect to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
