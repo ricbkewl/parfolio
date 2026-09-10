@@ -1,8 +1,9 @@
-/* Version 137: one deterministic final Google camera per mapped hole. */
+/* ParFolio v257: deterministic 3D Google camera with delayed VECTOR readiness recovery. */
 (function(){
   const MAX_PLAY_TILT=67.5;
   const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
   const appliedCamera=new WeakMap();
+  const readinessArmed=new WeakSet();
 
   function pointAlongRoute(route,fraction=.46){
     if(!route?.length)return null;
@@ -31,7 +32,7 @@
     const route=holeRoute(green);
     const yards=mappedHoleDistance(green)||Math.round(distanceYards(tee,green.center));
     return{
-      center:pointBetween(tee,green.center,.5),
+      center:pointAlongRoute(route,.5)||pointBetween(tee,green.center,.5),
       zoom:zoomForHole(yards),
       heading:bearingDegrees(tee,green.center),
       tilt:MAX_PLAY_TILT,
@@ -43,31 +44,62 @@
     return [Number(s?.hole)||1,camera.center.lat.toFixed(7),camera.center.lng.toFixed(7),camera.zoom.toFixed(3),camera.heading.toFixed(3),camera.tilt].join(':');
   }
 
+  function vectorReady(rawMap){
+    try{return !!window.google?.maps?.RenderingType?.VECTOR&&rawMap?.getRenderingType?.()===google.maps.RenderingType.VECTOR}catch{return false}
+  }
+
+  function armVectorRecovery(rawMap,green){
+    if(!rawMap||readinessArmed.has(rawMap))return;
+    readinessArmed.add(rawMap);
+    let attempts=0,finished=false;
+    const retry=()=>{
+      if(finished||inlineHoleMap?.raw!==rawMap)return;
+      attempts++;
+      if(vectorReady(rawMap)){
+        finished=true;
+        window.applyParFolioHoleCamera?.(green,true);
+        return;
+      }
+      if(attempts<18)setTimeout(retry,140);
+    };
+    try{rawMap.addListener?.('renderingtype_changed',retry)}catch{}
+    try{rawMap.addListener?.('idle',retry)}catch{}
+    setTimeout(retry,0);
+  }
+
   window.applyParFolioHoleCamera=function(green,force=false){
     if(inlineHoleMap?.provider!=='google'||!selectedTee(green)||!green?.center)return false;
     if(inlineUserMovedMap&&!inlineViewResetting&&!force)return false;
     const camera=atgHoleFinalCamera(green),rawMap=inlineHoleMap.raw,container=$('liveHoleMap');if(!camera||!rawMap)return false;
-    const signature=cameraSignature(camera);
-    if(!force&&appliedCamera.get(rawMap)===signature)return false;
+    const signature=cameraSignature(camera),ready=vectorReady(rawMap);
+    if(!force&&ready&&appliedCamera.get(rawMap)===signature)return false;
     if(container){container.dataset.forwardBearing=String(camera.heading);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
-    moveGoogleCamera(rawMap,camera);appliedCamera.set(rawMap,signature);return true;
+
+    /* Always place/zoom the hole immediately. Heading and tilt are safe only once
+       Google confirms VECTOR rendering. Never memoize an early flat camera. */
+    if(ready){
+      moveGoogleCamera(rawMap,camera);
+      appliedCamera.set(rawMap,signature);
+    }else{
+      moveGoogleCamera(rawMap,{center:camera.center,zoom:camera.zoom});
+      appliedCamera.delete(rawMap);
+      armVectorRecovery(rawMap,green);
+    }
+    return true;
   };
 
-  /* Override only Google's automatic orientation. MapTiler keeps its existing fit.
-     This makes every mapped Google hole use the same framing rules instead of
-     inheriting the prior hole's zoom. */
   const priorOrient137=orientInlineHoleMap;
   orientInlineHoleMap=function(green,origin=null,target=null){
     if(inlineHoleMap?.provider!=='google'){priorOrient137(green,origin,target);return;}
     applyParFolioHoleCamera(green,false);
   };
 
-  /* The base initializer can fit bounds before the tilt enhancement runs. Reapply
-     the deterministic camera after tiles/rendering settle so initial hole views,
-     restores, and flyover landings all agree. */
   const priorInit137=initInlineHoleMap;
   initInlineHoleMap=async function(green){
     await priorInit137(green);
-    applyParFolioHoleCamera(green,false);
+    if(inlineHoleMap?.provider==='google'&&inlineHoleMap.raw){
+      armVectorRecovery(inlineHoleMap.raw,green);
+      applyParFolioHoleCamera(green,false);
+    }
   };
 })();
