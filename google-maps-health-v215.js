@@ -1,9 +1,8 @@
-/* ParFolio v215 — systemwide Google Maps health/fallback guard.
-   A rejected browser key/project/referrer must never leave Google's error overlay
-   covering the editor or live round. Mark Google unhealthy once per session and
-   route all later map initialization through the existing Leaflet/OSM fallbacks. */
+/* ParFolio v261 — recoverable systemwide Google Maps health/fallback guard.
+   Google remains the preferred provider. Only confirmed authorization/project failures
+   disable it for the current session; transient network/timeouts may retry normally. */
 (function(){
-  let unhealthy=false, handling=false;
+  let hardUnhealthy=false,handling=false;
   const originalLoad=window.loadGoogleMaps;
 
   function courseGreen(){
@@ -31,7 +30,7 @@
         if(typeof s!=='undefined'&&s?.v==='mapCourse'&&typeof initMap==='function'){
           const container=document.getElementById('courseMap');
           if(container)container.innerHTML='';
-          try{if(map){map.remove()} }catch{}
+          try{if(map){map.remove()}}catch{}
           try{map=null}catch{}
           initMap();
         }else if(typeof s!=='undefined'&&s?.v==='round'){
@@ -46,20 +45,31 @@
     },0);
   }
 
+  function isHardFailure(reason=''){
+    return /auth|referer|referrer|billing|invalid.?key|api.?project|not.?allowed|denied|development purposes only/i.test(String(reason));
+  }
+
   function markUnhealthy(reason){
-    if(unhealthy)return;
-    unhealthy=true;
+    if(!isHardFailure(reason)){
+      console.warn('ParFolio Google Maps transient failure; fallback allowed and future retries remain enabled:',reason||'temporary loading failure');
+      return;
+    }
+    if(hardUnhealthy)return;
+    hardUnhealthy=true;
     window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY=true;
-    console.warn('ParFolio disabled Google Maps for this session:',reason||'authorization/rendering failure');
+    console.warn('ParFolio disabled Google Maps for this session after confirmed authorization failure:',reason||'authorization failure');
     fallbackCurrentSurface();
   }
 
   window.parfolioMarkGoogleMapsUnhealthy=markUnhealthy;
+  window.parfolioResetGoogleMapsHealth=function(){hardUnhealthy=false;window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY=false;};
 
   window.loadGoogleMaps=function(){
-    if(unhealthy||window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY)return Promise.reject(new Error('Google Maps disabled after authorization/rendering failure'));
+    if(hardUnhealthy||window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY)return Promise.reject(new Error('Google Maps disabled after confirmed authorization failure'));
     if(typeof originalLoad!=='function')return Promise.reject(new Error('Google Maps loader unavailable'));
-    return Promise.resolve().then(()=>originalLoad()).catch(error=>{markUnhealthy(error?.message||error);throw error});
+    return Promise.resolve().then(()=>originalLoad()).then(maps=>{
+      hardUnhealthy=false;window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY=false;return maps;
+    }).catch(error=>{markUnhealthy(error?.message||error);throw error});
   };
 
   const previousAuthFailure=window.gm_authFailure;
@@ -69,21 +79,22 @@
   };
 
   function inspect(){
-    if(unhealthy)return;
+    if(hardUnhealthy)return;
     const errorNode=document.querySelector('.gm-err-container,.gm-err-message');
     const errorText=(errorNode?.textContent||'').toLowerCase();
-    if(errorNode&&/can.t load google maps correctly|google maps.*error|development purposes only/.test(errorText))markUnhealthy('Google Maps rejected browser authorization');
+    if(errorNode&&/can.t load google maps correctly|google maps.*error|development purposes only/.test(errorText))markUnhealthy(errorText||'Google Maps authorization error');
   }
 
   let inspectionPending=false;
   const isErrorSurface=node=>node?.nodeType===1&&(node.matches?.('.gm-err-container,.gm-err-message')||node.querySelector?.('.gm-err-container,.gm-err-message'));
   const observer=new MutationObserver(records=>{
-    if(unhealthy||inspectionPending)return;
+    if(hardUnhealthy||inspectionPending)return;
     const relevant=records.some(record=>isErrorSurface(record.target)||[...record.addedNodes].some(isErrorSurface));
     if(!relevant)return;
     inspectionPending=true;requestAnimationFrame(()=>{inspectionPending=false;inspect()});
   });
   observer.observe(document.documentElement,{childList:true,subtree:true});
+  window.addEventListener('online',()=>{if(!hardUnhealthy)window.PARFOLIO_GOOGLE_MAPS_UNHEALTHY=false});
   window.addEventListener('error',event=>{
     const message=String(event?.message||'');
     if(/google maps|maps javascript api|referernotallowed|billingnotenabled|invalidkeymaperror|apiprojectmaperror/i.test(message))markUnhealthy(message);
