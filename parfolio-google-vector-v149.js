@@ -1,9 +1,9 @@
-/* ParFolio Google Maps loader v262.
-   Google base-map readiness and the Advanced Marker library are loaded in sequence so a
-   normal async marker-library delay never forces an OpenStreetMap fallback. */
+/* ParFolio Google Maps loader v263.
+   The base Google map is the only blocking requirement. Advanced Markers are
+   optional enhancement and must never force an OpenStreetMap fallback. */
 (function(){
-  let readyPromise=null,configPromise=null;
-  const callbackName='__parfolioGoogleMapsReady262';
+  let readyPromise=null,configPromise=null,markerPromise=null;
+  const callbackName='__parfolioGoogleMapsReady263';
   const baseReady=()=>typeof window.google?.maps?.Map==='function';
   const markerReady=()=>typeof window.google?.maps?.marker?.AdvancedMarkerElement==='function';
   const configuredKey=()=>String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim();
@@ -17,22 +17,26 @@
     return configPromise;
   }
 
-  async function ensureMarkerLibrary(){
-    if(markerReady())return;
-    if(typeof window.google?.maps?.importLibrary==='function'){
-      await window.google.maps.importLibrary('marker');
-      if(markerReady())return;
-    }
-    const start=Date.now();
-    while(Date.now()-start<5000){if(markerReady())return;await new Promise(r=>setTimeout(r,50));}
-    throw new Error('Google Maps marker library did not become ready');
+  function warmMarkerLibrary(){
+    if(markerReady())return Promise.resolve(true);
+    if(markerPromise)return markerPromise;
+    markerPromise=Promise.resolve().then(async()=>{
+      try{
+        if(typeof window.google?.maps?.importLibrary==='function')await window.google.maps.importLibrary('marker');
+        return markerReady();
+      }catch(error){
+        console.warn('ParFolio Advanced Markers unavailable; using Google standard marker compatibility.',error);
+        return false;
+      }
+    });
+    return markerPromise;
   }
 
   function loadBaseScript(key){
-    if(baseReady())return Promise.resolve();
+    if(baseReady()){warmMarkerLibrary();return Promise.resolve(window.google.maps)};
     return new Promise((resolve,reject)=>{
       let settled=false;
-      const finish=()=>{if(settled)return;settled=true;try{delete window[callbackName]}catch{};baseReady()?resolve():reject(new Error('Google Maps callback fired before base map was ready'))};
+      const finish=()=>{if(settled)return;if(!baseReady())return;settled=true;try{delete window[callbackName]}catch{};warmMarkerLibrary();resolve(window.google.maps)};
       const fail=message=>{if(settled)return;settled=true;try{delete window[callbackName]}catch{};reject(new Error(message))};
       window[callbackName]=finish;
       document.querySelectorAll('script[src*="maps.googleapis.com/maps/api/js"]').forEach(script=>{if(!baseReady())try{script.remove()}catch{}});
@@ -44,9 +48,10 @@
   }
 
   loadGoogleMaps=function(){
-    if(baseReady()&&markerReady())return Promise.resolve(window.google.maps);
+    if(baseReady()){warmMarkerLibrary();return Promise.resolve(window.google.maps)}
     if(readyPromise)return readyPromise;
-    readyPromise=loadRuntimeConfig().then(async key=>{await loadBaseScript(key);await ensureMarkerLibrary();return window.google.maps}).catch(error=>{readyPromise=null;throw error});
+    readyPromise=loadRuntimeConfig().then(loadBaseScript).catch(error=>{readyPromise=null;throw error});
     return readyPromise;
   };
+  window.parfolioWarmGoogleMarkerLibrary=warmMarkerLibrary;
 })();
