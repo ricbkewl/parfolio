@@ -1,12 +1,12 @@
-/* ParFolio v204 — streamlined grouped side menu. */
+/* ParFolio v259 — streamlined grouped side menu with consolidated Settings. */
 (function(){
   const LABELS={
-    en:{current:'CURRENT ROUND',invite:'Invite Players',history:'Round History',golf:'GOLF',settings:'SETTINGS'},
-    es:{current:'RONDA ACTUAL',invite:'Invitar jugadores',history:'Historial de rondas',golf:'GOLF',settings:'AJUSTES'},
-    zh:{current:'当前球局',invite:'邀请球员',history:'球局记录',golf:'高尔夫',settings:'设置'},
-    id:{current:'RONDE SAAT INI',invite:'Undang Pemain',history:'Riwayat Ronde',golf:'GOLF',settings:'PENGATURAN'},
-    hi:{current:'मौजूदा राउंड',invite:'खिलाड़ियों को बुलाएँ',history:'राउंड इतिहास',golf:'गोल्फ',settings:'सेटिंग्स'},
-    fr:{current:'PARTIE EN COURS',invite:'Inviter des joueurs',history:'Historique des parties',golf:'GOLF',settings:'RÉGLAGES'}
+    en:{current:'CURRENT ROUND',invite:'Invite Players',history:'Round History',golf:'GOLF',settings:'SETTINGS',account:'Account & Profile'},
+    es:{current:'RONDA ACTUAL',invite:'Invitar jugadores',history:'Historial de rondas',golf:'GOLF',settings:'AJUSTES',account:'Cuenta y perfil'},
+    zh:{current:'当前球局',invite:'邀请球员',history:'球局记录',golf:'高尔夫',settings:'设置',account:'账户与个人资料'},
+    id:{current:'RONDE SAAT INI',invite:'Undang Pemain',history:'Riwayat Ronde',golf:'GOLF',settings:'PENGATURAN',account:'Akun & Profil'},
+    hi:{current:'मौजूदा राउंड',invite:'खिलाड़ियों को बुलाएँ',history:'राउंड इतिहास',golf:'गोल्फ',settings:'सेटिंग्स',account:'खाता और प्रोफ़ाइल'},
+    fr:{current:'PARTIE EN COURS',invite:'Inviter des joueurs',history:'Historique des parties',golf:'GOLF',settings:'RÉGLAGES',account:'Compte et profil'}
   };
   const labels=()=>LABELS[typeof appLanguage!=='undefined'?appLanguage:'en']||LABELS.en;
   const icon=(glyph)=>`<span class="menu-line-icon" aria-hidden="true">${glyph}</span>`;
@@ -28,9 +28,25 @@
       .app-side-menu.menu-v204 header{margin-bottom:2px;min-height:64px}
       .app-side-menu.menu-v204 .pf-social-menu-section.menu-section-label{margin-top:9px!important;margin-bottom:3px!important}
       .app-side-menu.menu-v204>button.pf-social-menu-section{min-height:47px!important;margin-top:0!important;margin-bottom:0!important;padding-top:6px!important;padding-bottom:6px!important}
+      .app-side-menu.menu-v204 .menu-settings-back{margin-top:4px}
+      .app-side-menu.menu-v204 .menu-settings-title{padding:8px 20px 5px;color:#fff;font-size:18px;font-weight:800;letter-spacing:.01em}
       @media(max-height:760px){.app-side-menu.menu-v204>button{min-height:44px;padding-top:5px;padding-bottom:5px}.app-side-menu.menu-v204>.menu-section-label{margin-top:7px}.app-side-menu.menu-v204 header{min-height:58px}}
     `;document.head.appendChild(style);
   }
+
+  window.showParFolioSettingsMenu=function(){
+    injectStyle();closeRoundQuickMenu();
+    const L=labels(),overlay=document.createElement('div');overlay.className='app-menu-overlay';overlay.onclick=event=>{if(event.target===overlay)closeRoundQuickMenu()};
+    overlay.innerHTML=`<section class="app-side-menu menu-v204" role="dialog" aria-modal="true" aria-label="${esc(L.settings)}">
+      <header><button class="menu-about-logo" onclick="openAboutFromMenu()" aria-label="${esc(t('about'))}"><img src="parfolio-app-icon.png" alt="ParFolio"><small>${esc(t('about'))}</small></button><button class="menu-close" onclick="closeRoundQuickMenu()" aria-label="${esc(t('close'))}">×</button></header>
+      <button class="menu-settings-back" onclick="closeRoundQuickMenu();showAppMenu()">${icon('‹')}<div>${esc(t('menu'))}</div></button>
+      <div class="menu-settings-title">${esc(L.settings.charAt(0)+L.settings.slice(1).toLowerCase())}</div>
+      <button onclick="${closeAnd("accountAction()")}">${icon('●')}<div>${esc(L.account)}</div></button>
+      <button onclick="${closeAnd("openClubs('round')")}" ${currentUser?'':'disabled'}>${icon('♧')}<div>${esc(menuExtraLabel('clubs'))}</div></button>
+      <button onclick="${closeAnd("showLanguageMenu()")}">${icon('文')}<div>${esc(t('language'))}<small>${esc(APP_LANGUAGES[appLanguage])}</small></div></button>
+    </section>`;
+    document.body.appendChild(overlay);
+  };
 
   showAppMenu=function(){
     injectStyle();closeRoundQuickMenu();
@@ -48,11 +64,9 @@
       <button class="menu-start-round" onclick="${closeAnd("start()")}">${icon('＋')}<div>${esc(startNewRoundLabel())}</div></button>
       ${section(L.golf)}
       <button onclick="${closeAnd("openCoursesFromNav()")}">${icon('◫')}<div>${esc(courseLabel)}</div></button>
-      <button onclick="${closeAnd("openClubs('round')")}" ${currentUser?'':'disabled'}>${icon('♧')}<div>${esc(menuExtraLabel('clubs'))}</div></button>
       <button onclick="${closeAnd("openHistory()")}">${icon('↶')}<div>${esc(L.history)}</div></button>
       ${section(L.settings)}
-      <button onclick="${closeAnd("showLanguageMenu()")}">${icon('文')}<div>${esc(t('language'))}<small>${esc(APP_LANGUAGES[appLanguage])}</small></div></button>
-      <button onclick="${closeAnd("accountAction()")}">${icon('●')}<div>${esc(t('myAccount'))}</div></button>
+      <button onclick="closeRoundQuickMenu();showParFolioSettingsMenu()">${icon('⚙')}<div>${esc(L.settings.charAt(0)+L.settings.slice(1).toLowerCase())}<small>${esc(L.account)} · ${esc(menuExtraLabel('clubs'))} · ${esc(t('language'))}</small></div></button>
     </section>`;
     document.body.appendChild(overlay);
   };
