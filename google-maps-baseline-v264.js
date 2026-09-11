@@ -1,7 +1,7 @@
-/* ParFolio v265 — Google Maps baseline reset.
-   ATG-inspired architecture: one loader, one renderer path, standard Google markers.
-   Google is primary. OpenStreetMap is used only after a real base API or map-constructor failure.
-   Overlay, planner, marker, camera, and tilt failures never switch providers. */
+/* ParFolio v266 — flat Google Maps baseline.
+   Stability-first architecture: Google base map + standard markers + normal pan/zoom only.
+   No forced vector mode, heading, tilt, 3D camera steering, or flyover state transitions.
+   OpenStreetMap is used only after a real base API or map-constructor failure. */
 (function(){
   let mapsPromise=null;
   const diag=[];
@@ -40,7 +40,7 @@
     if(mapsPromise)return mapsPromise;
     mapsPromise=getKey().then(key=>new Promise((resolve,reject)=>{
       record('BASE_API_LOAD_START');
-      const callback='__parfolioGoogleMapsBaseReady265';
+      const callback='__parfolioGoogleMapsBaseReady266';
       let settled=false;
       const fail=message=>{
         if(settled)return;settled=true;mapsPromise=null;
@@ -76,12 +76,20 @@
   function mapTypeForLive(){return liveMapStyle==='satellite'?'satellite':'terrain'}
 
   function createRoundGoogleMap(container,green){
-    const options={center:googlePoint(green.center),zoom:17,mapTypeId:mapTypeForLive(),heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'};
-    if(google.maps.RenderingType?.VECTOR)options.renderingType=google.maps.RenderingType.VECTOR;
+    const options={
+      center:googlePoint(green.center),
+      zoom:17,
+      mapTypeId:mapTypeForLive(),
+      disableDefaultUI:true,
+      clickableIcons:false,
+      gestureHandling:'greedy',
+      keyboardShortcuts:false,
+      backgroundColor:'#173c2b'
+    };
     record('MAP_CONSTRUCTOR_START',options.mapTypeId);
     const rawMap=new google.maps.Map(container,options);
     record('MAP_CONSTRUCTOR_OK');
-    try{google.maps.event.addListenerOnce(rawMap,'tilesloaded',()=>{let rendering='unknown';try{rendering=String(rawMap.getRenderingType?.()||'unknown')}catch{}record('TILES_LOADED',rendering)})}catch{}
+    try{google.maps.event.addListenerOnce(rawMap,'tilesloaded',()=>record('TILES_LOADED','flat'))}catch{}
     return rawMap;
   }
 
@@ -119,13 +127,11 @@
       try{localStorage.parfolioMapLastOverlayFailure=JSON.stringify({time:new Date().toISOString(),message})}catch{}
     }
 
-    try{
-      setTimeout(()=>{
-        if(inlineHoleMap?.raw!==rawMap)return;
-        rawMap.addListener('dragstart',showMapRecenterButton);rawMap.addListener('zoom_changed',showMapRecenterButton);rawMap.addListener('heading_changed',showMapRecenterButton);rawMap.addListener('tilt_changed',showMapRecenterButton);
-      },650);
-      record('GOOGLE_ROUND_READY');
-    }catch(error){record('CAMERA_LISTENER_FAIL_STAY_GOOGLE',error?.message||error)}
+    setTimeout(()=>{
+      if(inlineHoleMap?.raw!==rawMap)return;
+      try{rawMap.addListener('dragstart',showMapRecenterButton);rawMap.addListener('zoom_changed',showMapRecenterButton)}catch(error){record('MAP_LISTENER_FAIL_STAY_GOOGLE',error?.message||error)}
+    },650);
+    record('GOOGLE_ROUND_READY_FLAT');
   };
 
   if(typeof updateGoogleRoundHole==='function'){
@@ -133,15 +139,16 @@
       if(s.v!=='round'||inlineHoleMap?.provider!=='google')return false;
       const course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
       try{
-        stopLocation();const yards=mappedHoleDistance(green);$('roundMapHole').textContent=s.hole;$('roundMapDistance').textContent=yards;$('roundMapPar').textContent=par;$('liveHoleMap')?.setAttribute('aria-label',`Forward-facing course view of Hole ${s.hole}`);
+        stopLocation();const yards=mappedHoleDistance(green);$('roundMapHole').textContent=s.hole;$('roundMapDistance').textContent=yards;$('roundMapPar').textContent=par;$('liveHoleMap')?.setAttribute('aria-label',`Course view of Hole ${s.hole}`);
         const previous=document.querySelector('.hole-edge-arrow.previous');if(previous)previous.disabled=s.hole===1;
         const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;if($('roundScoreTotal'))$('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
         inlineHoleMap.raw.setMapTypeId(mapTypeForLive());
         try{drawGoogleLiveHole(green);record('HOLE_OVERLAYS_OK',s.hole)}catch(error){record('HOLE_OVERLAYS_FAIL_STAY_GOOGLE',error?.message||error)}
+        try{fitLiveHoleView(green)}catch(error){record('HOLE_FIT_FAIL_STAY_GOOGLE',error?.message||error)}
         const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green);save();record('HOLE_SWITCH_OK',s.hole);return true;
       }catch(error){record('HOLE_SWITCH_FAIL_STAY_GOOGLE',error?.message||error);return true}
     };
   }
 
-  record('BASELINE_V265_READY');
+  record('BASELINE_V266_READY_FLAT');
 })();
