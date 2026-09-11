@@ -1,0 +1,29 @@
+/* ParFolio v272 advanced scoring */
+.advanced-score-sheet{max-height:min(90dvh,860px);padding-top:16px}
+.advanced-score-sheet header{margin-bottom:10px}
+.advanced-stat-section{padding:12px 0;border-top:1px solid #edf1ef}
+.advanced-stat-section:first-of-type{border-top:0;padding-top:2px}
+.advanced-stat-section h3{margin:0 0 9px;font-size:15px}
+.advanced-section-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:9px}
+.advanced-section-heading h3{margin:0}
+.advanced-section-heading small{color:var(--muted);font-size:10px;font-weight:700}
+.advanced-yesno-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.advanced-yesno{display:flex;height:62px;align-items:center;justify-content:center;gap:9px;border:1px solid #d8e4de;border-radius:12px;background:#f2f7f4;color:#18271f;font:inherit;cursor:pointer}
+.advanced-yesno span{font-size:27px;line-height:1;font-weight:500}
+.advanced-yesno b{font-size:13px}
+.advanced-yesno.selected{border-color:#176f4a;background:#176f4a;color:#fff}
+.advanced-count-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.advanced-count{height:52px;border:1px solid #d8e4de;border-radius:11px;background:#f2f7f4;color:#17251e;font:inherit;font-size:18px;font-weight:800;cursor:pointer}
+.advanced-count.selected{border-color:#176f4a;background:#176f4a;color:#fff}
+.advanced-stats-note{margin:9px 0 0;padding:10px 12px;border-radius:11px;background:#f7faf8;color:#65736c;font-size:11px;line-height:1.4;text-align:center}
+.parfolio-advanced-round-stats{margin:16px 0;padding:16px;border:1px solid #dbe6e0;border-radius:18px;background:#f8fbf9;box-shadow:0 8px 20px rgba(23,62,43,.06)}
+.parfolio-advanced-round-stats header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
+.parfolio-advanced-round-stats header small{color:var(--g);font-size:9px;font-weight:900;letter-spacing:.12em}
+.parfolio-advanced-round-stats header h2{margin:2px 0 0;font-size:21px}
+.parfolio-advanced-round-stats header>span{color:#65736c;font-size:12px;font-weight:750}
+.advanced-round-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.advanced-round-grid>div{display:flex;min-height:78px;flex-direction:column;justify-content:center;padding:10px 12px;border:1px solid #e0e9e4;border-radius:13px;background:#fff}
+.advanced-round-grid small{color:#728078;font-size:9px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+.advanced-round-grid b{margin-top:3px;color:#133a29;font-size:24px;line-height:1}
+.advanced-round-grid span{margin-top:4px;color:#7b8781;font-size:9px;font-weight:700}
+@media(max-width:390px){.advanced-score-sheet{padding-left:13px;padding-right:13px}.advanced-stat-section{padding:10px 0}.advanced-yesno{height:56px}.advanced-count{height:47px}.advanced-round-grid>div{min-height:72px}.advanced-round-grid b{font-size:22px}}
