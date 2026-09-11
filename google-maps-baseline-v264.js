@@ -1,7 +1,7 @@
-/* ParFolio v264 — Google Maps baseline reset.
+/* ParFolio v265 — Google Maps baseline reset.
    ATG-inspired architecture: one loader, one renderer path, standard Google markers.
-   Google is primary. OpenStreetMap is used only after a real base API/map-constructor failure.
-   Vector tilt/heading are enhancements and never decide whether the base Google map is healthy. */
+   Google is primary. OpenStreetMap is used only after a real base API or map-constructor failure.
+   Overlay, planner, marker, camera, and tilt failures never switch providers. */
 (function(){
   let mapsPromise=null;
   const diag=[];
@@ -17,9 +17,7 @@
   window.parfolioMapDiagnostics=()=>diag.slice();
   window.parfolioClearMapDiagnostics=()=>{diag.length=0;try{delete localStorage.parfolioMapDiagnostics}catch{}};
 
-  function configuredKey(){
-    return String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim();
-  }
+  function configuredKey(){return String(window.PARFOLIO_GOOGLE_MAPS_API_KEY||'').trim()}
 
   async function getKey(){
     const existing=configuredKey();
@@ -42,7 +40,7 @@
     if(mapsPromise)return mapsPromise;
     mapsPromise=getKey().then(key=>new Promise((resolve,reject)=>{
       record('BASE_API_LOAD_START');
-      const callback='__parfolioGoogleMapsBaseReady264';
+      const callback='__parfolioGoogleMapsBaseReady265';
       let settled=false;
       const fail=message=>{
         if(settled)return;settled=true;mapsPromise=null;
@@ -70,101 +68,80 @@
   };
 
   function legacyMarker(options){
-    const marker=new google.maps.Marker({
-      map:options.map,
-      position:options.position,
-      title:options.title||'',
-      clickable:options.clickable!==false,
-      draggable:!!options.draggable,
-      zIndex:options.zIndex,
-      icon:options.icon,
-      label:options.label||undefined
-    });
-    return{
-      raw:marker,
-      addListener:(name,callback)=>marker.addListener(name,callback),
-      setPosition:value=>marker.setPosition(value),
-      getPosition:()=>marker.getPosition(),
-      setMap:value=>marker.setMap(value),
-      setVisible:value=>marker.setVisible(value),
-      setIcon:icon=>marker.setIcon(icon)
-    };
+    const marker=new google.maps.Marker({map:options.map,position:options.position,title:options.title||'',clickable:options.clickable!==false,draggable:!!options.draggable,zIndex:options.zIndex,icon:options.icon,label:options.label||undefined});
+    return{raw:marker,addListener:(name,callback)=>marker.addListener(name,callback),setPosition:value=>marker.setPosition(value),getPosition:()=>marker.getPosition(),setMap:value=>marker.setMap(value),setVisible:value=>marker.setVisible(value),setIcon:icon=>marker.setIcon(icon)};
   }
   createGoogleMarker=legacyMarker;
 
   function mapTypeForLive(){return liveMapStyle==='satellite'?'satellite':'terrain'}
 
   function createRoundGoogleMap(container,green){
-    const options={
-      center:googlePoint(green.center),zoom:17,mapTypeId:mapTypeForLive(),
-      heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,
-      disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,
-      headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'
-    };
+    const options={center:googlePoint(green.center),zoom:17,mapTypeId:mapTypeForLive(),heading:bearingDegrees(selectedTee(green),green.center),tilt:LIVE_MAP_TILT,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,headingInteractionEnabled:true,tiltInteractionEnabled:true,backgroundColor:'#173c2b'};
     if(google.maps.RenderingType?.VECTOR)options.renderingType=google.maps.RenderingType.VECTOR;
     record('MAP_CONSTRUCTOR_START',options.mapTypeId);
     const rawMap=new google.maps.Map(container,options);
     record('MAP_CONSTRUCTOR_OK');
-    try{
-      google.maps.event.addListenerOnce(rawMap,'tilesloaded',()=>{
-        let rendering='unknown';
-        try{rendering=String(rawMap.getRenderingType?.()||'unknown')}catch{}
-        record('TILES_LOADED',rendering);
-      });
-    }catch{}
+    try{google.maps.event.addListenerOnce(rawMap,'tilesloaded',()=>{let rendering='unknown';try{rendering=String(rawMap.getRenderingType?.()||'unknown')}catch{}record('TILES_LOADED',rendering)})}catch{}
     return rawMap;
+  }
+
+  function fallBackToLeaflet(container,green,error){
+    const message=error?.message||String(error);
+    record('GOOGLE_BASE_OR_MAP_FAIL',message);
+    window.PARFOLIO_LAST_MAP_ERROR=message;
+    try{localStorage.parfolioMapLastFailure=JSON.stringify({time:new Date().toISOString(),message})}catch{}
+    if($('liveHoleMap')!==container)return;
+    document.querySelector('.live-map-viewport')?.classList.remove('google-map-active');
+    initInlineHoleMapLeaflet(green);
+    const label=document.querySelector('.forward-label');if(label)label.textContent='OPENSTREETMAP FALLBACK · GOOGLE BASE FAILED';
   }
 
   initInlineHoleMap=async function(green){
     const container=$('liveHoleMap'),key=shotPlannerKey();
     if(!container||!selectedTee(green)||!green?.center)return;
+
+    let rawMap;
     try{
       await loadGoogleMaps();
       if($('liveHoleMap')!==container||shotPlannerKey()!==key)return;
-      const rawMap=createRoundGoogleMap(container,green);
-      document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
-      inlineHoleMap=googleMapFacade(rawMap,container);
-      const label=document.querySelector('.forward-label');
-      if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
-      try{drawGoogleLiveHole(green);record('OVERLAYS_OK')}catch(error){record('OVERLAYS_FAIL',error?.message||error);throw error}
+      rawMap=createRoundGoogleMap(container,green);
+    }catch(error){fallBackToLeaflet(container,green,error);return}
+
+    document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
+    inlineHoleMap=googleMapFacade(rawMap,container);
+    const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
+
+    try{drawGoogleLiveHole(green);record('OVERLAYS_OK')}
+    catch(error){
+      const message=error?.message||String(error);
+      record('OVERLAYS_FAIL_STAY_GOOGLE',message);
+      window.PARFOLIO_LAST_OVERLAY_ERROR=message;
+      try{localStorage.parfolioMapLastOverlayFailure=JSON.stringify({time:new Date().toISOString(),message})}catch{}
+    }
+
+    try{
       setTimeout(()=>{
         if(inlineHoleMap?.raw!==rawMap)return;
-        rawMap.addListener('dragstart',showMapRecenterButton);
-        rawMap.addListener('zoom_changed',showMapRecenterButton);
-        rawMap.addListener('heading_changed',showMapRecenterButton);
-        rawMap.addListener('tilt_changed',showMapRecenterButton);
+        rawMap.addListener('dragstart',showMapRecenterButton);rawMap.addListener('zoom_changed',showMapRecenterButton);rawMap.addListener('heading_changed',showMapRecenterButton);rawMap.addListener('tilt_changed',showMapRecenterButton);
       },650);
-    }catch(error){
-      const message=error?.message||String(error);
-      record('GOOGLE_ROUND_FAIL',message);
-      window.PARFOLIO_LAST_MAP_ERROR=message;
-      try{localStorage.parfolioMapLastFailure=JSON.stringify({time:new Date().toISOString(),message})}catch{}
-      if($('liveHoleMap')!==container)return;
-      document.querySelector('.live-map-viewport')?.classList.remove('google-map-active');
-      initInlineHoleMapLeaflet(green);
-      const label=document.querySelector('.forward-label');
-      if(label)label.textContent='OPENSTREETMAP FALLBACK · GOOGLE FAILED';
-    }
+      record('GOOGLE_ROUND_READY');
+    }catch(error){record('CAMERA_LISTENER_FAIL_STAY_GOOGLE',error?.message||error)}
   };
 
   if(typeof updateGoogleRoundHole==='function'){
     updateGoogleRoundHole=function(){
       if(s.v!=='round'||inlineHoleMap?.provider!=='google')return false;
-      const course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;
-      if(!selectedTee(green)||!green?.center)return false;
+      const course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
       try{
-        stopLocation();
-        const yards=mappedHoleDistance(green);$('roundMapHole').textContent=s.hole;$('roundMapDistance').textContent=yards;$('roundMapPar').textContent=par;
-        $('liveHoleMap')?.setAttribute('aria-label',`Forward-facing course view of Hole ${s.hole}`);
+        stopLocation();const yards=mappedHoleDistance(green);$('roundMapHole').textContent=s.hole;$('roundMapDistance').textContent=yards;$('roundMapPar').textContent=par;$('liveHoleMap')?.setAttribute('aria-label',`Forward-facing course view of Hole ${s.hole}`);
         const previous=document.querySelector('.hole-edge-arrow.previous');if(previous)previous.disabled=s.hole===1;
-        const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);
-        if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;if($('roundScoreTotal'))$('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
-        inlineHoleMap.raw.setMapTypeId(mapTypeForLive());drawGoogleLiveHole(green);
-        const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green);save();
-        record('HOLE_SWITCH_OK',s.hole);return true;
-      }catch(error){record('HOLE_SWITCH_FAIL',error?.message||error);return false}
+        const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if($('roundHoleScore'))$('roundHoleScore').textContent=holeScore;if($('roundScoreTotal'))$('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
+        inlineHoleMap.raw.setMapTypeId(mapTypeForLive());
+        try{drawGoogleLiveHole(green);record('HOLE_OVERLAYS_OK',s.hole)}catch(error){record('HOLE_OVERLAYS_FAIL_STAY_GOOGLE',error?.message||error)}
+        const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green);save();record('HOLE_SWITCH_OK',s.hole);return true;
+      }catch(error){record('HOLE_SWITCH_FAIL_STAY_GOOGLE',error?.message||error);return true}
     };
   }
 
-  record('BASELINE_V264_READY');
+  record('BASELINE_V265_READY');
 })();
