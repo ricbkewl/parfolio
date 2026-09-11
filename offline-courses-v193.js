@@ -84,8 +84,8 @@
 
   function decorate(){
     let button=document.querySelector('.pf-offline-fab');if(!button){button=document.createElement('button');button.type='button';button.className='pf-offline-fab';button.innerHTML='<span>⇩</span><b>Offline</b>';button.addEventListener('click',showOfflineManager);document.body.appendChild(button);}
-    const playing=!!document.querySelector('#roundMapHole,.round-map-shell,.play-map');button.hidden=playing;
-    if(playing)return;
+    const inCoursesArea=typeof s!=='undefined'&&s?.v==='coursesView';button.hidden=!inCoursesArea;
+    if(!inCoursesArea)return;
     document.querySelectorAll('.smart-course-row,.course-card').forEach(row=>{const name=row.querySelector('b,h3,.course-name')?.textContent?.trim(),course=(courses||[]).find(c=>c.name===name);if(!course?.offlineReady||row.querySelector('.pf-offline-badge'))return;const badge=document.createElement('span');badge.className='pf-offline-badge';badge.textContent='✓ Offline Ready';row.appendChild(badge);});
   }
   let decoratePending=false;
