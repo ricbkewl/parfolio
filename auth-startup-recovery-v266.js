@@ -71,3 +71,11 @@
   arm();
   setTimeout(syncAuxiliaryUi,0);
 })();
+
+/* ParFolio v272 — extend My Clubs without changing existing saved distances. */
+try{
+  if(Array.isArray(CLUBS)&&!CLUBS.includes('7 Hybrid')){
+    const after=CLUBS.indexOf('5 Hybrid');
+    CLUBS.splice(after>=0?after+1:CLUBS.length,0,'7 Hybrid');
+  }
+}catch(error){console.warn('ParFolio 7 Hybrid club extension unavailable',error)}
