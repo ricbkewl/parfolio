@@ -14,7 +14,11 @@
 
   function syncAuxiliaryUi(){
     const fab=document.querySelector('.pf-offline-fab');
-    if(fab)fab.hidden=authShellVisible() || !!document.querySelector('#roundMapHole,.round-map-shell,.play-map');
+    if(fab){
+      const inCoursesArea=typeof s!=='undefined'&&s?.v==='coursesView';
+      const inRound=!!document.querySelector('#roundMapHole,.round-map-shell,.play-map');
+      fab.hidden=!inCoursesArea||authShellVisible()||inRound;
+    }
   }
 
   function record(reason){
