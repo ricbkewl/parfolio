@@ -39,7 +39,7 @@ jobs:
             page.on('requestfailed',r=>failed.push(`${r.method()} ${r.url()} :: ${r.failure()?.errorText||'failed'}`));
             const start=Date.now();
             let gotoError='';
-            try{await page.goto('https://ricbkewl.github.io/parfolio/?runtime=1',{waitUntil:'domcontentloaded',timeout:30000});}catch(e){gotoError=e.message;}
+            try{await page.goto('https://parfolio-iota.vercel.app/?runtime=1',{waitUntil:'domcontentloaded',timeout:30000});}catch(e){gotoError=e.message;}
             await page.waitForTimeout(8000);
             const result=await page.evaluate(()=>({
               href:location.href,
@@ -49,7 +49,7 @@ jobs:
               appHtmlLength:document.querySelector('#app')?.innerHTML?.length||0,
               bodyText:document.body?.innerText?.slice(0,1500)||'',
               supabase:typeof window.supabase,
-              leaflet:typeof window.L,
+              googleMapsLoader:typeof window.loadGoogleMaps,
               hasRender:typeof window.render,
               hasHome:typeof window.home,
               controller:!!navigator.serviceWorker?.controller
