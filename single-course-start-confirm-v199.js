@@ -6,6 +6,10 @@
 
   async function hydrateAuditedGpsCourse(course){
     if(course?.parfolioMappingClass!=='gps_ready')return;
+    if(typeof window.ensureParFolioGpsCourseReady==='function'){
+      await window.ensureParFolioGpsCourseReady(course);
+      return;
+    }
     const candidates=[
       [course.parfolioCaliforniaAudit,window.hydrateParFolioCaliforniaCourse],
       [course.parfolioTexasAudit,window.hydrateParFolioTexasCourse],
