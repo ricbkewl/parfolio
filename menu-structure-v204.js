@@ -1,7 +1,7 @@
 /* ParFolio v260 — streamlined grouped side menu with round preferences in Settings. */
 (function(){
   const LABELS={
-    en:{current:'CURRENT ROUND',invite:'Invite Players',history:'Round History',golf:'GOLF',settings:'SETTINGS',account:'Account & Profile'},
+    en:{current:'CURRENT ROUND',invite:'Invite Players',history:'Round History',golf:'GOLF',settings:'SETTINGS',account:'My Page'},
     es:{current:'RONDA ACTUAL',invite:'Invitar jugadores',history:'Historial de rondas',golf:'GOLF',settings:'AJUSTES',account:'Cuenta y perfil'},
     zh:{current:'当前球局',invite:'邀请球员',history:'球局记录',golf:'高尔夫',settings:'设置',account:'账户与个人资料'},
     id:{current:'RONDE SAAT INI',invite:'Undang Pemain',history:'Riwayat Ronde',golf:'GOLF',settings:'PENGATURAN',account:'Akun & Profil'},
