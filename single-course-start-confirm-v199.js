@@ -4,6 +4,21 @@
 
   const priorStartCourseFromLibrary=startCourseFromLibrary;
 
+  async function hydrateAuditedGpsCourse(course){
+    if(course?.parfolioMappingClass!=='gps_ready')return;
+    const candidates=[
+      [course.parfolioCaliforniaAudit,window.hydrateParFolioCaliforniaCourse],
+      [course.parfolioTexasAudit,window.hydrateParFolioTexasCourse],
+      [course.parfolioTennesseeAudit,window.hydrateParFolioTennesseeCourse],
+      [course.parfolioIndonesiaAudit,window.hydrateParFolioIndonesiaCourse]
+    ];
+    const hydrate=candidates.find(([matches,fn])=>matches&&typeof fn==='function')?.[1];
+    if(!hydrate)return;
+    await hydrate(course);
+    const holes=Number(course.holes)||0,greens=Array.isArray(course.greens)?course.greens:[];
+    if(!holes||greens.length<holes||!greens.slice(0,holes).every(hole=>(hole?.tee||hole?.tees?.black)&&hole?.center))throw new Error('GPS-ready course geometry is incomplete');
+  }
+
   async function resetForCourseStart(){
     if(!currentUser){
       alert('Each golfer needs an account so scores can be protected. Please sign in or create an account first.');
@@ -19,12 +34,19 @@
   async function singlePromptCourseStart(index){
     const course=courses?.[index];
     if(!course)return;
-    const mapped=typeof mappedCount==='function'?mappedCount(course):0;
+    let mapped=typeof mappedCount==='function'?mappedCount(course):0;
     const unfinished=!!(s?.resumeView&&!s?.done);
     let message=`Start a new game at ${course.name}?`;
     if(unfinished)message+=' Your unfinished round will be replaced.';
     if(course.catalogOnly&&!mapped)message+='\n\nThis course is approved for scorecard play while GPS mapping continues.';
     if(!confirm(message))return;
+
+    try{await hydrateAuditedGpsCourse(course)}catch(error){
+      console.warn('GPS-ready course hydration failed',error);
+      alert('This course is listed as GPS Ready, but its validated hole map could not be loaded. Please try again.');
+      return;
+    }
+    mapped=typeof mappedCount==='function'?mappedCount(course):0;
 
     rememberRecentCourse(course.id);
     if(!(await resetForCourseStart()))return;
