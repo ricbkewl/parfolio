@@ -1,10 +1,11 @@
-/* ParFolio v271 — stable forward-facing hole orientation.
+/* ParFolio v278 — stable forward-facing maximum-tilt hole camera.
    The v269 Google-only renderer remains the source of truth.
-   No flyover animation. No camera tilt. No persistent stale-hole listeners.
-   When Google vector rotation is available, orient the current hole so the tee is
-   toward 6 o'clock and green center toward 12 o'clock. Otherwise keep the working
-   Google map unchanged. */
+   No flyover animation. No camera travel. No persistent stale-hole listeners.
+   On supported Google Vector maps, orient the current hole with tee toward 6 o'clock,
+   green center toward 12 o'clock, and apply the maximum practical static tilt.
+   If vector rendering is unavailable, keep the working Google map unchanged. */
 (function(){
+  const MAX_TILT=67.5;
   const armed=new WeakMap();
   const applied=new WeakMap();
 
@@ -43,7 +44,7 @@
       center:pointBetween(tee,center,.5),
       zoom:Math.min(19,Math.max(15.5,fitted)),
       heading:bearingDegrees(tee,center),
-      tilt:0,
+      tilt:MAX_TILT,
       yards
     };
   }
@@ -53,14 +54,14 @@
     const raw=inlineHoleMap.raw,green=currentGreen();if(!green||!selectedTee(green)||!green.center)return false;
     const camera=cameraFor(green,raw);if(!camera)return false;
     if(!vectorReady(raw))return false;
-    const sig=[Number(s?.hole||1),camera.center.lat.toFixed(7),camera.center.lng.toFixed(7),camera.zoom.toFixed(2),camera.heading.toFixed(2)].join(':');
+    const sig=[Number(s?.hole||1),camera.center.lat.toFixed(7),camera.center.lng.toFixed(7),camera.zoom.toFixed(2),camera.heading.toFixed(2),camera.tilt.toFixed(1)].join(':');
     if(!force&&applied.get(raw)===sig)return true;
     try{
-      raw.moveCamera({center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0});
+      raw.moveCamera({center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:camera.tilt});
       const host=document.getElementById('liveHoleMap');
-      if(host){host.dataset.forwardBearing=String(camera.heading);host.dataset.cameraRule='tee-6-green-12-flat'}
-      applied.set(raw,sig);record('FORWARD_CAMERA_APPLIED',`hole ${s?.hole||1}`);return true;
-    }catch(error){record('FORWARD_CAMERA_FAIL_STAY_GOOGLE',error?.message||error);return false}
+      if(host){host.dataset.forwardBearing=String(camera.heading);host.dataset.cameraRule='tee-6-green-12-max-tilt';host.dataset.cameraTilt=String(camera.tilt)}
+      applied.set(raw,sig);record('STATIC_MAX_TILT_APPLIED',`hole ${s?.hole||1} · ${camera.tilt}°`);return true;
+    }catch(error){record('STATIC_MAX_TILT_FAIL_STAY_GOOGLE',error?.message||error);return false}
   }
   window.applyParFolioHoleCamera=()=>applyCurrentCamera(true);
 
@@ -73,7 +74,7 @@
       if(vectorReady(raw)){
         state.done=true;
         try{state.listener?.remove?.()}catch{}
-        applyCurrentCamera(true);record('VECTOR_READY_STATIC');return;
+        applyCurrentCamera(true);record('VECTOR_READY_STATIC_TILT');return;
       }
       if(state.attempts<20)setTimeout(retry,125);else{state.done=true;try{state.listener?.remove?.()}catch{}record('VECTOR_UNAVAILABLE_STAY_GOOGLE')}
     };
@@ -98,7 +99,7 @@
         armVectorOnce(inlineHoleMap.raw);
         setTimeout(()=>applyCurrentCamera(true),90);
       }
-    }catch(error){record('HOLE_ORIENTATION_FAIL_STAY_GOOGLE',error?.message||error)}
+    }catch(error){record('HOLE_STATIC_TILT_FAIL_STAY_GOOGLE',error?.message||error)}
     return result;
   };
 
@@ -108,7 +109,5 @@
     return priorOrient.apply(this,arguments);
   };
 
-  /* Restore simple, immediate hole navigation from the stable v269/base app.
-     No animation state is introduced here. */
-  record('STATIC_FORWARD_CAMERA_V271_READY','no flyover no tilt');
+  record('STATIC_MAX_TILT_V278_READY',`${MAX_TILT} degrees · no flyover`);
 })();
