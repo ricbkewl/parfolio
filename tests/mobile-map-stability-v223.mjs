@@ -12,6 +12,7 @@ const googleClean=read('google-maps-clean-v269.js');
 const publish=read('regional-auto-publish-v160.js');
 const gpsSearch=read('gps-search-priority-v186.js');
 const offline=read('offline-courses-v193.js');
+const roundCss=read('round-full-bleed-v280.css');
 
 assert.doesNotMatch(publish,/new MutationObserver/,'catalog publication must not react to Google Maps DOM mutations');
 assert.match(publish,/alreadyPublished/,'catalog publication must be idempotent');
@@ -32,6 +33,8 @@ assert.match(camera,/correctEdgeFrame/,'the camera must correct actual screen po
 assert.match(camera,/MAX_FRAME_PASSES=5/,'screen-position correction must remain bounded');
 assert.match(camera,/all courses · every mapped hole/,'the edge-filled rule must be global rather than region-specific');
 assert.match(html,/parfolio-camera-flyover-v270\.js\?v=284/,'production must load the edge-filled global camera');
+assert.match(roundCss,/top:max\(6px,calc\(env\(safe-area-inset-top\) \+ 6px\)\)!important/,'live-round HUD must sit just below the iPhone safe area');
+assert.match(html,/round-full-bleed-v280\.css\?v=285/,'production must load the tightened live-round layout');
 
 assert.match(app,/function refreshLiveRoundUi\(/,'live score updates need an in-place UI refresh');
 assert.match(app,/activeView==='round'&&refreshLiveRoundUi\(\)/,'Realtime and reconnect updates must preserve the active map');

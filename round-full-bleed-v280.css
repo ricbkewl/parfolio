@@ -1,4 +1,4 @@
-/* ParFolio v281 — stable edge-to-edge active-round Google map.
+/* ParFolio v285 — stable edge-to-edge active-round Google map.
    Loaded last. Paint the real iPhone viewport only: no legacy 240% overscan. */
 html:has(main.round-fullscreen),body:has(main.round-fullscreen){
   width:100%;
@@ -65,4 +65,9 @@ main.round-fullscreen .live-map-viewport #liveHoleMap{
 .round-fullscreen .hole-map-attribution{bottom:calc(2px + env(safe-area-inset-bottom))!important}
 @supports(height:100svh){
   main.round-fullscreen{height:calc(100dvh + env(safe-area-inset-bottom))!important;min-height:calc(100dvh + env(safe-area-inset-bottom))!important}
+}
+
+/* v285: keep the live-round HUD close to, but never inside, the iPhone safe area. */
+.round-fullscreen .round-map-summary{
+  top:max(6px,calc(env(safe-area-inset-top) + 6px))!important;
 }
