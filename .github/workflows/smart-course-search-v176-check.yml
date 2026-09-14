@@ -39,7 +39,7 @@ jobs:
             const context=await browser.newContext({viewport:{width:390,height:844},geolocation:{latitude:34.1064,longitude:-117.5931},permissions:['geolocation']});
             const page=await context.newPage();
             const errors=[];page.on('pageerror',e=>errors.push(e.message));
-            await page.goto('https://ricbkewl.github.io/parfolio/?smartSearchQA=176',{waitUntil:'domcontentloaded',timeout:30000});
+            await page.goto('https://parfolio-iota.vercel.app/?smartSearchQA=176',{waitUntil:'domcontentloaded',timeout:30000});
             await page.waitForFunction(()=>typeof cloudLoading!=='undefined'&&!cloudLoading&&window.PARFOLIO_TX_CATALOG?.loaded&&window.PARFOLIO_ID_CATALOG?.loaded&&typeof window.smartCourseGpsState==='function',{timeout:60000});
             await page.evaluate(()=>{s.v='coursesView';render()});
             await page.locator('.smart-course-quick-filters').waitFor({state:'visible',timeout:15000});

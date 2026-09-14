@@ -84,13 +84,16 @@ assert.equal(ready.greens.length,18);
 assert.ok(ready.greens.every(hole=>hole.tee&&hole.center));
 assert.equal(ready.catalogOnly,false);
 
-const html=read('index.html'),sw=read('service-worker.js'),vector=read('parfolio-google-vector-v149.js');
+const html=read('index.html'),sw=read('service-worker.js'),googleClean=read('google-maps-clean-v269.js'),camera=read('parfolio-camera-flyover-v270.js');
 assert.match(html,/tennessee-catalog-v255\.js\?v=255/);
-assert.match(sw,/parfolio-v255-/);
+assert.ok(Number(sw.match(/parfolio-v(\d+)-/)?.[1])>=255,'service-worker cache must include the Tennessee release');
 assert.match(sw,/\.\/tennessee-catalog-v255\.js/);
-assert.match(vector,/new URL\('\.\/parfolio-public-config\.json',document\.baseURI\)/);\nassert.doesNotMatch(vector,/script\.src='\/api\/runtime-config/);\nassert.match(html,/parfolio-google-vector-v149\.js\?v=256/);\nassert.match(sw,/parfolio-v256-/);\nassert.match(read('play-camera-v137.js'),/heading:bearingDegrees\(tee,green\.center\)/);
-assert.match(read('hole-flyover-v129.js'),/const FLYOVER_MS=2750/);
+assert.match(html,/google-maps-clean-v269\.js\?v=269/);
+assert.match(sw,/\.\/google-maps-clean-v269\.js/);
+assert.match(googleClean,/\/api\/runtime-config/,'Vercel production must load the Google Maps key from runtime config');
+assert.match(camera,/heading:bearingDegrees\(tee,center\)/);
+assert.match(camera,/No flyover animation/);
 assert.match(read('course-corrections-v147.js'),/submit_parfolio_course_correction/);
 assert.match(read('course-corrections-v147.js'),/p_source_app:'parfolio'/);
 
-console.log('Tennessee v255 data, loader, correction, camera, and flyover checks passed.');
+console.log('Tennessee v255 data, loader, correction, and active Google camera checks passed.');

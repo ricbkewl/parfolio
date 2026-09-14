@@ -14,7 +14,8 @@ const courses=[
 ];
 const context={
   window:null,courses,courseLibraryQuery:'spring',coursePreviewMaps:[],adminRole:null,s:{v:'home'},
-  console,document:{querySelector:()=>null,addEventListener:()=>{}},setTimeout:()=>0,
+  console,document:{body:{},querySelector:()=>null,getElementById:()=>null,addEventListener:()=>{}},setTimeout:()=>0,
+  MutationObserver:class{observe(){} disconnect(){}},
   mappedCount:course=>(course.greens||[]).filter(hole=>hole?.tee&&hole?.center).length,
   favoriteCourseIds:()=>new Set(),recentCourseIds:()=>[],courseDistanceMiles:()=>null,
   rankedSharedCourses:()=>[],courseLibraryCard:()=>'',filterSharedCourses:()=>{},refreshCourseLibrary:()=>{},
