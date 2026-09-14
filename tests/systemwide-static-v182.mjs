@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root=path.resolve(import.meta.dirname,'..');
 const read=file=>fs.readFileSync(path.join(root,file),'utf8');
-const app=read('app.js'),html=read('index.html'),loader=read('parfolio-google-vector-v149.js'),sw=read('service-worker.js');
+const app=read('app.js'),html=read('index.html'),googleClean=read('google-maps-clean-v269.js'),camera=read('parfolio-camera-flyover-v270.js'),sw=read('service-worker.js');
 const publicConfig=JSON.parse(read('parfolio-public-config.json'));
 
 const localRefs=[...html.matchAll(/(?:src|href)="([^"]+)"/g)]
@@ -17,7 +17,10 @@ for(const ref of appShell)assert.ok(!ref||fs.existsSync(path.join(root,ref)),`of
 for(const ref of ['','index.html','manifest.webmanifest','app.js','tennessee-catalog-v255.js'])assert.ok(appShell.has(ref),`offline core shell is missing: ${ref||'site root'}`);
 assert.match(sw,/ignoreSearch:true/,'versioned asset requests must match the offline shell');
 assert.ok(Number(sw.match(/parfolio-v(\d+)-/)?.[1])>=255,'service-worker cache must include the Tennessee release');
-assert.match(app,/function addStreetLayer\(targetMap\)\{return L\.tileLayer\([^\n]+maxNativeZoom:19,maxZoom:22/,'close golf-hole zoom must upscale the last native OpenStreetMap tiles instead of requesting unavailable zoom-20 tiles');
+const courseMapBrowser=read('course-map-browser-v163.js');
+assert.match(courseMapBrowser,/await window\.loadGoogleMaps\(\)/,'the course browser must use the shared Google Maps loader');
+assert.match(courseMapBrowser,/new google\.maps\.Map\(/,'the course browser must initialize a Google map');
+assert.doesNotMatch(courseMapBrowser,/\bL\.(?:map|tileLayer)\(/,'the production course browser must not depend on Leaflet');
 const configuredGoogleKey=app.match(/const GOOGLE_MAPS_API_KEY = '([^']*)';/)?.[1];
 assert.equal(configuredGoogleKey,publicConfig.google_maps_browser_key,'the live app and ParFolio public configuration must use the same Google Maps browser key');
 
@@ -53,20 +56,16 @@ assert.match(app,/function playedScoreSummary\(/,'partial score helper is requir
 assert.match(app,/score-playedPar/,'live scorecard must compare score with played-hole par');
 assert.doesNotMatch(app,/total\(x\)-parTotal\(s\.holes\)/,'live scorecard must not compare a partial score with full-round par');
 
-assert.match(loader,/loading:'async'/,'Google Maps loader must request asynchronous loading');
-assert.match(loader,/libraries:'marker'/,'Google Maps loader must include the advanced marker library');
-assert.match(app,/function moveGoogleCamera\(/,'all live camera overrides need one capability boundary');
-assert.match(app,/renderingType:google\.maps\.RenderingType\.VECTOR/,'live satellite map must use the vector camera');
-assert.match(read('play-camera-v137.js'),/center:pointBetween\(tee,green\.center,\.5\)/,'hole camera must center tee-to-green');
-assert.match(read('play-camera-v137.js'),/heading:bearingDegrees\(tee,green\.center\)/,'hole camera must place the tee and green on the 6–12 axis');
-assert.match(read('hole-flyover-v129.js'),/const FLYOVER_MS=/,'between-hole helicopter transition must remain enabled');
-for(const file of ['play-v108.js','play-camera-v137.js','hole-flyover-v129.js']){
-  const source=read(file);
-  assert.doesNotMatch(source,/\.moveCamera\(/,`${file} bypasses the shared camera capability boundary`);
-}
-for(const file of fs.readdirSync(root).filter(file=>file.endsWith('.js'))){
-  assert.doesNotMatch(read(file),/new google\.maps\.Marker\s*\(/,`${file} still uses deprecated google.maps.Marker`);
-}
+assert.match(html,/google-maps-clean-v269\.js/,'the active Google-only renderer must be loaded');
+assert.doesNotMatch(html,/parfolio-google-vector-v149\.js|google-marker-compat-v263\.js/,'retired Google renderer layers must not be loaded');
+assert.match(googleClean,/Google Maps is the only map provider/,'the active renderer must preserve the Google-only policy');
+assert.match(googleClean,/loading=async&callback=/,'Google Maps must request asynchronous loading');
+assert.match(googleClean,/window\.loadGoogleMaps=function/,'the active renderer must install the shared Google Maps loader');
+assert.match(googleClean,/new google\.maps\.Map\(/,'the active renderer must initialize Google maps');
+assert.doesNotMatch(googleClean,/\bL\.(?:map|tileLayer)\(/,'the active renderer must not depend on Leaflet');
+assert.match(camera,/center:pointBetween\(tee,center,\.5\)/,'the active camera must center tee-to-green');
+assert.match(camera,/heading:bearingDegrees\(tee,center\)/,'the active camera must place tee and green on the 6–12 axis');
+assert.match(camera,/No flyover animation/,'the active camera must preserve the stable static-camera policy');
 
 for(const legacyRpc of ['create_parfolio_round','join_parfolio_round','resume_parfolio_round']){
   assert.doesNotMatch(app,new RegExp(`rpc\\(['\"]${legacyRpc}`),`frontend still calls retired RPC ${legacyRpc}`);

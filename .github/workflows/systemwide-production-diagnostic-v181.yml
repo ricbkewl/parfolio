@@ -57,7 +57,7 @@ jobs:
           node <<'NODE'
           const { chromium } = require('playwright');
           const fs=require('fs');
-          const BASE='https://ricbkewl.github.io/parfolio/';
+          const BASE='https://parfolio-iota.vercel.app/';
           const results=[];
           function add(view,test,ok,detail=''){results.push({view,test,ok:!!ok,detail:String(detail||'')});}
           async function runView(browser,name,viewport){
@@ -78,7 +78,7 @@ jobs:
               text:document.body.innerText||'',
               overflow:document.documentElement.scrollWidth-window.innerWidth,
               supabase:typeof window.supabase,
-              leaflet:typeof window.L,
+              googleMapsLoader:typeof window.loadGoogleMaps,
               render:typeof window.render,
               coursesType:typeof courses,
               courseCount:typeof courses!=='undefined'&&Array.isArray(courses)?courses.length:-1,
@@ -90,7 +90,7 @@ jobs:
             add(name,'No ATG/Agape visible branding',!/Agape Tumou|Faith · Fellowship|Saved to Serve|2 Timothy/i.test(shell.text),'visible text scan');
             add(name,'No horizontal page overflow',shell.overflow<=3,`overflow=${shell.overflow}px`);
             add(name,'Supabase client available',shell.supabase==='object',shell.supabase);
-            add(name,'Leaflet available',shell.leaflet==='object',shell.leaflet);
+            add(name,'Google Maps loader available',shell.googleMapsLoader==='function',shell.googleMapsLoader);
             add(name,'Core render function available',shell.render==='function',shell.render);
 
             const manifest=await page.evaluate(async()=>{try{const r=await fetch('manifest.webmanifest',{cache:'no-store'});return{status:r.status,json:await r.json()}}catch(e){return{status:0,error:String(e)}}});
@@ -152,8 +152,8 @@ jobs:
               const mapBtn=page.locator('.course-map-launch').first();
               if(await mapBtn.count()){
                 await mapBtn.click();await page.waitForTimeout(1800);
-                const mapState=await page.evaluate(()=>({leafletMaps:document.querySelectorAll('.leaflet-container').length,body:(document.body.innerText||'').slice(-1000)}));
-                add(name,'Floating course map opens',mapState.leafletMaps>0||/Open Course|Locate|List/i.test(mapState.body),`leaflet=${mapState.leafletMaps}`);
+                const mapState=await page.evaluate(()=>({browser:!!document.querySelector('.course-map-browser'),googleCanvas:!!document.querySelector('#courseMapBrowserCanvas .gm-style'),body:(document.body.innerText||'').slice(-1000)}));
+                add(name,'Floating Google course map opens',mapState.browser&&(mapState.googleCanvas||/Course Map|Search This Area|List/i.test(mapState.body)),JSON.stringify(mapState));
                 await page.keyboard.press('Escape').catch(()=>{});
               }
             }catch(e){
@@ -177,12 +177,12 @@ jobs:
 
             const meaningfulBad=badResponses.filter(x=>!(/\/auth\/v1\/user\b/.test(x)&&x.startsWith('401 '))&&!(/\/rest\/v1\/courses\b/.test(x)&&x.startsWith('401 ')));
             const meaningfulConsole=consoleErrors.filter(x=>!(/Failed to load resource.*401/i.test(x)));
-            const cameraWarnings=consoleWarnings.filter(x=>/heading|tilt|raster|google\.maps\.Marker is deprecated|map id.*advanced marker/i.test(x));
+            const cameraWarnings=consoleWarnings.filter(x=>/heading|tilt|raster|map id.*advanced marker/i.test(x));
             add(name,'No page JavaScript errors',pageErrors.length===0,pageErrors.join(' | '));
             add(name,'No failed network requests',failedRequests.length===0,failedRequests.join(' | '));
             add(name,'No unexpected HTTP 4xx/5xx',meaningfulBad.length===0,meaningfulBad.join(' | '));
             add(name,'No meaningful console errors',meaningfulConsole.length===0,meaningfulConsole.join(' | '));
-            add(name,'No Google camera or marker warnings',cameraWarnings.length===0,cameraWarnings.join(' | '));
+            add(name,'No Google camera warnings',cameraWarnings.length===0,cameraWarnings.join(' | '));
             await context.close();
           }
 

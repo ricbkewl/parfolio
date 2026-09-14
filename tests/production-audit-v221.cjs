@@ -1,6 +1,6 @@
 const {chromium,webkit}=require('playwright');
 const fs=require('fs');
-const BASE='https://ricbkewl.github.io/parfolio/';
+const BASE='https://parfolio-iota.vercel.app/';
 fs.mkdirSync('audit-results',{recursive:true});
 const results=[],evidence={};
 const add=(area,test,ok,detail)=>{results.push({area,test,ok:!!ok,detail});console.log(JSON.stringify(results.at(-1)))};

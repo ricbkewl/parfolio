@@ -161,7 +161,7 @@
   }
 
   function renderRecent(cards,rounds){
-    const host=document.getElementById('pfRoundList');if(!host)return,cardMap=new Map(cards.map(c=>[c.round.id,c]));
+    const host=document.getElementById('pfRoundList');if(!host)return;const cardMap=new Map(cards.map(c=>[c.round.id,c]));
     host.innerHTML=rounds.length?rounds.slice(0,5).map(r=>{const c=cardMap.get(r.id),rel=c?.relative;const relText=rel===null||rel===undefined?'':rel===0?'E':rel>0?'+'+rel:String(rel);return `<button type="button" class="pf-page-row" onclick="openHistory()"><div><b>${safe(r.course_name||'Golf Round')}</b><small>${safe(fmtDate(r.created_at))} · ${Number(r.holes)||18} holes</small></div><strong>${c?.total??'—'}<small>${c?`${relText||'score'} · completed`:'scorecard incomplete'}</small></strong></button>`}).join(''):'<div class="pf-page-empty">Complete a round and it will become part of your story here.</div>';
   }
   function setText(id,value){const el=document.getElementById(id);if(el){el.textContent=String(value);el.classList.remove('pf-page-loading')}}
