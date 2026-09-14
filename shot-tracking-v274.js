@@ -1,4 +1,4 @@
-/* ParFolio v277 — compact glass GPS shot tracker; isolated from the stable v271 map renderer. */
+/* ParFolio v279 — compact glass GPS shot tracker with aligned Scorecard dock; isolated from the stable map renderer. */
 (function(){
   const STORE='parfolioShotHistoryV274';
   let watchId=null,lastFix=null,origin=null,originHole=null,shotNumber=1,busy=false,open=false;
@@ -60,32 +60,37 @@
   function toggleOpen(){open=!open;updateUi();}
 
   function injectStyle(){
-    if(document.getElementById('pf-shot-v277-style'))return;
+    if(document.getElementById('pf-shot-v279-style'))return;
     document.getElementById('pf-shot-v274-style')?.remove();
-    const style=document.createElement('style');style.id='pf-shot-v277-style';style.textContent=`
+    document.getElementById('pf-shot-v277-style')?.remove();
+    const style=document.createElement('style');style.id='pf-shot-v279-style';style.textContent=`
+      .round-score-stack>.quick-scorecard-button{display:none!important}
       .pf-shot-tracker{position:fixed;left:max(10px,env(safe-area-inset-left));bottom:calc(86px + env(safe-area-inset-bottom));z-index:9500;display:flex;align-items:stretch;width:58px;max-width:calc(100vw - 20px);height:74px;color:#fff;font-family:inherit;transition:width .22s ease,height .22s ease,transform .22s ease;filter:drop-shadow(0 10px 24px rgba(0,0,0,.22))}
       .pf-shot-tracker.is-open{width:min(242px,calc(100vw - 20px));height:196px}
-      .pf-shot-toggle,.pf-shot-panel{background:linear-gradient(155deg,rgba(25,53,43,.58),rgba(9,26,21,.72));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 26px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(18px) saturate(145%);backdrop-filter:blur(18px) saturate(145%)}
+      .pf-shot-toggle,.pf-shot-panel,.pf-shot-scorecard{background:linear-gradient(155deg,rgba(25,53,43,.58),rgba(9,26,21,.72));border:1px solid rgba(255,255,255,.25);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 26px rgba(0,0,0,.18);-webkit-backdrop-filter:blur(18px) saturate(145%);backdrop-filter:blur(18px) saturate(145%)}
       .pf-shot-toggle{width:58px;min-width:58px;height:74px;align-self:flex-end;border-radius:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff;padding:0;border-color:rgba(255,255,255,.28);font:800 11px/1 inherit;text-shadow:0 1px 5px rgba(0,0,0,.35)}
       .pf-shot-toggle .pf-shot-pin{font-size:16px;line-height:1}.pf-shot-toggle .pf-shot-mini{font-size:12px;line-height:1.05}.pf-shot-toggle .pf-shot-chev{font-size:15px;opacity:.86;line-height:1;margin-top:2px}
       .pf-shot-tracker.is-open .pf-shot-toggle{height:196px;border-radius:18px 0 0 18px;border-right-color:rgba(255,255,255,.08)}
       .pf-shot-panel{display:none;min-width:0;flex:1;border-left:0;border-radius:0 18px 18px 0;padding:12px 12px 10px;overflow:hidden}
       .pf-shot-tracker.is-open .pf-shot-panel{display:flex;flex-direction:column}
+      .pf-shot-scorecard{position:absolute;left:0;bottom:-60px;width:58px;height:52px;border-radius:15px;color:#f5dfa8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:0;font:800 8.5px/1 inherit;letter-spacing:.02em;text-shadow:0 1px 5px rgba(0,0,0,.34);cursor:pointer}
+      .pf-shot-scorecard .pf-card-icon{font-size:17px;line-height:1;color:#fff}.pf-shot-scorecard:active{transform:translateY(1px)}
       .pf-shot-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}.pf-shot-copy{min-width:0}.pf-shot-copy b{display:block;font-size:13px;letter-spacing:.1px}.pf-shot-copy small{display:block;font-size:9px;opacity:.72;margin-top:2px}
       .pf-shot-distance{margin-top:8px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.07);border-radius:12px;min-height:48px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;letter-spacing:-.5px}.pf-shot-distance small{font-size:11px;font-weight:700;opacity:.76;margin-left:3px}
       .pf-shot-club{margin-top:7px;width:100%;min-height:30px;border-radius:10px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.10);color:#fff;padding:0 8px;font:700 10px/1 inherit;outline:none}.pf-shot-club option{color:#173b2e;background:#fff}
       .pf-shot-actions{display:grid;grid-template-columns:1.45fr .9fr;gap:7px;margin-top:7px}.pf-shot-actions button{min-height:34px;border-radius:11px;border:1px solid rgba(255,255,255,.18);font:800 11px/1 inherit}.pf-shot-primary{background:linear-gradient(180deg,#f7d37e,#eebc55);color:#173b2e;border-color:rgba(255,225,145,.72)!important;box-shadow:0 4px 12px rgba(222,171,62,.18)}.pf-shot-reset{background:rgba(255,255,255,.09);color:#fff}.pf-shot-actions button:disabled{opacity:.55}
       .pf-shot-status{margin-top:auto;padding-top:6px;font-size:8.5px;opacity:.72;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-      @media(max-width:430px){.pf-shot-tracker{bottom:calc(82px + env(safe-area-inset-bottom))}.pf-shot-tracker.is-open{width:min(226px,calc(100vw - 20px));height:188px}.pf-shot-tracker.is-open .pf-shot-toggle{height:188px}.pf-shot-panel{padding:10px}.pf-shot-distance{min-height:44px;font-size:22px}}
+      @media(max-width:430px){.pf-shot-tracker{bottom:calc(82px + env(safe-area-inset-bottom))}.pf-shot-tracker.is-open{width:min(226px,calc(100vw - 20px));height:188px}.pf-shot-tracker.is-open .pf-shot-toggle{height:188px}.pf-shot-panel{padding:10px}.pf-shot-distance{min-height:44px;font-size:22px}.pf-shot-scorecard{bottom:-58px;height:50px}}
     `;document.head.appendChild(style);
   }
 
   function shell(){
     const el=document.createElement('section');el.className='pf-shot-tracker';el.setAttribute('aria-label','Shot Tracking');
-    el.innerHTML=`<button type="button" class="pf-shot-toggle" aria-label="Open shot tracking" aria-expanded="false"><span class="pf-shot-pin">📍</span><span class="pf-shot-mini">SHOT</span><span class="pf-shot-chev">⌃</span></button><div class="pf-shot-panel"><div class="pf-shot-head"><div class="pf-shot-copy"><b>Shot Tracking</b><small class="pf-shot-line">Hole ${currentHole()}</small></div></div><div class="pf-shot-distance">—<small>yd</small></div><select class="pf-shot-club" aria-label="Club used"><option value="">Club (optional)</option>${clubList().map(c=>`<option value="${escHtml(c)}">${escHtml(c)}</option>`).join('')}</select><div class="pf-shot-actions"><button type="button" class="pf-shot-primary">Mark Shot</button><button type="button" class="pf-shot-reset">Reset</button></div><div class="pf-shot-status">Waiting for GPS…</div></div>`;
+    el.innerHTML=`<button type="button" class="pf-shot-toggle" aria-label="Open shot tracking" aria-expanded="false"><span class="pf-shot-pin">📍</span><span class="pf-shot-mini">SHOT</span><span class="pf-shot-chev">⌃</span></button><div class="pf-shot-panel"><div class="pf-shot-head"><div class="pf-shot-copy"><b>Shot Tracking</b><small class="pf-shot-line">Hole ${currentHole()}</small></div></div><div class="pf-shot-distance">—<small>yd</small></div><select class="pf-shot-club" aria-label="Club used"><option value="">Club (optional)</option>${clubList().map(c=>`<option value="${escHtml(c)}">${escHtml(c)}</option>`).join('')}</select><div class="pf-shot-actions"><button type="button" class="pf-shot-primary">Mark Shot</button><button type="button" class="pf-shot-reset">Reset</button></div><div class="pf-shot-status">Waiting for GPS…</div></div><button type="button" class="pf-shot-scorecard" aria-label="Open scorecard"><span class="pf-card-icon">▦</span><span>Scorecard</span></button>`;
     el.querySelector('.pf-shot-toggle').addEventListener('click',toggleOpen);
     el.querySelector('.pf-shot-primary').addEventListener('click',()=>valid(origin)?saveLanding():markShot());
     el.querySelector('.pf-shot-reset').addEventListener('click',resetShot);
+    el.querySelector('.pf-shot-scorecard').addEventListener('click',()=>{if(typeof openScorecard==='function')openScorecard();});
     document.body.appendChild(el);return el;
   }
 
