@@ -1,4 +1,4 @@
-const CACHE_NAME='parfolio-v281-20260914';
+const CACHE_NAME='parfolio-v282-20260914';
 const APP_SHELL=[
   './','./index.html','./manifest.webmanifest','./parfolio-app-icon.png','./parfolio-home-bg-v162.webp','./vendor/supabase-v2.112.4.js','./styles.css','./menu-v107.css','./home-v162.css','./parfolio-ai-v225.css','./parfolio-advanced-scoring-v272.css','./my-page-v275.css','./round-full-bleed-v280.css','./app.js','./tennessee-catalog-v255.js','./google-maps-clean-v269.js','./parfolio-camera-flyover-v270.js','./parfolio-advanced-scoring-v272.js','./auth-startup-recovery-v266.js','./shot-tracking-v274.js','./my-page-v276.js'
 ];
