@@ -1,16 +1,17 @@
-/* ParFolio v188 — audited California catalog + validated GPS loader.
+/* ParFolio v189 — audited California catalog + validated GPS loader.
    ParFolio-private catalog data is merged by stable OpenGolf ID first.
    Complete GPS payloads are hydrated lazily at play time so 1,146 California
    courses remain searchable without hundreds of startup geometry requests. */
 (function(){
   const STATE='CA';
-  const VERSION=188;
+  const VERSION=189;
   let loading=null,statusRepairScheduled=false;
   const hydrated=new Set();
   const norm=v=>String(v||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const validPoint=p=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Math.abs(Number(p.lat))<=90&&Math.abs(Number(p.lng))<=180&&!(Number(p.lat)===0&&Number(p.lng)===0);
   const point=(lat,lng)=>{const p={lat:Number(lat),lng:Number(lng)};return validPoint(p)?p:null};
   const actualMappedCount=course=>(course?.greens||[]).filter(g=>(g?.tee||g?.tees?.black)&&g?.center).length;
+  const isLegacyEmbeddedGeometry=course=>String(course?.id||'').startsWith('catalog-')&&Boolean(course?.gps_key)&&(course?.greens||[]).length>0&&(course.greens||[]).every(g=>['published-gps','inferred-from-routing'].includes(String(g?._review||'')));
 
   function findIndex(row){
     let idx=(courses||[]).findIndex(c=>String(c?.openGolfApiId||'')===String(row.source_id||''));
@@ -23,9 +24,10 @@
     const idx=findIndex(row),location=point(row.lat,row.lng),mapping=String(row.mapping_class||'location_pending');
     const common={parfolioCatalogId:row.catalog_id,parfolioMappingClass:mapping,parfolioMappedHoleCount:Number(row.mapped_holes)||0,parfolioCaliforniaAudit:true,openGolfApiId:row.source_id||null,city:row.city||'',state:row.state_code||STATE,postal_code:row.postal_code||'',country:'United States',country_code:row.country_code||'US',address:row.address||'',catalog_point:location,par_total:Number(row.par)||null,course_type:row.course_type||'',sourceLicense:row.source_license||'ODbL-1.0',sourceAttribution:row.source_attribution||'',osmCourseUri:row.osm_course_uri||null,catalogApproved:mapping!=='quarantined',catalogOnly:mapping!=='gps_ready'};
     if(idx>=0){
-      const prior=courses[idx],existingMapped=actualMappedCount(prior);
-      courses[idx]={...prior,...common,postal_code:row.postal_code||prior.postal_code||'',address:row.address||prior.address||'',name:prior.name||row.name,holes:Number(row.holes)||prior.holes||18,pars:Array.isArray(prior.pars)?prior.pars:[],greens:Array.isArray(prior.greens)?prior.greens:[]};
-      if(existingMapped>=Number(prior.holes||row.holes||18))courses[idx].parfolioPreservedVerifiedGeometry=true;
+      const prior=courses[idx],existingMapped=actualMappedCount(prior),preferCatalogGeometry=mapping==='gps_ready'&&isLegacyEmbeddedGeometry(prior);
+      courses[idx]={...prior,...common,postal_code:row.postal_code||prior.postal_code||'',address:row.address||prior.address||'',name:prior.name||row.name,holes:Number(row.holes)||prior.holes||18,pars:Array.isArray(prior.pars)?prior.pars:[],greens:preferCatalogGeometry?[]:(Array.isArray(prior.greens)?prior.greens:[])};
+      courses[idx].parfolioPreferCatalogGeometry=preferCatalogGeometry;
+      courses[idx].parfolioPreservedVerifiedGeometry=!preferCatalogGeometry&&existingMapped>=Number(prior.holes||row.holes||18);
       return{added:false,course:courses[idx]};
     }
     const holes=Number(row.holes)||18;
@@ -49,14 +51,14 @@
     if(!course||course.parfolioMappingClass!=='gps_ready'||!course.parfolioCatalogId)return true;
     if(hydrated.has(course.parfolioCatalogId))return true;
     const declared=Number(course.holes)||0,existing=actualMappedCount(course);
-    if(declared&&(existing>=declared||course.parfolioPreservedVerifiedGeometry)){hydrated.add(course.parfolioCatalogId);course.catalogOnly=false;return true;}
+    if(!course.parfolioPreferCatalogGeometry&&declared&&(existing>=declared||course.parfolioPreservedVerifiedGeometry)){hydrated.add(course.parfolioCatalogId);course.catalogOnly=false;return true;}
     const {data,error}=await db.rpc('parfolio_course_payload',{p_course_id:course.parfolioCatalogId});
     if(error)throw error;
     const rows=Array.isArray(data?.greens)?data.greens:[],holes=Number(data?.holes)||declared;
     if(![9,18].includes(holes)||rows.length!==holes)throw new Error('GPS-ready payload is incomplete');
     const greens=rows.map((g,index)=>({tee:point(g?.tee?.lat,g?.tee?.lng),tees:{black:point(g?.tee?.lat,g?.tee?.lng)},aim1:point(g?.aim1?.lat,g?.aim1?.lng),aim2:point(g?.aim2?.lat,g?.aim2?.lng),front:point(g?.front?.lat,g?.front?.lng),center:point(g?.center?.lat,g?.center?.lng),back:point(g?.back?.lat,g?.back?.lng),route:g?.route||null,_review:'parfolio-california-osm-validated',_source:g?.source||'openstreetmap_qlever',_hole:Number(g?.hole)||index+1}));
     if(!greens.every(g=>g.tee&&g.center))throw new Error('GPS-ready payload failed tee/center validation');
-    course.holes=holes;course.greens=greens;course.catalogOnly=false;course.parfolioMappedHoleCount=holes;
+    course.holes=holes;course.greens=greens;course.catalogOnly=false;course.parfolioMappedHoleCount=holes;course.parfolioPreferCatalogGeometry=false;course.parfolioPreservedVerifiedGeometry=true;
     const pars=rows.map(g=>Number(g?.par));if(pars.length===holes&&pars.every(p=>Number.isFinite(p)&&p>=2&&p<=7))course.pars=pars;
     hydrated.add(course.parfolioCatalogId);try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}return true;
   }
@@ -70,6 +72,8 @@
         if(typeof window.loadSharedCourseLibrary==='function')try{await window.loadSharedCourseLibrary({rerender:false})}catch{}
         const rows=await fetchCatalog();stats.rows=rows.length;
         for(const row of rows){const result=mergeRow(row);if(result.added)stats.added++;else stats.matched++;if(row.mapping_class==='gps_ready')stats.gpsReady++;else if(row.mapping_class==='partial_gps')stats.partialGps++;else if(row.mapping_class==='course_located')stats.courseLocated++;else if(row.mapping_class==='location_pending')stats.locationPending++;else if(row.mapping_class==='quarantined')stats.quarantined++;}
+        const activeCourse=typeof selectedRoundCourse==='function'?selectedRoundCourse():null;
+        if(activeCourse?.parfolioPreferCatalogGeometry)try{await hydrateCourse(activeCourse)}catch(error){console.warn('Active California GPS refresh failed',error);}
         courses.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
         stats.loaded=true;stats.loadedAt=new Date().toISOString();window.PARFOLIO_CA_CATALOG=stats;if(typeof render==='function')render();return true;
       }catch(error){stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();window.PARFOLIO_CA_CATALOG=stats;console.warn('California catalog load failed',error);return false;}
