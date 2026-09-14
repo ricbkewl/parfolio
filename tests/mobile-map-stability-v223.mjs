@@ -27,12 +27,11 @@ assert.match(camera,/const applied=new WeakMap/,'camera changes must be deduplic
 assert.match(camera,/applyParFolioHoleCamera/,'the play view needs one authoritative camera controller');
 assert.match(camera,/No flyover animation/,'camera changes must remain static rather than scheduling competing travel animations');
 assert.match(camera,/heading:bearingDegrees\(tee,center\)/,'GPS updates must preserve the fixed tee-to-green camera');
-assert.match(camera,/const TARGET_TEE_Y=\.90/,'every mapped hole must place the tee near the bottom edge');
-assert.match(camera,/const TARGET_GREEN_Y=\.10/,'every mapped hole must place the green near the top edge');
-assert.match(camera,/correctEdgeFrame/,'the camera must correct actual screen positions instead of trusting fitBounds zoom');
-assert.match(camera,/MAX_FRAME_PASSES=5/,'screen-position correction must remain bounded');
-assert.match(camera,/all courses · every mapped hole/,'the edge-filled rule must be global rather than region-specific');
-assert.match(html,/parfolio-camera-flyover-v270\.js\?v=284/,'production must load the edge-filled global camera');
+assert.match(camera,/const SAFE_ZOOM_BOOST=\.55/,'every mapped hole should receive one conservative zoom boost');
+assert.match(camera,/all mapped holes/,'the bounded camera rule must be global rather than region-specific');
+assert.doesNotMatch(camera,/OverlayView|correctEdgeFrame|scheduleEdgeFrame|panBy/,'the play camera must never run projection feedback loops on iPhone Safari');
+assert.match(camera,/all-courses-single-pass/,'each mapped hole must use the single-pass camera rule');
+assert.match(html,/parfolio-camera-flyover-v270\.js\?v=286/,'production must load the bounded global camera');
 assert.match(roundCss,/top:max\(6px,calc\(env\(safe-area-inset-top\) \+ 6px\)\)!important/,'live-round HUD must sit just below the iPhone safe area');
 assert.match(html,/round-full-bleed-v280\.css\?v=285/,'production must load the tightened live-round layout');
 
