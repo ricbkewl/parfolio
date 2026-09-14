@@ -26,6 +26,12 @@ assert.match(camera,/const applied=new WeakMap/,'camera changes must be deduplic
 assert.match(camera,/applyParFolioHoleCamera/,'the play view needs one authoritative camera controller');
 assert.match(camera,/No flyover animation/,'camera changes must remain static rather than scheduling competing travel animations');
 assert.match(camera,/heading:bearingDegrees\(tee,center\)/,'GPS updates must preserve the fixed tee-to-green camera');
+assert.match(camera,/const TARGET_TEE_Y=\.90/,'every mapped hole must place the tee near the bottom edge');
+assert.match(camera,/const TARGET_GREEN_Y=\.10/,'every mapped hole must place the green near the top edge');
+assert.match(camera,/correctEdgeFrame/,'the camera must correct actual screen positions instead of trusting fitBounds zoom');
+assert.match(camera,/MAX_FRAME_PASSES=5/,'screen-position correction must remain bounded');
+assert.match(camera,/all courses · every mapped hole/,'the edge-filled rule must be global rather than region-specific');
+assert.match(html,/parfolio-camera-flyover-v270\.js\?v=284/,'production must load the edge-filled global camera');
 
 assert.match(app,/function refreshLiveRoundUi\(/,'live score updates need an in-place UI refresh');
 assert.match(app,/activeView==='round'&&refreshLiveRoundUi\(\)/,'Realtime and reconnect updates must preserve the active map');
