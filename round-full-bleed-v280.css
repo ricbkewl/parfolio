@@ -1,5 +1,5 @@
-/* ParFolio v280 — true edge-to-edge active-round map.
-   Loaded last so older 100vh rules cannot expose the iPhone bottom safe area. */
+/* ParFolio v281 — stable edge-to-edge active-round Google map.
+   Loaded last. Paint the real iPhone viewport only: no legacy 240% overscan. */
 html:has(main.round-fullscreen),body:has(main.round-fullscreen){
   width:100%;
   min-height:100%;
@@ -26,6 +26,8 @@ main.round-fullscreen{
 }
 main.round-fullscreen .live-hole-map,
 main.round-fullscreen .live-map-viewport{
+  position:absolute!important;
+  inset:0!important;
   width:100%!important;
   height:100%!important;
   min-height:100%!important;
@@ -36,8 +38,24 @@ main.round-fullscreen .live-map-viewport{
   overflow:hidden!important;
   background:#173c2b!important;
 }
+/* Critical v281 stability reset: older CSS enlarged this Google canvas to 240%
+   and offset it -70%. With vector tilt that rendered multiple screens of 3D tiles
+   and could exhaust iPhone Safari. Keep Google's real canvas viewport-sized. */
 main.round-fullscreen .live-map-viewport #liveHoleMap{
+  position:absolute!important;
+  inset:0!important;
+  left:0!important;
+  top:0!important;
+  right:0!important;
+  bottom:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:100%!important;
   min-height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  transform:none!important;
+  background:#173c2b!important;
 }
 /* Keep interactive controls above the home-indicator region while the map paints behind it. */
 .round-fullscreen .pf-shot-tracker{bottom:calc(86px + env(safe-area-inset-bottom))!important}
