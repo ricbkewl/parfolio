@@ -85,7 +85,7 @@ assert.ok(ready.greens.every(hole=>hole.tee&&hole.center));
 assert.equal(ready.catalogOnly,false);
 
 const html=read('index.html'),sw=read('service-worker.js'),googleClean=read('google-maps-clean-v269.js'),camera=read('parfolio-camera-flyover-v270.js');
-assert.match(html,/tennessee-catalog-v255\.js\?v=255/);
+assert.match(html,/tennessee-catalog-v255\.js\?v=283/);
 assert.ok(Number(sw.match(/parfolio-v(\d+)-/)?.[1])>=255,'service-worker cache must include the Tennessee release');
 assert.match(sw,/\.\/tennessee-catalog-v255\.js/);
 assert.match(html,/google-maps-clean-v269\.js\?v=269/);
@@ -95,5 +95,30 @@ assert.match(camera,/heading:bearingDegrees\(tee,center\)/);
 assert.match(camera,/No flyover animation/);
 assert.match(read('course-corrections-v147.js'),/submit_parfolio_course_correction/);
 assert.match(read('course-corrections-v147.js'),/p_source_app:'parfolio'/);
+
+let startPayloadCalls=0,chosenCourse=null;
+const startContext={
+  window:null,console,localStorage:{},
+  courses:[],document:{},
+  setTimeout:callback=>{Promise.resolve().then(callback);return 0;},render:()=>{},mappedCount:()=>18,
+  startCourseFromLibrary:index=>index,alert:message=>{throw new Error(message)},confirm:()=>true,
+  currentUser:{id:'golfer-1'},golferProfile:{first_name:'Rick'},
+  roundDefault:{v:'home',players:[],scores:{},putts:{},pars:[]},s:{v:'home'},
+  rememberRecentCourse:()=>{},chooseCourse:id=>{chosenCourse=startContext.courses.find(course=>course.id===id)},
+  db:{rpc:async(name,args)=>{
+    if(name==='parfolio_course_catalog_page')return{data:args.p_offset===0?[rows[0]]:[],error:null};
+    if(name==='parfolio_course_payload'){startPayloadCalls++;return{data:{holes:18,greens},error:null};}
+    throw new Error(name);
+  }}
+};
+startContext.window=startContext;
+vm.createContext(startContext);
+vm.runInContext(read('tennessee-catalog-v255.js'),startContext);
+await startContext.loadParFolioTennesseeCatalog();
+vm.runInContext(read('single-course-start-confirm-v199.js'),startContext);
+await startContext.startCourseFromLibrary(0);
+assert.equal(startPayloadCalls,1,'the final course-start handler must hydrate Tennessee GPS geometry');
+assert.equal(chosenCourse?.greens.length,18);
+assert.ok(chosenCourse.greens.every(hole=>hole.tee&&hole.center));
 
 console.log('Tennessee v255 data, loader, correction, and active Google camera checks passed.');

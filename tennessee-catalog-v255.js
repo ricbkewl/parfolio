@@ -1,6 +1,6 @@
-/* ParFolio v255 — audited Tennessee catalog + validated GPS loader. */
+/* ParFolio v256 — audited Tennessee catalog + validated GPS loader. */
 (function(){
-  const STATE='TN',VERSION=255;
+  const STATE='TN',VERSION=256;
   let loading=null;
   const hydrated=new Set();
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
@@ -89,7 +89,7 @@
     if(!greens.every(hole=>hole.tee&&hole.center))throw new Error('Tennessee GPS-ready payload failed tee/center validation');
     course.holes=holes;course.greens=greens;course.catalogOnly=false;course.parfolioMappedHoleCount=holes;
     const pars=rows.map(hole=>Number(hole?.par));if(pars.length===holes&&pars.every(par=>Number.isFinite(par)&&par>=2&&par<=7))course.pars=pars;
-    hydrated.add(course.parfolioCatalogId);
+    hydrated.add(course.parfolioCatalogId);try{localStorage.parfolioCourses=JSON.stringify(courses)}catch{}
     return true;
   }
   window.hydrateParFolioTennesseeCourse=hydrateCourse;
@@ -105,6 +105,8 @@
           const result=mergeRow(row);if(result.added)stats.added++;else stats.matched++;
           if(row.mapping_class==='gps_ready')stats.gpsReady++;else if(row.mapping_class==='partial_gps')stats.partialGps++;else if(row.mapping_class==='course_located')stats.courseLocated++;else if(row.mapping_class==='location_pending')stats.locationPending++;else if(row.mapping_class==='quarantined')stats.quarantined++;
         }
+        const activeCourse=typeof selectedRoundCourse==='function'?selectedRoundCourse():null;
+        if(activeCourse?.parfolioTennesseeAudit&&activeCourse.parfolioMappingClass==='gps_ready')try{await hydrateCourse(activeCourse)}catch(error){console.warn('Active Tennessee GPS refresh failed',error);}
         courses.sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));
         stats.loaded=true;stats.loadedAt=new Date().toISOString();window.PARFOLIO_TN_CATALOG=stats;
         if(typeof render==='function')render();
