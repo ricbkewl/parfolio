@@ -29,6 +29,20 @@
   function saveRecord(record){try{const rows=readHistory();rows.push(record);localStorage.setItem(STORE,JSON.stringify(rows.slice(-500)));}catch{}}
   window.getParFolioShotHistory=readHistory;
 
+  async function syncRecord(record){
+    try{
+      if(typeof db==='undefined'||!db||typeof currentUser==='undefined'||!currentUser?.id)return;
+      const cloud={
+        id:record.id,user_id:currentUser.id,round_id:typeof s!=='undefined'&&s?.sharedRoundId?s.sharedRoundId:null,
+        course_name:record.course||'',hole:record.hole,shot_number:record.shot,club:record.club||null,distance_yards:record.distance_yards,
+        origin_lat:record.origin?.lat??null,origin_lng:record.origin?.lng??null,landing_lat:record.landing?.lat??null,landing_lng:record.landing?.lng??null,
+        origin_accuracy_m:record.origin?.accuracy??null,landing_accuracy_m:record.landing?.accuracy??null,created_at:record.saved_at
+      };
+      const {error}=await db.from('golfer_shots').upsert(cloud,{onConflict:'id'});
+      if(error)console.warn('[ParFolio Shot Tracking] cloud sync:',error.message||error);
+    }catch(error){console.warn('[ParFolio Shot Tracking] cloud sync:',error?.message||error)}
+  }
+
   function positionObject(pos){return{lat:Number(pos.coords.latitude),lng:Number(pos.coords.longitude),accuracy:Number(pos.coords.accuracy)||null,time:new Date(pos.timestamp||Date.now()).toISOString()};}
   function updatePosition(pos){lastFix=positionObject(pos);updateUi();}
   function positionError(error){const status=document.querySelector('.pf-shot-status');if(status)status.textContent=error?.message||'GPS unavailable';}
@@ -56,8 +70,9 @@
   async function saveLanding(){
     if(busy||!valid(origin))return;busy=true;updateUi();
     try{
-      const landing=await getFix(),yards=Math.round(yardsBetween(origin,landing)),hole=currentHole(),club=selectedClub();
-      saveRecord({id:(crypto?.randomUUID?.()||String(Date.now())),course:courseName(),hole,shot:shotNumber,club:club||null,distance_yards:yards,origin:{lat:origin.lat,lng:origin.lng,accuracy:origin.accuracy||null,time:origin.time},landing:{lat:landing.lat,lng:landing.lng,accuracy:landing.accuracy||null,time:landing.time},saved_at:new Date().toISOString()});
+      const landing=await getFix(),yards=Math.round(yardsBetween(origin,landing)),hole=currentHole(),club=selectedClub(),savedAt=new Date().toISOString();
+      const record={id:(crypto?.randomUUID?.()||String(Date.now())),course:courseName(),hole,shot:shotNumber,club:club||null,distance_yards:yards,origin:{lat:origin.lat,lng:origin.lng,accuracy:origin.accuracy||null,time:origin.time},landing:{lat:landing.lat,lng:landing.lng,accuracy:landing.accuracy||null,time:landing.time},saved_at:savedAt};
+      saveRecord(record);syncRecord(record);
       origin={...landing};originHole=hole;shotNumber+=1;
       const status=document.querySelector('.pf-shot-status');if(status)status.textContent=`Saved ${yards} yd${club?` · ${club}`:''}. Next shot starts here.`;
       updateUi();
