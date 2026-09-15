@@ -12,7 +12,9 @@ assert.match(loader,/parfolio_course_payload/,'GPS play must use the authoritati
 assert.match(loader,/yards<20\|\|yards>1000/,'every hole needs a distance sanity check');
 assert.match(start,/await window\.ensureParFolioGpsCourseReady\(course\)/,'course start must await the universal gate');
 assert.ok(html.indexOf('universal-gps-course-loader-v287.js')<html.indexOf('single-course-start-confirm-v199.js'),'the universal gate must load before the final start handler');
-assert.match(sw,/parfolio-v287-/);assert.match(sw,/\.\/universal-gps-course-loader-v287\.js/);
+const cacheMatch=sw.match(/CACHE_NAME='parfolio-v(\d+)-/);
+assert.ok(cacheMatch&&Number(cacheMatch[1])>=287,'service-worker cache generation must not predate the universal GPS standard');
+assert.match(sw,/\.\/universal-gps-course-loader-v287\.js/);
 
 const allowedStartFiles=new Set(['app.js','california-catalog-v185.js','texas-catalog-v191.js','tennessee-catalog-v255.js','indonesia-catalog-v197.js','offline-courses-v193.js','smart-course-search-v176-fix.js','single-course-start-confirm-v199.js']);
 for(const file of fs.readdirSync(root).filter(file=>file.endsWith('.js'))){
