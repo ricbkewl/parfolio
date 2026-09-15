@@ -36,8 +36,21 @@ assert.equal(payloadCalls,1);assert.equal(future.parfolioGeometryVersion,287);as
 await context.ensureParFolioGpsCourseReady(future);assert.equal(payloadCalls,1,'authoritative payload should be fetched once per course per session');
 
 const bad={...future,parfolioCatalogId:'bad',greens:[],parfolioGeometryVersion:0};
-context.db.rpc=async()=>({data:{holes:9,mapping_class:'gps_ready',greens:greens.map((hole,index)=>index?hole:{...hole,tee:{lat:0,lng:0}})},error:null});
+context.db.rpc=async()=>({data:{catalog_id:'bad',holes:9,mapping_class:'gps_ready',greens:greens.map((hole,index)=>index?hole:{...hole,tee:{lat:0,lng:0}})},error:null});
 await assert.rejects(()=>context.ensureParFolioGpsCourseReady(bad),/valid tee or green center/);
+
+const stale={...future,parfolioCatalogId:'stale',parfolioGeometryVersion:287};
+context.db.rpc=async()=>({data:{catalog_id:'stale',holes:9,mapping_class:'gps_ready',greens:greens.map((hole,index)=>index?hole:{...hole,center:{lat:0,lng:0}})},error:null});
+await assert.rejects(()=>context.ensureParFolioGpsCourseReady(stale),/valid tee or green center/,'bad authoritative geometry cannot fall back to cached geometry');
+const offline={...future,parfolioCatalogId:'offline',parfolioGeometryVersion:287};
+context.db.rpc=async()=>({data:null,error:new Error('Network unavailable')});
+assert.equal(await context.ensureParFolioGpsCourseReady(offline),true,'network failure may use current-version validated offline geometry');
+const shared={...future,parfolioCatalogId:null,parfolioMappingClass:null,sharedMappingStatus:'published'};
+assert.equal(await context.ensureParFolioGpsCourseReady(shared),true,'published shared courses must use the same validator');
+assert.equal(shared.parfolioGeometryVersion,287);
+await assert.rejects(()=>context.ensureParFolioGpsCourseReady({...shared,greens:[]}),/failed validation/);
+
+context.db.rpc=async()=>({data:{catalog_id:'bad',holes:9,mapping_class:'gps_ready',greens:greens.map((hole,index)=>index?hole:{...hole,tee:{lat:0,lng:0}})},error:null});
 
 let selected=false,warning='';
 const startContext={...context,courses:[bad],confirm:()=>true,alert:message=>{warning=message},currentUser:{id:'golfer-1'},golferProfile:{first_name:'Rick'},
