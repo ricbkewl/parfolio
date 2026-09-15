@@ -52,10 +52,12 @@ async function check(engine,label,viewport){
  const show=page.locator('[data-apply]');const count=await show.innerText();
  add(label,'Partial GPS filter',/Show [1-9][0-9]* Course/.test(count),count);
  await page.locator('[data-clear]').click();await page.locator('[data-apply]').click();
- await page.getByRole('button',{name:'Show courses on map'}).click();
+ await page.locator('.course-map-launch').click();
  add(label,'floating course map opens',await page.getByRole('generic',{name:'Map of golf courses'}).count()>0||await page.locator('.course-map-browser').count()>0);
  await page.screenshot({path:'audit-results/'+label+'-course-map.png',fullPage:true});
- await page.getByRole('button',{name:'Back to course list'}).click();
+ const backToList=page.getByRole('button',{name:/Back to course list/i});
+ if(await backToList.count())await backToList.click();
+ else await page.locator('.course-map-browser .back,.course-map-browser [data-back]').first().click();
  const guard=await page.evaluate(()=>{if(typeof authorizedView!=='function')return false;return ['round','mapCourse','usersView','historyView','chatView'].every(v=>authorizedView(v)==='home')});
  add(label,'signed-out protected routes',guard);
  const editor=await page.evaluate(()=>{const d=window.parfolioNormalizeCourseForEditor({holes:18,greens:[],mapHole:7,target:'back'});return {hole:d.mapHole,target:d.target,greens:d.greens.length}});
