@@ -22,11 +22,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
       - name: JavaScript syntax checks
         shell: bash
         run: |
           set -euo pipefail
           for f in *.js; do node --check "$f" >/dev/null; done
+      - name: Universal GPS course loading standard
+        run: node tests/universal-gps-standard-v287.mjs
       - name: Reject ATG private configuration and browser namespaces
         shell: bash
         run: |
