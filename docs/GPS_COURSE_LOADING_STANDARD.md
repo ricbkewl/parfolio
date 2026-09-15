@@ -39,4 +39,4 @@ Course names, locations, and reviewed public geometry are reference data. ParFol
 
 ## Enforcement
 
-`tests/universal-gps-standard-v287.mjs` fails CI if a future regional JavaScript file wraps course start, if the universal gate is removed or loaded too late, if cache versions drift, or if invalid GPS-ready geometry can reach course selection.
+`tests/universal-gps-standard-v287.mjs` runs in the pull-request runtime guard and fails CI if a future regional JavaScript file wraps course start, if the universal gate is removed or loaded too late, if cache versions drift, or if invalid GPS-ready geometry can reach course selection.
