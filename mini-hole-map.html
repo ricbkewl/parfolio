@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#10251e" />
+  <title>ParFolio Mini Hole Map</title>
+  <style>
+    html,body,#map{height:100%;margin:0;background:#10251e;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    #status{position:absolute;inset:0;display:grid;place-items:center;padding:24px;color:#d8e2dd;background:#10251e;text-align:center;z-index:2;font-size:13px;line-height:1.45}
+    #status.hidden{display:none}
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="status">Loading ParFolio satellite map…</div>
+  <script src="/api/runtime-config"></script>
+  <script src="/mini-hole-map.js"></script>
+</body>
+</html>
