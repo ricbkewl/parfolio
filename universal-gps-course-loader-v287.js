@@ -35,14 +35,24 @@
     if(hydrated.has(catalogId)&&local.ok&&Number(course.parfolioGeometryVersion)===VERSION)return true;
     if(pending.has(catalogId))return pending.get(catalogId);
     const request=(async()=>{try{
-      const {data,error}=await db.rpc('parfolio_course_payload',{p_course_id:catalogId});if(error)throw error;
-      if(!data||String(data.mapping_class||'')!=='gps_ready')throw new Error('the authoritative catalog no longer marks this course GPS Ready');applyPayload(course,data);hydrated.add(catalogId);return true;
-    }catch(error){const offline=validate(course);if(Number(course.parfolioGeometryVersion)===VERSION&&offline.ok){hydrated.add(catalogId);return true}throw error}finally{pending.delete(catalogId)}})();
+      let response;
+      try{response=await db.rpc('parfolio_course_payload',{p_course_id:catalogId})}
+      catch(networkError){response={error:networkError}}
+      if(response.error){
+        const offline=validate(course);
+        if(Number(course.parfolioGeometryVersion)===VERSION&&offline.ok){hydrated.add(catalogId);return true}
+        throw response.error;
+      }
+      const data=response.data;
+      if(!data||String(data.mapping_class||'')!=='gps_ready')throw new Error('the authoritative catalog no longer marks this course GPS Ready');
+      if(String(data.catalog_id||'')!==catalogId)throw new Error('the authoritative catalog payload belongs to a different course');
+      applyPayload(course,data);hydrated.add(catalogId);return true;
+    }finally{pending.delete(catalogId)}})();
     pending.set(catalogId,request);return request;
   }
   function findCourse(row){
     let found=(courses||[]).find(course=>String(course?.parfolioCatalogId||'')===String(row.catalog_id||''));if(found)return found;
-    found=(courses||[]).find(course=>String(course?.openGolfApiId||'')===String(row.source_id||''));if(found)return found;
+    found=(courses||[]).find(course=>row.source_id&&String(course?.openGolfApiId||'')===String(row.source_id)&&norm(course?.state)===norm(row.state_code)&&String(course?.country_code||'US').toUpperCase()===String(row.country_code||'US').toUpperCase());if(found)return found;
     const name=norm(row.name),city=norm(row.city),region=norm(row.state_code);return(courses||[]).find(course=>norm(course?.name)===name&&(!city||norm(course?.city)===city)&&(!region||norm(course?.state)===region));
   }
   function mergeRow(row){
