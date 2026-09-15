@@ -5,7 +5,10 @@
   const priorStartCourseFromLibrary=startCourseFromLibrary;
 
   async function hydrateAuditedGpsCourse(course){
-    if(course?.parfolioMappingClass!=='gps_ready')return;
+    const claimed=typeof window.parfolioCourseClaimsGpsReady==='function'
+      ?window.parfolioCourseClaimsGpsReady(course)
+      :course?.parfolioMappingClass==='gps_ready';
+    if(!claimed)return;
     if(typeof window.ensureParFolioGpsCourseReady==='function'){
       await window.ensureParFolioGpsCourseReady(course);
       return;
