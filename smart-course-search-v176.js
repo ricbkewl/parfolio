@@ -1,6 +1,6 @@
-/* ParFolio v184 — GPS-prioritized smart course discovery/search.
-   Keeps exact-name matches trustworthy while lifting playable GPS courses and
-   showing a floating green/yellow/red GPS state in every search suggestion. */
+/* ParFolio v292 — relevance-first smart course discovery/search.
+   Exact and fuzzy text relevance always outrank GPS status while active search is used.
+   GPS readiness remains the primary tie-breaker among comparably relevant matches. */
 (function(){
   let visibleLimit=25;
   let lastQuery='';
@@ -60,7 +60,7 @@
     const name=norm(course?.name),city=norm(course?.city),state=norm(course?.state),postal=norm(course?.postal_code),country=norm(course?.country||course?.country_code),address=norm(course?.address);
     const all=[name,city,state,postal,country,address].filter(Boolean).join(' ');
     let relevance=0;
-    if(!q)return{match:true,relevance:0};
+    if(!q)return{match:true,relevance:0,tokenHits:0,meaningfulCount:0};
 
     const cleaned=meaningful(q).join(' '),qTokens=tokens(q).filter(t=>!['near','around','in','me'].includes(t));
     if(name===q||name===cleaned)relevance+=10000;
@@ -85,8 +85,9 @@
     if(/mapped|gps|gps ready/.test(q)&&typeof mappedCount==='function'&&mappedCount(course)>0)relevance+=1000;
 
     const meaningfulCount=qTokens.filter(t=>!STOP.has(t)&&!/^(9|18)$/.test(t)&&!/^holes?$/.test(t)).length;
+    if(meaningfulCount>1&&tokenHits===meaningfulCount)relevance+=1200+meaningfulCount*100;
     const match=relevance>0||(meaningfulCount===0&&(wants18||wants9));
-    return{match,relevance};
+    return{match,relevance,tokenHits,meaningfulCount};
   }
 
   window.smartCourseMatchesQuery=function(course,query){return searchInfo(course,0,query).match};
@@ -104,8 +105,11 @@
       if(distance!==null)discovery+=Math.max(0,10000-distance*100);
       if(typeof mappedCount==='function')discovery+=mappedCount(course)*8;
       const search=searchInfo(course,index,courseLibraryQuery||''),gps=courseGpsState(course);
-      return{course,index,distance,gps,score:courseLibraryQuery?(search.relevance+gps.priority)*100000+discovery:discovery,searchMatch:search.match,relevance:search.relevance};
-    }).sort((a,b)=>b.score-a.score||a.course.name.localeCompare(b.course.name));
+      // During search, textual relevance is authoritative. GPS readiness and discovery
+      // are tie-breakers, never strong enough to displace a materially better match.
+      const score=courseLibraryQuery?search.relevance*100000000+gps.priority*10000+discovery:discovery;
+      return{course,index,distance,gps,score,searchMatch:search.match,relevance:search.relevance};
+    }).sort((a,b)=>b.score-a.score||b.relevance-a.relevance||b.gps.rank-a.gps.rank||a.course.name.localeCompare(b.course.name));
   };
 
   function gpsBadge(course){
@@ -132,8 +136,9 @@
 
   function suggestionsFor(query){
     if(norm(query).length<2)return[];
-    return (Array.isArray(courses)?courses:[]).map((course,index)=>{const info=searchInfo(course,index,query),gps=courseGpsState(course);return{course,index,info,gps,weighted:info.relevance+gps.priority,distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}})
-      .filter(x=>x.info.match&&(!window.smartCourseMatchesQuery||window.smartCourseMatchesQuery(x.course,query))).sort((a,b)=>b.weighted-a.weighted||b.gps.rank-a.gps.rank||b.info.relevance-a.info.relevance||(a.distance??Infinity)-(b.distance??Infinity)).slice(0,6);
+    return (Array.isArray(courses)?courses:[]).map((course,index)=>{const info=searchInfo(course,index,query),gps=courseGpsState(course);return{course,index,info,gps,distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}})
+      .filter(x=>x.info.match&&(!window.smartCourseMatchesQuery||window.smartCourseMatchesQuery(x.course,query)))
+      .sort((a,b)=>b.info.relevance-a.info.relevance||b.gps.rank-a.gps.rank||(a.distance??Infinity)-(b.distance??Infinity)||a.course.name.localeCompare(b.course.name)).slice(0,6);
   }
 
   function renderSuggestions(query){
@@ -207,13 +212,12 @@
     if(!document.querySelector('.smart-course-quick-filters'))tools.insertAdjacentHTML('afterend','<div class="smart-course-quick-filters"></div>');
     decorateQuickFilters();
     const sub=document.querySelector('h1 + .muted');if(sub)sub.textContent='Find nearby courses or search the complete ParFolio course library.';
-    const resultSub=document.querySelector('.course-results-heading span');if(resultSub)resultSub.textContent='GPS-ready courses prioritized · exact matches preserved';
+    const resultSub=document.querySelector('.course-results-heading span');if(resultSub)resultSub.textContent='Best text matches first · GPS readiness breaks ties';
   }
 
   const priorCourses176=window.coursesView||coursesView;
   window.coursesView=coursesView=function(){const out=priorCourses176.apply(this,arguments);setTimeout(()=>{decorateCourses();refreshCourseLibrary();},0);return out;};
 
-  // Keep UI decoration in sync when existing filter sheet actions rerender results.
   const priorSetFilter=window.setCourseFilter||setCourseFilter;
   if(typeof priorSetFilter==='function')window.setCourseFilter=setCourseFilter=function(){const out=priorSetFilter.apply(this,arguments);setTimeout(decorateQuickFilters,0);return out;};
   const priorClear=window.clearCourseFilters||clearCourseFilters;
