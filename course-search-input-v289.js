@@ -1,18 +1,28 @@
-/* ParFolio v289 — mobile-safe editable course search input.
-   Keeps the existing smart ranking/autocomplete logic, but removes the nested
-   label/button interaction that can prevent iOS Safari/PWA users from typing. */
+/* ParFolio v291 — stable mobile course search interaction.
+   Prevents iOS form-field auto zoom, keeps focus stable, and throttles expensive
+   course-grid repaints while preserving smart search/autocomplete behavior. */
 (function(){
   const SELECTOR='.course-library-search input[type="search"]';
   let queued=false;
+  let searchTimer=null;
 
   function ensureStyle(){
-    if(document.getElementById('pf-course-search-input-v289-style'))return;
-    const style=document.createElement('style');
-    style.id='pf-course-search-input-v289-style';
+    let style=document.getElementById('pf-course-search-input-v291-style');
+    if(style)return;
+    style=document.createElement('style');
+    style.id='pf-course-search-input-v291-style';
     style.textContent=`
       .course-library-search{position:relative}
-      .course-library-search input[type="search"]{position:relative;z-index:3;pointer-events:auto!important;touch-action:manipulation;-webkit-user-select:text!important;user-select:text!important;cursor:text}
+      .course-library-search input[type="search"]{
+        position:relative;z-index:3;pointer-events:auto!important;touch-action:manipulation;
+        -webkit-user-select:text!important;user-select:text!important;cursor:text;
+        font-size:16px!important;line-height:1.25!important;
+        -webkit-text-size-adjust:100%;text-size-adjust:100%;
+      }
       .course-library-search>button{position:relative;z-index:4}
+      html.pf-course-search-focused,html.pf-course-search-focused body{scroll-behavior:auto!important}
+      html.pf-course-search-focused .course-library-search{transform:none!important}
+      @media(max-width:420px){.course-library-search input[type="search"]{font-size:16px!important}}
     `;
     document.head.appendChild(style);
   }
@@ -30,6 +40,20 @@
     return shell;
   }
 
+  function runSearch(value,input,start,end){
+    try{
+      if(typeof window.filterSharedCourses==='function')window.filterSharedCourses(value);
+      else if(typeof filterSharedCourses==='function')filterSharedCourses(value);
+    }catch(error){
+      console.warn('ParFolio course search input failed',error);
+    }
+    requestAnimationFrame(()=>{
+      const current=document.querySelector(SELECTOR);
+      if(!current||document.activeElement!==current)return;
+      try{current.setSelectionRange(start??value.length,end??value.length)}catch{}
+    });
+  }
+
   function bindSearch(){
     queued=false;
     ensureStyle();
@@ -45,35 +69,29 @@
     input.setAttribute('autocapitalize','none');
     input.setAttribute('spellcheck','false');
     input.style.pointerEvents='auto';
+    input.style.fontSize='16px';
 
     const filterButton=shell.querySelector('button');
     if(filterButton&&!filterButton.getAttribute('type'))filterButton.type='button';
 
-    if(input.dataset.pfEditableSearch==='1')return;
-    input.dataset.pfEditableSearch='1';
-
-    // Own the input event once so an inline handler cannot be lost or doubled
-    // when later course-search scripts decorate the same control.
+    if(input.dataset.pfEditableSearch==='291')return;
+    input.dataset.pfEditableSearch='291';
     input.removeAttribute('oninput');
     input.oninput=null;
+
+    input.addEventListener('focus',()=>{
+      document.documentElement.classList.add('pf-course-search-focused');
+    },{passive:true});
+    input.addEventListener('blur',()=>{
+      document.documentElement.classList.remove('pf-course-search-focused');
+    },{passive:true});
+
     input.addEventListener('input',()=>{
       const value=input.value;
       const start=input.selectionStart;
       const end=input.selectionEnd;
-      try{
-        if(typeof window.filterSharedCourses==='function')window.filterSharedCourses(value);
-        else if(typeof filterSharedCourses==='function')filterSharedCourses(value);
-      }catch(error){
-        console.warn('ParFolio course search input failed',error);
-      }
-      requestAnimationFrame(()=>{
-        const current=document.querySelector(SELECTOR);
-        if(!current)return;
-        // Preserve caret position when results/autocomplete update below it.
-        if(document.activeElement===current){
-          try{current.setSelectionRange(start??value.length,end??value.length)}catch{}
-        }
-      });
+      clearTimeout(searchTimer);
+      searchTimer=setTimeout(()=>runSearch(value,input,start,end),70);
     });
   }
 
@@ -84,8 +102,10 @@
   }
 
   ensureStyle();
-  new MutationObserver(schedule).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
+  const app=document.getElementById('app')||document.body;
+  new MutationObserver(mutations=>{
+    if(mutations.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&(n.matches?.('.course-library-search')||n.querySelector?.('.course-library-search')))))schedule();
+  }).observe(app,{childList:true,subtree:true});
   bindSearch();
   setTimeout(bindSearch,250);
-  setTimeout(bindSearch,900);
 })();
