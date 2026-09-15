@@ -71,3 +71,47 @@ main.round-fullscreen .live-map-viewport #liveHoleMap{
 .round-fullscreen .round-map-summary{
   top:max(6px,calc(env(safe-area-inset-top) + 6px))!important;
 }
+
+/* v288: move only the course name above the HUD without moving the main black bar. */
+.round-fullscreen .round-course-name-strip{
+  position:absolute!important;
+  z-index:1605!important;
+  top:max(24px,calc(env(safe-area-inset-top) - 21px))!important;
+  bottom:auto!important;
+  left:50%!important;
+  right:auto!important;
+  width:auto!important;
+  max-width:min(58vw,320px)!important;
+  min-height:20px!important;
+  height:20px!important;
+  margin:0!important;
+  padding:1px 11px!important;
+  transform:translateX(-50%)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.22)!important;
+  border-radius:999px!important;
+  background:linear-gradient(155deg,rgba(20,45,36,.52),rgba(8,24,19,.66))!important;
+  -webkit-backdrop-filter:blur(14px) saturate(135%)!important;
+  backdrop-filter:blur(14px) saturate(135%)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 4px 14px rgba(0,0,0,.18)!important;
+  color:#fff!important;
+  font-size:10px!important;
+  font-weight:800!important;
+  line-height:1!important;
+  letter-spacing:.02em!important;
+  text-align:center!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+@media(max-width:390px){
+  .round-fullscreen .round-course-name-strip{
+    max-width:56vw!important;
+    min-height:19px!important;
+    height:19px!important;
+    padding:1px 9px!important;
+    font-size:9px!important;
+  }
+}
