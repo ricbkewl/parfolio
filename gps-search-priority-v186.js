@@ -1,6 +1,6 @@
-/* ParFolio v186 — GPS-first search priority and three-color GPS indicator.
-   Green = complete GPS Ready. Yellow = usable course location / incomplete GPS.
-   Red = no usable location or quarantined geometry. */
+/* ParFolio v292 compatibility — GPS state/indicator only.
+   Search ordering is owned by smart-course-search-v176.js. This legacy layer must
+   never re-rank active search results or autocomplete suggestions after render. */
 (function(){
   function validPoint(p){
     const lat=Number(p?.lat),lng=Number(p?.lng);
@@ -23,20 +23,6 @@
   }
   window.smartCourseGpsState=gpsState;
 
-  const priorRanked=typeof rankedSharedCourses==='function'?rankedSharedCourses:null;
-  if(priorRanked){
-    rankedSharedCourses=function(){
-      const rows=priorRanked();
-      const query=String(typeof courseLibraryQuery!=='undefined'?courseLibraryQuery:'').trim();
-      if(!query)return rows;
-      return rows.map(row=>{
-        const gps=gpsState(row.course);
-        const relevance=Number(row.relevance)||Number(window.smartCourseSearchScore?.(row.course,query))||0;
-        return{...row,gps,_v186Score:gps.priority*100000000+relevance*100000+(Number(row.score)||0)%100000};
-      }).sort((a,b)=>b._v186Score-a._v186Score||String(a.course?.name||'').localeCompare(String(b.course?.name||'')));
-    };
-  }
-
   function setBadge(badge,gps,kind){
     if(!badge)return;
     const className=`${kind} ${gps.key}`,label=kind==='smart-gps-badge'?`● ${gps.label}`:gps.shortLabel;
@@ -58,16 +44,12 @@
     });
     const suggestionBox=root.querySelector?.('.smart-course-suggestions');
     if(suggestionBox){
-      const buttons=[...suggestionBox.querySelectorAll('button')];
-      buttons.forEach(button=>{
+      [...suggestionBox.querySelectorAll('button')].forEach(button=>{
         const name=button.querySelector('b')?.textContent?.trim();
         const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
         const gps=gpsState(course);button.dataset.gpsPriority=String(gps.priority);
         setBadge(button.querySelector('.smart-search-status'),gps,'smart-search-status');
       });
-      const sorted=[...buttons].sort((a,b)=>Number(b.dataset.gpsPriority||0)-Number(a.dataset.gpsPriority||0));
-      const changed=sorted.some((button,index)=>button!==buttons[index]);
-      if(changed)sorted.forEach(button=>suggestionBox.appendChild(button));
     }
   }
   window.normalizeParFolioGpsIndicators=normalizeIndicators;
