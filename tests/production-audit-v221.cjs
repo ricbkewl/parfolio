@@ -17,7 +17,7 @@ async function check(engine,label,viewport){
  const response=await page.goto(BASE,{waitUntil:'domcontentloaded'});
  await page.waitForFunction(()=>typeof cloudLoading!=='undefined'&&!cloudLoading,{timeout:45000});
  await page.waitForFunction(()=>typeof courses!=='undefined'&&courses.length>1000,{timeout:60000});
- await page.waitForFunction(()=>window.PARFOLIO_TX_CATALOG?.loaded&&window.PARFOLIO_ID_CATALOG?.loaded,{timeout:60000});
+ await page.waitForFunction(()=>window.PARFOLIO_SHARED_LIBRARY?.loaded&&window.PARFOLIO_UNIVERSAL_GPS?.loaded&&window.PARFOLIO_CA_CATALOG?.loaded&&window.PARFOLIO_TX_CATALOG?.loaded&&window.PARFOLIO_ID_CATALOG?.loaded,{timeout:60000});
  add(label,'page load',response.status()===200);
  add(label,'home overflow',await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+3));
  const home=await page.locator('body').innerText();
@@ -30,7 +30,8 @@ async function check(engine,label,viewport){
  add(label,'PWA manifest',manifest.status()===200&&mf.name==='ParFolio'&&!!mf.icons?.length,mf);
  const auth=await page.evaluate(async()=>{const r=await fetch(SUPABASE_URL+'/auth/v1/settings',{headers:{apikey:SUPABASE_PUBLISHABLE_KEY}});return {status:r.status,settings:await r.json()}});
  add(label,'Supabase Auth',auth.status===200,{status:auth.status,emailEnabled:auth.settings.external?.email});
- const catalog=await page.evaluate(()=>({total:courses.length,shared:window.PARFOLIO_SHARED_LIBRARY,states:['CA','NY','TX'].map(state=>({state,count:courses.filter(c=>String(c.state||c.state_code).toUpperCase()===state).length})),indonesia:courses.filter(c=>/indonesia/i.test(c.country||'')||c.country_code==='ID').length}));
+ const catalog=await page.evaluate(()=>({total:courses.length,shared:window.PARFOLIO_SHARED_LIBRARY,universal:window.PARFOLIO_UNIVERSAL_GPS,california:window.PARFOLIO_CA_CATALOG,texas:window.PARFOLIO_TX_CATALOG,indonesiaLoader:window.PARFOLIO_ID_CATALOG,states:['CA','NY','TX'].map(state=>({state,count:courses.filter(c=>String(c.state||c.state_code).toUpperCase()===state).length})),indonesia:courses.filter(c=>/indonesia/i.test(c.country||'')||c.country_code==='ID').length}));
+ add(label,'catalog loaders settled',catalog.shared?.loaded&&catalog.universal?.loaded&&catalog.california?.loaded&&catalog.texas?.loaded&&catalog.indonesiaLoader?.loaded,{shared:catalog.shared,universal:catalog.universal,california:catalog.california,texas:catalog.texas,indonesia:catalog.indonesiaLoader});
  add(label,'catalog populated',catalog.total>1000,catalog);
  add(label,'shared library pagination',catalog.shared?.loaded&&catalog.shared.catalogRows>500,catalog.shared);
  for(const state of catalog.states)add(label,state.state+' courses',state.count>100,state.count);
