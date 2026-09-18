@@ -6,6 +6,8 @@
   let generation=0;
   const applied=new WeakMap(), interacted=new WeakMap(), armed=new WeakSet();
   const point=v=>{if(!v)return null;const lat=Number(v.lat),lng=Number(v.lng);return Number.isFinite(lat)&&Number.isFinite(lng)?{lat,lng}:null};
+
+  function bearing(a,b){const p1=a.lat*Math.PI/180,p2=b.lat*Math.PI/180,d=(b.lng-a.lng)*Math.PI/180;return(Math.atan2(Math.sin(d)*Math.cos(p2),Math.cos(p1)*Math.sin(p2)-Math.sin(p1)*Math.cos(p2)*Math.cos(d))*180/Math.PI+360)%360}
   function green(){try{return selectedRoundCourse()?.greens?.[Number(s?.hole||1)-1]||null}catch{return null}}
   function livePoint(g){
     try{
@@ -24,11 +26,11 @@
     try{
       const bounds=new google.maps.LatLngBounds();bounds.extend(a);bounds.extend(c);
       for(const p of [g?.front,g?.back,g?.aim1,g?.aim2].map(point).filter(Boolean))bounds.extend(p);
-      raw.__pfCamWrite=true;raw.setTilt?.(0);raw.setHeading?.(0);
-      raw.fitBounds(bounds,{top:52,right:46,bottom:112,left:46});
+      raw.__pfCamWrite=true;raw.setTilt?.(0);
+      raw.fitBounds(bounds,{top:70,right:46,bottom:150,left:46});
       setTimeout(()=>{if(!valid(raw,token,key))return;try{
-        raw.__pfCamWrite=true;const z=Number(raw.getZoom?.()||17);if(z>19)raw.setZoom(19);if(z<15)raw.setZoom(15);
-        /* fitBounds padding establishes the vertical 6-to-12 composition without repeated pan corrections. */ applied.set(raw,key);
+        raw.__pfCamWrite=true;raw.setHeading?.(bearing(a,c));const z=Number(raw.getZoom?.()||17);if(z>19)raw.setZoom(19);if(z<15)raw.setZoom(15);
+        /* Rotate the actual Google map so anchor->green is vertical: golfer at 6, green at 12. */ applied.set(raw,key);
         const host=document.getElementById('liveHoleMap');if(host){host.dataset.cameraRule='v300-live-6-to-12';host.dataset.cameraAnchor=livePoint(g)?'golfer':'tee'}
       }finally{setTimeout(()=>raw.__pfCamWrite=false,100)}},160);
       setTimeout(()=>raw.__pfCamWrite=false,100);
