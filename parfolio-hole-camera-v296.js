@@ -28,7 +28,7 @@
       raw.fitBounds(bounds,{top:52,right:46,bottom:112,left:46});
       setTimeout(()=>{if(!valid(raw,token,key))return;try{
         raw.__pfCamWrite=true;const z=Number(raw.getZoom?.()||17);if(z>19)raw.setZoom(19);if(z<15)raw.setZoom(15);
-        raw.panBy?.(0,-34);applied.set(raw,key);
+        /* fitBounds padding establishes the vertical 6-to-12 composition without repeated pan corrections. */ applied.set(raw,key);
         const host=document.getElementById('liveHoleMap');if(host){host.dataset.cameraRule='v300-live-6-to-12';host.dataset.cameraAnchor=livePoint(g)?'golfer':'tee'}
       }finally{setTimeout(()=>raw.__pfCamWrite=false,100)}},160);
       setTimeout(()=>raw.__pfCamWrite=false,100);
@@ -38,6 +38,6 @@
   const init=window.initInlineHoleMap;if(typeof init==='function')window.initInlineHoleMap=async function(g){await init.apply(this,arguments);if(inlineHoleMap?.provider==='google'&&inlineHoleMap.raw)arm(inlineHoleMap.raw,g)};
   const update=window.updateGoogleRoundHole;if(typeof update==='function')window.updateGoogleRoundHole=function(){generation++;const raw=inlineHoleMap?.raw;const r=update.apply(this,arguments),g=green();if(raw&&inlineHoleMap?.raw===raw&&g)arm(raw,g);return r};
   const reset=window.resetLiveHoleView;if(typeof reset==='function')window.resetLiveHoleView=function(){generation++;const r=reset.apply(this,arguments),g=green();if(inlineHoleMap?.provider==='google'&&inlineHoleMap.raw&&g)arm(inlineHoleMap.raw,g);return r};
-  const gps=window.updateInlineGolferPosition;if(typeof gps==='function')window.updateInlineGolferPosition=function(here,g){const r=gps.apply(this,arguments);const raw=inlineHoleMap?.raw;if(raw&&g&&point(here)){window.lastKnownPosition=point(here);if(!interacted.get(raw)){applied.delete(raw);clearTimeout(raw.__pfGpsFrameTimer);raw.__pfGpsFrameTimer=setTimeout(()=>frame(raw,g,true),450)}}return r};
+  const gps=window.updateInlineGolferPosition;if(typeof gps==='function')window.updateInlineGolferPosition=function(here,g){const r=gps.apply(this,arguments);const raw=inlineHoleMap?.raw;if(raw&&g&&point(here)){window.lastKnownPosition=point(here);/* GPS updates move the golfer marker only. Camera remains stable until hole change or explicit recenter. */}return r};
   console.info('[ParFolio] live golfer 6-to-12 camera v300 ready');
 })();
