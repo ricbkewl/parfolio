@@ -1362,7 +1362,10 @@ const AI_COURSE_COVERS=Object.freeze({
   californiaCoast:'assets/course-covers/california-coast.webp',
   desertSunset:'assets/course-covers/desert-sunset.webp',
   pacificNorthwest:'assets/course-covers/pacific-northwest.webp',
-  sonoranDesert:'assets/course-covers/sonoran-desert.webp'
+  sonoranDesert:'assets/course-covers/sonoran-desert.webp',
+  japanFuji:'assets/course-covers/japan-fuji.webp',
+  coastalLinks:'assets/course-covers/coastal-links.webp',
+  tropical:'assets/course-covers/tropical.webp'
 });
 function courseCoverHash(course){const key=[course?.id,course?.name,course?.city,course?.state,course?.country].filter(Boolean).join('|');let h=2166136261;for(let i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function representativeCourseCover(course){
@@ -1371,9 +1374,10 @@ function representativeCourseCover(course){
   const city=String(course?.city||'').toLowerCase();
   const country=String(course?.country||'').toLowerCase();
   const h=courseCoverHash(course);
-  if(/japan/.test(country))return{src:AI_COURSE_COVERS.alpineLake,ai:true};
-  if(/ireland|scotland|england|wales/.test(country))return{src:AI_COURSE_COVERS.californiaCoast,ai:true};
+  if(/japan/.test(country))return{src:AI_COURSE_COVERS.japanFuji,ai:true};
+  if(/ireland|scotland|england|wales/.test(country))return{src:AI_COURSE_COVERS.coastalLinks,ai:true};
   if(/new zealand/.test(country))return{src:AI_COURSE_COVERS.alpineLake,ai:true};
+  if(/indonesia|thailand|philippines|malaysia|singapore|bahamas|caribbean|puerto rico/.test(country))return{src:AI_COURSE_COVERS.tropical,ai:true};
   if(state==='AZ')return{src:AI_COURSE_COVERS.sonoranDesert,ai:true};
   if(['NV','UT','NM'].includes(state))return{src:AI_COURSE_COVERS.desertSunset,ai:true};
   if(['CO','WY','MT','ID'].includes(state))return{src:h%2?AI_COURSE_COVERS.rockies:AI_COURSE_COVERS.alpineLake,ai:true};
@@ -1385,7 +1389,9 @@ function representativeCourseCover(course){
     if(/palm|indio|coachella|desert|riverside|moreno valley|fontana|san bernardino|redlands|temecula/.test(city))return{src:h%2?AI_COURSE_COVERS.desertSunset:AI_COURSE_COVERS.sonoranDesert,ai:true};
     return{src:[AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.rockies][h%3],ai:true};
   }
-  if(['FL','HI','GA','SC','NC','AL','MS','LA','TX'].includes(state))return{src:h%2?AI_COURSE_COVERS.californiaCoast:AI_COURSE_COVERS.desertSunset,ai:true};
+  if(['FL','HI','LA'].includes(state))return{src:AI_COURSE_COVERS.tropical,ai:true};
+  if(['GA','SC','NC','AL','MS'].includes(state))return{src:h%2?AI_COURSE_COVERS.tropical:AI_COURSE_COVERS.californiaCoast,ai:true};
+  if(state==='TX')return{src:h%2?AI_COURSE_COVERS.desertSunset:AI_COURSE_COVERS.tropical,ai:true};
   if(['MN','WI','MI','OH','IN','IL','IA','MO','KS','NE','ND','SD'].includes(state))return{src:h%2?AI_COURSE_COVERS.northeastFall:AI_COURSE_COVERS.pacificNorthwest,ai:true};
   return{src:[AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.californiaCoast][h%4],ai:true};
 }
