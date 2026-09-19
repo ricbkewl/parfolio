@@ -385,10 +385,6 @@ async function initializeCloud(){
   const generation=++cloudStartupGeneration;
   cloudLoading=true;cloudError='';render();recordCloudStartup('startup-begin');
   const sessionPromise=db.auth.getSession();
-  sessionPromise.then(result=>{
-    if(generation!==cloudStartupGeneration||!cloudLoading)return;
-    applyResolvedSession(result?.data?.session||null,generation);
-  }).catch(error=>recordCloudStartup('late-session-error',error?.message||error));
   try{
     const result=await promiseDeadline(sessionPromise,CLOUD_SESSION_DEADLINE_MS,'auth-session');
     if(generation!==cloudStartupGeneration)return;
@@ -396,6 +392,10 @@ async function initializeCloud(){
   }catch(error){
     if(generation!==cloudStartupGeneration)return;
     recordCloudStartup('session-deferred',error?.message||error);
+    sessionPromise.then(result=>{
+      if(generation!==cloudStartupGeneration)return;
+      applyResolvedSession(result?.data?.session||null,generation);
+    }).catch(lateError=>recordCloudStartup('late-session-error',lateError?.message||lateError));
     cloudLoading=false;
     cloudError=navigator.onLine?'Your saved sign-in is still restoring. ParFolio is available while the secure session finishes in the background.':'You appear to be offline. ParFolio opened with locally saved course data.';
     if(VIEW_ACCESS[s.v]&&!currentUser)s.v='home';
