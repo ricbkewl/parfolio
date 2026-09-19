@@ -143,28 +143,34 @@
     return facade;
   }
 
-  function simpleRoundAnchor(green){
-    try{if(lastKnownPosition&&green?.center&&distanceYards(lastKnownPosition,green.center)<=3000)return lastKnownPosition}catch{}
+  /* v310 single-owner round camera: only anchor -> green center may control framing. */
+  function simpleRoundAnchor(green,useLive=false){
+    if(useLive){
+      try{if(lastKnownPosition&&green?.center&&distanceYards(lastKnownPosition,green.center)<=3000)return cleanPoint(lastKnownPosition)}catch{}
+    }
     return cleanPoint(selectedTee(green));
   }
   function simpleRoundZoom(origin,target,height){
     const lat=((Number(origin.lat)+Number(target.lat))/2)*Math.PI/180;
     const meters=Math.max(1,distanceYards(origin,target)/1.0936133);
-    const desiredPixels=Math.max(220,(Number(height)||800)*0.70);
+    /* Green at ~25% and anchor at ~90% = 65% of usable map height. */
+    const desiredPixels=Math.max(220,(Number(height)||800)*0.65);
     const z=Math.log2((156543.03392*Math.cos(lat)*desiredPixels)/meters);
-    return Math.max(16.5,Math.min(20.2,z));
+    return Math.max(16.5,Math.min(20.75,z));
   }
   function applySimpleRoundCamera(green,useLive=false){
     if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw||!green?.center)return false;
-    if(inlineUserMovedMap&&!inlineViewResetting)return false;
+    if(inlineUserMovedMap&&!inlineViewResetting&&!useLive)return false;
     const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),origin=simpleRoundAnchor(green,useLive),target=cleanPoint(green.center);
     if(!origin||!target)return false;
-    const width=container?.clientWidth||window.innerWidth||390,height=container?.clientHeight||window.innerHeight||844;
-    const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height),center=pointBetween(target,origin,0.5714285714);
+    const height=container?.clientHeight||window.innerHeight||844;
+    const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height);
+    /* midpoint of screen anchors 25%/90% lies 38.46% from green toward anchor. */
+    const center=pointBetween(target,origin,0.3846153846);
     try{
       inlineViewResetting=true;
       raw.moveCamera({center,zoom,heading,tilt:0});
-      const host=container;if(host){host.dataset.cameraRule='simple-6-to-12';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='20%';host.dataset.cameraBottom='10%';}
+      const host=container;if(host){host.dataset.cameraRule='tee-green-only-v310';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='25%';host.dataset.cameraBottom='10%'}
       setTimeout(()=>{inlineViewResetting=false},180);
       return true;
     }catch(error){inlineViewResetting=false;record('SIMPLE_CAMERA_FAIL',error?.message||error);return false}
@@ -195,8 +201,11 @@
     clearCleanOverlays();inlineHoleGreen=green;shotPlannerGreen=green;
     for(const aimPoint of[green.aim1,green.aim2].filter(Boolean))remember(new google.maps.Marker({map:raw,position:cleanPoint(aimPoint),clickable:false,icon:symbolCircle('#e0bd66',6),title:'Aim point'}));
     const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green);
-    const hitLine=remember(new google.maps.Polyline({map:raw,path:[cleanPoint(origin),cleanPoint(aim)],strokeColor:'#f5cf68',strokeWeight:3,strokeOpacity:1,zIndex:800}));
-    const goLine=remember(new google.maps.Polyline({map:raw,path:remainingPoints.map(cleanPoint).filter(Boolean),strokeColor:'#f5dfa8',strokeWeight:2.5,strokeOpacity:.8,zIndex:790,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.9,strokeWeight:2,scale:2},offset:'0',repeat:'14px'}]}));
+    /* Stable hole endpoints: golf ball at tee and red flag at green center. */
+    remember(new google.maps.Marker({map:raw,position:cleanPoint(selectedTee(green)),clickable:false,zIndex:1180,icon:{url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="7" fill="white" stroke="%231a2b24" stroke-width="2"/><circle cx="10.5" cy="10.5" r="1" fill="%23d9d9d9"/><circle cx="15.5" cy="12" r="1" fill="%23d9d9d9"/><circle cx="12.5" cy="15.5" r="1" fill="%23d9d9d9"/></svg>'),scaledSize:new google.maps.Size(26,26),anchor:new google.maps.Point(13,13)},title:'Tee'}));
+    remember(new google.maps.Marker({map:raw,position:cleanPoint(green.center),clickable:false,zIndex:1180,icon:{url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><path d="M9 33V3" stroke="white" stroke-width="2"/><path d="M10 4h15l-5 7 5 7H10z" fill="%23e53935" stroke="%237b1111" stroke-width="1"/><circle cx="9" cy="33" r="3" fill="white"/></svg>'),scaledSize:new google.maps.Size(28,36),anchor:new google.maps.Point(9,33)},title:'Green center'}));
+    const hitLine=remember(new google.maps.Polyline({map:raw,path:[cleanPoint(origin),cleanPoint(aim)],strokeColor:'#f5cf68',strokeWeight:2,strokeOpacity:1,zIndex:800}));
+    const goLine=remember(new google.maps.Polyline({map:raw,path:remainingPoints.map(cleanPoint).filter(Boolean),strokeColor:'#f5dfa8',strokeWeight:0,strokeOpacity:0,zIndex:790,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:1.5,scale:1.5},offset:'0',repeat:'11px'}]}));
     inlinePlannerLines=[polylineFacade(hitLine),polylineFacade(goLine)];
     const planner=remember(new google.maps.Marker({map:raw,position:cleanPoint(aim),draggable:true,zIndex:1200,icon:plannerIcon(),title:'Drag to plan your shot'}));inlinePlannerMarker=markerFacade(planner);
     const hitLabel=remember(new google.maps.Marker({map:raw,position:cleanPoint(pointBetween(origin,aim,.5)),clickable:false,zIndex:1100,icon:plannerLabelIcon('hit')}));
