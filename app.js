@@ -1370,30 +1370,37 @@ const AI_COURSE_COVERS=Object.freeze({
 function courseCoverHash(course){const key=[course?.id,course?.name,course?.city,course?.state,course?.country].filter(Boolean).join('|');let h=2166136261;for(let i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function representativeCourseCover(course){
   if(course?.courseImage)return{src:course.courseImage,ai:false};
-  const state=String(course?.state||'').trim().toUpperCase();
-  const city=String(course?.city||'').toLowerCase();
-  const country=String(course?.country||'').toLowerCase();
-  const h=courseCoverHash(course);
-  if(/japan/.test(country))return{src:AI_COURSE_COVERS.japanFuji,ai:true};
-  if(/ireland|scotland|england|wales/.test(country))return{src:AI_COURSE_COVERS.coastalLinks,ai:true};
-  if(/new zealand/.test(country))return{src:AI_COURSE_COVERS.alpineLake,ai:true};
-  if(/indonesia|thailand|philippines|malaysia|singapore|bahamas|caribbean|puerto rico/.test(country))return{src:AI_COURSE_COVERS.tropical,ai:true};
-  if(state==='AZ')return{src:AI_COURSE_COVERS.sonoranDesert,ai:true};
-  if(['NV','UT','NM'].includes(state))return{src:AI_COURSE_COVERS.desertSunset,ai:true};
-  if(['CO','WY','MT','ID'].includes(state))return{src:h%2?AI_COURSE_COVERS.rockies:AI_COURSE_COVERS.alpineLake,ai:true};
-  if(['WA','OR','AK'].includes(state))return{src:AI_COURSE_COVERS.pacificNorthwest,ai:true};
-  if(['ME','NH','VT','MA','RI','CT','NY','PA','NJ'].includes(state))return{src:AI_COURSE_COVERS.northeastFall,ai:true};
-  if(state==='CA'){
-    if(/monterey|carmel|pebble|santa cruz|san francisco|half moon|malibu|santa barbara|ventura|oceanside|carlsbad|san diego|newport|laguna|long beach|huntington/.test(city))return{src:AI_COURSE_COVERS.californiaCoast,ai:true};
-    if(/tahoe|truckee|mammoth|big bear|arrowhead/.test(city))return{src:AI_COURSE_COVERS.rockies,ai:true};
-    if(/palm|indio|coachella|desert|riverside|moreno valley|fontana|san bernardino|redlands|temecula/.test(city))return{src:h%2?AI_COURSE_COVERS.desertSunset:AI_COURSE_COVERS.sonoranDesert,ai:true};
-    return{src:[AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.rockies][h%3],ai:true};
+  const rawState=String(course?.state||'').trim(),state=rawState.toUpperCase(),city=String(course?.city||'').toLowerCase(),country=String(course?.country||'').toLowerCase(),h=courseCoverHash(course);
+  const pick=pool=>({src:pool[h%pool.length],ai:true});
+
+  // ParFolio's currently supported catalog regions always receive a scenic representative cover.
+  // These are visual regional interpretations, not photographs of the named course.
+  if(/indonesia/.test(country)||/jakarta|bali|sulawesi|java|sumatra|papua|kalimantan/.test(country+' '+rawState.toLowerCase()+' '+city)){
+    return pick([AI_COURSE_COVERS.tropical,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.japanFuji,AI_COURSE_COVERS.pacificNorthwest]);
   }
-  if(['FL','HI','LA'].includes(state))return{src:AI_COURSE_COVERS.tropical,ai:true};
-  if(['GA','SC','NC','AL','MS'].includes(state))return{src:h%2?AI_COURSE_COVERS.tropical:AI_COURSE_COVERS.californiaCoast,ai:true};
-  if(state==='TX')return{src:h%2?AI_COURSE_COVERS.desertSunset:AI_COURSE_COVERS.tropical,ai:true};
-  if(['MN','WI','MI','OH','IN','IL','IA','MO','KS','NE','ND','SD'].includes(state))return{src:h%2?AI_COURSE_COVERS.northeastFall:AI_COURSE_COVERS.pacificNorthwest,ai:true};
-  return{src:[AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.californiaCoast][h%4],ai:true};
+  if(state==='CA'||/california/.test(rawState.toLowerCase())){
+    if(/monterey|carmel|pebble|santa cruz|san francisco|half moon|malibu|santa barbara|ventura|oceanside|carlsbad|san diego|newport|laguna|long beach|huntington/.test(city))return pick([AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.coastalLinks]);
+    if(/tahoe|truckee|mammoth|big bear|arrowhead|crestline/.test(city))return pick([AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.pacificNorthwest]);
+    if(/palm|indio|coachella|desert|riverside|moreno valley|fontana|san bernardino|redlands|temecula/.test(city))return pick([AI_COURSE_COVERS.desertSunset,AI_COURSE_COVERS.sonoranDesert,AI_COURSE_COVERS.californiaCoast]);
+    return pick([AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.desertSunset]);
+  }
+  if(state==='TX'||/texas/.test(rawState.toLowerCase())){
+    if(/austin|san antonio|boerne|new braunfels|marble falls|fredericksburg/.test(city))return pick([AI_COURSE_COVERS.desertSunset,AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.alpineLake]);
+    if(/houston|galveston|corpus|south padre/.test(city))return pick([AI_COURSE_COVERS.tropical,AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.coastalLinks]);
+    return pick([AI_COURSE_COVERS.desertSunset,AI_COURSE_COVERS.sonoranDesert,AI_COURSE_COVERS.tropical,AI_COURSE_COVERS.pacificNorthwest]);
+  }
+  if(state==='TN'||/tennessee/.test(rawState.toLowerCase())){
+    if(/gatlinburg|pigeon forge|knoxville|chattanooga|crossville|smoky/.test(city))return pick([AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.pacificNorthwest]);
+    return pick([AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.rockies]);
+  }
+  if(state==='NY'||/new york/.test(rawState.toLowerCase())){
+    if(/long island|southampton|east hampton|montauk/.test(city))return pick([AI_COURSE_COVERS.coastalLinks,AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.northeastFall]);
+    if(/lake placid|adirondack|ithaca|finger lakes|saratoga/.test(city))return pick([AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.pacificNorthwest]);
+    return pick([AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.coastalLinks,AI_COURSE_COVERS.pacificNorthwest]);
+  }
+
+  // Unknown/future catalog regions can retain the existing map-preview fallback.
+  return{src:'',ai:false};
 }
 function courseLibraryCard(course,index,distance=null){const point=coursePreviewPoint(course),cover=representativeCourseCover(course),image=cover.src||'',favorite=favoriteCourseIds().has(course.id),difficulty=courseDifficulty(course),mapped=mappedCount(course),status=mapped?`${mapped} MAPPED${mapped===course.holes?'':' · PARTIAL'}`:course.catalogOnly?'APPROVED · GPS MAPPING PENDING':'0 MAPPED',mapPreview=!image&&point;return`<article class="course-library-card"><div class="course-preview course-start-target" role="button" tabindex="0" onclick="startCourseFromLibrary(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startCourseFromLibrary(${index})}">${image?`<img src="${esc(image)}" alt="${cover.ai?'AI-generated representative course-area landscape':`${esc(course.name)} course overview`}" loading="lazy">`:mapPreview?`<div id="coursePreview${index}" class="course-preview-map" data-lat="${point.lat}" data-lng="${point.lng}" aria-label="Map preview of ${esc(course.name)}"></div>`:''}<div class="course-preview-placeholder"><span>⛳</span><small>${mapPreview?'Loading map preview':`${esc(course.city||'Southern California')} · ${esc(course.postal_code||'')}`}</small></div><button class="course-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${esc(course.id)}',event)" aria-label="${favorite?'Remove':'Add'} ${esc(course.name)} ${favorite?'from':'to'} favorites" aria-pressed="${favorite}">${favorite?'★':'☆'}</button>${mapPreview?`<a href="${MAPTILER_API_KEY?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/'}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${MAPTILER_API_KEY?'© MapTiler':'© OpenStreetMap'}</a>`:''}</div><div class="course-card-info"><div><small>${course.holes} HOLES · ${status}${distance===null?'':` · ${distance<10?distance.toFixed(1):Math.round(distance)} MI`}</small><button class="course-name-start" onclick="startCourseFromLibrary(${index})">${esc(course.name)}</button><span>${course.course_type?`${esc(course.course_type)} · `:''}${difficulty==='unknown'?`Par ${course.par_total||'pending'}`:difficulty==='forward'?'Forward friendly':difficulty==='championship'?'Championship length':'Standard length'} · Tap to play</span></div>${adminRole?(course.catalogOnly?`<button onclick="mapCatalogCourse(${index})">Map</button>`:`<button onclick="editCourse(${index})">Edit</button>`):'<i>›</i>'}</div></article>`}
 function setCourseFilter(name,value){courseLibraryFilters[name]=courseLibraryFilters[name]===value?(name==='holes'||name==='difficulty'?null:false):value;renderCourseFilterSheet();refreshCourseLibrary();if($('roundCourseSearch'))refreshRoundCourseSearch($('roundCourseSearch').value)}
