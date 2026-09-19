@@ -154,17 +154,17 @@
     const z=Math.log2((156543.03392*Math.cos(lat)*desiredPixels)/meters);
     return Math.max(16.5,Math.min(20.2,z));
   }
-  function applySimpleRoundCamera(green){
+  function applySimpleRoundCamera(green,useLive=false){
     if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw||!green?.center)return false;
     if(inlineUserMovedMap&&!inlineViewResetting)return false;
-    const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),origin=simpleRoundAnchor(green),target=cleanPoint(green.center);
+    const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),origin=simpleRoundAnchor(green,useLive),target=cleanPoint(green.center);
     if(!origin||!target)return false;
     const width=container?.clientWidth||window.innerWidth||390,height=container?.clientHeight||window.innerHeight||844;
     const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height),center=pointBetween(origin,target,.5);
     try{
       inlineViewResetting=true;
       raw.moveCamera({center,zoom,heading,tilt:0});
-      const host=container;if(host){host.dataset.cameraRule='simple-6-to-12';host.dataset.cameraAnchor=lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='15%';host.dataset.cameraBottom='10%';}
+      const host=container;if(host){host.dataset.cameraRule='simple-6-to-12';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='15%';host.dataset.cameraBottom='10%';}
       setTimeout(()=>{inlineViewResetting=false},180);
       return true;
     }catch(error){inlineViewResetting=false;record('SIMPLE_CAMERA_FAIL',error?.message||error);return false}
@@ -173,7 +173,7 @@
     if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw)return;
     inlineHoleGreen=green;inlineViewResetting=false;inlineUserMovedMap=false;
     clearTimeout(window.parfolioSimpleCameraTimer);
-    window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(green),30);
+    window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(green,false),30);
     document.getElementById('mapRecenterButton')?.classList.add('hidden');
   }
 
@@ -208,7 +208,7 @@
   }
 
   window.fitLiveHoleView=fitRoundMap;
-  window.resetLiveHoleView=function(){if(inlineHoleGreen)fitRoundMap(inlineHoleGreen)};
+  window.resetLiveHoleView=function(){if(inlineHoleGreen){inlineUserMovedMap=false;clearTimeout(window.parfolioSimpleCameraTimer);window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(inlineHoleGreen,true),30)}};
   window.zoomLiveHoleMap=function(change){if(inlineHoleMap?.provider==='google')inlineHoleMap.raw.setZoom((inlineHoleMap.raw.getZoom()||17)+Number(change||0))};
   window.setLiveMapStyle=function(style){liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;if(s?.v==='round'&&inlineHoleMap?.provider==='google'){inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(inlineHoleGreen,{fit:false})}else render()};
 
