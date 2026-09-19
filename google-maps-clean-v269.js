@@ -2,7 +2,7 @@
    Google Maps is the only map provider. No Leaflet, OpenStreetMap, MapTiler,
    Map ID, vector/3D camera, Advanced Markers, flyover, or provider fallback. */
 (function(){
-  let mapsPromise=null,runtimeConfigPromise=null,authFailed=false;
+  let mapsPromise=null,runtimeConfigPromise=null,authFailed=false,roundGestureActive=false,roundGestureTimer=null;
   const diagnostics=[];
   const MAX_DIAG=60;
   const previewMaps=[];
@@ -187,12 +187,15 @@
     if(!selectedTee(green)||!green?.center||!inlinePlannerMarker)return;
     const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green);
     const toTarget=Math.round(distanceYards(origin,aim)),remaining=Math.round(routeDistance(remainingPoints)),routeTotal=toTarget+remaining;
+    const hitSuggestion=suggestedClubFor(toTarget,driverAllowedForCurrentShot()),goSuggestion=suggestedClubFor(remaining,false),hitClubName=hitSuggestion?.club||'Set Clubs',goClubName=goSuggestion?.club||'Set Clubs';
+    const yardage=document.getElementById('centerYards'),label=document.getElementById('yardageTargetLabel');
+    if(yardage)yardage.textContent=routeTotal;if(label)label.textContent='Route Remaining';
+    if(golferIsNearHole(green))updateClubSuggestion(toTarget,lastGpsAccuracyYards??999);
+    /* During a manual map pan/pinch, freeze planner overlay redraws. The map camera remains entirely user-controlled. */
+    if(roundGestureActive)return;
     inlinePlannerMarker.setLatLng(aim);inlinePlannerLines[0]?.setLatLngs([origin,aim]);inlinePlannerLines[1]?.setLatLngs(remainingPoints);
     inlinePlannerLabels[0]?.setLatLng(pointBetween(origin,aim,.5));if(remainingPoints[1])inlinePlannerLabels[1]?.setLatLng(pointBetween(remainingPoints[0],remainingPoints[1],.5));
-    const hitSuggestion=suggestedClubFor(toTarget,driverAllowedForCurrentShot()),goSuggestion=suggestedClubFor(remaining,false),hitClubName=hitSuggestion?.club||'Set Clubs',goClubName=goSuggestion?.club||'Set Clubs';
     inlinePlannerLabels[0]?.setPlannerContent?.(toTarget,hitClubName,true);inlinePlannerLabels[1]?.setPlannerContent?.(remaining,goClubName,remaining>=5);
-    const yardage=document.getElementById('centerYards'),label=document.getElementById('yardageTargetLabel');if(yardage)yardage.textContent=routeTotal;if(label)label.textContent='Route Remaining';
-    if(golferIsNearHole(green))updateClubSuggestion(toTarget,lastGpsAccuracyYards??999);
   }
   window.updateShotPlanner=updatePlannerClean;
 
@@ -203,7 +206,7 @@
     const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green);
     /* Stable hole endpoints: golf ball at tee and red flag at green center. */
     remember(new google.maps.Marker({map:raw,position:cleanPoint(selectedTee(green)),clickable:false,zIndex:1180,icon:{url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26"><circle cx="13" cy="13" r="7" fill="white" stroke="%231a2b24" stroke-width="2"/><circle cx="10.5" cy="10.5" r="1" fill="%23d9d9d9"/><circle cx="15.5" cy="12" r="1" fill="%23d9d9d9"/><circle cx="12.5" cy="15.5" r="1" fill="%23d9d9d9"/></svg>'),scaledSize:new google.maps.Size(26,26),anchor:new google.maps.Point(13,13)},title:'Tee'}));
-    remember(new google.maps.Marker({map:raw,position:cleanPoint(green.center),clickable:false,zIndex:1180,icon:{url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><path d="M9 33V3" stroke="white" stroke-width="2"/><path d="M10 4h15l-5 7 5 7H10z" fill="%23e53935" stroke="%237b1111" stroke-width="1"/><circle cx="9" cy="33" r="3" fill="white"/></svg>'),scaledSize:new google.maps.Size(28,36),anchor:new google.maps.Point(9,33)},title:'Green center'}));
+    remember(new google.maps.Marker({map:raw,position:cleanPoint(green.center),clickable:false,zIndex:1180,icon:{url:'data:image/svg+xml;charset=UTF-8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="28" height="36" viewBox="0 0 28 36"><path d="M9 33V3" stroke="white" stroke-width="2"/><path d="M10 4h15l-5 7 5 7H10z" fill="%23ff2d2d" stroke="white" stroke-width="1.25"/><circle cx="9" cy="33" r="3" fill="white"/></svg>'),scaledSize:new google.maps.Size(28,36),anchor:new google.maps.Point(9,33)},title:'Green center'}));
     const hitLine=remember(new google.maps.Polyline({map:raw,path:[cleanPoint(origin),cleanPoint(aim)],strokeColor:'#f5cf68',strokeWeight:2,strokeOpacity:1,zIndex:800}));
     const goLine=remember(new google.maps.Polyline({map:raw,path:remainingPoints.map(cleanPoint).filter(Boolean),strokeColor:'#f5dfa8',strokeWeight:0,strokeOpacity:0,zIndex:790,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:1.5,scale:1.5},offset:'0',repeat:'11px'}]}));
     inlinePlannerLines=[polylineFacade(hitLine),polylineFacade(goLine)];
@@ -224,6 +227,7 @@
   window.initInlineHoleMapLeaflet=function(green){showGoogleError(document.getElementById('liveHoleMap'),new Error('Alternate map providers are disabled. ParFolio uses Google Maps only.'),'GOOGLE_ONLY_POLICY')};
 
   window.initInlineHoleMap=async function(green){
+    roundGestureActive=false;clearTimeout(roundGestureTimer);
     const container=document.getElementById('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
     try{
       await window.loadGoogleMaps();if(document.getElementById('liveHoleMap')!==container||shotPlannerKey()!==key)return;if(authFailed)throw new Error('Google Maps authorization failed');
@@ -231,7 +235,11 @@
       inlineHoleMap=makeMapFacade(raw,container);document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
       const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
       const credit=document.querySelector('.hole-map-attribution');if(credit)credit.classList.add('hidden');
-      drawRoundOverlays(green,{fit:true});raw.addListener('dragstart',()=>{inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});raw.addListener('zoom_changed',()=>{if(!inlineViewResetting){inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')}});
+      drawRoundOverlays(green,{fit:true});
+      const endManualGesture=()=>{clearTimeout(roundGestureTimer);roundGestureTimer=setTimeout(()=>{roundGestureActive=false;if(inlineHoleGreen)updatePlannerClean(inlineHoleGreen)},120)};
+      raw.addListener('dragstart',()=>{roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
+      raw.addListener('dragend',endManualGesture);
+      raw.addListener('zoom_changed',()=>{if(!inlineViewResetting){roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden');endManualGesture()}});
       google.maps.event.addListenerOnce(raw,'tilesloaded',()=>record('ROUND_GOOGLE_TILES_OK',mapType()));record('ROUND_GOOGLE_MAP_OK',mapType());
     }catch(error){inlineHoleMap=null;showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':'ROUND_GOOGLE_INIT_FAIL')}
   };
