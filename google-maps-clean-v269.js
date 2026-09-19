@@ -150,7 +150,7 @@
   function simpleRoundZoom(origin,target,height){
     const lat=((Number(origin.lat)+Number(target.lat))/2)*Math.PI/180;
     const meters=Math.max(1,distanceYards(origin,target)/1.0936133);
-    const desiredPixels=Math.max(220,(Number(height)||800)*0.75);
+    const desiredPixels=Math.max(220,(Number(height)||800)*0.70);
     const z=Math.log2((156543.03392*Math.cos(lat)*desiredPixels)/meters);
     return Math.max(16.5,Math.min(20.2,z));
   }
@@ -160,11 +160,11 @@
     const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),origin=simpleRoundAnchor(green,useLive),target=cleanPoint(green.center);
     if(!origin||!target)return false;
     const width=container?.clientWidth||window.innerWidth||390,height=container?.clientHeight||window.innerHeight||844;
-    const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height),center=pointBetween(origin,target,.5);
+    const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height),center=pointBetween(target,origin,0.5714285714);
     try{
       inlineViewResetting=true;
       raw.moveCamera({center,zoom,heading,tilt:0});
-      const host=container;if(host){host.dataset.cameraRule='simple-6-to-12';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='15%';host.dataset.cameraBottom='10%';}
+      const host=container;if(host){host.dataset.cameraRule='simple-6-to-12';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='20%';host.dataset.cameraBottom='10%';}
       setTimeout(()=>{inlineViewResetting=false},180);
       return true;
     }catch(error){inlineViewResetting=false;record('SIMPLE_CAMERA_FAIL',error?.message||error);return false}
@@ -218,7 +218,7 @@
     const container=document.getElementById('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
     try{
       await window.loadGoogleMaps();if(document.getElementById('liveHoleMap')!==container||shotPlannerKey()!==key)return;if(authFailed)throw new Error('Google Maps authorization failed');
-      const raw=new google.maps.Map(container,{center:cleanPoint(green.center),zoom:17,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
+      const raw=new google.maps.Map(container,{center:cleanPoint(green.center),zoom:17,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
       inlineHoleMap=makeMapFacade(raw,container);document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
       const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
       const credit=document.querySelector('.hole-map-attribution');if(credit)credit.classList.add('hidden');
