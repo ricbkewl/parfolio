@@ -175,7 +175,6 @@
     const empty=document.getElementById('courseLibraryEmpty');if(empty)empty.classList.toggle('hidden',visible.length>0);
     const heading=document.getElementById('courseResultsHeading');if(heading)heading.textContent=searching?`${filtered.length} Course${filtered.length===1?'':'s'} Found`:filtering?`${filtered.length} Course${filtered.length===1?'':'s'} Found`:'Nearby & Recommended';
     const count=document.getElementById('courseFilterCount');if(count){count.textContent=activeCourseFilterCount()||'';count.classList.toggle('hidden',!activeCourseFilterCount())}
-    if(!searching)setTimeout(initCoursePreviews,0);
   };
 
   window.smartCourseShowMore=function(){visibleLimit+=25;refreshCourseLibrary()};
@@ -216,7 +215,7 @@
   }
 
   const priorCourses176=window.coursesView||coursesView;
-  window.coursesView=coursesView=function(){const out=priorCourses176.apply(this,arguments);setTimeout(()=>{decorateCourses();refreshCourseLibrary();},0);return out;};
+  window.coursesView=coursesView=function(){const out=priorCourses176.apply(this,arguments);setTimeout(decorateCourses,0);return out;};
 
   const priorSetFilter=window.setCourseFilter||setCourseFilter;
   if(typeof priorSetFilter==='function')window.setCourseFilter=setCourseFilter=function(){const out=priorSetFilter.apply(this,arguments);setTimeout(decorateQuickFilters,0);return out;};
