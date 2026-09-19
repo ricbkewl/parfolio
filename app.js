@@ -976,14 +976,12 @@ function googlePlannerLabelMarker(rawMap,position,kind){
 }
 function orientInlineHoleMap(green,origin=null,target=null){
   if(!inlineHoleMap||!selectedTee(green)||!green?.center)return;
-  const start=origin||selectedTee(green),end=target||green.center,container=$('liveHoleMap'),bearing=bearingDegrees(start,end);
-  if(inlineHoleMap.provider==='google'){
-    if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
-    if(!inlineUserMovedMap||inlineViewResetting)moveGoogleCamera(inlineHoleMap.raw,{heading:bearing,tilt:LIVE_MAP_TILT});
-    return;
-  }
-  if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing',`${bearing}deg`);container.style.transform=`rotate(${-bearing}deg)`}
+  const start=origin||selectedTee(green),end=target||green.center,bearing=bearingDegrees(start,end),container=$('liveHoleMap');
+  /* GPS updates are marker/yardage updates only. Camera orientation is locked per hole
+     and changes only on hole change or explicit recenter, preventing jitter. */
+  if(container){container.dataset.forwardBearing=String(bearing);container.style.setProperty('--map-bearing','0deg');container.style.transform='none'}
 }
+
 function zoomLiveHoleMap(change){if(!inlineHoleMap)return;inlineHoleMap.setZoom(inlineHoleMap.getZoom()+change,{animate:true})}
 function showMapRecenterButton(){if(!inlineViewResetting){inlineUserMovedMap=true;$('mapRecenterButton')?.classList.remove('hidden')}}
 function onceGoogleMapIdle(rawMap,timeout=900){return new Promise(resolve=>{let finished=false;const done=()=>{if(finished)return;finished=true;resolve()};google.maps.event.addListenerOnce(rawMap,'idle',done);setTimeout(done,timeout)})}
