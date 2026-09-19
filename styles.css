@@ -691,3 +691,56 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
 .round-course-filter i:after{content:'';position:absolute;left:4px;right:4px;top:4px;border-top:2px solid currentColor}
 .round-course-filter b{position:absolute;top:-3px;right:-3px;display:grid;min-width:15px;height:15px;padding:0 3px;place-items:center;border-radius:9px;background:#d3aa43;color:#fff;font-size:8px;line-height:1}
 .round-course-filter b.hidden{display:none}
+
+/* Version 307: course identity is part of the round information bar. */
+.round-fullscreen .round-map-summary{
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  grid-template-rows:30px 64px;
+  min-height:94px;
+}
+.round-fullscreen .round-map-summary .round-course-title{
+  grid-column:1 / -1;
+  display:flex;
+  min-height:30px;
+  box-sizing:border-box;
+  align-items:center;
+  justify-content:center;
+  padding:5px 52px 3px 12px;
+  border-right:0;
+  border-bottom:1px solid rgba(245,207,104,.28);
+  color:#f5cf68;
+  font-size:13px;
+  font-weight:900;
+  letter-spacing:.025em;
+  line-height:1.1;
+  text-align:center;
+  text-shadow:0 1px 3px rgba(0,0,0,.85);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.round-fullscreen .round-map-summary>div:not(.round-course-title){
+  min-height:64px;
+}
+.round-fullscreen .round-map-summary .round-menu-summary{
+  position:absolute;
+  z-index:3;
+  top:0;
+  right:0;
+  width:48px;
+  height:30px;
+  min-height:30px;
+  padding:0;
+  border:0;
+  background:transparent;
+}
+.round-fullscreen .round-map-summary .round-menu-summary button{
+  width:100%;
+  height:30px;
+  border:0;
+  background:transparent;
+}
+.round-fullscreen .live-map-style-toggle{top:calc(112px + env(safe-area-inset-top))}
+.round-fullscreen .map-wind-card{top:calc(112px + env(safe-area-inset-top))}
+.round-fullscreen .shot-planner-controls{top:calc(154px + env(safe-area-inset-top))}
+.round-fullscreen .map-club-suggestion{top:calc(239px + env(safe-area-inset-top))}
