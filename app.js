@@ -1353,7 +1353,7 @@ function refreshCourseLibrary(){
   const empty=$('courseLibraryEmpty');if(empty)empty.classList.toggle('hidden',visible.length>0);
   const heading=$('courseResultsHeading');if(heading)heading.textContent=query||activeCourseFilterCount()?`${visible.length} Course${visible.length===1?'':'s'} Found`:'Recommended for You';
   const count=$('courseFilterCount');if(count){count.textContent=activeCourseFilterCount()||'';count.classList.toggle('hidden',!activeCourseFilterCount())}
-  setTimeout(initCoursePreviews,0);
+  
 }
 const AI_COURSE_COVERS=Object.freeze({
   rockies:'assets/course-covers/rockies.webp',
@@ -1367,6 +1367,13 @@ const AI_COURSE_COVERS=Object.freeze({
   coastalLinks:'assets/course-covers/coastal-links.webp',
   tropical:'assets/course-covers/tropical.webp'
 });
+const AI_COURSE_COVER_URLS=Object.freeze([...new Set(Object.values(AI_COURSE_COVERS))]);
+function preloadCourseCovers(){
+  if(window.__parfolioCourseCoversPreloaded)return;
+  window.__parfolioCourseCoversPreloaded=true;
+  for(const src of AI_COURSE_COVER_URLS){const img=new Image();img.decoding='async';img.src=src}
+}
+preloadCourseCovers();
 function courseCoverHash(course){const key=[course?.id,course?.name,course?.city,course?.state,course?.country].filter(Boolean).join('|');let h=2166136261;for(let i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
 function representativeCourseCover(course){
   if(course?.courseImage)return{src:course.courseImage,ai:false};
@@ -1399,10 +1406,11 @@ function representativeCourseCover(course){
     return pick([AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.alpineLake,AI_COURSE_COVERS.coastalLinks,AI_COURSE_COVERS.pacificNorthwest]);
   }
 
-  // Unknown/future catalog regions can retain the existing map-preview fallback.
-  return{src:'',ai:false};
+  // Course-list covers are intentionally image-only. Unknown or incomplete location
+  // metadata receives a deterministic scenic cover instead of initializing live map tiles.
+  return pick([AI_COURSE_COVERS.pacificNorthwest,AI_COURSE_COVERS.northeastFall,AI_COURSE_COVERS.rockies,AI_COURSE_COVERS.californiaCoast,AI_COURSE_COVERS.alpineLake]);
 }
-function courseLibraryCard(course,index,distance=null){const point=coursePreviewPoint(course),cover=representativeCourseCover(course),image=cover.src||'',favorite=favoriteCourseIds().has(course.id),difficulty=courseDifficulty(course),mapped=mappedCount(course),status=mapped?`${mapped} MAPPED${mapped===course.holes?'':' · PARTIAL'}`:course.catalogOnly?'APPROVED · GPS MAPPING PENDING':'0 MAPPED',mapPreview=!image&&point;return`<article class="course-library-card"><div class="course-preview course-start-target" role="button" tabindex="0" onclick="startCourseFromLibrary(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startCourseFromLibrary(${index})}">${image?`<img src="${esc(image)}" alt="${cover.ai?'AI-generated representative course-area landscape':`${esc(course.name)} course overview`}" loading="lazy">`:mapPreview?`<div id="coursePreview${index}" class="course-preview-map" data-lat="${point.lat}" data-lng="${point.lng}" aria-label="Map preview of ${esc(course.name)}"></div>`:''}<div class="course-preview-placeholder"><span>⛳</span><small>${mapPreview?'Loading map preview':`${esc(course.city||'Southern California')} · ${esc(course.postal_code||'')}`}</small></div><button class="course-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${esc(course.id)}',event)" aria-label="${favorite?'Remove':'Add'} ${esc(course.name)} ${favorite?'from':'to'} favorites" aria-pressed="${favorite}">${favorite?'★':'☆'}</button>${mapPreview?`<a href="${MAPTILER_API_KEY?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/'}" target="_blank" rel="noopener" onclick="event.stopPropagation()">${MAPTILER_API_KEY?'© MapTiler':'© OpenStreetMap'}</a>`:''}</div><div class="course-card-info"><div><small>${course.holes} HOLES · ${status}${distance===null?'':` · ${distance<10?distance.toFixed(1):Math.round(distance)} MI`}</small><button class="course-name-start" onclick="startCourseFromLibrary(${index})">${esc(course.name)}</button><span>${course.course_type?`${esc(course.course_type)} · `:''}${difficulty==='unknown'?`Par ${course.par_total||'pending'}`:difficulty==='forward'?'Forward friendly':difficulty==='championship'?'Championship length':'Standard length'} · Tap to play</span></div>${adminRole?(course.catalogOnly?`<button onclick="mapCatalogCourse(${index})">Map</button>`:`<button onclick="editCourse(${index})">Edit</button>`):'<i>›</i>'}</div></article>`}
+function courseLibraryCard(course,index,distance=null){const cover=representativeCourseCover(course),image=cover.src||AI_COURSE_COVERS.pacificNorthwest,favorite=favoriteCourseIds().has(course.id),difficulty=courseDifficulty(course),mapped=mappedCount(course),status=mapped?`${mapped} MAPPED${mapped===course.holes?'':' · PARTIAL'}`:course.catalogOnly?'APPROVED · GPS MAPPING PENDING':'0 MAPPED';return`<article class="course-library-card"><div class="course-preview course-start-target cover-only" role="button" tabindex="0" onclick="startCourseFromLibrary(${index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();startCourseFromLibrary(${index})}"><img src="${esc(image)}" alt="${cover.ai?'AI-generated representative course-area landscape':`${esc(course.name)} course overview`}" loading="eager" decoding="async"><button class="course-favorite ${favorite?'on':''}" onclick="toggleCourseFavorite('${esc(course.id)}',event)" aria-label="${favorite?'Remove':'Add'} ${esc(course.name)} ${favorite?'from':'to'} favorites" aria-pressed="${favorite}">${favorite?'★':'☆'}</button></div><div class="course-card-info"><div><small>${course.holes} HOLES · ${status}${distance===null?'':` · ${distance<10?distance.toFixed(1):Math.round(distance)} MI`}</small><button class="course-name-start" onclick="startCourseFromLibrary(${index})">${esc(course.name)}</button><span>${course.course_type?`${esc(course.course_type)} · `:''}${difficulty==='unknown'?`Par ${course.par_total||'pending'}`:difficulty==='forward'?'Forward friendly':difficulty==='championship'?'Championship length':'Standard length'} · Tap to play</span></div>${adminRole?(course.catalogOnly?`<button onclick="mapCatalogCourse(${index})">Map</button>`:`<button onclick="editCourse(${index})">Edit</button>`):'<i>›</i>'}</div></article>`}
 function setCourseFilter(name,value){courseLibraryFilters[name]=courseLibraryFilters[name]===value?(name==='holes'||name==='difficulty'?null:false):value;renderCourseFilterSheet();refreshCourseLibrary();if($('roundCourseSearch'))refreshRoundCourseSearch($('roundCourseSearch').value)}
 function clearCourseFilters(){courseLibraryFilters={nearby:false,favorites:false,recent:false,holes:null,mapped:false,par3:false,difficulty:null};renderCourseFilterSheet();refreshCourseLibrary();if($('roundCourseSearch'))refreshRoundCourseSearch($('roundCourseSearch').value)}
 function closeCourseFilters(){document.querySelector('.course-filter-overlay')?.remove()}
