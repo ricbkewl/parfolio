@@ -94,3 +94,39 @@ Suggestions for improving ParFolio are welcome.
 - Text: [607.438.3208](sms:+16074383208)
 
 **Last updated:** September 14, 2026
+
+
+## Frequently Asked Questions
+
+**Are the course cover pictures actual photographs of each golf course?**  
+No. Many course-search cover images are AI-generated regional representations. They are intended to evoke the surrounding area or landscape style—such as Arizona desert, Nevada red rock, Colorado mountains, Northeast fall foliage, Pacific Northwest forest, or California coast—and are not photographs of the specific course unless explicitly identified as such in the app.
+
+**Why can a cover image look different from the real property?**  
+Representative covers are visual category artwork, not a claim about the exact clubhouse, hole routing, hazards, vegetation, weather, or current course conditions.
+
+**Does a representative image imply sponsorship or endorsement by the course?**  
+No. It does not imply sponsorship, endorsement, partnership, ownership, or affiliation with the depicted golf facility.
+
+**Which courses support live GPS?**  
+GPS-ready courses have mapped hole data that supports the playing view. Courses still being prepared can remain available to authorized administrators for review and mapping without being presented to normal golfers as GPS-ready.
+
+**Can a golfer keep score without complete GPS mapping?**  
+Scoring can operate independently when the course and tee data are available, but live yardages, route planning, aim points, and related GPS tools require mapped hole geometry.
+
+**How accurate are the yardages?**  
+Accuracy depends on the golfer's device location accuracy, satellite visibility, map data, and the quality of the mapped tee, aim, and green points. ParFolio yardages are guidance and do not replace on-course judgment.
+
+**How does a golfer join a shared round?**  
+A signed-in golfer can use the six-character round code, join link, or QR code supplied by the round host.
+
+**Who can edit a golfer's score?**  
+Protected scoring is designed so each signed-in golfer edits their own score while the group can see the live scorecard.
+
+**What happens when connectivity is lost?**  
+Score changes can be retained locally and synchronized after connectivity returns. Live chat, shared updates, map imagery, and other network services may require an active connection.
+
+**How can incorrect course data be reported?**  
+Send the course name, city, hole number, and a description of the issue through the ParFolio suggestion contact so an authorized administrator can review and correct the mapping.
+
+### Course-cover image policy
+ParFolio may use AI-generated representative imagery for course-search covers when an approved course-specific image is not available. The app preserves an explicitly supplied course image when one exists; otherwise it selects a regional representative cover. Representative imagery must never be described as an authentic photograph of that specific golf course.
