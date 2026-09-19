@@ -193,7 +193,7 @@
     const container=document.getElementById('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
     try{
       await window.loadGoogleMaps();if(document.getElementById('liveHoleMap')!==container||shotPlannerKey()!==key)return;if(authFailed)throw new Error('Google Maps authorization failed');
-      const raw=new google.maps.Map(container,{center:cleanPoint(green.center),zoom:17,mapTypeId:mapType(),disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
+      const raw=new google.maps.Map(container,{center:cleanPoint(green.center),zoom:17,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
       inlineHoleMap=makeMapFacade(raw,container);document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
       const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
       const credit=document.querySelector('.hole-map-attribution');if(credit)credit.classList.add('hidden');
