@@ -552,6 +552,8 @@ function refreshRoundCourseSearch(query=''){
   const box=$('roundCourseSearchResults');if(!box)return;
   const rows=roundCourseSearchResults(query);
   box.innerHTML=rows.length?rows.map(roundCourseSearchRow).join(''):`<div class="round-course-search-empty">No matching ParFolio course. Try the course name, city, ZIP code, or area.</div>`;
+  const count=$('roundCourseFilterCount'),active=typeof activeCourseFilterCount==='function'?activeCourseFilterCount():0;
+  if(count){count.textContent=active||'';count.classList.toggle('hidden',!active)}
   box.classList.remove('hidden');
 }
 function roundCourseChoose(id){if(courseById(id))chooseCourse(id)}
