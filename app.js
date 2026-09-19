@@ -142,7 +142,7 @@ const WEATHER_CACHE_MS = 10*60*1000;
 const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY,{
   auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true,storage:window.localStorage}
 });
-const CLUBS=['Driver','3 Wood','5 Wood','7 Wood','2 Hybrid','3 Hybrid','4 Hybrid','5 Hybrid','2 Iron','3 Iron','4 Iron','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Gap Wedge','Sand Wedge','Lob Wedge'];
+const CLUBS=['Driver','3 Wood','5 Wood','7 Wood','2 Hybrid','3 Hybrid','4 Hybrid','5 Hybrid','7 Hybrid','2 Iron','3 Iron','4 Iron','5 Iron','6 Iron','7 Iron','8 Iron','9 Iron','Pitching Wedge','Gap Wedge','Sand Wedge','Lob Wedge'];
 const roundDefault = {v:'home',course:'',courseId:null,catalogCourseId:null,royaleRoute:null,holes:18,players:[''],pars:[],scores:{},putts:{},hole:1,teeSet:'black',done:false,resumeView:null,ownerUserId:null,createdBy:null};
 let s = JSON.parse(localStorage.parfolioRound || 'null') || roundDefault;
 if(!s.putts)s.putts={};
@@ -335,14 +335,74 @@ async function openCurrentRound(){if(!s.sharedRoundId){await resumeRound();retur
 function openCoursesFromNav(){rememberRoundView();coursesReturnView='home';s.v='coursesView';render()}
 async function accountAction(){if(!currentUser){await signInAccount();return}rememberRoundView();s.v='accountView';render()}
 function accountView(){if(!currentUser){s.v='home';render();return}const fullName=[golferProfile?.first_name,golferProfile?.last_name].filter(Boolean).join(' ');app.innerHTML=`<button class="back" onclick="goHome()">← Back</button><h1>My Account</h1><section class="profile-card"><div class="profile-icon">${avatarMarkup(golferProfile?.avatar_path,fullName)}</div><div><b>${esc(fullName||'Golfer Profile')}</b><div class="small muted">${esc(currentUser.email||'')}</div><div class="small muted">${adminRole?esc(adminRole.replace('_',' ')):'Golfer account'}</div></div></section>${!golferProfile?'<div class="notice"><b>Complete your profile.</b> Existing accounts need a first name, last name and phone number.</div>':''}<div class="notice remember-notice">✓ You will stay signed in securely on this device until you choose Sign Out.</div><button class="primary" onclick="openProfile()">My Profile & Picture</button><button class="secondary" onclick="openClubs()">My Clubs & Distances</button><button class="secondary" onclick="openHistory()">Previous Rounds</button><button class="secondary" onclick="changePassword()">Change Password</button>${adminRole==='super_admin'?'<button class="secondary" onclick="promoteCourseAdmin()">Add Course Admin</button>':''}<button class="secondary danger-button" onclick="signOutAdmin()">Sign Out</button>`}
-async function initializeCloud(){
-  cloudLoading=true;render();
-  const {data:{session}}=await db.auth.getSession();
-  currentUser=session?.user||null;
+const CLOUD_SESSION_DEADLINE_MS=3500;
+const CLOUD_DATA_DEADLINE_MS=6500;
+let cloudStartupGeneration=0;
+function recordCloudStartup(stage,detail=''){
+  try{
+    const prior=JSON.parse(localStorage.parfolioStartupDiagnostics||'[]');
+    prior.push({time:new Date().toISOString(),stage,detail:String(detail||''),online:navigator.onLine,visibility:document.visibilityState});
+    localStorage.parfolioStartupDiagnostics=JSON.stringify(prior.slice(-30));
+  }catch{}
+}
+function promiseDeadline(promise,ms,label){
+  let timer;
+  return Promise.race([
+    Promise.resolve(promise).finally(()=>clearTimeout(timer)),
+    new Promise((_,reject)=>{timer=setTimeout(()=>reject(new Error(label+' timeout')),ms)})
+  ]);
+}
+async function hydrateCloudData(generation=cloudStartupGeneration){
+  if(!currentUser||generation!==cloudStartupGeneration)return;
+  const jobs=[
+    ['admin-role',loadAdminRole],
+    ['courses',loadCourses],
+    ['club-distances',loadClubDistances],
+    ['golfer-profile',loadGolferProfile]
+  ];
+  const results=await Promise.allSettled(jobs.map(async([label,job])=>{
+    try{return await promiseDeadline(job(),CLOUD_DATA_DEADLINE_MS,label)}
+    catch(error){recordCloudStartup(label+'-deferred',error?.message||error);throw error}
+  }));
+  if(generation!==cloudStartupGeneration)return;
+  render();
+  return results;
+}
+function applyResolvedSession(session,generation){
+  if(generation!==cloudStartupGeneration)return false;
+  const nextUser=session?.user||null,priorUserId=currentUser?.id||null;
+  currentUser=nextUser;
   if(s.ownerUserId&&s.ownerUserId!==currentUser?.id)s={...roundDefault};
-  await Promise.all([loadAdminRole(),loadCourses(),loadClubDistances(),loadGolferProfile()]);
-  cloudLoading=false;render();
-  await Promise.all([syncPendingScores(),syncPendingHoleStats()]);
+  cloudLoading=false;
+  if(!nextUser){adminRole=null;golferProfile=null;clubDistances={}}
+  recordCloudStartup('session-ready',nextUser?'signed-in':'signed-out');
+  render();
+  if(nextUser&&priorUserId!==nextUser.id)setTimeout(()=>hydrateCloudData(generation),0);
+  else if(nextUser)setTimeout(()=>hydrateCloudData(generation),0);
+  return true;
+}
+async function initializeCloud(){
+  const generation=++cloudStartupGeneration;
+  cloudLoading=true;cloudError='';render();recordCloudStartup('startup-begin');
+  const sessionPromise=db.auth.getSession();
+  sessionPromise.then(result=>{
+    if(generation!==cloudStartupGeneration||!cloudLoading)return;
+    applyResolvedSession(result?.data?.session||null,generation);
+  }).catch(error=>recordCloudStartup('late-session-error',error?.message||error));
+  try{
+    const result=await promiseDeadline(sessionPromise,CLOUD_SESSION_DEADLINE_MS,'auth-session');
+    if(generation!==cloudStartupGeneration)return;
+    applyResolvedSession(result?.data?.session||null,generation);
+  }catch(error){
+    if(generation!==cloudStartupGeneration)return;
+    recordCloudStartup('session-deferred',error?.message||error);
+    cloudLoading=false;
+    cloudError=navigator.onLine?'Your saved sign-in is still restoring. ParFolio is available while the secure session finishes in the background.':'You appear to be offline. ParFolio opened with locally saved course data.';
+    if(VIEW_ACCESS[s.v]&&!currentUser)s.v='home';
+    render();
+  }
+  if(generation!==cloudStartupGeneration)return;
+  Promise.allSettled([syncPendingScores(),syncPendingHoleStats()]).catch(()=>{});
   const linkedCode=new URLSearchParams(location.search).get('join');
   const pendingCode=linkedCode||localStorage.parfolioPendingJoinCode;
   if(pendingCode&&!recoveryMode)setTimeout(()=>joinRoundWithCode(pendingCode),250);
@@ -1529,14 +1589,23 @@ async function saveMappedCourse(){
   await loadCourses();draft=null;s.v='coursesView';render();
 }
 db.auth.onAuthStateChange((event,session)=>{
-  if(event==='SIGNED_IN'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED')currentUser=session?.user||null;
-  if(event==='SIGNED_OUT')setTimeout(()=>{stopRoundRealtime();clearAuthenticatedClientState();recoveryMode=false;render()},0);
+  if(event==='SIGNED_IN'||event==='TOKEN_REFRESHED'||event==='USER_UPDATED'){
+    const prior=currentUser?.id||null;
+    currentUser=session?.user||null;
+    if(cloudLoading){cloudLoading=false;cloudError='';render()}
+    if(currentUser&&prior!==currentUser.id){
+      const generation=++cloudStartupGeneration;
+      setTimeout(()=>hydrateCloudData(generation),0);
+    }
+  }
+  if(event==='SIGNED_OUT')setTimeout(()=>{cloudStartupGeneration++;stopRoundRealtime();clearAuthenticatedClientState();recoveryMode=false;cloudLoading=false;render()},0);
   if(event==='PASSWORD_RECOVERY'){
     recoveryMode=true;currentUser=session?.user||null;
+    if(cloudLoading){cloudLoading=false;render()}
     setTimeout(()=>changePassword(),250);
   }
 });
 window.addEventListener('online',async()=>{const activeView=s.v;await Promise.all([syncPendingScores(),syncPendingHoleStats()]);await loadCourses();if(s.sharedRoundId)await loadSharedRound(false);if(activeView==='round'&&refreshLiveRoundUi())return;render()});
 window.addEventListener('offline',updateSyncIndicator);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-initializeCloud();
+window.addEventListener('DOMContentLoaded',()=>initializeCloud(),{once:true});
