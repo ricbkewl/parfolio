@@ -650,3 +650,37 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
 .app-menu-round-tools button{font-weight:650}
 .app-side-menu>.menu-start-round{font-weight:650}
 .tee-choice{display:grid;width:100%;grid-template-columns:22px 1fr auto;gap:11px;align-items:center;margin:7px 0;padding:11px 12px;border:1px solid var(--line);border-radius:13px;background:#f8fbf9;color:var(--ink);font:inherit;text-align:left;cursor:pointer}.tee-choice.on{border-color:#c89d35;background:#fff8e4;box-shadow:0 0 0 1px rgba(200,157,53,.15)}.tee-choice span{display:flex;flex-direction:column}.tee-choice span b{font-size:14px}.tee-choice span small{color:var(--muted);font-size:10px}.tee-choice em{color:var(--g);font-size:10px;font-style:normal;font-weight:900}.tee-choice-dot{display:block;width:17px;height:17px;border:2px solid #fff;border-radius:50%;box-shadow:0 0 0 1px #9aa8a0}.tee-choice-dot.black{background:#111}.tee-choice-dot.blue{background:#2671d9}.tee-choice-dot.white{background:#fff}.tee-choice-dot.red{background:#d93636}
+
+/* Version 306: Create a Round uses the same ParFolio course-discovery experience. */
+.round-course-picker{position:relative;margin:0 0 14px}
+.round-course-search-wrap{position:relative;display:flex;align-items:center;min-height:58px;border:1px solid #d7e2dc;border-radius:16px;background:#fff;box-shadow:0 1px 0 rgba(12,45,31,.03)}
+.round-course-search-icon{display:grid;width:42px;place-items:center;color:var(--g);font-size:24px;font-weight:700}
+.round-course-search-wrap input{flex:1;min-width:0;height:56px;margin:0;padding:0 44px 0 0;border:0!important;border-radius:16px;background:transparent!important;box-shadow:none!important;font-size:16px!important;outline:0}
+.round-course-search-wrap input:focus{box-shadow:none!important}
+.round-course-clear{position:absolute;right:7px;display:grid;width:38px;height:38px;place-items:center;border:0;border-radius:50%;background:#edf4f0;color:var(--g);font:inherit;font-size:22px;cursor:pointer}
+.round-course-search-results{position:absolute;z-index:2500;top:calc(100% + 7px);left:0;right:0;max-height:min(52vh,420px);overflow:auto;padding:6px;border:1px solid #d4e1da;border-radius:16px;background:#fff;box-shadow:0 16px 42px rgba(8,36,24,.18)}
+.round-course-search-results.hidden{display:none}
+.round-course-search-row{display:grid;width:100%;grid-template-columns:34px minmax(0,1fr) 26px;gap:8px;align-items:center;padding:11px 9px;border:0;border-bottom:1px solid #edf2ef;border-radius:11px;background:#fff;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.round-course-search-row:last-child{border-bottom:0}
+.round-course-search-row:active,.round-course-search-row:hover{background:#f1f7f3}
+.round-course-search-pin{display:grid;width:32px;height:32px;place-items:center;border-radius:10px;background:#edf5f0;color:var(--g);font-size:17px}
+.round-course-search-copy{display:flex;min-width:0;flex-direction:column;gap:2px}
+.round-course-search-copy b{overflow:hidden;font-size:14px;font-weight:850;line-height:1.2;text-overflow:ellipsis;white-space:nowrap}
+.round-course-search-copy small{overflow:hidden;color:var(--muted);font-size:10px;line-height:1.2;text-overflow:ellipsis;white-space:nowrap}
+.round-course-search-copy em{color:var(--g);font-size:9px;font-style:normal;font-weight:800;line-height:1.2}
+.round-course-search-fav{color:#b18a2e;font-size:19px;text-align:center}
+.round-course-search-empty{padding:18px 12px;color:var(--muted);font-size:12px;line-height:1.4;text-align:center}
+.round-course-custom{width:100%;margin-top:7px;padding:10px 12px;border:1px dashed #b8cfc2;border-radius:12px;background:#f5faf7;color:var(--g);font:inherit;font-size:12px;font-weight:800;cursor:pointer}
+.round-course-selected{display:grid;grid-template-columns:34px minmax(0,1fr) auto;gap:10px;align-items:center;margin:0 0 14px;padding:11px 12px;border:1px solid #b9d7c7;border-radius:16px;background:#edf7f1}
+.round-course-selected>span{display:grid;width:34px;height:34px;place-items:center;border-radius:10px;background:#fff;color:var(--g)}
+.round-course-selected>div{display:flex;min-width:0;flex-direction:column;gap:2px}
+.round-course-selected b{overflow:hidden;font-size:14px;text-overflow:ellipsis;white-space:nowrap}
+.round-course-selected small{overflow:hidden;color:var(--muted);font-size:10px;text-overflow:ellipsis;white-space:nowrap}
+.round-course-selected button{padding:8px 10px;border:1px solid #b9d7c7;border-radius:10px;background:#fff;color:var(--g);font:inherit;font-size:11px;font-weight:850;cursor:pointer}
+@media(max-width:390px){
+  .round-course-search-row{grid-template-columns:30px minmax(0,1fr) 22px;padding:10px 7px}
+  .round-course-search-pin{width:29px;height:29px}
+  .round-course-search-copy b{font-size:13px}
+  .round-course-search-copy small{font-size:9px}
+  .round-course-search-copy em{font-size:8px}
+}
