@@ -534,7 +534,7 @@ async function promoteCourseAdmin(){
   alert(`${data.email} is now a course administrator.`);
 }
 async function start(){if(!currentUser){alert('Each golfer needs an account so scores can be protected. Please sign in or create an account first.');await signInAccount();if(!currentUser)return}if(s.resumeView&&!s.done&&!confirm('Start a new round? Your unfinished round will be replaced.'))return;const playerName=golferProfile?.first_name?.trim()||'';s={...roundDefault,v:'setup',players:[playerName],scores:{},putts:{},pars:[],resumeView:'setup',sharedRoundId:null,joinCode:null,ownerUserId:currentUser.id};render()}
-function roundCourseSearchNorm(value=''){return String(value||'').normalize('NFD').replace(/[\\u0300-\\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\\s+/g,' ')}
+function roundCourseSearchNorm(value=''){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/&/g,' and ').replace(/[^a-z0-9]+/g,' ').trim().replace(/\s+/g,' ')}
 function roundCourseSearchResults(query=''){
   const q=roundCourseSearchNorm(query),favoriteIds=typeof favoriteCourseIds==='function'?favoriteCourseIds():new Set();
   return (Array.isArray(courses)?courses:[]).map((course,index)=>{
