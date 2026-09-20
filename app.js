@@ -627,11 +627,43 @@ function bindRoundCourseSearch(){
   input.addEventListener('keydown',event=>{if(event.key==='Escape'){$('roundCourseSearchResults')?.classList.add('hidden');input.blur()}});
   setTimeout(()=>{if(typeof requestCourseLibraryLocation==='function')requestCourseLibraryLocation();refreshRoundCourseSearch(input.value)},0);
 }
+function courseFacilityInfo(course){
+  if(!course)return'';
+  const address=[course.address,[course.city,course.state,course.postal_code].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+  const website=String(course.website||course.url||course.source||'').trim();
+  const phone=String(course.phone||course.telephone||course.contact_phone||'').trim();
+  const type=String(course.course_type||'').trim();
+  const holes=Number(course.holes)||null,par=Number(course.par_total)||((course.pars||[]).length?course.pars.reduce((a,b)=>a+(Number(b)||0),0):null);
+  const point=course.catalog_point||course.greens?.find(g=>g?.center)?.center||course.greens?.find(g=>g?.tee)?.tee||null;
+  const directionsQuery=address||([point?.lat,point?.lng].every(Number.isFinite)?`${point.lat},${point.lng}`:course.name);
+  const directionsUrl=`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(directionsQuery)}`;
+  const websiteLink=/^https?:\/\//i.test(website)?website:'';
+  const phoneHref=phone?`tel:${phone.replace(/[^+\d]/g,'')}`:'';
+  const gps=isCourseGpsReady(course)?'GPS Ready':mappedCount(course)?'Partial GPS':'Course Location';
+  const detailChips=[holes?`${holes} holes`:'',par?`Par ${par}`:'',type,gps].filter(Boolean);
+  const normalizeList=value=>Array.isArray(value)?value.filter(Boolean):typeof value==='string'?value.split(/[;,|]/).map(x=>x.trim()).filter(Boolean):[];
+  const groups=[
+    ['Practice Facilities',normalizeList(course.practice_facilities||course.practiceFacilities)],
+    ['Rentals & Gear',normalizeList(course.rentals||course.rental_services||course.rentalServices)],
+    ['Pro Services',normalizeList(course.pro_services||course.proServices)],
+    ['Amenities',normalizeList(course.amenities)]
+  ].filter(([,items])=>items.length);
+  return`<section class="round-facility-info"><header><div><small>FACILITY INFO</small><h2>${esc(course.name)}</h2></div></header>
+    <div class="facility-info-list">
+      ${address?`<div class="facility-info-row"><span class="facility-info-icon">⌖</span><div><small>LOCATION</small><b>${esc(address)}</b></div><a href="${esc(directionsUrl)}" target="_blank" rel="noopener" aria-label="Directions to ${esc(course.name)}">Directions</a></div>`:''}
+      ${websiteLink?`<div class="facility-info-row"><span class="facility-info-icon">◎</span><div><small>WEBSITE</small><b class="facility-url">${esc(websiteLink.replace(/^https?:\/\//i,'').replace(/\/$/,''))}</b></div><a href="${esc(websiteLink)}" target="_blank" rel="noopener">Visit</a></div>`:''}
+      ${phone?`<div class="facility-info-row"><span class="facility-info-icon">☎</span><div><small>PHONE</small><b>${esc(phone)}</b></div><a href="${esc(phoneHref)}">Call</a></div>`:''}
+    </div>
+    <div class="facility-course-details">${detailChips.map(item=>`<span>${esc(item)}</span>`).join('')}</div>
+    ${groups.length?`<div class="facility-service-groups">${groups.map(([label,items])=>`<section><h3>${esc(label)}</h3><ul>${items.map(item=>`<li>${esc(item)}</li>`).join('')}</ul></section>`).join('')}</div>`:''}
+  </section>`;
+}
 function setup(){
   const selectedCourseId=s.courseId||s.catalogCourseId,selectedCourse=courseById(selectedCourseId),hasSavedCourse=!!selectedCourseId&&canBrowseCourse(selectedCourse),isRoyale=!!selectedCourse?.royaleFacility,gpsAvailable=isCourseGpsReady(selectedRoundCourse()||selectedCourse);
-  const royalePicker=isRoyale?`<label>Round route</label><select id="royaleRoute" onchange="setRoyaleRoute(this.value)">${ROYALE_JAKARTA_ROUTE_OPTIONS.map(([value,label])=>`<option value="${value}" ${s.royaleRoute===value?'selected':''}>${label}</option>`).join('')}</select><div class="notice"><b>${esc(royaleRouteLabel(s.royaleRoute||'west-south'))}</b> plays as one continuous ${s.holes}-hole scorecard. Hole 10 begins on the second nine.</div>`:'';
+  const royalePicker=isRoyale?`<label>Round route</label><select id="royaleRoute" onchange="setRoyaleRoute(this.value)">${ROYALE_JAKARTA_ROUTE_OPTIONS.map(([value,label])=>`<option value="${value}" ${s.royaleRoute===value?'selected':''}>${label}</option>`).join('')}</select>`:'';
   const courseSearch=hasSavedCourse?`<div class="round-course-selected"><span>⛳</span><div><b>${esc(selectedCourse?.name||s.course)}</b><small>${esc([selectedCourse?.city,selectedCourse?.state].filter(Boolean).join(', ')||selectedCourse?.country||'Saved ParFolio course')}</small></div><button type="button" onclick="useCustomRoundCourse()" aria-label="Choose a different course">Change</button></div>`:`<div class="round-course-picker"><div class="round-course-search-wrap"><span class="round-course-search-icon">⌕</span><input id="roundCourseSearch" type="search" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Search ParFolio courses, city, ZIP or area" aria-label="Search ParFolio courses"><button type="button" class="round-course-filter" onclick="showCourseFilters()" aria-label="Filter courses"><i></i><b id="roundCourseFilterCount" class="hidden"></b></button><button type="button" class="round-course-clear" onclick="useCustomRoundCourse()" aria-label="Use custom scorecard">×</button></div><div id="roundCourseSearchResults" class="round-course-search-results hidden"></div><button type="button" class="round-course-custom" onclick="useCustomRoundCourse()">＋ Use custom scorecard without GPS</button></div>`;
-  app.innerHTML=`<button class="back" onclick="goHome()">← Back</button><h1>Create a Round</h1><p class="muted">Search the ParFolio course library or create a custom scorecard.</p><label>Course</label>${courseSearch}${royalePicker}${hasSavedCourse?`<div class="notice">${gpsAvailable?'The available GPS tees, aim points and green markers will be used automatically.':'The approved course name and hole pars will be used. GPS guidance will appear as its holes are mapped.'}</div>`:`<label>Course name</label><input id="course" value="${esc(s.course)}" placeholder="e.g., Oak Valley Golf Club"><label>How many holes?</label><div class="row"><button class="choice ${s.holes===9?'on':''}" onclick="setHoles(9)">9 Holes</button><button class="choice ${s.holes===18?'on':''}" onclick="setHoles(18)">18 Holes</button></div>`}<label>Your name for this round</label><input aria-label="Your name for this round" value="${esc(s.players[0]||'')}" placeholder="Enter your name" oninput="updatePlayer(0,this.value)"><div class="notice">Your profile first name is entered automatically, but you can edit it. Other golfers join from their own phones.</div>${hasSavedCourse?`<button id="createRoundButton" class="primary" onclick="goPars()">Start Round</button>${gpsAvailable?'<button type="button" class="secondary round-preview-button" onclick="previewSelectedCourse()">Preview Course</button>':''}`:`<button id="setupContinueButton" class="primary" onclick="goPars()">Continue</button>`}`;
+  const facilityInfo=hasSavedCourse?courseFacilityInfo(selectedCourse):'';
+  app.innerHTML=`<button class="back" onclick="goHome()">← Back</button><h1>Start a Round or Preview Course</h1><label>Course</label>${courseSearch}${royalePicker}${facilityInfo}${hasSavedCourse?'':`<label>Course name</label><input id="course" value="${esc(s.course)}" placeholder="e.g., Oak Valley Golf Club"><label>How many holes?</label><div class="row"><button class="choice ${s.holes===9?'on':''}" onclick="setHoles(9)">9 Holes</button><button class="choice ${s.holes===18?'on':''}" onclick="setHoles(18)">18 Holes</button></div>`}<label>Your name for this round</label><input aria-label="Your name for this round" value="${esc(s.players[0]||'')}" placeholder="Enter your name" oninput="updatePlayer(0,this.value)">${hasSavedCourse?`<button id="createRoundButton" class="primary" onclick="goPars()">Start Round</button>${gpsAvailable?'<button type="button" class="secondary round-preview-button" onclick="previewSelectedCourse()">Preview Course</button>':''}`:`<button id="setupContinueButton" class="primary" onclick="goPars()">Continue</button>`}`;
   setTimeout(bindRoundCourseSearch,0);
 }
 function setRoyaleRoute(value){s.royaleRoute=value;const course=royaleRoundCourse(value);s.course=course.name;s.holes=course.holes;s.pars=[...course.pars];s.teeDistanceMeters=course.tee_meters;s.teeSet='black';save();render()}
