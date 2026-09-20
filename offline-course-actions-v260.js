@@ -1,4 +1,4 @@
-/* ParFolio v260 — travel-friendly per-course offline downloads. */
+/* ParFolio v318 — travel-friendly offline downloads without post-render observer churn. */
 (function(){
   const validPoint=p=>p&&Number.isFinite(Number(p.lat))&&Number.isFinite(Number(p.lng))&&Math.abs(Number(p.lat))<=90&&Math.abs(Number(p.lng))<=180&&!(Number(p.lat)===0&&Number(p.lng)===0);
   const geometryComplete=c=>{const holes=Number(c?.holes)||0,greens=Array.isArray(c?.greens)?c.greens:[];return [9,18].includes(holes)&&greens.length===holes&&greens.every(g=>validPoint(g?.tee||g?.tees?.black)&&validPoint(g?.center));};
@@ -40,9 +40,10 @@
     });
   }
 
-  let pending=false;
-  const schedule=()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;decorateCourseRows();});};
-  new MutationObserver(schedule).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
-  window.addEventListener('online',schedule);window.addEventListener('offline',schedule);
-  setTimeout(schedule,350);
+  window.decorateParFolioOfflineCourseRows=decorateCourseRows;
+  const priorRefresh=typeof refreshCourseLibrary==='function'?refreshCourseLibrary:null;
+  if(priorRefresh)window.refreshCourseLibrary=refreshCourseLibrary=function(){const out=priorRefresh.apply(this,arguments);decorateCourseRows();return out;};
+  const priorCourses=typeof coursesView==='function'?coursesView:null;
+  if(priorCourses)window.coursesView=coursesView=function(){const out=priorCourses.apply(this,arguments);decorateCourseRows();return out;};
+  window.addEventListener('online',decorateCourseRows);window.addEventListener('offline',decorateCourseRows);
 })();
