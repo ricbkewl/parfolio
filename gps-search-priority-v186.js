@@ -1,4 +1,4 @@
-/* ParFolio v292 compatibility — GPS state/indicator only.
+/* ParFolio v318 compatibility — GPS state provider only; no post-render DOM rewrites.
    Search ordering is owned by smart-course-search-v176.js. This legacy layer must
    never re-rank active search results or autocomplete suggestions after render. */
 (function(){
@@ -23,43 +23,5 @@
   }
   window.smartCourseGpsState=gpsState;
 
-  function setBadge(badge,gps,kind){
-    if(!badge)return;
-    const className=`${kind} ${gps.key}`,label=kind==='smart-gps-badge'?`● ${gps.label}`:gps.shortLabel;
-    if(badge.className!==className)badge.className=className;
-    if(badge.getAttribute('aria-label')!==gps.label)badge.setAttribute('aria-label',gps.label);
-    if(kind==='smart-gps-badge'){
-      if(badge.textContent!==label)badge.textContent=label;
-    }else{
-      const desired=`<i>◎</i>${label}`;
-      if(badge.innerHTML!==desired)badge.innerHTML=desired;
-    }
-  }
-
-  function normalizeIndicators(root=document){
-    root.querySelectorAll?.('.smart-course-row').forEach(row=>{
-      const name=row.querySelector('.smart-course-copy b')?.textContent?.trim();
-      const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
-      setBadge(row.querySelector('.smart-gps-badge'),gpsState(course),'smart-gps-badge');
-    });
-    const suggestionBox=root.querySelector?.('.smart-course-suggestions');
-    if(suggestionBox){
-      [...suggestionBox.querySelectorAll('button')].forEach(button=>{
-        const name=button.querySelector('b')?.textContent?.trim();
-        const course=(typeof courses!=='undefined'&&Array.isArray(courses)?courses:[]).find(c=>c?.name===name);if(!course)return;
-        const gps=gpsState(course);button.dataset.gpsPriority=String(gps.priority);
-        setBadge(button.querySelector('.smart-search-status'),gps,'smart-search-status');
-      });
-    }
-  }
-  window.normalizeParFolioGpsIndicators=normalizeIndicators;
-  let normalizationPending=false;
-  new MutationObserver(()=>{
-    if(typeof s!=='undefined'&&s?.v!=='coursesView')return;
-    if(!document.querySelector('.smart-course-row,.smart-course-suggestions'))return;
-    if(normalizationPending)return;
-    normalizationPending=true;
-    requestAnimationFrame(()=>{normalizationPending=false;normalizeIndicators()});
-  }).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
-  setTimeout(normalizeIndicators,300);
+  window.normalizeParFolioGpsIndicators=function(){/* v318: badges are rendered correctly on first paint by the search owner. */};
 })();
