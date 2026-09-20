@@ -1,4 +1,4 @@
-/* ParFolio v199 — consolidate course start + unfinished-round confirmation into one prompt. */
+/* ParFolio v315 — direct course selection; no redundant native start/unfinished-round prompt. */
 (function(){
   if(typeof startCourseFromLibrary!=='function')return;
 
@@ -42,12 +42,9 @@
     const course=courses?.[index];
     if(!course)return;
     let mapped=typeof mappedCount==='function'?mappedCount(course):0;
-    const unfinished=!!(s?.resumeView&&!s?.done);
-    let message=`Start a new game at ${course.name}?`;
-    if(unfinished)message+=' Your unfinished round will be replaced.';
-    if(course.catalogOnly&&!mapped)message+='\n\nThis course is approved for scorecard play while GPS mapping continues.';
-    if(!confirm(message))return;
-
+    // Course-card taps now go straight to the setup screen. The setup screen's
+    // Start Round / Preview Course actions provide the intentional choice, so a
+    // native confirmation dialog here is redundant and interrupts browsing.
     try{await hydrateAuditedGpsCourse(course)}catch(error){
       console.warn('GPS-ready course hydration failed',error);
       alert('This course is listed as GPS Ready, but its validated hole map could not be loaded. Please try again.');
