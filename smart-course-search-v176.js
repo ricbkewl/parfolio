@@ -1,9 +1,10 @@
-/* ParFolio v292 — relevance-first smart course discovery/search.
+/* ParFolio v318 — single-owner, relevance-first course discovery/search.
    Exact and fuzzy text relevance always outrank GPS status while active search is used.
    GPS readiness remains the primary tie-breaker among comparably relevant matches. */
 (function(){
   let visibleLimit=25;
   let lastQuery='';
+  let searchTimer=null;
 
   const STOP=new Set(['golf','course','courses','club','clubs','the','at','of','and','near','around','in','me','country']);
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase()
@@ -160,6 +161,13 @@
     refreshCourseLibrary();renderSuggestions(value);
   };
 
+  function normalizeCourseInteractionTargets(){
+    document.querySelectorAll('.course-start-target,.smart-course-main,.course-name-start').forEach(el=>{
+      el.style.pointerEvents='auto';el.style.touchAction='manipulation';if(el.tagName==='BUTTON'&&!el.type)el.type='button';
+    });
+    document.querySelectorAll('.course-preview-map').forEach(map=>{map.style.pointerEvents='none'});
+  }
+
   refreshCourseLibrary=function(){
     const grid=document.getElementById('courseLibraryGrid');if(!grid)return;
     for(const previewMap of coursePreviewMaps){try{previewMap.remove()}catch{}}coursePreviewMaps=[];
@@ -175,6 +183,9 @@
     const empty=document.getElementById('courseLibraryEmpty');if(empty)empty.classList.toggle('hidden',visible.length>0);
     const heading=document.getElementById('courseResultsHeading');if(heading)heading.textContent=searching?`${filtered.length} Course${filtered.length===1?'':'s'} Found`:filtering?`${filtered.length} Course${filtered.length===1?'':'s'} Found`:'Nearby & Recommended';
     const count=document.getElementById('courseFilterCount');if(count){count.textContent=activeCourseFilterCount()||'';count.classList.toggle('hidden',!activeCourseFilterCount())}
+    normalizeCourseInteractionTargets();
+    window.decorateParFolioOfflineCourseRows?.();
+    window.ensureCourseMapButton?.();
   };
 
   window.smartCourseShowMore=function(){visibleLimit+=25;refreshCourseLibrary()};
@@ -195,32 +206,47 @@
     row.innerHTML=quickChip('Near Me','nearby')+quickChip('Favorites','favorites')+quickChip('GPS Ready','mapped')+quickChip('18 Holes','holes','18');
   }
 
+  function bindStableSearchInput(shell,input){
+    if(!shell||!input||input.dataset.pfSearchOwner==='318')return;
+    input.dataset.pfSearchOwner='318';input.removeAttribute('oninput');input.oninput=null;
+    input.disabled=false;input.readOnly=false;input.style.pointerEvents='auto';input.style.touchAction='manipulation';input.style.fontSize='16px';
+    input.setAttribute('autocomplete','off');input.setAttribute('autocapitalize','none');input.setAttribute('spellcheck','false');
+    input.addEventListener('focus',()=>{document.documentElement.classList.add('pf-course-search-focused');renderSuggestions(input.value)});
+    input.addEventListener('blur',()=>document.documentElement.classList.remove('pf-course-search-focused'));
+    input.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('.smart-course-suggestions')?.classList.add('hidden')});
+    input.addEventListener('input',()=>{
+      const value=input.value,start=input.selectionStart,end=input.selectionEnd;
+      clearTimeout(searchTimer);searchTimer=setTimeout(()=>{filterSharedCourses(value);requestAnimationFrame(()=>{const current=document.querySelector('.course-library-search input');if(current===document.activeElement)try{current.setSelectionRange(start??value.length,end??value.length)}catch{}})},80);
+    });
+  }
+
   function decorateCourses(){
     if(typeof s==='undefined'||s.v!=='coursesView')return;
     const tools=document.querySelector('.course-discovery-tools');if(!tools)return;
-    const label=tools.querySelector('.course-library-search');
-    const input=label?.querySelector('input');
+    let shell=tools.querySelector('.course-library-search');
+    if(shell?.tagName==='LABEL'){
+      const replacement=document.createElement('div');replacement.className=shell.className;
+      while(shell.firstChild)replacement.appendChild(shell.firstChild);shell.replaceWith(replacement);shell=replacement;
+    }
+    const input=shell?.querySelector('input');
     if(input){
       input.placeholder='Search course, city, ZIP or area';
-      input.setAttribute('autocomplete','off');
-      input.setAttribute('spellcheck','false');
-      if(!label.querySelector('.smart-course-suggestions'))label.insertAdjacentHTML('beforeend','<div class="smart-course-suggestions hidden"></div>');
-      if(!input.dataset.smartBound){input.dataset.smartBound='1';input.addEventListener('focus',()=>renderSuggestions(input.value));input.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelector('.smart-course-suggestions')?.classList.add('hidden')});}
+      if(!shell.querySelector('.smart-course-suggestions'))shell.insertAdjacentHTML('beforeend','<div class="smart-course-suggestions hidden"></div>');
+      bindStableSearchInput(shell,input);
     }
     document.querySelector('.course-location-search-panel')?.remove();
     if(!document.querySelector('.smart-course-quick-filters'))tools.insertAdjacentHTML('afterend','<div class="smart-course-quick-filters"></div>');
-    decorateQuickFilters();
+    decorateQuickFilters();normalizeCourseInteractionTargets();window.decorateParFolioOfflineCourseRows?.();window.ensureCourseMapButton?.();
     const sub=document.querySelector('h1 + .muted');if(sub)sub.textContent='Find nearby courses or search the complete ParFolio course library.';
     const resultSub=document.querySelector('.course-results-heading span');if(resultSub)resultSub.textContent='Best text matches first · GPS readiness breaks ties';
   }
 
+  window.decorateParFolioCourseSearch=decorateCourses;
   const priorCourses176=window.coursesView||coursesView;
-  window.coursesView=coursesView=function(){const out=priorCourses176.apply(this,arguments);setTimeout(decorateCourses,0);return out;};
+  window.coursesView=coursesView=function(){const out=priorCourses176.apply(this,arguments);decorateCourses();return out;};
 
   const priorSetFilter=window.setCourseFilter||setCourseFilter;
-  if(typeof priorSetFilter==='function')window.setCourseFilter=setCourseFilter=function(){const out=priorSetFilter.apply(this,arguments);setTimeout(decorateQuickFilters,0);return out;};
+  if(typeof priorSetFilter==='function')window.setCourseFilter=setCourseFilter=function(){const out=priorSetFilter.apply(this,arguments);decorateQuickFilters();return out;};
   const priorClear=window.clearCourseFilters||clearCourseFilters;
-  if(typeof priorClear==='function')window.clearCourseFilters=clearCourseFilters=function(){const out=priorClear.apply(this,arguments);setTimeout(decorateQuickFilters,0);return out;};
-
-  setTimeout(decorateCourses,250);
+  if(typeof priorClear==='function')window.clearCourseFilters=clearCourseFilters=function(){const out=priorClear.apply(this,arguments);decorateQuickFilters();return out;};
 })();
