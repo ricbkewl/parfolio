@@ -816,26 +816,36 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
 .course-preview-fullscreen .course-preview-hole-map{pointer-events:auto!important}
 .course-preview-fullscreen .course-preview-hole-map .live-map-viewport,
 .course-preview-fullscreen .course-preview-hole-map #liveHoleMap{pointer-events:auto!important}
+
+/* v317: compact vertical preview controls in the lower-left corner. */
 .course-preview-actions{
-  position:fixed;z-index:2300;left:50%;right:auto;bottom:calc(12px + env(safe-area-inset-bottom));
-  display:grid;grid-template-columns:auto minmax(105px,1fr) auto;align-items:center;gap:7px;
-  width:min(430px,calc(100vw - 20px));min-height:56px;padding:6px;
-  transform:translateX(-50%);border:1px solid rgba(255,255,255,.32);border-radius:18px;
-  background:rgba(12,31,23,.76);box-shadow:0 8px 26px rgba(0,0,0,.28);
+  position:fixed;z-index:2300;
+  left:max(10px,env(safe-area-inset-left));right:auto;
+  bottom:calc(12px + env(safe-area-inset-bottom));
+  display:flex;flex-direction:column;align-items:stretch;gap:5px;
+  width:116px;min-height:0;padding:6px;
+  border:1px solid rgba(255,255,255,.30);border-radius:16px;
+  background:rgba(12,31,23,.76);box-shadow:0 8px 24px rgba(0,0,0,.28);
   -webkit-backdrop-filter:blur(14px) saturate(135%);backdrop-filter:blur(14px) saturate(135%);
 }
-.course-preview-actions>div{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-.course-preview-actions small{color:#f5dfa8;font-size:8px;font-weight:900;letter-spacing:.09em}
-.course-preview-actions span{margin-top:2px;color:#e8efeb;font-size:8px;font-weight:700;white-space:nowrap}
-.course-preview-back,.course-preview-start{min-height:42px;border-radius:12px;padding:0 12px;font:inherit;font-size:12px;font-weight:850;cursor:pointer}
-.course-preview-back{border:1px solid rgba(255,255,255,.36);background:rgba(255,255,255,.12);color:#fff}
-.course-preview-start{border:1px solid rgba(255,255,255,.18);background:#176b45;color:#fff}
-.course-preview-fullscreen .live-map-style-toggle{bottom:calc(82px + env(safe-area-inset-bottom))!important}
-.course-preview-fullscreen .forward-label{bottom:calc(84px + env(safe-area-inset-bottom))!important}
-.course-preview-fullscreen .map-zoom-controls{bottom:calc(84px + env(safe-area-inset-bottom))!important}
-.course-preview-fullscreen .hole-map-attribution{bottom:calc(74px + env(safe-area-inset-bottom))!important}
+.course-preview-actions>small{
+  display:block;margin:0 0 1px;padding:0 2px;
+  color:#f5dfa8;font-size:7px;font-weight:900;line-height:1;letter-spacing:.11em;text-align:center;
+}
+.course-preview-back,.course-preview-start{
+  width:100%;min-height:36px;margin:0;border-radius:10px;padding:0 8px;
+  font:inherit;font-size:11px;font-weight:850;line-height:1;cursor:pointer;
+}
+.course-preview-back{border:1px solid rgba(255,255,255,.34);background:rgba(255,255,255,.10);color:#fff}
+.course-preview-start{border:1px solid rgba(255,255,255,.16);background:#176b45;color:#fff}
+.course-preview-fullscreen .live-map-style-toggle{bottom:calc(12px + env(safe-area-inset-bottom))!important;left:auto!important;right:max(10px,env(safe-area-inset-right))!important}
+.course-preview-fullscreen .forward-label{bottom:calc(14px + env(safe-area-inset-bottom))!important}
+.course-preview-fullscreen .map-zoom-controls{bottom:calc(74px + env(safe-area-inset-bottom))!important}
+.course-preview-fullscreen .hole-map-attribution{bottom:calc(4px + env(safe-area-inset-bottom))!important}
 @media(max-width:390px){
-  .course-preview-actions{width:calc(100vw - 14px);gap:5px;bottom:calc(8px + env(safe-area-inset-bottom));padding:5px}
-  .course-preview-back,.course-preview-start{padding:0 9px;font-size:11px}
-  .course-preview-actions span{display:none}
+  .course-preview-actions{
+    left:max(7px,env(safe-area-inset-left));bottom:calc(8px + env(safe-area-inset-bottom));
+    width:108px;padding:5px;gap:4px;border-radius:14px;
+  }
+  .course-preview-back,.course-preview-start{min-height:34px;font-size:10px;padding:0 7px}
 }
