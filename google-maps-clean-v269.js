@@ -163,8 +163,11 @@
         const topSafe=Math.max(154,Math.round(mapHeight*.15));
         const bottomSafe=Math.max(topSafe+height+8,mapHeight-(coursePreviewMode?86:76));
         const sideSafe=10;
-        const lateral=this.kind==='hit'?-58:58;
-        let x=point.x+lateral,y=point.y;
+        const plannerRadius=24,gapX=10,gapY=10;
+        const xOffset=plannerRadius+gapX+width/2;
+        const yOffset=plannerRadius+gapY+height/2;
+        let x=point.x-xOffset;
+        let y=point.y+(this.kind==='hit'?yOffset:-yOffset);
         x=Math.max(sideSafe+width/2,Math.min(mapWidth-sideSafe-width/2,x));
         y=Math.max(topSafe+height/2,Math.min(bottomSafe-height/2,y));
         this.div.style.transform='translate3d('+(x-width/2)+'px,'+(y-height/2)+'px,0)';
@@ -247,7 +250,7 @@
     /* During a manual map pan/pinch, freeze planner overlay redraws. The map camera remains entirely user-controlled. */
     if(roundGestureActive)return;
     inlinePlannerMarker.setLatLng(aim);inlinePlannerLines[0]?.setLatLngs([origin,aim]);inlinePlannerLines[1]?.setLatLngs(remainingPoints);
-    inlinePlannerLabels[0]?.setLatLng(pointBetween(origin,aim,.5));if(remainingPoints[1])inlinePlannerLabels[1]?.setLatLng(pointBetween(remainingPoints[0],remainingPoints[1],.5));
+    inlinePlannerLabels[0]?.setLatLng(aim);inlinePlannerLabels[1]?.setLatLng(aim);
     inlinePlannerLabels[0]?.setPlannerContent?.(toTarget,hitClubName,true);inlinePlannerLabels[1]?.setPlannerContent?.(remaining,goClubName,remaining>=5);
   }
   window.updateShotPlanner=updatePlannerClean;
@@ -264,8 +267,8 @@
     const goLine=remember(new google.maps.Polyline({map:raw,path:remainingPoints.map(cleanPoint).filter(Boolean),strokeColor:'#f5dfa8',strokeWeight:0,strokeOpacity:0,zIndex:790,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:1.5,scale:1.5},offset:'0',repeat:'11px'}]}));
     inlinePlannerLines=[polylineFacade(hitLine),polylineFacade(goLine)];
     const planner=remember(new google.maps.Marker({map:raw,position:cleanPoint(aim),draggable:true,zIndex:1200,icon:plannerIcon(),title:'Drag to plan your shot'}));inlinePlannerMarker=markerFacade(planner);
-    const hitLabel=remember(createPlannerCardOverlay(raw,pointBetween(origin,aim,.5),'hit'));
-    const goPos=pointBetween(remainingPoints[0],remainingPoints[1]||remainingPoints[0],.5),goLabel=remember(createPlannerCardOverlay(raw,goPos,'go'));
+    const hitLabel=remember(createPlannerCardOverlay(raw,aim,'hit'));
+    const goLabel=remember(createPlannerCardOverlay(raw,aim,'go'));
     inlinePlannerLabels=[labelFacade(hitLabel),labelFacade(goLabel)];
     planner.addListener('drag',()=>{const p=planner.getPosition();if(!p)return;shotPlannerAims[shotPlannerKey()]={lat:p.lat(),lng:p.lng()};updatePlannerClean(green)});
     planner.addListener('dragend',()=>{inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
@@ -347,5 +350,5 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v326';record('GOOGLE_ONLY_V326_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v327';record('GOOGLE_ONLY_V327_READY');
 })();
