@@ -262,7 +262,7 @@
     if(!['round','coursePreview'].includes(s.v)||inlineHoleMap?.provider!=='google')return false;
     const preview=s.v==='coursePreview',course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
     stopLocation();const yards=mappedHoleDistance(green);
-    if(document.getElementById('roundMapHole'))document.getElementById('roundMapHole').textContent=s.hole;
+    if(document.getElementById('roundMapHole'))document.getElementById('roundMapHole').textContent=s.hole;if(document.getElementById('previewHeaderHole'))document.getElementById('previewHeaderHole').textContent=s.hole;
     if(document.getElementById('roundMapDistance'))document.getElementById('roundMapDistance').textContent=yards;
     if(document.getElementById('roundMapPar'))document.getElementById('roundMapPar').textContent=par;
     if(document.getElementById('centerYards'))document.getElementById('centerYards').textContent=yards;
