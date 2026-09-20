@@ -145,7 +145,7 @@
 
   /* v310 single-owner round camera: only anchor -> green center may control framing. */
   function simpleRoundAnchor(green,useLive=false){
-    if(useLive){
+    if(useLive&&!coursePreviewMode){
       try{if(lastKnownPosition&&green?.center&&distanceYards(lastKnownPosition,green.center)<=3000)return cleanPoint(lastKnownPosition)}catch{}
     }
     return cleanPoint(selectedTee(green));
@@ -220,9 +220,9 @@
   }
 
   window.fitLiveHoleView=fitRoundMap;
-  window.resetLiveHoleView=function(){if(inlineHoleGreen){inlineUserMovedMap=false;clearTimeout(window.parfolioSimpleCameraTimer);window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(inlineHoleGreen,true),30)}};
+  window.resetLiveHoleView=function(){if(inlineHoleGreen){inlineUserMovedMap=false;clearTimeout(window.parfolioSimpleCameraTimer);window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(inlineHoleGreen,!coursePreviewMode),30)}};
   window.zoomLiveHoleMap=function(change){if(inlineHoleMap?.provider==='google')inlineHoleMap.raw.setZoom((inlineHoleMap.raw.getZoom()||17)+Number(change||0))};
-  window.setLiveMapStyle=function(style){liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;if(s?.v==='round'&&inlineHoleMap?.provider==='google'){inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(inlineHoleGreen,{fit:false})}else render()};
+  window.setLiveMapStyle=function(style){liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;if(['round','coursePreview'].includes(s?.v)&&inlineHoleMap?.provider==='google'){inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(inlineHoleGreen,{fit:false})}else render()};
 
   window.initInlineHoleMapLeaflet=function(green){showGoogleError(document.getElementById('liveHoleMap'),new Error('Alternate map providers are disabled. ParFolio uses Google Maps only.'),'GOOGLE_ONLY_POLICY')};
 
