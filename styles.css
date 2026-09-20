@@ -800,3 +800,26 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
   height:100%!important;
   min-height:94px!important;
 }
+
+
+/* ParFolio course preview: read-only hole browser before a round is created. */
+.round-preview-button{margin-top:10px}
+.preview-mode-summary{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;padding:5px!important}
+.preview-mode-summary small{color:#f5dfa8!important}
+.preview-mode-summary b{font-size:11px!important;letter-spacing:.07em!important;color:#fff}
+.course-preview-actions{position:fixed;z-index:2300;left:0;right:0;bottom:0;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;min-height:76px;padding:9px max(10px,env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-left));border-top:1px solid rgba(23,64,43,.16);background:rgba(255,255,255,.95);box-shadow:0 -10px 28px rgba(8,35,22,.18);backdrop-filter:blur(14px)}
+.course-preview-actions>div{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.course-preview-actions small{color:#176b45;font-size:9px;font-weight:900;letter-spacing:.09em}
+.course-preview-actions span{margin-top:2px;color:#68756e;font-size:9px;font-weight:700;white-space:nowrap}
+.course-preview-back,.course-preview-start{min-height:46px;border-radius:13px;padding:0 15px;font:inherit;font-size:13px;font-weight:850;cursor:pointer}
+.course-preview-back{border:1px solid #bfd4c8;background:#fff;color:#176b45}
+.course-preview-start{border:0;background:#176b45;color:#fff}
+.course-preview-fullscreen .live-map-style-toggle{bottom:calc(92px + env(safe-area-inset-bottom))!important}
+.course-preview-fullscreen .forward-label{bottom:calc(96px + env(safe-area-inset-bottom))!important}
+.course-preview-fullscreen .map-zoom-controls{bottom:calc(96px + env(safe-area-inset-bottom))!important}
+.course-preview-fullscreen .hole-map-attribution{bottom:calc(82px + env(safe-area-inset-bottom))!important}
+@media(max-width:390px){
+  .course-preview-actions{gap:6px;min-height:72px;padding-left:7px;padding-right:7px}
+  .course-preview-back,.course-preview-start{padding:0 11px;font-size:12px}
+  .course-preview-actions span{font-size:8px}
+}
