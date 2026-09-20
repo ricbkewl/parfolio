@@ -69,12 +69,12 @@
       await window.loadGoogleMaps?.();
       if(!window.google?.maps?.places?.PlacesService)return;
       const data=fallback(course),query=[course.name,data.address||[course.city,course.state].filter(Boolean).join(', ')].filter(Boolean).join(' ');
-      const request={query,fields:['place_id','name','formatted_address','formatted_phone_number','website','opening_hours','rating','user_ratings_total','url','business_status','photos']};
+      const detailFields=['place_id','name','formatted_address','formatted_phone_number','website','opening_hours','rating','user_ratings_total','url','business_status','photos'];const request={query,fields:['place_id','name','formatted_address']};
       if(data.point&&Number.isFinite(Number(data.point.lat))&&Number.isFinite(Number(data.point.lng)))request.locationBias=new google.maps.LatLng(Number(data.point.lat),Number(data.point.lng));
       const service=new google.maps.places.PlacesService(document.createElement('div'));
       const place=await new Promise(resolve=>service.findPlaceFromQuery(request,(results,status)=>{
         if(status!==google.maps.places.PlacesServiceStatus.OK||!results?.[0]){resolve(null);return}
-        service.getDetails({placeId:results[0].place_id,fields:request.fields},(details,detailStatus)=>resolve(detailStatus===google.maps.places.PlacesServiceStatus.OK?details:null));
+        service.getDetails({placeId:results[0].place_id,fields:detailFields},(details,detailStatus)=>resolve(detailStatus===google.maps.places.PlacesServiceStatus.OK?details:null));
       }));
       if(!place)return;cache.set(key,place);
       if((s?.courseId||s?.catalogCourseId)&&keyOf(selectedRoundCourse?.()||course)===key)render(course,place);
