@@ -1,4 +1,4 @@
-/* ParFolio v203 — scalable Filter & Sort Courses sheet. */
+/* ParFolio v318 — scalable Filter & Sort sheet with synchronous course-list decoration. */
 (function(){
   const STORE='parfolioCourseFilterSort:v203';
   const superAdmin=()=>typeof adminRole!=='undefined'&&adminRole==='super_admin';
@@ -98,7 +98,5 @@
     [data-indonesia-audit].pf203-hide-audit-chip{display:none!important}.pf203-filter-sheet{max-height:min(88vh,820px);overflow:hidden}.pf203-filter-sheet header{align-items:center}.pf203-count-badge{min-width:24px;height:24px;border-radius:12px;display:grid;place-items:center;background:#d4ad51;color:#14281f;font-weight:800;font-size:12px}.pf203-body{overflow:auto;padding-bottom:18px}.pf203-body h3{margin:18px 0 9px}.pf203-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pf203-grid.compact{grid-template-columns:1fr}.pf203-chip,.pf203-indonesia{min-height:44px;border:1px solid rgba(126,113,72,.35);border-radius:12px;background:rgba(255,255,255,.72);font-weight:700}.pf203-chip.on{background:#153d2f;color:#fff;border-color:#d4ad51}.pf203-selects{display:grid;gap:8px;margin-top:8px}.pf203-selects select{width:100%;min-height:44px;border-radius:12px;padding:0 12px;border:1px solid rgba(126,113,72,.3);background:#fff}.pf203-sort{display:grid;gap:7px}.pf203-sort label{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid rgba(126,113,72,.25);border-radius:12px;background:rgba(255,255,255,.65)}.pf203-admin{margin-top:18px;padding:12px;border-radius:15px;background:rgba(19,61,47,.08);border:1px solid rgba(19,61,47,.18)}.pf203-indonesia{width:100%;margin-top:8px;background:#173d30;color:#fff;border-color:#d4ad51}.course-filter-sheet footer .primary{background:#173d30;color:#fff;border-color:#d4ad51}.course-discovery-tools [onclick*="showCourseFilters"]{position:relative}.course-discovery-tools [onclick*="showCourseFilters"][data-active-filters]:not([data-active-filters="0"])::after{content:attr(data-active-filters);position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 4px;border-radius:9px;background:#d4ad51;color:#14281f;font:800 11px/18px system-ui;text-align:center}
   `;document.head.appendChild(style);
 
-  const priorCourses=typeof coursesView==='function'?coursesView:null;if(priorCourses)window.coursesView=coursesView=function(){const out=priorCourses.apply(this,arguments);setTimeout(decorateQuick,0);setTimeout(decorateQuick,400);return out};
-  new MutationObserver(()=>requestAnimationFrame(decorateQuick)).observe(document.documentElement,{childList:true,subtree:true});
-  setTimeout(decorateQuick,300);
+  const priorCourses=typeof coursesView==='function'?coursesView:null;if(priorCourses)window.coursesView=coursesView=function(){const out=priorCourses.apply(this,arguments);decorateQuick();return out};
 })();
