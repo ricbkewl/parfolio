@@ -1026,7 +1026,7 @@ function loadGoogleMaps(){
   if(window.google?.maps)return Promise.resolve(window.google.maps);
   if(googleMapsPromise)return googleMapsPromise;
   googleMapsPromise=new Promise((resolve,reject)=>{
-    const script=document.createElement('script');script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(GOOGLE_MAPS_API_KEY)}&v=weekly&loading=async`;script.async=true;script.defer=true;
+    const script=document.createElement('script');script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(GOOGLE_MAPS_API_KEY)}&v=weekly&loading=async&libraries=places`;script.async=true;script.defer=true;
     script.onload=()=>window.google?.maps?resolve(window.google.maps):reject(new Error('Google Maps did not initialize'));
     script.onerror=()=>reject(new Error('Google Maps could not load'));
     document.head.appendChild(script);
