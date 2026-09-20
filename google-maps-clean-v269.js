@@ -2,7 +2,7 @@
    Google Maps is the only map provider. No Leaflet, OpenStreetMap, MapTiler,
    Map ID, vector/3D camera, Advanced Markers, flyover, or provider fallback. */
 (function(){
-  let mapsPromise=null,runtimeConfigPromise=null,authFailed=false,roundGestureActive=false,roundGestureTimer=null;
+  let mapsPromise=null,runtimeConfigPromise=null,authFailed=false,roundGestureActive=false,roundGestureTimer=null,liveMapMountId=0,liveMapTileTimer=null;
   const diagnostics=[];
   const MAX_DIAG=60;
   const previewMaps=[];
@@ -83,12 +83,27 @@
       };
       document.querySelectorAll('script[data-parfolio-google-clean="1"],script[data-parfolio-google-base="1"]').forEach(node=>node.remove());
       const script=document.createElement('script');script.dataset.parfolioGoogleClean='1';
-      script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=weekly&loading=async&callback=${encodeURIComponent(callback)}`;
+      script.src=`https://maps.googleapis.com/maps/api/js?key=${encodeURIComponent(key)}&v=weekly&loading=async&libraries=places&callback=${encodeURIComponent(callback)}`;
       script.async=true;script.defer=true;script.onerror=()=>fail('Google Maps JavaScript API network load failed');document.head.appendChild(script);
       setTimeout(()=>{if(!settled)(authFailed?fail('Google Maps authorization failed'):(googleReady()?window[callback]?.():fail('Google Maps API timeout after 15 seconds')))},15000);
     })).catch(error=>{mapsPromise=null;throw error});
     return mapsPromise;
   };
+
+  function currentLiveMapContainer(){return document.getElementById('liveHoleMap')}
+  function liveMapOwnsCurrentContainer(){
+    const current=currentLiveMapContainer();
+    return !!(inlineHoleMap?.provider==='google'&&inlineHoleMap.raw&&inlineHoleMap.container===current&&current?.isConnected);
+  }
+  function disposeLiveMap(reason=''){
+    clearTimeout(liveMapTileTimer);liveMapTileTimer=null;
+    try{clearCleanOverlays()}catch{}
+    try{if(inlineHoleMap?.raw)google.maps.event.clearInstanceListeners(inlineHoleMap.raw)}catch{}
+    inlineHoleMap=null;inlineHoleGreen=null;inlineUserMovedMap=false;inlineViewResetting=false;
+    liveMapMountId++;
+    if(reason)record('ROUND_MAP_DISPOSE',reason);
+  }
+  window.parfolioDisposeLiveMap=disposeLiveMap;
 
   function makeMapFacade(raw,container){
     return{
@@ -278,36 +293,59 @@
   }
 
   window.fitLiveHoleView=fitRoundMap;
-  window.resetLiveHoleView=function(){if(inlineHoleGreen){inlineUserMovedMap=false;clearTimeout(window.parfolioSimpleCameraTimer);window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(inlineHoleGreen,!coursePreviewMode),30)}};
-  window.zoomLiveHoleMap=function(change){if(inlineHoleMap?.provider==='google')inlineHoleMap.raw.setZoom((inlineHoleMap.raw.getZoom()||17)+Number(change||0))};
-  window.setLiveMapStyle=function(style){liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;if(['round','coursePreview'].includes(s?.v)&&inlineHoleMap?.provider==='google'){inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(inlineHoleGreen,{fit:false})}else render()};
+  window.resetLiveHoleView=function(){if(inlineHoleGreen&&liveMapOwnsCurrentContainer()){inlineUserMovedMap=false;clearTimeout(window.parfolioSimpleCameraTimer);window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(inlineHoleGreen,!coursePreviewMode),30)}};
+  window.zoomLiveHoleMap=function(change){if(liveMapOwnsCurrentContainer())inlineHoleMap.raw.setZoom((inlineHoleMap.raw.getZoom()||17)+Number(change||0))};
+  window.setLiveMapStyle=function(style){liveMapStyle=style==='terrain'?'terrain':'satellite';localStorage.parfolioLiveMapStyle=liveMapStyle;if(['round','coursePreview'].includes(s?.v)&&liveMapOwnsCurrentContainer()){inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(inlineHoleGreen,{fit:false})}else render()};
 
   window.initInlineHoleMapLeaflet=function(green){showGoogleError(document.getElementById('liveHoleMap'),new Error('Alternate map providers are disabled. ParFolio uses Google Maps only.'),'GOOGLE_ONLY_POLICY')};
 
   window.initInlineHoleMap=async function(green){
-    roundGestureActive=false;clearTimeout(roundGestureTimer);
-    const container=document.getElementById('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
+    roundGestureActive=false;clearTimeout(roundGestureTimer);clearTimeout(liveMapTileTimer);
+    const container=currentLiveMapContainer(),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
+    const mount=++liveMapMountId;
+    if(inlineHoleMap&&!liveMapOwnsCurrentContainer())disposeLiveMap('stale-container-before-init');
+    container.dataset.mapState='loading';
     try{
-      await window.loadGoogleMaps();if(document.getElementById('liveHoleMap')!==container||shotPlannerKey()!==key)return;if(authFailed)throw new Error('Google Maps authorization failed');
+      await window.loadGoogleMaps();
+      if(mount!==liveMapMountId||currentLiveMapContainer()!==container||shotPlannerKey()!==key)return;
+      if(authFailed)throw new Error('Google Maps authorization failed');
       const camera=simpleRoundCamera(green,false,container)||{center:cleanPoint(green.center),zoom:17,heading:0,tilt:0};
       inlineViewResetting=true;
-      const raw=new google.maps.Map(container,{center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
-      inlineHoleMap=makeMapFacade(raw,container);inlineHoleGreen=green;inlineUserMovedMap=false;document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
-      container.dataset.cameraRule='tee-green-only-v318';container.dataset.cameraAnchor='tee';container.dataset.cameraTop='25%';container.dataset.cameraBottom='10%';
+      const raw=new google.maps.Map(container,{
+        center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0,mapTypeId:mapType(),
+        renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,
+        disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#10271e'
+      });
+      if(mount!==liveMapMountId||currentLiveMapContainer()!==container){try{google.maps.event.clearInstanceListeners(raw)}catch{}return}
+      inlineHoleMap=makeMapFacade(raw,container);inlineHoleGreen=green;inlineUserMovedMap=false;
+      document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
+      container.dataset.cameraRule='tee-green-only-v329';container.dataset.cameraAnchor='tee';container.dataset.cameraTop='25%';container.dataset.cameraBottom='10%';
       const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
       const credit=document.querySelector('.hole-map-attribution');if(credit)credit.classList.add('hidden');
       drawRoundOverlays(green,{fit:false});
-      google.maps.event.addListenerOnce(raw,'idle',()=>{inlineViewResetting=false});
-      setTimeout(()=>{inlineViewResetting=false},350);
-      const endManualGesture=()=>{clearTimeout(roundGestureTimer);roundGestureTimer=setTimeout(()=>{roundGestureActive=false;if(inlineHoleGreen)updatePlannerClean(inlineHoleGreen)},120)};
-      const redrawPlannerCards=()=>{for(const label of inlinePlannerLabels){try{label?.raw?.draw?.()}catch{}}};
+      google.maps.event.addListenerOnce(raw,'idle',()=>{if(mount===liveMapMountId){inlineViewResetting=false;container.dataset.mapState='ready'}});
+      setTimeout(()=>{if(mount===liveMapMountId)inlineViewResetting=false},350);
+      const endManualGesture=()=>{clearTimeout(roundGestureTimer);roundGestureTimer=setTimeout(()=>{roundGestureActive=false;if(inlineHoleGreen&&liveMapOwnsCurrentContainer())updatePlannerClean(inlineHoleGreen)},120)};
+      const redrawPlannerCards=()=>{if(!liveMapOwnsCurrentContainer())return;for(const plannerLabel of inlinePlannerLabels){try{plannerLabel?.raw?.draw?.()}catch{}}};
       raw.addListener('dragstart',()=>{roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
       raw.addListener('drag',redrawPlannerCards);
       raw.addListener('dragend',()=>{redrawPlannerCards();endManualGesture()});
       raw.addListener('zoom_changed',()=>{redrawPlannerCards();if(!inlineViewResetting){roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden');endManualGesture()}});
       raw.addListener('idle',redrawPlannerCards);
-      google.maps.event.addListenerOnce(raw,'tilesloaded',()=>record('ROUND_GOOGLE_TILES_OK',mapType()));record('ROUND_GOOGLE_MAP_OK',mapType());
-    }catch(error){inlineHoleMap=null;showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':'ROUND_GOOGLE_INIT_FAIL')}
+      let tilesSeen=false;
+      google.maps.event.addListenerOnce(raw,'tilesloaded',()=>{if(mount!==liveMapMountId)return;tilesSeen=true;container.dataset.mapState='tiles';record('ROUND_GOOGLE_TILES_OK',mapType())});
+      liveMapTileTimer=setTimeout(()=>{
+        if(mount!==liveMapMountId||tilesSeen||!container.isConnected)return;
+        record('ROUND_GOOGLE_TILES_STALLED',`hole=${s.hole}`);
+        disposeLiveMap('tiles-stalled');
+        if(currentLiveMapContainer()===container)setTimeout(()=>window.initInlineHoleMap?.(green),60);
+      },4500);
+      record('ROUND_GOOGLE_MAP_OK',mapType());
+    }catch(error){
+      if(mount!==liveMapMountId||currentLiveMapContainer()!==container)return;
+      disposeLiveMap('init-failed');
+      showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':'ROUND_GOOGLE_INIT_FAIL');
+    }
   };
 
   window.updateInlineGolferPosition=function(here,green){
@@ -317,7 +355,7 @@
   };
 
   window.updateGoogleRoundHole=function(){
-    if(!['round','coursePreview'].includes(s.v)||inlineHoleMap?.provider!=='google')return false;
+    if(!['round','coursePreview'].includes(s.v)||!liveMapOwnsCurrentContainer()){if(inlineHoleMap)disposeLiveMap('hole-switch-stale-map');return false}
     const preview=s.v==='coursePreview',course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
     stopLocation();const yards=mappedHoleDistance(green);
     if(document.getElementById('roundMapHole'))document.getElementById('roundMapHole').textContent=s.hole;if(document.getElementById('previewHeaderHole'))document.getElementById('previewHeaderHole').textContent=s.hole;
@@ -352,5 +390,5 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v328';record('GOOGLE_ONLY_V328_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v329';record('GOOGLE_ONLY_V329_READY');
 })();
