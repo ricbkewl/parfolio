@@ -336,9 +336,16 @@
       google.maps.event.addListenerOnce(raw,'tilesloaded',()=>{if(mount!==liveMapMountId)return;tilesSeen=true;container.dataset.mapState='tiles';record('ROUND_GOOGLE_TILES_OK',mapType())});
       liveMapTileTimer=setTimeout(()=>{
         if(mount!==liveMapMountId||tilesSeen||!container.isConnected)return;
-        record('ROUND_GOOGLE_TILES_STALLED',`hole=${s.hole}`);
-        disposeLiveMap('tiles-stalled');
-        if(currentLiveMapContainer()===container)setTimeout(()=>window.initInlineHoleMap?.(green),60);
+        const retry=Number(container.dataset.mapRetry||0);
+        record('ROUND_GOOGLE_TILES_STALLED',`hole=${s.hole};retry=${retry}`);
+        if(retry<1){
+          container.dataset.mapRetry=String(retry+1);
+          disposeLiveMap('tiles-stalled-retry');
+          if(currentLiveMapContainer()===container)setTimeout(()=>window.initInlineHoleMap?.(green),80);
+          return;
+        }
+        disposeLiveMap('tiles-stalled-final');
+        showGoogleError(container,new Error('Google satellite tiles did not load after retry.'),'ROUND_GOOGLE_TILES_STALLED');
       },4500);
       record('ROUND_GOOGLE_MAP_OK',mapType());
     }catch(error){
