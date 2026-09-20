@@ -1027,8 +1027,24 @@ function coursePreview(){
   app.innerHTML=`${green?liveHoleMapPanel(green,h,p,{preview:true}):`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>Hole ${h} does not yet have complete GPS geometry.</span></section>`}<div class="course-preview-actions" aria-label="Course preview controls"><small>PREVIEW</small><button id="createRoundButton" class="course-preview-start" onclick="startRoundFromPreview()">Start Round</button></div>`;
   if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href='https://maps.google.com/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent='Google Maps';document.querySelector('.live-hole-map')?.append(attribution);initInlineHoleMap(green);const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin)}
 }
-function previewPrev(){if(s.hole>1){s.hole--;showRoundHole()}}
-function previewNext(){if(s.hole<s.holes){s.hole++;showRoundHole()}}
+function showPreviewMapNotice(message){
+  document.querySelector('.preview-map-notice')?.remove();
+  const notice=document.createElement('div');notice.className='preview-map-notice';notice.textContent=message;
+  document.querySelector('.course-preview-hole-map')?.appendChild(notice);
+  setTimeout(()=>notice.remove(),1800);
+}
+function previewMove(direction){
+  const course=selectedRoundCourse();if(!course)return;
+  const target=s.hole+direction;if(target<1||target>s.holes)return;
+  const green=course.greens?.[target-1];
+  if(!selectedTee(green)||!green?.center){
+    showPreviewMapNotice(`Hole ${target} is not GPS-mapped yet.`);
+    return;
+  }
+  s.hole=target;showRoundHole();
+}
+function previewPrev(){previewMove(-1)}
+function previewNext(){previewMove(1)}
 function yardagePanel(){return`<section class="gps-card"><div class="gps-signal-row top-gps-signal gps-compact-row"><div class="gps-accuracy"><b>GPS</b><div id="gpsStatus" class="small muted">Locating…</div></div><div class="hole-yardage-compact"><small id="yardageTargetLabel">Yards to Hole</small><b id="centerYards">–</b><em>yd</em></div><div class="top-weather-compact"><span id="currentWeatherIcon">◌</span><div><b id="currentTemperature">—°</b><small id="currentWeatherLabel">Loading</small></div></div></div><div class="club-suggestion featured-club"><div class="club-recommendation-copy"><small>Suggested Club</small><b id="clubSuggestion">—</b><span id="clubSuggestionNote">Waiting for an accurate GPS signal</span></div></div><button class="club-refresh-button" onclick="refreshLocation()">↻ Refresh GPS</button></section>`}
 function loadGoogleMaps(){
   if(window.google?.maps)return Promise.resolve(window.google.maps);
