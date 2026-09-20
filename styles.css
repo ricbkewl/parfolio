@@ -915,3 +915,20 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
 .facility-hours summary span{font-size:12px;font-weight:850}.facility-hours summary b{color:#176b45;font-size:10px}
 .facility-hours ul{display:grid;gap:5px;margin:0;padding:0 13px 13px;list-style:none;color:#5c6862;font-size:10px;line-height:1.35}
 @media(max-width:390px){.facility-photo{height:132px}.facility-open-status{padding:9px 11px}.facility-hours summary{padding:10px 11px}}
+
+
+/* v325 Course Preview back-to-search control */
+.course-preview-fullscreen .preview-search-summary{display:grid!important;place-items:center!important;padding:0!important}
+.course-preview-fullscreen .preview-search-summary .preview-search-back{
+  display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;
+  width:100%!important;height:100%!important;min-height:94px!important;padding:0 3px!important;
+  border:0!important;background:transparent!important;color:#fff!important;font:inherit!important;cursor:pointer!important
+}
+.course-preview-fullscreen .preview-search-summary .preview-search-back span{
+  display:block;font-size:22px!important;font-weight:700!important;line-height:1!important
+}
+.course-preview-fullscreen .preview-search-summary .preview-search-back small{
+  display:block;margin-top:5px;color:#f5dfa8!important;font-size:7px!important;font-weight:900!important;letter-spacing:.08em!important
+}
+.course-preview-fullscreen .course-preview-actions{width:116px!important}
+.course-preview-fullscreen .course-preview-actions .course-preview-start{min-height:40px!important}
