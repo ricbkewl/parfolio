@@ -131,16 +131,66 @@
     const svg='<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48"><circle cx="24" cy="24" r="21" fill="#f6c94b" stroke="#fff" stroke-width="4"/><circle cx="24" cy="24" r="13" fill="none" stroke="#173c2b" stroke-width="3"/><circle cx="24" cy="24" r="6" fill="none" stroke="#173c2b" stroke-width="2"/></svg>';
     return{url:`data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,scaledSize:new google.maps.Size(48,48),anchor:new google.maps.Point(24,24)};
   }
-  function plannerLabelIcon(kind,yards='—',club='—'){
-    const top=kind==='hit'?'TO HIT':'TO GO',safeYards=String(yards),safeClub=String(club||'—').replace(/[<>&"']/g,'');
-    const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="122" height="82" viewBox="0 0 122 82"><rect x="1" y="1" width="120" height="80" rx="14" fill="#1a2b24" fill-opacity=".76" stroke="#fff" stroke-opacity=".2"/><text x="61" y="29" text-anchor="middle" fill="#f5cf68" font-family="Arial,sans-serif" font-size="24" font-weight="800">${safeYards}</text><text x="61" y="42" text-anchor="middle" fill="#fff" font-family="Arial,sans-serif" font-size="9" font-weight="800">yd</text><text x="61" y="55" text-anchor="middle" fill="#e7eee9" font-family="Arial,sans-serif" font-size="8" font-weight="800">${top}</text><line x1="14" y1="62" x2="108" y2="62" stroke="#f5cf68" stroke-opacity=".65"/><text x="61" y="76" text-anchor="middle" fill="#a9efc9" font-family="Arial,sans-serif" font-size="11" font-weight="800">${safeClub}</text></svg>`;
-    return{url:`data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`,scaledSize:new google.maps.Size(122,82),anchor:new google.maps.Point(kind==='hit'?150:-28,41)};
+  /* v326 planner cards: one DOM OverlayView system for Preview + live play.
+     The cards stay geographically tied to each route segment midpoint, but their
+     screen position is clamped into a safe viewport so pinch/zoom/pan never loses
+     the core yardage readouts. No camera movement is triggered by card layout. */
+  function createPlannerCardOverlay(map,position,kind){
+    class PlannerCardOverlay extends google.maps.OverlayView{
+      constructor(){
+        super();
+        this.position=cleanPoint(position);
+        this.kind=kind;
+        this.visible=true;
+        this.yards='—';
+        this.club='—';
+        this.div=document.createElement('div');
+        this.div.className='pf-planner-card-overlay '+(kind==='hit'?'pf-planner-card-hit':'pf-planner-card-go');
+        this.div.style.cssText='position:absolute;z-index:1100;pointer-events:none;will-change:transform;contain:layout style paint;';
+        this.card=document.createElement('div');
+        this.card.className='pf-planner-card';
+        this.card.innerHTML='<b>—</b><span>yd</span><small>'+(kind==='hit'?'TO HIT':'TO GO')+'</small><i></i><em>—</em>';
+        this.div.appendChild(this.card);
+      }
+      onAdd(){this.getPanes().overlayMouseTarget.appendChild(this.div)}
+      draw(){
+        if(!this.visible||!this.position){this.div.style.display='none';return}
+        const projection=this.getProjection(),point=projection?.fromLatLngToDivPixel(new google.maps.LatLng(this.position.lat,this.position.lng));
+        const mapDiv=this.getMap()?.getDiv();if(!projection||!point||!mapDiv)return;
+        this.div.style.display='block';
+        const width=this.card.offsetWidth||88,height=this.card.offsetHeight||62;
+        const mapWidth=mapDiv.clientWidth||window.innerWidth,mapHeight=mapDiv.clientHeight||window.innerHeight;
+        const topSafe=Math.max(154,Math.round(mapHeight*.15));
+        const bottomSafe=Math.max(topSafe+height+8,mapHeight-(coursePreviewMode?86:76));
+        const sideSafe=10;
+        const lateral=this.kind==='hit'?-58:58;
+        let x=point.x+lateral,y=point.y;
+        x=Math.max(sideSafe+width/2,Math.min(mapWidth-sideSafe-width/2,x));
+        y=Math.max(topSafe+height/2,Math.min(bottomSafe-height/2,y));
+        this.div.style.transform='translate3d('+(x-width/2)+'px,'+(y-height/2)+'px,0)';
+      }
+      onRemove(){this.div.remove()}
+      setLatLng(value){this.position=cleanPoint(value);this.draw()}
+      setPlannerContent(yards,club,visible=true){
+        this.visible=!!visible;
+        this.yards=String(yards??'—');
+        this.club=String(club||'—');
+        const b=this.card.querySelector('b'),em=this.card.querySelector('em');
+        if(b)b.textContent=this.yards;if(em)em.textContent=this.club;
+        this.draw();
+      }
+      setMapVisible(visible){this.visible=!!visible;this.draw()}
+    }
+    const overlay=new PlannerCardOverlay();overlay.setMap(map);return overlay;
   }
 
-  function labelFacade(marker,kind){
-    const facade=markerFacade(marker);
-    facade.setPlannerContent=(yards,club,visible=true)=>{marker.setVisible(!!visible);if(visible)marker.setIcon(plannerLabelIcon(kind,yards,club))};
-    return facade;
+  function labelFacade(overlay){
+    return{
+      raw:overlay,
+      setLatLng(point){overlay.setLatLng(point)},
+      setPlannerContent(yards,club,visible=true){overlay.setPlannerContent(yards,club,visible)},
+      setMap(value){overlay.setMap(value)}
+    };
   }
 
   /* v310 single-owner round camera: only anchor -> green center may control framing. */
@@ -214,9 +264,9 @@
     const goLine=remember(new google.maps.Polyline({map:raw,path:remainingPoints.map(cleanPoint).filter(Boolean),strokeColor:'#f5dfa8',strokeWeight:0,strokeOpacity:0,zIndex:790,icons:[{icon:{path:'M 0,-1 0,1',strokeColor:'#f5dfa8',strokeOpacity:.95,strokeWeight:1.5,scale:1.5},offset:'0',repeat:'11px'}]}));
     inlinePlannerLines=[polylineFacade(hitLine),polylineFacade(goLine)];
     const planner=remember(new google.maps.Marker({map:raw,position:cleanPoint(aim),draggable:true,zIndex:1200,icon:plannerIcon(),title:'Drag to plan your shot'}));inlinePlannerMarker=markerFacade(planner);
-    const hitLabel=remember(new google.maps.Marker({map:raw,position:cleanPoint(pointBetween(origin,aim,.5)),clickable:false,zIndex:1100,icon:plannerLabelIcon('hit')}));
-    const goPos=pointBetween(remainingPoints[0],remainingPoints[1]||remainingPoints[0],.5);const goLabel=remember(new google.maps.Marker({map:raw,position:cleanPoint(goPos),clickable:false,zIndex:1100,icon:plannerLabelIcon('go')}));
-    inlinePlannerLabels=[labelFacade(hitLabel,'hit'),labelFacade(goLabel,'go')];
+    const hitLabel=remember(createPlannerCardOverlay(raw,pointBetween(origin,aim,.5),'hit'));
+    const goPos=pointBetween(remainingPoints[0],remainingPoints[1]||remainingPoints[0],.5),goLabel=remember(createPlannerCardOverlay(raw,goPos,'go'));
+    inlinePlannerLabels=[labelFacade(hitLabel),labelFacade(goLabel)];
     planner.addListener('drag',()=>{const p=planner.getPosition();if(!p)return;shotPlannerAims[shotPlannerKey()]={lat:p.lat(),lng:p.lng()};updatePlannerClean(green)});
     planner.addListener('dragend',()=>{inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
     updatePlannerClean(green);if(fit)fitRoundMap(green);record('ROUND_OVERLAYS_OK');
@@ -245,9 +295,12 @@
       google.maps.event.addListenerOnce(raw,'idle',()=>{inlineViewResetting=false});
       setTimeout(()=>{inlineViewResetting=false},350);
       const endManualGesture=()=>{clearTimeout(roundGestureTimer);roundGestureTimer=setTimeout(()=>{roundGestureActive=false;if(inlineHoleGreen)updatePlannerClean(inlineHoleGreen)},120)};
+      const redrawPlannerCards=()=>{for(const label of inlinePlannerLabels){try{label?.raw?.draw?.()}catch{}}};
       raw.addListener('dragstart',()=>{roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
-      raw.addListener('dragend',endManualGesture);
-      raw.addListener('zoom_changed',()=>{if(!inlineViewResetting){roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden');endManualGesture()}});
+      raw.addListener('drag',redrawPlannerCards);
+      raw.addListener('dragend',()=>{redrawPlannerCards();endManualGesture()});
+      raw.addListener('zoom_changed',()=>{redrawPlannerCards();if(!inlineViewResetting){roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden');endManualGesture()}});
+      raw.addListener('idle',redrawPlannerCards);
       google.maps.event.addListenerOnce(raw,'tilesloaded',()=>record('ROUND_GOOGLE_TILES_OK',mapType()));record('ROUND_GOOGLE_MAP_OK',mapType());
     }catch(error){inlineHoleMap=null;showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':'ROUND_GOOGLE_INIT_FAIL')}
   };
@@ -294,5 +347,5 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v318';record('GOOGLE_ONLY_V318_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v326';record('GOOGLE_ONLY_V326_READY');
 })();
