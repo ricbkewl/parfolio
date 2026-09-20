@@ -1,4 +1,4 @@
-/* ParFolio v269 — clean-room Google Maps renderer.
+/* ParFolio v318 — single-owner clean-room Google Maps renderer.
    Google Maps is the only map provider. No Leaflet, OpenStreetMap, MapTiler,
    Map ID, vector/3D camera, Advanced Markers, flyover, or provider fallback. */
 (function(){
@@ -158,28 +158,31 @@
     const z=Math.log2((156543.03392*Math.cos(lat)*desiredPixels)/meters);
     return Math.max(16.5,Math.min(20.75,z));
   }
-  function applySimpleRoundCamera(green,useLive=false){
-    if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw||!green?.center)return false;
-    if(inlineUserMovedMap&&!inlineViewResetting&&!useLive)return false;
-    const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),origin=simpleRoundAnchor(green,useLive),target=cleanPoint(green.center);
-    if(!origin||!target)return false;
+  function simpleRoundCamera(green,useLive=false,container=document.getElementById('liveHoleMap')){
+    const origin=simpleRoundAnchor(green,useLive),target=cleanPoint(green?.center);if(!origin||!target)return null;
     const height=container?.clientHeight||window.innerHeight||844;
     const heading=bearingDegrees(origin,target),zoom=simpleRoundZoom(origin,target,height);
     /* midpoint of screen anchors 25%/90% lies 38.46% from green toward anchor. */
     const center=pointBetween(target,origin,0.3846153846);
+    return{center,zoom,heading,tilt:0,anchor:useLive&&!coursePreviewMode&&lastKnownPosition?'golfer':'tee'};
+  }
+  function applySimpleRoundCamera(green,useLive=false){
+    if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw||!green?.center)return false;
+    if(inlineUserMovedMap&&!inlineViewResetting&&!useLive)return false;
+    const raw=inlineHoleMap.raw,container=document.getElementById('liveHoleMap'),camera=simpleRoundCamera(green,useLive,container);if(!camera)return false;
     try{
       inlineViewResetting=true;
-      raw.moveCamera({center,zoom,heading,tilt:0});
-      const host=container;if(host){host.dataset.cameraRule='tee-green-only-v310';host.dataset.cameraAnchor=useLive&&lastKnownPosition?'golfer':'tee';host.dataset.cameraTop='25%';host.dataset.cameraBottom='10%'}
-      setTimeout(()=>{inlineViewResetting=false},180);
+      raw.moveCamera({center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0});
+      const host=container;if(host){host.dataset.cameraRule='tee-green-only-v318';host.dataset.cameraAnchor=camera.anchor;host.dataset.cameraTop='25%';host.dataset.cameraBottom='10%'}
+      google.maps.event.addListenerOnce(raw,'idle',()=>{inlineViewResetting=false});
+      setTimeout(()=>{inlineViewResetting=false},350);
       return true;
     }catch(error){inlineViewResetting=false;record('SIMPLE_CAMERA_FAIL',error?.message||error);return false}
   }
   function fitRoundMap(green){
     if(inlineHoleMap?.provider!=='google'||!inlineHoleMap.raw)return;
-    inlineHoleGreen=green;inlineViewResetting=false;inlineUserMovedMap=false;
-    clearTimeout(window.parfolioSimpleCameraTimer);
-    window.parfolioSimpleCameraTimer=setTimeout(()=>applySimpleRoundCamera(green,false),30);
+    inlineHoleGreen=green;inlineUserMovedMap=false;
+    applySimpleRoundCamera(green,false);
     document.getElementById('mapRecenterButton')?.classList.add('hidden');
   }
 
@@ -231,11 +234,16 @@
     const container=document.getElementById('liveHoleMap'),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
     try{
       await window.loadGoogleMaps();if(document.getElementById('liveHoleMap')!==container||shotPlannerKey()!==key)return;if(authFailed)throw new Error('Google Maps authorization failed');
-      const raw=new google.maps.Map(container,{center:cleanPoint(green.center),zoom:17,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
-      inlineHoleMap=makeMapFacade(raw,container);document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
+      const camera=simpleRoundCamera(green,false,container)||{center:cleanPoint(green.center),zoom:17,heading:0,tilt:0};
+      inlineViewResetting=true;
+      const raw=new google.maps.Map(container,{center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0,mapTypeId:mapType(),renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,disableDefaultUI:true,clickableIcons:false,gestureHandling:'greedy',keyboardShortcuts:false,backgroundColor:'#173c2b'});
+      inlineHoleMap=makeMapFacade(raw,container);inlineHoleGreen=green;inlineUserMovedMap=false;document.querySelector('.live-map-viewport')?.classList.add('google-map-active');
+      container.dataset.cameraRule='tee-green-only-v318';container.dataset.cameraAnchor='tee';container.dataset.cameraTop='25%';container.dataset.cameraBottom='10%';
       const label=document.querySelector('.forward-label');if(label)label.textContent=liveMapStyle==='satellite'?'GOOGLE SATELLITE · SHOT PLANNER':'GOOGLE MAP · SHOT PLANNER';
       const credit=document.querySelector('.hole-map-attribution');if(credit)credit.classList.add('hidden');
-      drawRoundOverlays(green,{fit:true});
+      drawRoundOverlays(green,{fit:false});
+      google.maps.event.addListenerOnce(raw,'idle',()=>{inlineViewResetting=false});
+      setTimeout(()=>{inlineViewResetting=false},350);
       const endManualGesture=()=>{clearTimeout(roundGestureTimer);roundGestureTimer=setTimeout(()=>{roundGestureActive=false;if(inlineHoleGreen)updatePlannerClean(inlineHoleGreen)},120)};
       raw.addListener('dragstart',()=>{roundGestureActive=true;inlineUserMovedMap=true;document.getElementById('mapRecenterButton')?.classList.remove('hidden')});
       raw.addListener('dragend',endManualGesture);
@@ -261,7 +269,7 @@
     const previous=document.querySelector('.hole-edge-arrow.previous'),nextButton=document.querySelector('.hole-edge-arrow.next');
     if(previous)previous.disabled=s.hole===1;if(preview&&nextButton)nextButton.disabled=s.hole>=s.holes;
     if(!preview){const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if(document.getElementById('roundHoleScore'))document.getElementById('roundHoleScore').textContent=holeScore;if(document.getElementById('roundScoreTotal'))document.getElementById('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;}
-    inlineUserMovedMap=false;inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(green,{fit:true});
+    inlineUserMovedMap=false;inlineHoleMap.raw.setMapTypeId(mapType());applySimpleRoundCamera(green,false);drawRoundOverlays(green,{fit:false});
     const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);
     if(!preview)startLocation(green);
     save();record(preview?'PREVIEW_HOLE_SWITCH_OK':'ROUND_HOLE_SWITCH_OK',s.hole);return true;
@@ -286,5 +294,5 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  record('GOOGLE_ONLY_V269_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v318';record('GOOGLE_ONLY_V318_READY');
 })();
