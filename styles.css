@@ -956,3 +956,13 @@ main.round-fullscreen .live-hole-map{height:100dvh}.round-fullscreen .live-map-v
   .pf-planner-card{width:82px;min-width:82px;min-height:58px;padding:4px 6px 5px;border-radius:10px}
   .pf-planner-card b{font-size:19px}.pf-planner-card i{width:60px;margin:4px 0}.pf-planner-card em{max-width:66px;font-size:9px}
 }
+
+
+/* v330 preview stability notice */
+.pf-planner-card-layer{position:absolute;inset:0;z-index:1100;pointer-events:none;overflow:hidden}
+.preview-map-notice{
+  position:absolute;z-index:2400;left:50%;bottom:calc(98px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);max-width:78%;padding:8px 12px;border:1px solid rgba(255,255,255,.3);
+  border-radius:12px;background:rgba(12,31,23,.9);color:#fff;font-size:11px;font-weight:800;
+  text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.28);backdrop-filter:blur(8px);pointer-events:none
+}
