@@ -251,11 +251,20 @@
   };
 
   window.updateGoogleRoundHole=function(){
-    if(s.v!=='round'||inlineHoleMap?.provider!=='google')return false;
-    const course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
-    stopLocation();const yards=mappedHoleDistance(green);if(document.getElementById('roundMapHole'))document.getElementById('roundMapHole').textContent=s.hole;if(document.getElementById('roundMapDistance'))document.getElementById('roundMapDistance').textContent=yards;if(document.getElementById('roundMapPar'))document.getElementById('roundMapPar').textContent=par;
-    const previous=document.querySelector('.hole-edge-arrow.previous');if(previous)previous.disabled=s.hole===1;const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if(document.getElementById('roundHoleScore'))document.getElementById('roundHoleScore').textContent=holeScore;if(document.getElementById('roundScoreTotal'))document.getElementById('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;
-    inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(green,{fit:true});const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green);save();record('ROUND_HOLE_SWITCH_OK',s.hole);return true;
+    if(!['round','coursePreview'].includes(s.v)||inlineHoleMap?.provider!=='google')return false;
+    const preview=s.v==='coursePreview',course=selectedRoundCourse(),green=course?.greens?.[s.hole-1],par=Number(s.pars[s.hole-1])||4;if(!selectedTee(green)||!green?.center)return false;
+    stopLocation();const yards=mappedHoleDistance(green);
+    if(document.getElementById('roundMapHole'))document.getElementById('roundMapHole').textContent=s.hole;
+    if(document.getElementById('roundMapDistance'))document.getElementById('roundMapDistance').textContent=yards;
+    if(document.getElementById('roundMapPar'))document.getElementById('roundMapPar').textContent=par;
+    if(document.getElementById('centerYards'))document.getElementById('centerYards').textContent=yards;
+    const previous=document.querySelector('.hole-edge-arrow.previous'),nextButton=document.querySelector('.hole-edge-arrow.next');
+    if(previous)previous.disabled=s.hole===1;if(preview&&nextButton)nextButton.disabled=s.hole>=s.holes;
+    if(!preview){const name=myRoundPlayerName(),holeScore=scoreValue(name)||par,roundTotal=total(name,s.hole);if(document.getElementById('roundHoleScore'))document.getElementById('roundHoleScore').textContent=holeScore;if(document.getElementById('roundScoreTotal'))document.getElementById('roundScoreTotal').textContent=`Tap · Total ${roundTotal}`;}
+    inlineUserMovedMap=false;inlineHoleMap.raw.setMapTypeId(mapType());drawRoundOverlays(green,{fit:true});
+    const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);
+    if(!preview)startLocation(green);
+    save();record(preview?'PREVIEW_HOLE_SWITCH_OK':'ROUND_HOLE_SWITCH_OK',s.hole);return true;
   };
 
   window.initCoursePreviews=function(){
