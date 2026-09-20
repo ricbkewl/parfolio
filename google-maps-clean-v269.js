@@ -163,14 +163,16 @@
         const topSafe=Math.max(154,Math.round(mapHeight*.15));
         const bottomSafe=Math.max(topSafe+height+8,mapHeight-(coursePreviewMode?86:76));
         const sideSafe=10;
-        const plannerRadius=24,gapX=10,gapY=10;
+        const plannerRadius=24,gapX=12,gapY=16;
         const xOffset=plannerRadius+gapX+width/2;
-        const yOffset=plannerRadius+gapY+height/2;
+        const verticalOffset=plannerRadius+gapY+height/2;
         let x=point.x-xOffset;
-        let y=point.y+(this.kind==='hit'?yOffset:-yOffset);
+        let y=point.y+(this.kind==='hit'?verticalOffset:-verticalOffset);
         x=Math.max(sideSafe+width/2,Math.min(mapWidth-sideSafe-width/2,x));
         y=Math.max(topSafe+height/2,Math.min(bottomSafe-height/2,y));
-        this.div.style.transform='translate3d('+(x-width/2)+'px,'+(y-height/2)+'px,0)';
+        this.div.style.transform='none';
+        this.div.style.left=Math.round(x-width/2)+'px';
+        this.div.style.top=Math.round(y-height/2)+'px';
       }
       onRemove(){this.div.remove()}
       setLatLng(value){this.position=cleanPoint(value);this.draw()}
@@ -350,5 +352,5 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v327';record('GOOGLE_ONLY_V327_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v328';record('GOOGLE_ONLY_V328_READY');
 })();
