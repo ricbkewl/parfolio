@@ -1,6 +1,6 @@
 /* ParFolio v287 — one catalog and one GPS hydration contract for every region. */
 (function(){
-  const VERSION=287,PAGE_SIZE=500,hydrated=new Set(),pending=new Map();let catalogLoading=null;
+  const VERSION=287,PAGE_SIZE=500,hydrated=new Set(),pending=new Map();let catalogLoading=null,catalogGeneration=0;
   const norm=value=>String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim();
   const validPoint=value=>value&&Number.isFinite(Number(value.lat))&&Number.isFinite(Number(value.lng))&&Math.abs(Number(value.lat))<=90&&Math.abs(Number(value.lng))<=180&&!(Number(value.lat)===0&&Number(value.lng)===0);
   const point=value=>validPoint(value)?{lat:Number(value.lat),lng:Number(value.lng)}:null;
@@ -61,12 +61,24 @@
     Object.assign(course,{parfolioCatalogId:row.catalog_id,parfolioMappingClass:mapping,parfolioMappedHoleCount:Number(row.mapped_holes)||0,catalogApproved:mapping!=='quarantined',catalogOnly:mapping!=='gps_ready',sourceLicense:row.source_license||course.sourceLicense||'',sourceAttribution:row.source_attribution||course.sourceAttribution||'',osmCourseUri:row.osm_course_uri||course.osmCourseUri||null});
     if(validPoint({lat:row.lat,lng:row.lng}))course.catalog_point={lat:Number(row.lat),lng:Number(row.lng)};return course;
   }
-  async function loadCatalog(){
-    if(catalogLoading)return catalogLoading;
+  function clearRestrictedCatalog(){
+    catalogGeneration++;catalogLoading=null;
+    for(let index=courses.length-1;index>=0;index--){
+      const course=courses[index];
+      if(course?.parfolioCatalogId&&course.parfolioMappingClass!=='gps_ready')courses.splice(index,1);
+    }
+    persist();if(typeof render==='function')render();
+  }
+  async function loadCatalog(force=false){
+    if(catalogLoading&&!force)return catalogLoading;
+    const generation=++catalogGeneration;
     catalogLoading=(async()=>{const stats={version:VERSION,loaded:false,rows:0,gpsReady:0,error:null,loadedAt:null};try{
       const rows=[];for(let offset=0;;offset+=PAGE_SIZE){const{data,error}=await db.rpc('parfolio_course_catalog_page',{p_state_code:null,p_offset:offset,p_limit:PAGE_SIZE});if(error)throw error;const page=Array.isArray(data)?data:[];rows.push(...page);if(page.length<PAGE_SIZE)break;if(offset>10000)throw new Error('Universal course catalog pagination exceeded safety limit')}
+      if(generation!==catalogGeneration)return false;
       for(const row of rows){mergeRow(row);if(row.mapping_class==='gps_ready')stats.gpsReady++}courses.sort((a,b)=>String(a?.name||'').localeCompare(String(b?.name||'')));stats.rows=rows.length;stats.loaded=true;stats.loadedAt=new Date().toISOString();if(typeof render==='function')render();window.normalizeParFolioGpsIndicators?.(document);
-    }catch(error){stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();console.warn('Universal course catalog load failed',error)}window.PARFOLIO_UNIVERSAL_GPS=stats;return stats.loaded})();return catalogLoading;
+    }catch(error){stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();console.warn('Universal course catalog load failed',error)}if(generation===catalogGeneration)window.PARFOLIO_UNIVERSAL_GPS=stats;return stats.loaded})();return catalogLoading;
   }
-  window.parfolioCourseClaimsGpsReady=claimsGps;window.parfolioValidateCourseGeometry=validate;window.ensureParFolioGpsCourseReady=ensureReady;window.loadParFolioUniversalCatalog=loadCatalog;window.PARFOLIO_GPS_GEOMETRY_VERSION=VERSION;setTimeout(loadCatalog,0);
+  window.parfolioCourseClaimsGpsReady=claimsGps;window.parfolioValidateCourseGeometry=validate;window.ensureParFolioGpsCourseReady=ensureReady;window.loadParFolioUniversalCatalog=loadCatalog;window.clearParFolioRestrictedCatalog=clearRestrictedCatalog;window.PARFOLIO_GPS_GEOMETRY_VERSION=VERSION;
+  if(typeof adminRole==='undefined'||!['course_admin','super_admin'].includes(adminRole))clearRestrictedCatalog();
+  setTimeout(loadCatalog,0);
 })();
