@@ -8,6 +8,7 @@
   }
 
   function gpsState(course){
+    if(course?.parfolioCatalogId&&course.parfolioMappingClass==='gps_ready')return{key:'ready',rank:3,priority:20000,label:'GPS Ready',shortLabel:'GPS Ready'};
     const audited=window.parfolioAuditedGpsState?.(course);
     if(audited){
       if(audited.key==='ready')return{key:'ready',rank:3,priority:20000,label:'GPS Ready',shortLabel:'GPS Ready'};

@@ -40,7 +40,7 @@
 
   async function singlePromptCourseStart(index){
     const course=courses?.[index];
-    if(!course)return;
+    if(!course||(typeof canBrowseCourse==='function'&&!canBrowseCourse(course)))return;
     let mapped=typeof mappedCount==='function'?mappedCount(course):0;
     // Course-card taps now go straight to the setup screen. The setup screen's
     // Start Round / Preview Course actions provide the intentional choice, so a

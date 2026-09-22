@@ -22,7 +22,7 @@
 
   function courseGpsState(course){
     const mapped=typeof mappedCount==='function'?mappedCount(course):0,holes=Math.max(1,Number(course?.holes)||18);
-    if(mapped>=holes)return{key:'ready',rank:3,priority:3000,label:'GPS Ready',shortLabel:'GPS Ready'};
+    if((course?.parfolioCatalogId&&course.parfolioMappingClass==='gps_ready')||mapped>=holes)return{key:'ready',rank:3,priority:3000,label:'GPS Ready',shortLabel:'GPS Ready'};
     if(mapped>0)return{key:'partial',rank:2,priority:1800,label:'Partial GPS',shortLabel:'Partial GPS'};
     if(validCoursePoint(course?.catalog_point))return{key:'located',rank:2,priority:1200,label:'Course Located',shortLabel:'Located'};
     return{key:'missing',rank:1,priority:0,label:'No GPS Location',shortLabel:'No Location'};
@@ -138,7 +138,7 @@
   function suggestionsFor(query){
     if(norm(query).length<2)return[];
     return (Array.isArray(courses)?courses:[]).map((course,index)=>{const info=searchInfo(course,index,query),gps=courseGpsState(course);return{course,index,info,gps,distance:typeof courseDistanceMiles==='function'?courseDistanceMiles(course):null}})
-      .filter(x=>x.info.match&&(!window.smartCourseMatchesQuery||window.smartCourseMatchesQuery(x.course,query)))
+      .filter(x=>canBrowseCourse(x.course)&&x.info.match&&(!window.smartCourseMatchesQuery||window.smartCourseMatchesQuery(x.course,query)))
       .sort((a,b)=>b.info.relevance-a.info.relevance||b.gps.rank-a.gps.rank||(a.distance??Infinity)-(b.distance??Infinity)||a.course.name.localeCompare(b.course.name)).slice(0,6);
   }
 

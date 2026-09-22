@@ -26,7 +26,7 @@
     const box=document.getElementById('courseLocationResults');if(!box)return;
     const f=values();
     if(!f.city&&!f.state&&!f.postal&&!f.country){box.innerHTML='<div class="course-location-search-empty">Enter at least one location field.</div>';return}
-    const found=(Array.isArray(courses)?courses:[]).map((c,index)=>({c,index})).filter(x=>matches(x.c,f)).slice(0,100);
+    const found=(Array.isArray(courses)?courses:[]).map((c,index)=>({c,index})).filter(x=>canBrowseCourse(x.c)&&matches(x.c,f)).slice(0,100);
     box.innerHTML=found.length?`<div class="course-location-search-count">${found.length}${found.length===100?'+':''} course${found.length===1?'':'s'} found</div>${found.map(({c,index})=>`<article class="course-location-result"><button type="button" class="course-location-main" onclick="startCourseFromLibrary(${index})"><b>${escHtml(c.name)}</b><span>${escHtml(locationText(c)||'Location details pending')}</span><small>${Number(c.holes)||18} holes · ${String(c.sharedMappingStatus||'catalog_only').replaceAll('_',' ')}</small></button>${adminAction(c,index)}</article>`).join('')}`:'<div class="course-location-search-empty">No courses match those location fields.</div>';
   };
   window.clearCourseLocationSearch=function(){
