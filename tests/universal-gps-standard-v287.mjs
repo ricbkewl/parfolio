@@ -37,6 +37,23 @@ const future=context.courses.find(course=>course.state==='ZZ');await context.ens
 assert.equal(payloadCalls,1);assert.equal(future.parfolioGeometryVersion,287);assert.equal(future.greens.length,9);assert.equal(future.catalogOnly,false);
 await context.ensureParFolioGpsCourseReady(future);assert.equal(payloadCalls,1,'authoritative payload should be fetched once per course per session');
 
+const adminRows=[...rows,{catalog_id:'nc-partial',name:'Starmount Forest Country Club',state_code:'NC',mapping_class:'partial_gps',mapped_holes:17}];
+context.db.rpc=async(name,args)=>({data:args.p_offset?[]:adminRows,error:null});
+await context.loadParFolioUniversalCatalog(true);
+assert.ok(context.courses.some(course=>course.parfolioCatalogId==='nc-partial'),'a post-sign-in refresh must load admin-only courses');
+context.clearParFolioRestrictedCatalog();
+assert.ok(!context.courses.some(course=>course.parfolioCatalogId==='nc-partial'),'sign-out must remove admin-only catalog rows');
+assert.ok(context.courses.some(course=>course.parfolioCatalogId==='tn-ready'),'sign-out must retain GPS-ready courses');
+
+let finishOldRequest;
+context.db.rpc=async()=>new Promise(resolve=>{finishOldRequest=resolve});
+const oldRequest=context.loadParFolioUniversalCatalog(true);
+context.clearParFolioRestrictedCatalog();
+context.db.rpc=async(name,args)=>({data:args.p_offset?[]:rows,error:null});
+await context.loadParFolioUniversalCatalog(true);
+finishOldRequest({data:adminRows,error:null});await oldRequest;
+assert.ok(!context.courses.some(course=>course.parfolioCatalogId==='nc-partial'),'a stale admin request must not repopulate golfer results');
+
 const bad={...future,parfolioCatalogId:'bad',greens:[],parfolioGeometryVersion:0};
 context.db.rpc=async()=>({data:{catalog_id:'bad',holes:9,mapping_class:'gps_ready',greens:greens.map((hole,index)=>index?hole:{...hole,tee:{lat:0,lng:0}})},error:null});
 await assert.rejects(()=>context.ensureParFolioGpsCourseReady(bad),/valid tee or green center/);

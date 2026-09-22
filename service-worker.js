@@ -1,6 +1,6 @@
-const CACHE_NAME='parfolio-v331-20260922';
+const CACHE_NAME='parfolio-v332-20260922';
 const APP_SHELL=[
-  './','./index.html','./manifest.webmanifest','./parfolio-app-icon.png','./parfolio-home-bg-v162.webp','./vendor/supabase-v2.112.4.js','./styles.css?v=330','./menu-v107.css','./home-v162.css','./parfolio-ai-v225.css','./parfolio-advanced-scoring-v272.css','./my-page-v275.css','./round-full-bleed-v280.css','./app.js?v=331','./tennessee-catalog-v255.js','./universal-gps-course-loader-v287.js','./google-maps-clean-v269.js?v=330','./parfolio-advanced-scoring-v272.js','./shot-tracking-v274.js','./my-page-v276.js','./course-search-input-v289.js?v=318','./course-interactions-v290.js?v=321'
+  './','./index.html','./manifest.webmanifest','./parfolio-app-icon.png','./parfolio-home-bg-v162.webp','./vendor/supabase-v2.112.4.js','./styles.css?v=330','./menu-v107.css','./home-v162.css','./parfolio-ai-v225.css','./parfolio-advanced-scoring-v272.css','./my-page-v275.css','./round-full-bleed-v280.css','./app.js?v=332','./tennessee-catalog-v255.js','./universal-gps-course-loader-v287.js?v=332','./google-maps-clean-v269.js?v=330','./parfolio-advanced-scoring-v272.js','./shot-tracking-v274.js','./my-page-v276.js','./course-search-input-v289.js?v=318','./course-interactions-v290.js?v=321'
 ];
 self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('parfolio-')&&key!==CACHE_NAME).map(key=>caches.delete(key)))).then(()=>self.clients.claim()))});

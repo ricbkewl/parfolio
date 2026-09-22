@@ -366,6 +366,12 @@ async function hydrateCloudData(generation=cloudStartupGeneration){
     catch(error){recordCloudStartup(label+'-deferred',error?.message||error);throw error}
   }));
   if(generation!==cloudStartupGeneration)return;
+  if(typeof window.loadParFolioUniversalCatalog==='function'){
+    // The first catalog request may have run before the signed-in admin session.
+    // Refresh under the resolved role after the parallel course load has settled.
+    if(!['course_admin','super_admin'].includes(adminRole))window.clearParFolioRestrictedCatalog?.();
+    window.loadParFolioUniversalCatalog(true).catch(error=>console.warn('Signed-in catalog refresh failed',error));
+  }
   render();
   return results;
 }
@@ -375,7 +381,7 @@ function applyResolvedSession(session,generation){
   currentUser=nextUser;
   if(s.ownerUserId&&s.ownerUserId!==currentUser?.id)s={...roundDefault};
   cloudLoading=false;
-  if(!nextUser){adminRole=null;golferProfile=null;clubDistances={}}
+  if(!nextUser){adminRole=null;golferProfile=null;clubDistances={};window.clearParFolioRestrictedCatalog?.()}
   recordCloudStartup('session-ready',nextUser?'signed-in':'signed-out');
   render();
   if(nextUser&&priorUserId!==nextUser.id)setTimeout(()=>hydrateCloudData(generation),0);
@@ -1681,7 +1687,7 @@ db.auth.onAuthStateChange((event,session)=>{
       setTimeout(()=>hydrateCloudData(generation),0);
     }
   }
-  if(event==='SIGNED_OUT')setTimeout(()=>{cloudStartupGeneration++;stopRoundRealtime();clearAuthenticatedClientState();recoveryMode=false;cloudLoading=false;render()},0);
+  if(event==='SIGNED_OUT')setTimeout(()=>{cloudStartupGeneration++;window.clearParFolioRestrictedCatalog?.();stopRoundRealtime();clearAuthenticatedClientState();recoveryMode=false;cloudLoading=false;render()},0);
   if(event==='PASSWORD_RECOVERY'){
     recoveryMode=true;currentUser=session?.user||null;
     if(cloudLoading){cloudLoading=false;render()}
