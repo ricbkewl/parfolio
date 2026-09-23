@@ -17,8 +17,8 @@
     const d=daysUntil(order.campaign_end);
     if(d===null)return'none';
     if(d<0)return'expired';
-    if(d<=7)return'7';
-    if(d<=14)return'14';
+    if(d<=7)return'due7';
+    if(d<=14)return'due14';
     return'later';
   }
   async function load(){
@@ -42,15 +42,15 @@
   async function openRenewals(){
     if(!isSuper())return;
     let orders=[];try{orders=await load()}catch(e){alert('Could not load renewals: '+e.message);return}
-    const groups={14:[],7:[],expired:[],later:[],none:[]};
+    const groups={due14:[],due7:[],expired:[],later:[],none:[]};
     orders.forEach(o=>groups[bucket(o)].push(o));
     document.querySelector('.pf-renewal-overlay')?.remove();
     const host=document.createElement('div');
     host.innerHTML='<div class="pf-renewal-overlay"><section class="pf-renewal-panel">'+
       '<header><div><small>PARFOLIO BUSINESS</small><h2>Sponsor Renewals</h2><p>Protect recurring revenue before campaigns expire.</p></div><button type="button" class="pf-renewal-close">×</button></header>'+
-      '<div class="pf-renewal-summary"><div><small>14 Days</small><b>'+groups[14].length+'</b></div><div><small>7 Days</small><b>'+groups[7].length+'</b></div><div><small>Expired</small><b>'+groups.expired.length+'</b></div></div>'+
-      section('Renewal due within 7 days',groups[7])+
-      section('Renewal due within 14 days',groups[14])+
+      '<div class="pf-renewal-summary"><div><small>14 Days</small><b>'+groups.due14.length+'</b></div><div><small>7 Days</small><b>'+groups.due7.length+'</b></div><div><small>Expired</small><b>'+groups.expired.length+'</b></div></div>'+
+      section('Renewal due within 7 days',groups.due7)+
+      section('Renewal due within 14 days',groups.due14)+
       section('Expired campaigns',groups.expired)+
       '<section class="pf-renewal-later"><details><summary>Later renewals ('+groups.later.length+')</summary><div class="pf-renewal-list">'+groups.later.map(row).join('')+'</div></details></section>'+
     '</section></div>';
