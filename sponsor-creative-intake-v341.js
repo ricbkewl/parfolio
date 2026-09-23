@@ -1,0 +1,183 @@
+/* ParFolio v341 — Sponsor Creative Intake */
+(function(){
+  const isSuper=()=>typeof adminRole!=='undefined'&&adminRole==='super_admin';
+  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  let orders=[], intakes=[];
+
+  async function load(){
+    if(!isSuper()||typeof db==='undefined') return;
+    const [o,i]=await Promise.all([
+      db.from('sponsor_orders').select('*').order('created_at',{ascending:false}).limit(500),
+      db.from('sponsor_creative_intakes').select('*').order('updated_at',{ascending:false}).limit(500)
+    ]);
+    if(o.error) throw o.error;
+    if(i.error) throw i.error;
+    orders=o.data||[]; intakes=i.data||[];
+  }
+
+  function missing(x){
+    const m=[];
+    if(!x.logo_url)m.push('Logo');
+    if(!x.primary_image_url)m.push('Main image');
+    if(!x.headline)m.push('Headline');
+    if(!x.body_copy)m.push('Body copy');
+    if(!x.cta_label)m.push('CTA');
+    if(!x.destination_url)m.push('Destination URL');
+    if(!x.campaign_start)m.push('Start date');
+    if(!x.campaign_end)m.push('End date');
+    if(!x.approval_contact_email)m.push('Approval contact');
+    return m;
+  }
+
+  function inject(){
+    if(!isSuper())return;
+    const panel=document.querySelector('.pf-monetization-panel');
+    if(!panel||panel.querySelector('[data-pf-creative-intake]'))return;
+    const s=document.createElement('section');
+    s.className='pf-mon-section';
+    s.dataset.pfCreativeIntake='1';
+    s.innerHTML='<div class="pf-mon-section-head"><div><h3>Sponsor Creative Intake</h3><small>Assets · copy · targeting · approval</small></div><button type="button" class="pf-mon-add">Open Intake</button></div>';
+    s.querySelector('button').onclick=openDashboard;
+    panel.appendChild(s);
+  }
+
+  function badge(status){
+    return '<span class="pf-ci-badge s-'+esc(status)+'">'+esc(status.replaceAll('_',' '))+'</span>';
+  }
+
+  function card(x){
+    const m=missing(x);
+    return '<article class="pf-ci-card"><div><div class="pf-ci-title"><b>'+esc(x.company_name)+'</b>'+badge(x.status)+'</div>'+
+      '<small>'+esc(x.sponsor_name||'')+(x.order_id?' · linked order':'')+'</small>'+
+      '<p>'+(m.length?m.length+' missing: '+esc(m.slice(0,4).join(', '))+(m.length>4?'…':''):'Creative package complete')+'</p></div>'+
+      '<button type="button" data-ci-open="'+esc(x.id)+'">Open</button></article>';
+  }
+
+  async function openDashboard(){
+    try{await load()}catch(e){alert('Could not load creative intake: '+e.message);return}
+    document.querySelector('.pf-ci-overlay')?.remove();
+    const host=document.createElement('div');
+    const eligible=orders.filter(o=>['won','paid','active','accepted','payment_pending'].includes(o.status));
+    host.innerHTML='<div class="pf-ci-overlay"><section class="pf-ci-panel"><header><div><small>PARFOLIO BUSINESS</small><h2>Sponsor Creative Intake</h2><p>Collect everything needed before a campaign goes live.</p></div><button type="button" class="pf-ci-close">×</button></header>'+
+      '<div class="pf-ci-summary"><div><small>Total</small><b>'+intakes.length+'</b></div><div><small>Waiting</small><b>'+intakes.filter(x=>['draft','awaiting_assets'].includes(x.status)).length+'</b></div><div><small>Ready</small><b>'+intakes.filter(x=>x.status==='ready_for_review').length+'</b></div><div><small>Approved</small><b>'+intakes.filter(x=>x.status==='approved').length+'</b></div></div>'+
+      '<section class="pf-ci-create"><h3>Start from Sponsor Order</h3><div class="pf-ci-create-row"><select data-ci-order><option value="">Choose an eligible order…</option>'+eligible.map(o=>'<option value="'+esc(o.id)+'">'+esc(o.company_name||o.sponsor_name||o.order_number)+' · '+esc(o.status)+'</option>').join('')+'</select><button type="button" data-ci-create>Create Intake</button></div></section>'+
+      '<section><div class="pf-ci-head"><h3>Creative Packages</h3><button type="button" data-ci-refresh>Refresh</button></div><div class="pf-ci-list">'+(intakes.length?intakes.map(card).join(''):'<div class="pf-ci-empty">No creative intakes yet.</div>')+'</div></section>'+
+    '</section></div>';
+    const o=host.firstElementChild;document.body.appendChild(o);
+    const close=()=>o.remove();o.querySelector('.pf-ci-close').onclick=close;o.addEventListener('click',e=>{if(e.target===o)close()});
+    o.querySelector('[data-ci-refresh]').onclick=()=>{close();openDashboard()};
+    o.querySelector('[data-ci-create]').onclick=async()=>{
+      const id=o.querySelector('[data-ci-order]').value;
+      if(!id){alert('Choose a sponsor order first.');return}
+      const order=orders.find(x=>x.id===id); if(!order)return;
+      if(intakes.some(x=>x.order_id===id)){alert('This order already has a creative intake.');return}
+      const payload={
+        order_id:order.id,
+        inquiry_id:order.inquiry_id||null,
+        company_name:order.company_name||order.sponsor_name||'Sponsor',
+        sponsor_name:order.company_name||order.sponsor_name||null,
+        campaign_start:order.campaign_start||null,
+        campaign_end:order.campaign_end||null,
+        preferred_placements:[],
+        status:'awaiting_assets',
+        missing_items:['Logo','Main image','Headline','Body copy','CTA','Destination URL','Approval contact'],
+        created_by:typeof currentUser!=='undefined'?currentUser?.id:null
+      };
+      const {error}=await db.from('sponsor_creative_intakes').insert(payload);
+      if(error){alert('Could not create intake: '+error.message);return}
+      close();openDashboard();
+    };
+    o.querySelectorAll('[data-ci-open]').forEach(btn=>btn.onclick=()=>openEditor(btn.dataset.ciOpen));
+  }
+
+  function placementChecks(selected){
+    const all=['home_banner','course_search','course_preview','scorecard','round_complete'];
+    return all.map(p=>'<label class="pf-ci-check"><input type="checkbox" name="placement" value="'+p+'" '+((selected||[]).includes(p)?'checked':'')+'><span>'+p.replaceAll('_',' ')+'</span></label>').join('');
+  }
+
+  function openEditor(id){
+    const x=intakes.find(v=>v.id===id);if(!x)return;
+    document.querySelector('.pf-ci-editor-overlay')?.remove();
+    const host=document.createElement('div');
+    host.innerHTML='<div class="pf-ci-editor-overlay"><form class="pf-ci-editor"><header><div><small>CREATIVE INTAKE</small><h3>'+esc(x.company_name)+'</h3></div><button type="button" class="pf-ci-editor-close">×</button></header>'+
+      '<div class="pf-ci-grid"><label>Company<input name="company_name" value="'+esc(x.company_name)+'" required></label><label>Sponsor display name<input name="sponsor_name" value="'+esc(x.sponsor_name||'')+'"></label></div>'+
+      '<div class="pf-ci-grid"><label>Logo URL<input name="logo_url" type="url" value="'+esc(x.logo_url||'')+'"></label><label>Main image URL<input name="primary_image_url" type="url" value="'+esc(x.primary_image_url||'')+'"></label></div>'+
+      '<label>Square image URL<input name="square_image_url" type="url" value="'+esc(x.square_image_url||'')+'"></label>'+
+      '<label>Headline<input name="headline" value="'+esc(x.headline||'')+'" maxlength="90"></label>'+
+      '<label>Body copy<textarea name="body_copy" rows="3">'+esc(x.body_copy||'')+'</textarea></label>'+
+      '<div class="pf-ci-grid"><label>CTA label<input name="cta_label" value="'+esc(x.cta_label||'')+'" placeholder="Learn More"></label><label>Destination URL<input name="destination_url" type="url" value="'+esc(x.destination_url||'')+'"></label></div>'+
+      '<div class="pf-ci-grid"><label>Promo code<input name="promo_code" value="'+esc(x.promo_code||'')+'"></label><label>Promo expires<input name="promo_expires_on" type="date" value="'+esc(x.promo_expires_on||'')+'"></label></div>'+
+      '<div class="pf-ci-grid"><label>Campaign start<input name="campaign_start" type="date" value="'+esc(x.campaign_start||'')+'"></label><label>Campaign end<input name="campaign_end" type="date" value="'+esc(x.campaign_end||'')+'"></label></div>'+
+      '<div class="pf-ci-grid"><label>Target scope<select name="target_scope">'+['nationwide','state','region','course_specific','custom'].map(v=>'<option value="'+v+'" '+(x.target_scope===v?'selected':'')+'>'+v.replaceAll('_',' ')+'</option>').join('')+'</select></label><label>Target details<input name="target_details" value="'+esc(x.target_details||'')+'" placeholder="California, Inland Empire, specific course..."></label></div>'+
+      '<fieldset><legend>Preferred placements</legend><div class="pf-ci-checks">'+placementChecks(x.preferred_placements)+'</div></fieldset>'+
+      '<label>Legal / required copy<textarea name="legal_copy" rows="2">'+esc(x.legal_copy||'')+'</textarea></label>'+
+      '<div class="pf-ci-grid"><label>Approval contact<input name="approval_contact_name" value="'+esc(x.approval_contact_name||'')+'"></label><label>Approval email<input name="approval_contact_email" type="email" value="'+esc(x.approval_contact_email||'')+'"></label></div>'+
+      '<div class="pf-ci-grid"><label>Tracking URL<input name="tracking_url" type="url" value="'+esc(x.tracking_url||'')+'"></label><label>UTM / tracking notes<input name="utm_notes" value="'+esc(x.utm_notes||'')+'"></label></div>'+
+      '<label>Internal notes<textarea name="internal_notes" rows="3">'+esc(x.internal_notes||'')+'</textarea></label>'+
+      '<div class="pf-ci-preview" data-ci-preview></div>'+
+      '<div class="pf-ci-actions"><button type="button" class="secondary" data-ci-preview-btn>Preview</button><button type="button" class="secondary" data-ci-ready>Mark Ready for Review</button><button type="button" class="approve" data-ci-approve>Approve</button><button type="submit" class="primary">Save</button></div>'+
+    '</form></div>';
+    const o=host.firstElementChild;document.body.appendChild(o);const close=()=>o.remove();
+    o.querySelector('.pf-ci-editor-close').onclick=close;o.addEventListener('click',e=>{if(e.target===o)close()});
+
+    function payload(){
+      const fd=new FormData(o.querySelector('form'));
+      return {
+        company_name:String(fd.get('company_name')||'').trim(),
+        sponsor_name:String(fd.get('sponsor_name')||'').trim()||null,
+        logo_url:String(fd.get('logo_url')||'').trim()||null,
+        primary_image_url:String(fd.get('primary_image_url')||'').trim()||null,
+        square_image_url:String(fd.get('square_image_url')||'').trim()||null,
+        headline:String(fd.get('headline')||'').trim()||null,
+        body_copy:String(fd.get('body_copy')||'').trim()||null,
+        cta_label:String(fd.get('cta_label')||'').trim()||null,
+        destination_url:String(fd.get('destination_url')||'').trim()||null,
+        promo_code:String(fd.get('promo_code')||'').trim()||null,
+        promo_expires_on:String(fd.get('promo_expires_on')||'').trim()||null,
+        campaign_start:String(fd.get('campaign_start')||'').trim()||null,
+        campaign_end:String(fd.get('campaign_end')||'').trim()||null,
+        target_scope:String(fd.get('target_scope')||'nationwide'),
+        target_details:String(fd.get('target_details')||'').trim()||null,
+        preferred_placements:[...o.querySelectorAll('input[name=placement]:checked')].map(i=>i.value),
+        legal_copy:String(fd.get('legal_copy')||'').trim()||null,
+        approval_contact_name:String(fd.get('approval_contact_name')||'').trim()||null,
+        approval_contact_email:String(fd.get('approval_contact_email')||'').trim()||null,
+        tracking_url:String(fd.get('tracking_url')||'').trim()||null,
+        utm_notes:String(fd.get('utm_notes')||'').trim()||null,
+        internal_notes:String(fd.get('internal_notes')||'').trim()||null,
+        updated_at:new Date().toISOString()
+      };
+    }
+
+    async function save(extra={}){
+      const p=Object.assign(payload(),extra);p.missing_items=missing(p);
+      const {error}=await db.from('sponsor_creative_intakes').update(p).eq('id',id);
+      if(error){alert('Could not save creative intake: '+error.message);return false}
+      Object.assign(x,p);return true;
+    }
+
+    o.querySelector('form').onsubmit=async e=>{e.preventDefault();if(await save()){close();document.querySelector('.pf-ci-overlay')?.remove();openDashboard()}};
+    o.querySelector('[data-ci-ready]').onclick=async()=>{
+      const p=payload(),m=missing(p);
+      if(m.length){alert('Still missing: '+m.join(', '));return}
+      if(await save({status:'ready_for_review'})){alert('Creative package is ready for review.')}
+    };
+    o.querySelector('[data-ci-approve]').onclick=async()=>{
+      const p=payload(),m=missing(p);
+      if(m.length){alert('Cannot approve yet. Missing: '+m.join(', '));return}
+      if(await save({status:'approved',approved_at:new Date().toISOString(),approved_by:typeof currentUser!=='undefined'?currentUser?.id:null})){
+        alert('Creative approved. It can now be created as a campaign.');
+        close();document.querySelector('.pf-ci-overlay')?.remove();openDashboard();
+      }
+    };
+    o.querySelector('[data-ci-preview-btn]').onclick=()=>{
+      const p=payload();
+      o.querySelector('[data-ci-preview]').innerHTML='<div class="pf-ci-ad-preview">'+
+        (p.primary_image_url?'<img src="'+esc(p.primary_image_url)+'" alt="">':'<div class="pf-ci-noimg">Image preview</div>')+
+        '<div><small>SPONSORED · '+esc(p.sponsor_name||p.company_name)+'</small><h4>'+esc(p.headline||'Your headline')+'</h4><p>'+esc(p.body_copy||'Your sponsor message will appear here.')+'</p><button type="button">'+esc(p.cta_label||'Learn More')+'</button></div></div>';
+    };
+  }
+
+  const obs=new MutationObserver(inject);obs.observe(document.body,{childList:true,subtree:true});setTimeout(inject,0);
+  window.openSponsorCreativeIntake=openDashboard;
+})();
