@@ -67,7 +67,7 @@
     const start=o.campaign_end?addMonths(o.campaign_end,0):new Date().toISOString().slice(0,10);
     const startDate=new Date(start+'T12:00:00');startDate.setDate(startDate.getDate()+1);
     const renewalStart=startDate.toISOString().slice(0,10);
-    const renewalEnd=addMonths(renewalStart,months);
+    const endBase=new Date(addMonths(renewalStart,months)+'T12:00:00');endBase.setDate(endBase.getDate()-1);const renewalEnd=endBase.toISOString().slice(0,10);
     const confirmText='Create renewal for '+o.company_name+'\n\n'+o.package_name+'\n$'+(Number(o.amount_cents||0)/100).toFixed(2)+' / '+o.billing_interval+'\n'+fmt(renewalStart)+' → '+fmt(renewalEnd);
     if(!confirm(confirmText))return;
     const payload={
