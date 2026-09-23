@@ -1,0 +1,58 @@
+/* ParFolio v343 — premium monetization + campaign review UI */
+.pf-monetization-slot{width:100%;max-width:980px;margin:16px auto;padding:0 14px;box-sizing:border-box}
+.pf-ad-card{position:relative;overflow:hidden;border:1px solid rgba(196,160,66,.34);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(245,248,246,.94));box-shadow:0 14px 36px rgba(13,45,34,.10);color:#12382c}
+.pf-ad-card:before{content:"";position:absolute;inset:0 auto 0 0;width:4px;background:linear-gradient(#c9a64a,#ecd98b)}
+.pf-ad-badge{padding:10px 16px 0;font-size:9px;letter-spacing:.16em;font-weight:800;color:#8b7740}
+.pf-ad-content{display:flex;align-items:center;gap:14px;padding:10px 16px 16px}
+.pf-ad-image{width:62px;height:62px;border-radius:14px;object-fit:cover;flex:0 0 62px}
+.pf-ad-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:2px}
+.pf-ad-copy small{font-size:11px;font-weight:800;letter-spacing:.08em;color:#9a813b;text-transform:uppercase}
+.pf-ad-copy strong{font-size:16px;line-height:1.15;color:#173d31}
+.pf-ad-copy p{margin:3px 0 0;font-size:12px;line-height:1.35;color:#526a61}
+.pf-ad-cta{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-radius:12px;background:#173f31;color:#fff!important;text-decoration:none!important;font-size:12px;font-weight:800}
+.pf-ad-network{padding:12px}.pf-ad-network .pf-ad-badge{padding:0 0 8px}
+.pf-monetization-overlay,.pf-sponsor-form-overlay{position:fixed;inset:0;z-index:100000;background:rgba(3,16,12,.72);backdrop-filter:blur(12px);display:flex;align-items:flex-start;justify-content:center;padding:calc(18px + env(safe-area-inset-top)) 12px calc(18px + env(safe-area-inset-bottom));overflow:auto}
+.pf-monetization-panel{width:min(760px,100%);border:1px solid rgba(218,186,93,.32);border-radius:26px;background:linear-gradient(180deg,#f9fbfa,#eef4f1);box-shadow:0 30px 80px rgba(0,0,0,.34);overflow:hidden;color:#12382c}
+.pf-monetization-panel>header{display:flex;justify-content:space-between;gap:18px;padding:22px;background:linear-gradient(135deg,#0f3529,#174b3a);color:#fff}
+.pf-monetization-panel>header small,.pf-sponsor-form header small{display:block;color:#e2c565;font-size:9px;font-weight:800;letter-spacing:.16em}
+.pf-monetization-panel>header h2,.pf-sponsor-form header h3{margin:3px 0 4px;font-size:25px;line-height:1}
+.pf-monetization-panel>header p{margin:0;max-width:560px;font-size:12px;line-height:1.45;color:rgba(255,255,255,.75)}
+.pf-mon-close,.pf-sponsor-close{width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:26px;line-height:1}
+.pf-mon-status{display:grid;grid-template-columns:12px auto 1fr;align-items:center;gap:9px;margin:16px;padding:14px;border-radius:16px;background:#fff;border:1px solid rgba(16,58,45,.09)}
+.pf-mon-status span{width:10px;height:10px;border-radius:50%;background:#999}.pf-mon-status.live span{background:#36aa68;box-shadow:0 0 0 5px rgba(54,170,104,.12)}
+.pf-mon-status b{font-size:13px}.pf-mon-status small{justify-self:end;color:#6e7e78;font-size:11px;text-align:right}
+.pf-mon-section{margin:16px;padding:16px;border-radius:18px;background:#fff;border:1px solid rgba(16,58,45,.08);box-shadow:0 8px 24px rgba(20,53,43,.05)}
+.pf-mon-section h3{margin:0 0 12px;font-size:15px}.pf-mon-section-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.pf-mon-section-head h3{margin:0}.pf-mon-section-head small{font-size:10px;color:#7d8b86}
+.pf-monetization-toggle,.pf-monetization-slot-toggle{display:flex;width:100%;align-items:center;justify-content:space-between;gap:12px;padding:12px 2px;border:0;border-bottom:1px solid rgba(16,58,45,.07);background:transparent;text-align:left;color:#173b30}
+.pf-monetization-toggle:last-child,.pf-monetization-slot-toggle:last-child{border-bottom:0}.pf-monetization-toggle span,.pf-monetization-slot-toggle span{display:flex;flex-direction:column;gap:2px}.pf-monetization-toggle b,.pf-monetization-slot-toggle b{font-size:13px}.pf-monetization-toggle small,.pf-monetization-slot-toggle small{font-size:10px;color:#7c8b86}
+.pf-monetization-toggle i,.pf-monetization-slot-toggle i{position:relative;width:44px;height:25px;border-radius:30px;background:#cfd8d4;flex:0 0 44px;transition:.2s}.pf-monetization-toggle i:after,.pf-monetization-slot-toggle i:after{content:"";position:absolute;width:19px;height:19px;left:3px;top:3px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.18);transition:.2s}.pf-monetization-toggle.on i,.pf-monetization-slot-toggle.on i{background:#1f6f52}.pf-monetization-toggle.on i:after,.pf-monetization-slot-toggle.on i:after{left:22px}.pf-monetization-toggle:disabled{opacity:.45}
+.pf-mon-locked{display:flex;align-items:center;gap:11px;padding:12px 2px}.pf-mon-locked>span{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#eef3f1}.pf-mon-locked>div{display:flex;flex-direction:column}.pf-mon-locked b{font-size:13px}.pf-mon-locked small{font-size:10px;color:#7c8b86}
+.pf-mon-add,.pf-mon-save-adsense,.pf-campaign-actions button{border:1px solid rgba(25,83,62,.18);border-radius:10px;background:#f4f8f6;color:#184b39;font-weight:800;font-size:11px;padding:9px 11px}.pf-mon-add{background:#174b39;color:#fff}
+.pf-campaign-list{display:flex;flex-direction:column;gap:8px}.pf-campaign-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border-radius:14px;background:#f7faf8;border:1px solid rgba(20,66,50,.08)}.pf-campaign-row>div:first-child{display:flex;min-width:0;flex-direction:column;gap:2px}.pf-campaign-row small{font-size:8px;letter-spacing:.10em;color:#9b823b}.pf-campaign-row b{font-size:12px}.pf-campaign-row span{font-size:9px;color:#718079}.pf-campaign-actions{display:flex;gap:6px}.pf-campaign-actions .danger{color:#9f3636;background:#fff6f6}
+.pf-mon-section label,.pf-sponsor-form label{display:flex;flex-direction:column;gap:5px;margin:10px 0;font-size:11px;font-weight:800;color:#2a4a3f}.pf-mon-section input,.pf-sponsor-form input,.pf-sponsor-form select,.pf-sponsor-form textarea{width:100%;box-sizing:border-box;border:1px solid rgba(22,67,52,.18);border-radius:12px;background:#fff;padding:11px 12px;font:inherit;color:#183d31;outline:none}.pf-sponsor-form textarea{resize:vertical}.pf-mon-help{margin:5px 0 11px;font-size:10px;line-height:1.4;color:#74827d}.pf-mon-empty{padding:18px;text-align:center;color:#7c8a85;font-size:11px}
+.pf-sponsor-form{width:min(520px,100%);padding:18px;border-radius:24px;background:#f8fbf9;box-shadow:0 30px 80px rgba(0,0,0,.35);color:#163d30}.pf-sponsor-form header{display:flex;align-items:center;justify-content:space-between;margin:-18px -18px 16px;padding:18px;border-radius:24px 24px 0 0;background:#123d2f;color:#fff}.pf-sponsor-form header h3{font-size:21px}.pf-sponsor-form label small{font-size:9px;font-weight:500;color:#798781}.pf-sponsor-check{flex-direction:row!important;align-items:center!important}.pf-sponsor-check input{width:auto}.pf-sponsor-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:15px}.pf-sponsor-actions button{min-height:42px;padding:0 16px;border-radius:12px;border:0;font-weight:800}.pf-sponsor-actions .secondary{background:#e7eeeb;color:#24483b}.pf-sponsor-actions .primary{background:#174b39;color:#fff}
+@media(max-width:620px){
+  .pf-ad-content{align-items:flex-start;flex-wrap:wrap}.pf-ad-copy{min-width:calc(100% - 80px)}.pf-ad-cta{margin-left:76px}
+  .pf-mon-status{grid-template-columns:12px 1fr}.pf-mon-status small{grid-column:2;justify-self:start;text-align:left}
+  .pf-campaign-row{align-items:flex-start;flex-direction:column}.pf-campaign-actions{width:100%}.pf-campaign-actions button{flex:1}
+}
+
+.pf-campaign-review-overlay{position:fixed;inset:0;z-index:100500;background:rgba(3,16,12,.82);backdrop-filter:blur(14px);display:flex;align-items:flex-start;justify-content:center;padding:calc(18px + env(safe-area-inset-top)) 12px 24px;overflow:auto}
+.pf-campaign-review-panel{width:min(820px,100%);margin:auto 0;border:1px solid rgba(218,186,93,.35);border-radius:26px;background:#f6f9f7;box-shadow:0 32px 90px rgba(0,0,0,.42);overflow:hidden;color:#163d30}
+.pf-campaign-review-panel>header{display:flex;justify-content:space-between;gap:16px;padding:22px;background:linear-gradient(135deg,#10382b,#174d3a);color:#fff}
+.pf-campaign-review-panel>header small{color:#e2c565;font-size:9px;letter-spacing:.16em;font-weight:900}
+.pf-campaign-review-panel>header h3{margin:4px 0 2px;font-size:23px}.pf-campaign-review-panel>header p{margin:0;font-size:11px;color:rgba(255,255,255,.74)}
+.pf-campaign-review-close{width:40px;height:40px;border:0;border-radius:50%;background:rgba(255,255,255,.12);color:#fff;font-size:26px}
+.pf-campaign-review-body{display:flex;flex-direction:column;gap:14px;padding:18px}
+.pf-campaign-review-preview>small{display:block;margin:0 0 7px;color:#8b7330;font-size:8px;font-weight:900;letter-spacing:.14em}
+.pf-campaign-review-preview .pf-ad-card{max-width:none}
+.pf-campaign-review-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pf-campaign-review-meta>div,.pf-campaign-review-link,.pf-campaign-review-legal,.pf-campaign-review-safety{padding:12px;border-radius:13px;background:#fff;border:1px solid rgba(20,66,50,.08)}
+.pf-campaign-review-meta span,.pf-campaign-review-link>span{display:block;margin-bottom:3px;color:#8b7330;font-size:8px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
+.pf-campaign-review-meta b{font-size:11px;text-transform:capitalize}.pf-campaign-review-link a{display:block;overflow-wrap:anywhere;color:#174d3a;font-size:10px;font-weight:750}
+.pf-campaign-review-legal b{font-size:10px;color:#6d581c}.pf-campaign-review-legal p{margin:5px 0 0;font-size:10px;line-height:1.45;color:#53675f}
+.pf-campaign-review-safety{display:flex;align-items:center;gap:9px;background:#edf5f1}.pf-campaign-review-safety p{margin:0;font-size:10px;color:#456158}
+.pf-campaign-review-panel>footer{display:flex;justify-content:flex-end;gap:8px;padding:0 18px 18px}
+.pf-campaign-review-panel>footer button{min-height:42px;padding:0 15px;border:0;border-radius:11px;font-weight:850}
+.pf-campaign-review-panel>footer .secondary{background:#e3ece8;color:#214a3b}.pf-campaign-review-panel>footer .primary{background:#174d3a;color:#fff}.pf-campaign-review-panel>footer .danger{background:#fff0f0;color:#973d3d}
+@media(max-width:620px){.pf-campaign-review-meta{grid-template-columns:1fr 1fr}.pf-campaign-review-panel>footer{flex-direction:column-reverse}.pf-campaign-review-panel>footer button{width:100%}}
