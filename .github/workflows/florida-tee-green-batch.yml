@@ -76,9 +76,9 @@ jobs:
           async function get(query){
             let err;
             for(const base of mirrors){
-              for(let attempt=0;attempt<2;attempt++){
+              for(let attempt=0;attempt<1;attempt++){
                 try{
-                  const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),35000);
+                  const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),12000);
                   const r=await fetch(base+"?data="+encodeURIComponent(query),{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.0"}});
                   clearTimeout(timer);
                   if(!r.ok) throw new Error(base+" "+r.status);
@@ -92,7 +92,7 @@ jobs:
           async function processCourse([id,name,city,lat,lng,expected]){
             const d=expected===9?0.012:0.016;
             const bbox=`${lat-d},${lng-d},${lat+d},${lng+d}`;
-            const q=`[out:json][timeout:22];way["golf"="hole"](${bbox});out tags geom;`;
+            const q=`[out:json][timeout:10];way["golf"="hole"](${bbox});out tags geom;`;
             try{
               const data=await get(q);
               const rows=(data.elements||[]).filter(w=>w.type==="way"&&Array.isArray(w.geometry)&&w.geometry.length>=2).map(w=>{
@@ -125,7 +125,7 @@ jobs:
               await sleep(250);
             }
           }
-          await Promise.all(Array.from({length:6},()=>worker()));
+          await Promise.all(Array.from({length:4},()=>worker()));
           await fs.mkdir("data",{recursive:true});
           await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
           NODE
