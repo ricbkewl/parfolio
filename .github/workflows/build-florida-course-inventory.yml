@@ -1,0 +1,175 @@
+name: Build Florida Course Inventory
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/build-florida-course-inventory.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: parfolio-florida-inventory
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build Florida inventory from approved OpenGolfAPI dataset
+        shell: python
+        run: |
+          import csv, io, json, urllib.request, datetime, pathlib, re, uuid, math
+
+          url='https://raw.githubusercontent.com/opengolfapi/data/main/opengolfapi-us.csv'
+          with urllib.request.urlopen(url,timeout=180) as response:
+              text=response.read().decode('utf-8-sig')
+
+          def clean(v): return (v or '').strip()
+          def num(row,key,cast=float):
+              v=clean(row.get(key))
+              if not v: return None
+              try:
+                  x=float(v)
+                  return int(x) if cast is int else x
+              except: return None
+          def norm(v):
+              return re.sub(r'[^a-z0-9]+',' ',clean(v).lower().replace('&',' and ')).strip()
+          def reject_non_course(name, typ):
+              s=(name+' '+typ).lower()
+              bad=('miniature','mini golf','putt putt','putting course','driving range','golf simulator','simulator')
+              return any(x in s for x in bad)
+
+          raw=[]
+          outside=[]
+          for row in csv.DictReader(io.StringIO(text)):
+              if clean(row.get('state')).upper()!='FL': continue
+              name=clean(row.get('name'))
+              if not name or reject_non_course(name,clean(row.get('type'))): continue
+              lat=num(row,'latitude'); lng=num(row,'longitude')
+              if lat is not None and lng is not None and not (24.3 <= lat <= 31.1 and -87.7 <= lng <= -79.7):
+                  outside.append({'id':clean(row.get('id')),'name':name,'city':clean(row.get('city')),'lat':lat,'lng':lng})
+                  continue
+              holes=num(row,'holes',int)
+              par=num(row,'par',int)
+              if holes not in (9,18):
+                  if par is not None and par<=40: holes=9
+                  elif par is not None and par>=50: holes=18
+                  else: holes=18
+              raw.append({
+                  'source_id':clean(row.get('id')),
+                  'name':name,
+                  'normalized_name':norm(name),
+                  'city':clean(row.get('city')),
+                  'state_code':'FL',
+                  'postal_code':clean(row.get('postal_code')),
+                  'country_code':'US',
+                  'address':clean(row.get('address')),
+                  'latitude':lat,'longitude':lng,'holes':holes,'par':par,
+                  'course_type':clean(row.get('type')),
+                  'phone':clean(row.get('phone')),
+                  'website':clean(row.get('website'))
+              })
+
+          # Exact duplicate collapse only: same normalized identity + same rounded point.
+          dedup={}
+          exact_dups=[]
+          for item in raw:
+              latkey=round(item['latitude'],5) if item['latitude'] is not None else None
+              lngkey=round(item['longitude'],5) if item['longitude'] is not None else None
+              key=(item['normalized_name'],norm(item['city']),latkey,lngkey)
+              prior=dedup.get(key)
+              quality=lambda x: sum(bool(x.get(k)) for k in ('address','postal_code','phone','website','par','course_type'))
+              if prior:
+                  exact_dups.append({'kept':prior['source_id'],'duplicate':item['source_id'],'name':item['name'],'city':item['city']})
+                  if quality(item)>quality(prior): dedup[key]=item
+              else: dedup[key]=item
+          rows=list(dedup.values())
+
+          # Flag same-name records for admin review instead of merging them.
+          names={}
+          for r in rows: names.setdefault(r['normalized_name'],[]).append(r)
+          alt_name_groups=[v for v in names.values() if len(v)>1]
+
+          generated=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          ns=uuid.UUID('31dd626d-ff67-4aad-a7a1-46423ec96575')
+          for r in rows:
+              r['id']=str(uuid.uuid5(ns,'opengolfapi:FL:'+r['source_id']))
+              r['mapping_class']='location_pending'
+              r['source_name']='OpenGolfAPI'
+              r['source_license']='ODbL 1.0'
+              r['source_attribution']='© OpenStreetMap contributors (ODbL 1.0) via OpenGolfAPI'
+              r['is_active']=True
+
+          rows.sort(key=lambda x:(x['name'].lower(),x['city'].lower(),x['source_id']))
+          pathlib.Path('data').mkdir(exist_ok=True)
+          pathlib.Path('data/fl-catalog-v355.json').write_text(json.dumps(rows,ensure_ascii=False,indent=2),encoding='utf-8')
+          report=f"""# Florida Course Inventory Discovery
+
+Generated: {generated}
+
+Source: OpenGolfAPI statewide dataset (ODbL 1.0).
+
+- Florida source rows accepted before exact deduplication: **{len(raw)}**
+- Distinct catalog records after exact duplicate collapse: **{len(rows)}**
+- Exact duplicates collapsed: **{len(exact_dups)}**
+- Same-normalized-name groups retained for review: **{len(alt_name_groups)}**
+- Records rejected for coordinates outside Florida bounds: **{len(outside)}**
+- Initial golfer-facing GPS Ready records created by this discovery pass: **0**
+
+All imported records are intentionally assigned `location_pending`.
+Coordinates from a source record do not by themselves qualify a course as Course Located or GPS Ready.
+The full inventory is for Admin/Super Admin review until later validation and geometry passes.
+
+Attribution: © OpenStreetMap contributors (ODbL 1.0) via OpenGolfAPI.
+"""
+          pathlib.Path('FL-DISCOVERY-REPORT.md').write_text(report,encoding='utf-8')
+
+          def sqlv(v):
+              if v is None:return 'null'
+              if isinstance(v,bool):return 'true' if v else 'false'
+              if isinstance(v,(int,float)) and math.isfinite(v):return str(v)
+              return "'" + str(v).replace("'","''") + "'"
+
+          vals=[]
+          for r in rows:
+              vals.append('('+','.join([
+                sqlv(r['id'])+'::uuid',sqlv(r['source_id']),sqlv(r['source_name']),sqlv(r['normalized_name']),sqlv(r['name']),
+                sqlv(r['city']),sqlv('FL'),sqlv(r['postal_code']),sqlv('US'),sqlv(r['address']),
+                sqlv(r['latitude']),sqlv(r['longitude']),sqlv(r['holes']),sqlv(r['par']),sqlv(r['course_type']),
+                sqlv(r['phone']),sqlv(r['website']),sqlv(None),sqlv('location_pending'),sqlv(r['source_license']),
+                sqlv(r['source_attribution']),sqlv(True),sqlv(None)
+              ])+')')
+          sql="""insert into public.course_catalog
+(id,source_id,source_name,normalized_name,name,city,state_code,postal_code,country_code,address,latitude,longitude,holes,par,course_type,phone,website,osm_course_uri,mapping_class,source_license,source_attribution,is_active,rejection_reason)
+values
+""" + ',\n'.join(vals) + """
+on conflict (id) do update set
+  name=excluded.name, normalized_name=excluded.normalized_name, city=excluded.city,
+  postal_code=excluded.postal_code, address=excluded.address,
+  latitude=coalesce(public.course_catalog.latitude,excluded.latitude),
+  longitude=coalesce(public.course_catalog.longitude,excluded.longitude),
+  holes=coalesce(public.course_catalog.holes,excluded.holes),
+  par=coalesce(public.course_catalog.par,excluded.par),
+  course_type=coalesce(public.course_catalog.course_type,excluded.course_type),
+  phone=coalesce(nullif(public.course_catalog.phone,''),excluded.phone),
+  website=coalesce(nullif(public.course_catalog.website,''),excluded.website),
+  source_license=excluded.source_license, source_attribution=excluded.source_attribution,
+  updated_at=now();
+"""
+          pathlib.Path('data/fl-catalog-v355.sql').write_text(sql,encoding='utf-8')
+          print(report)
+
+      - name: Commit Florida discovery artifacts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fl-catalog-v355.json data/fl-catalog-v355.sql FL-DISCOVERY-REPORT.md
+          if git diff --cached --quiet; then echo "No inventory changes"; exit 0; fi
+          git commit -m "Build Florida statewide course inventory"
+          git push
