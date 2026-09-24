@@ -29,21 +29,16 @@ jobs:
           import fs from 'node:fs/promises';
 
           const courses = [
-            ["ec61c988-c335-4feb-8519-d70bf705f2a4","Bocaire Country Club","Boca Raton",26.421444,-80.1193,18],
-            ["7cb69332-ced8-4d69-90cd-c7f91848dec5","Bonaventure Golf Club","Weston",26.1200473,-80.3699796,18],
-            ["c7ff6b29-ed6d-4ff1-b457-195ff966179e","Briar Bay Golf Course","Miami",25.6455169,-80.3461062,9],
-            ["4b5383b2-0d3d-4687-bfd3-67253a31edfd","Card Sound Golf Club","Key Largo",25.3271642,-80.2816157,18],
-            ["c794b848-9779-488c-9b13-8397ee31c49c","Carolina Golf Club","Margate",26.2652249,-80.2277654,18],
-            ["703b4290-0ed0-44e1-a99e-8edd0b859953","City Of Lauderhill Golf Course","Fort Lauderdale",26.1466537,-80.2060935,9],
-            ["f2cd934d-55c3-41e5-892f-b335e69ed57f","Clewiston Golf Course","Clewiston",26.7437882,-80.9507371,18],
-            ["6ff3cf3b-e7ae-4c68-bda9-e39934ac4582","Club Med Sandpiper Bay","Port St. Lucie",27.244491,-80.3101354,18],
-            ["3673698d-17de-4ac3-88c2-683a4b63a5aa","Cooper Colony Country Club","Cooper City",26.0577009,-80.2700675,18],
-            ["ae9a1659-cf57-4a6e-b135-4833527ff10f","Coral Ridge Country Club","Fort Lauderdale",26.1755733,-80.1069346,18],
-            ["768ab827-bf66-46a2-ab28-4f5e1b65dd4d","Costa Del Sol Golf Club","Doral",25.8072004,-80.359371,18],
-            ["c1260217-7446-4d07-8d25-2a28c1353526","Country Club At Boca Raton Resort Club The","Boca Raton",26.3427958,-80.0801027,18],
-            ["e80d5b5c-457d-4b55-aedb-486cb52c72a1","Country Club at Mirasol","Palm Beach Gardens",26.851717,-80.1501554,18],
-            ["29ca44fc-52a7-43e8-a11d-042d4a805c85","Country Club Of Coral Springs","Coral Springs",26.2700801,-80.2708805,18],
-            ["d8fc3bd1-ddbe-4bf9-873b-f70bb13fd874","Country Club Of Florida","Boynton Beach",26.504377,-80.1033358,18]
+            ["d846c857-9fe5-49fd-8f79-1efc84a5a067","Crandon Golf At Key Biscayne","Key Biscayne",25.7163907,-80.1592507,18],
+            ["a416f010-81c1-4d4f-953c-0bcbc0e62b83","Crane Watch Club","Palm City",27.200816,-80.312117,18],
+            ["e026d31c-a535-42c5-886f-dcf5af44aebb","Davie Golf Country Club","Davie",26.0908847,-80.2582796,18],
+            ["72e4eebe-5ebb-47de-ba03-5a349f577da1","Deer Creek Golf Club","Deerfield Beach",26.32073,-80.141914,18],
+            ["83a675a8-4804-4bfa-b962-eb202bee0812","Deering Bay Yacht Country Club","Miami",25.6375,-80.2916667,18],
+            ["cb1d5846-dccf-46c4-8895-ba6b6b1b04fc","Delray Beach Golf Club","Delray Beach",26.4519564,-80.097697,18],
+            ["bd90d524-ac9d-42e9-9aae-b1e85ac3eec6","Delray Dunes Golf Country Club","Boynton Beach",26.498239,-80.1162662,18],
+            ["a7b5c92b-f31e-404c-a39b-33c0093f8fdf","Dutchmans Pipe Golf Club","West Palm Beach",26.7354033,-80.0841692,18],
+            ["757ef99f-e5bc-4397-a743-39c5f772ff09","Eagle Trace Country Club","Coral Springs",26.2518992,-80.2891074,18],
+            ["65333a41-db20-4bf4-aea5-5a6d5ba703c9","Eaglewood Country Club","Hobe Sound",27.0475208,-80.1402902,18]
           ];
 
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
