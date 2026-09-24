@@ -1,0 +1,128 @@
+name: Florida Tee Green Batch
+
+on:
+  push:
+    paths:
+      - '.github/workflows/florida-tee-green-batch.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Fetch tee and green endpoints
+        shell: bash
+        run: |
+          cat > /tmp/fl-tee-green.mjs <<'NODE'
+          import fs from 'node:fs/promises';
+
+          const courses = [
+            ["3eab6e00-558f-450b-a6dd-2902cc30da2a","Bent Creek Golf Course","Jacksonville",30.2436111,-81.8325,18],
+            ["27aeb554-b3c7-47cc-abff-9b35c34aa745","Bent Pine Golf Club","Vero Beach",27.7015027,-80.4340776,18],
+            ["fa1f6a0f-d854-4024-860f-8e0abab7dfe5","Black Bear Golf Club","Eustis",28.8846149,-81.5488777,18],
+            ["5436edda-d860-4ca5-a671-b8df5aafc1cd","Bradenton Country Club","Bradenton",27.4921933,-82.6083322,18],
+            ["7e1d0c6e-0e2b-42cc-bad1-0505ffacff2e","Country Club Of Ocala","Ocala",29.1117532,-82.1220195,18],
+            ["98b9dfa0-034d-4fad-938a-b2dd1dbca2d1","Crane Creek Reserve Golf Course At Melbourne","Melbourne",28.0756762,-80.6300978,18],
+            ["ebba8038-3858-4a05-8986-b02e7a84c321","Cross Creek Country Club","Fort Myers",26.5548013,-81.8273491,18],
+            ["6dba20e3-f0e1-42ef-8e6e-5dcde04360e8","Cypress Lakes Golf Club","Cantonment",30.579174,-87.2717132,18],
+            ["02ebc4b1-4c22-4f27-8f34-883d8fd0ce61","Debary Golf Country Club","DeBary",28.901782,-81.3138324,18],
+            ["5572b67b-c164-43ef-a6d2-36686e4f4486","Deercreek Country Club","Jacksonville",30.1859403,-81.5382825,18],
+            ["ee86e16f-55f5-4c1b-8d87-2794bbffc424","Deltona Club","Deltona",28.9242191,-81.2439193,18],
+            ["c22631eb-892d-4d1f-adcc-dd277bec031a","Eagle Landing Golf Club","Orange Park",30.163559,-81.851738,18],
+            ["f41c8cb0-2783-4389-8580-dee5917c451a","Fleming Island Golf Club","Fleming Island",30.0695153,-81.7171505,18],
+            ["84e2929f-fb30-43e8-8905-70997ca6284b","Indian River Colony Club","Melbourne",28.2503704,-80.710393,18],
+            ["98dc9c65-cb40-4417-b435-635bc83d3af2","Ironwood Golf Course","Gainesville",29.6892643,-82.2965884,18],
+            ["31e377d1-3da8-46d0-9247-6108de3c4ada","Juliette Falls","Dunnellon",29.117532,-82.4166783,18],
+            ["d89242fb-b919-452f-a7d7-dbc15a4fe60f","Julington Creek Golf Club","St Johns",30.11172,-81.6088329,18],
+            ["93f2efdf-e347-49bb-ad7f-ca9853880e8b","Lost Key Golf Club","Pensacola",30.2970106,-87.4411003,18],
+            ["d0aade05-afdf-4237-bfa3-f38b5b5573b1","Marsh Creek Country Club","Saint Augustine",29.8397528,-81.2811658,18],
+            ["17d016a6-4ad6-4385-af21-7bf213c68a62","Mayfair Country Club","Sanford",28.7803374,-81.3192627,18],
+            ["e8ac2656-3d57-40c6-a174-32c58771357d","Ocala Golf Club","Ocala",29.192243,-82.09304,18],
+            ["1c2b2c25-ac0a-4c43-b19b-69bab60df49d","Palm Valley Golf Club","Ponte Vedra Beach",30.101723,-81.436487,9],
+            ["df035787-4dd1-4c4c-80ae-af880f69b8cd","River Hall Country Club","Alva",26.6951642,-81.6831636,18],
+            ["d01fcf87-5927-4670-a19b-beaf099c2aa2","Royal St Augustine Golf And Country Club","West Augustine",29.9105412,-81.3535092,18],
+            ["2cee72c2-fb05-41c1-b32b-594eccf764dc","Sara Bay Country Club","Sarasota",27.4155478,-82.5674448,18],
+            ["f2250ca9-b1d0-4e21-9e6f-90af5038d18f","Sarasota National Golf Club","Venice",27.0330146,-82.3615308,18],
+            ["a22513a5-b472-4435-ab7f-97670d556d98","Serenoa Golf Club","Sarasota",27.2509035,-82.4371475,18],
+            ["ab8a46d2-1047-416f-a4b4-21e0fc848053","St James Bay Golf Club","Carrabelle",29.9047477,-84.5625507,18],
+            ["8f42978f-c775-4591-9bf5-4fe2a6e70893","Stonebrook Golf Course","Pace",30.6415157,-87.1897964,18],
+            ["7396d0bb-b0d3-47f1-b327-76070d227fbf","Tanglewood Golf And Country Club","Milton",30.6505919,-87.0789389,18]
+          ];
+
+          const mirrors=[
+            "https://overpass-api.de/api/interpreter",
+            "https://overpass.kumi.systems/api/interpreter",
+            "https://overpass.private.coffee/api/interpreter"
+          ];
+          const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+          const rad=d=>d*Math.PI/180;
+          const yards=(a,b,c,d)=>{
+            const R=6371008.8, dLat=rad(c-a), dLng=rad(d-b);
+            const x=Math.sin(dLat/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dLng/2)**2;
+            return 2*R*Math.asin(Math.sqrt(x))*1.0936133;
+          };
+          async function get(query){
+            let err;
+            for(const base of mirrors){
+              for(let attempt=0;attempt<2;attempt++){
+                try{
+                  const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),35000);
+                  const r=await fetch(base+"?data="+encodeURIComponent(query),{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.0"}});
+                  clearTimeout(timer);
+                  if(!r.ok) throw new Error(base+" "+r.status);
+                  return await r.json();
+                }catch(e){err=e; await sleep(1000);}
+              }
+            }
+            throw err;
+          }
+
+          const out=[];
+          for(const [id,name,city,lat,lng,expected] of courses){
+            const d=expected===9?0.012:0.016;
+            const bbox=`${lat-d},${lng-d},${lat+d},${lng+d}`;
+            const q=`[out:json][timeout:30];way["golf"="hole"](${bbox});out tags geom;`;
+            try{
+              const data=await get(q);
+              const rows=(data.elements||[]).filter(w=>w.type==="way"&&Array.isArray(w.geometry)&&w.geometry.length>=2).map(w=>{
+                const hole=parseInt(w.tags?.ref||"",10);
+                const first=w.geometry[0], last=w.geometry[w.geometry.length-1];
+                return Number.isInteger(hole)?{
+                  hole_number:hole,
+                  par:/^[2-7]$/.test(w.tags?.par||"")?parseInt(w.tags.par,10):null,
+                  tee_lat:first.lat,tee_lng:first.lon,
+                  green_center_lat:last.lat,green_center_lng:last.lon,
+                  yards:yards(first.lat,first.lon,last.lat,last.lon),
+                  osm_way_id:w.id
+                }:null;
+              }).filter(Boolean).filter(h=>h.hole_number>=1&&h.hole_number<=expected);
+              const groups=new Map();
+              for(const h of rows){if(!groups.has(h.hole_number))groups.set(h.hole_number,[]);groups.get(h.hole_number).push(h);}
+              const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
+              const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
+              const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
+              out.push({id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]});
+            }catch(e){out.push({id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]});}
+            await sleep(750);
+          }
+          await fs.mkdir("data",{recursive:true});
+          await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
+          NODE
+          node /tmp/fl-tee-green.mjs
+      - name: Commit results
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/fl-tee-green-results.json
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Generate Florida tee-green endpoint batch"
+          git push
