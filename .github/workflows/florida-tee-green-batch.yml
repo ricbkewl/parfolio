@@ -61,11 +61,6 @@ jobs:
             ["7396d0bb-b0d3-47f1-b327-76070d227fbf","Tanglewood Golf And Country Club","Milton",30.6505919,-87.0789389,18]
           ];
 
-          const mirrors=[
-            "https://overpass-api.de/api/interpreter",
-            "https://overpass.kumi.systems/api/interpreter",
-            "https://overpass.private.coffee/api/interpreter"
-          ];
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
           const rad=d=>d*Math.PI/180;
           const yards=(a,b,c,d)=>{
@@ -73,40 +68,48 @@ jobs:
             const x=Math.sin(dLat/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dLng/2)**2;
             return 2*R*Math.asin(Math.sqrt(x))*1.0936133;
           };
-          async function get(query){
-            let err;
-            for(const base of mirrors){
-              for(let attempt=0;attempt<1;attempt++){
-                try{
-                  const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),12000);
-                  const r=await fetch(base+"?data="+encodeURIComponent(query),{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.0"}});
-                  clearTimeout(timer);
-                  if(!r.ok) throw new Error(base+" "+r.status);
-                  return await r.json();
-                }catch(e){err=e; await sleep(1000);}
-              }
-            }
-            throw err;
+
+          function decodeXml(s){
+            return s.replaceAll("&quot;",'"').replaceAll("&apos;","'").replaceAll("&amp;","&").replaceAll("&lt;","<").replaceAll("&gt;",">");
           }
 
           async function processCourse([id,name,city,lat,lng,expected]){
-            const d=expected===9?0.012:0.016;
-            const bbox=`${lat-d},${lng-d},${lat+d},${lng+d}`;
-            const q=`[out:json][timeout:10];way["golf"="hole"](${bbox});out tags geom;`;
+            const d=expected===9?0.010:0.014;
+            const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
+            const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
             try{
-              const data=await get(q);
-              const rows=(data.elements||[]).filter(w=>w.type==="way"&&Array.isArray(w.geometry)&&w.geometry.length>=2).map(w=>{
-                const hole=parseInt(w.tags?.ref||"",10);
-                const first=w.geometry[0], last=w.geometry[w.geometry.length-1];
-                return Number.isInteger(hole)?{
+              const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),20000);
+              const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.1"}});
+              clearTimeout(timer);
+              if(!res.ok) throw new Error("OSM map "+res.status);
+              const xml=await res.text();
+              const nodes=new Map();
+              for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
+                const a=m[1];
+                const idm=a.match(/\bid="(\d+)"/), latm=a.match(/\blat="([^"]+)"/), lonm=a.match(/\blon="([^"]+)"/);
+                if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
+              }
+              const rows=[];
+              for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)){
+                const wayId=m[1], body=m[2];
+                const tags={};
+                for(const t of body.matchAll(/<tag\s+k="([^"]+)"\s+v="([^"]*)"\s*\/>/g)) tags[decodeXml(t[1])]=decodeXml(t[2]);
+                if(tags.golf!=="hole") continue;
+                const hole=parseInt(tags.ref||"",10);
+                if(!Number.isInteger(hole)||hole<1||hole>expected) continue;
+                const refs=[...body.matchAll(/<nd\s+ref="(\d+)"\s*\/>/g)].map(x=>x[1]);
+                if(refs.length<2) continue;
+                const first=nodes.get(refs[0]),last=nodes.get(refs.at(-1));
+                if(!first||!last) continue;
+                rows.push({
                   hole_number:hole,
-                  par:/^[2-7]$/.test(w.tags?.par||"")?parseInt(w.tags.par,10):null,
+                  par:/^[2-7]$/.test(tags.par||"")?parseInt(tags.par,10):null,
                   tee_lat:first.lat,tee_lng:first.lon,
                   green_center_lat:last.lat,green_center_lng:last.lon,
                   yards:yards(first.lat,first.lon,last.lat,last.lon),
-                  osm_way_id:w.id
-                }:null;
-              }).filter(Boolean).filter(h=>h.hole_number>=1&&h.hole_number<=expected);
+                  osm_way_id:+wayId
+                });
+              }
               const groups=new Map();
               for(const h of rows){if(!groups.has(h.hole_number))groups.set(h.hole_number,[]);groups.get(h.hole_number).push(h);}
               const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
@@ -115,6 +118,7 @@ jobs:
               return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]};
             }catch(e){return {id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]};}
           }
+
           const out=new Array(courses.length);
           let next=0;
           async function worker(){
@@ -122,10 +126,11 @@ jobs:
               const i=next++;
               if(i>=courses.length) return;
               out[i]=await processCourse(courses[i]);
-              await sleep(250);
+              console.log(courses[i][1],out[i].status,out[i].unique_holes??0);
+              await sleep(300);
             }
           }
-          await Promise.all(Array.from({length:4},()=>worker()));
+          await Promise.all(Array.from({length:3},()=>worker()));
           await fs.mkdir("data",{recursive:true});
           await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
           NODE
