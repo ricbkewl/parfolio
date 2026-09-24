@@ -29,17 +29,36 @@ jobs:
           import fs from 'node:fs/promises';
 
           const courses = [
-            ["a503c1dc-7936-486e-8457-86e81449a771","Arlington Ridge Golf Club","Leesburg",28.736705,-81.8836029,18],
-            ["98aa8231-ffd6-4d2b-bf94-e7060acd36d3","Blue Cypress Golf Club","Jacksonville",30.3774091,-81.6097499,18],
-            ["d7a806d3-0427-43e9-9dc0-c401fc86646f","Colonial Country Club","Fort Myers",26.600995,-81.7908465,18],
-            ["e9c72ec1-6d4e-479e-8e72-7a04efa7987d","Duran Golf Club Championship Course","Melbourne",28.2373726,-80.7360175,18],
-            ["4a8455bb-4b42-455e-ad54-e022391775d0","Emerald Bay Golf Club","Destin",30.3916725,-86.3990001,18],
-            ["065a8ec7-e5ae-4abb-8d7c-880c968e5584","Hidden Lakes Golf Course","New Smyrna Beach",29.0380211,-80.9453953,18],
-            ["47844640-7d71-4df6-bb5e-c9feb3302448","Kelly Plantation Golf Club","Destin",30.3999413,-86.4379584,18],
-            ["898cfd6a-f232-4114-a35b-22f48dfecf58","Kings Gate Golf Club","Port Charlotte",27.0050781,-82.0465027,18],
-            ["1cf59da4-62d3-4b23-bee2-803ed9b64e87","Lake Diamond Golf Country Club","Ocala",29.1274779,-82.0167082,18],
-            ["fe0d32b5-fbcb-4d02-a4ad-91c702eb0928","Manatee Golf Course","Bradenton",27.4488245,-82.6228429,18],
-            ["75a9ed7c-d0fd-41a0-a2f3-b95e913f28d5","Maple Leaf Golf Country Club","Port Charlotte",26.999795,-82.052958,18]
+            ["5579ba5b-dac3-4bd4-8b26-eda133055b81","Anglers Green","Mulberry",27.9149788,-81.9774847,18],
+            ["13769b8f-cf4a-486f-8775-d4fd51acd830","Apollo Beach Golf Sea Club","Apollo Beach",27.7649163,-82.4145038,18],
+            ["4f08ecb3-ad18-4792-9978-e08f67d0d1fe","Babe Zaharias Golf Course","Tampa",28.052082,-82.4729012,18],
+            ["d2a0f14a-9122-4fb3-894a-c1aab536e6c6","Bartow Golf Course","Bartow",27.8955509,-81.8202713,18],
+            ["3e476d8d-6ef4-4139-b5b2-3ca0323a7e35","Bayou Club","Largo",27.8630014,-82.7481802,18],
+            ["85afdae2-5555-4a07-b5f4-2fc0b8b221c4","Beacon Woods Golf Club","Bayonet Point",28.3379359,-82.6817875,18],
+            ["e31bb772-d31b-43c8-9991-0cee3207ce55","Bishops Gate Golf And Lakeside Community","HOWEY IN HLS",28.7384879,-81.7882325,18],
+            ["02702d8f-ff33-48cc-9050-a9cc545679bb","Bloomingdale Golfers Club","Valrico",27.8774397,-82.258613,18],
+            ["74bd456c-7323-4305-b351-e51201b8c047","Brentwood Farms Golf Club","Lecanto",28.9004174,-82.4627187,9],
+            ["fad762ed-b28e-4777-a147-66249c02d2ee","Brookridge Golf Country Club","Brooksville",28.545756,-82.4918932,18],
+            ["890411e8-2db5-4134-a141-955fec8aa978","Brooksville Country Club","Brooksville",28.5712246,-82.3464772,18],
+            ["efbc47fc-064f-47fa-9ebc-5465ecb507b6","Buckhorn Springs Golf Country Club","Valrico",27.9052984,-82.2428319,18],
+            ["a668d2db-f75b-4dec-b4d6-1e076ec933cf","Buffalo Creek Golf Course","Palmetto",27.5784473,-82.4826126,18],
+            ["5d315303-823f-4dda-bb3e-efe37be12d67","Caloosa Golf Country Club","Sun City Center",27.7322384,-82.3437864,18],
+            ["d9369fa4-b916-4a31-80a7-0a7eb6b07653","Cheval Golf & Country Club","Cheval",28.1497178,-82.5136583,18],
+            ["c5c5efe5-55bc-4d29-81d9-0aed00f395a2","Citrus National Golf Club","Homosassa",28.7230534,-82.5082359,18],
+            ["263e0a44-bb90-4615-959f-71a682bfed42","Citrus Springs Golf Country Club","Citrus Springs",28.9885787,-82.4712677,18],
+            ["2ff0a2cb-05ad-4292-a4b8-06cb35ffc986","Clerbrook Golf Rv Resort","Clermont",28.6380102,-81.7874657,18],
+            ["3fd44420-e695-4029-ab89-81468cdb6d35","Cleveland Heights Golf Course","Lakeland",28.0057817,-81.9425939,18],
+            ["562fa24b-de17-4af9-9860-2e3b82df7cda","Countryway Golf Club","Tampa",28.0345726,-82.6071238,18],
+            ["06026e9d-7275-4d85-a60e-8d9f7bfa7f26","Cove Cay Golf Club","Clearwater",27.934406,-82.722378,18],
+            ["3b9a4bdb-b64a-4dd8-979a-d13ac6184dd3","Crescent Oaks Country Club","Tarpon Springs",28.159418,-82.68852,18],
+            ["d8aa31af-d967-4d01-b267-aa204cad52f4","Cypress Links At Mangrove Bay","St. Petersburg",27.8334107,-82.6272216,9],
+            ["136ef46e-fe97-4e31-80ed-4952dd1596f2","Cypress Run Golf Club","Tarpon Springs",28.1586892,-82.7077851,18],
+            ["a2208b6a-6906-4d83-9105-80234b2a4ea4","Diamond Hill Golf Country Club","Dover",27.9649319,-82.2406624,18],
+            ["8c77cbd5-27aa-4742-937f-0a70b5762fdc","Feather Sound Country Club","Clearwater",27.898481,-82.664482,18],
+            ["2e5cfa27-f14a-4479-b37b-8070786e7b42","Forest Hills Golf Course","Holiday",28.1760112,-82.7278963,9],
+            ["cbd64609-accc-4110-92f3-cd8604bd87fa","Freedom Fairways","Sun City Center",27.7167643,-82.3666541,18],
+            ["2eae034d-272f-40db-84c1-14339cbc6022","Glenlakes Country Club","Spring Hill",28.5673748,-82.5598062,18],
+            ["2f8eccb4-6696-44c3-9844-9fd207165c50","Grasslands Golf Country Club","Lakeland",28.0127625,-81.9800781,18]
           ];
 
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -55,48 +74,41 @@ jobs:
           }
 
           async function processCourse([id,name,city,lat,lng,expected]){
-            const deltas=[0.008,0.009,0.010,0.011,0.012,0.014,0.016,0.018,0.020];
-            let best=null;
-            for(const d of deltas){
-              try{
-                const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
-                const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
-                const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),15000);
-                const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.4"}});
-                clearTimeout(timer);
-                if(!res.ok){ await sleep(150); continue; }
-                const xml=await res.text();
-                const nodes=new Map();
-                for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
-                  const a=m[1];
-                  const idm=a.match(/\bid="(\d+)"/), latm=a.match(/\blat="([^"]+)"/), lonm=a.match(/\blon="([^"]+)"/);
-                  if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
-                }
-                const rows=[];
-                for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)){
-                  const wayId=m[1],body=m[2],tags={};
-                  for(const t of body.matchAll(/<tag\s+k="([^"]+)"\s+v="([^"]*)"\s*\/>/g)) tags[decodeXml(t[1])]=decodeXml(t[2]);
-                  if(tags.golf!=="hole") continue;
-                  const hole=parseInt(tags.ref||"",10);
-                  if(!Number.isInteger(hole)||hole<1||hole>expected) continue;
-                  const refs=[...body.matchAll(/<nd\s+ref="(\d+)"\s*\/>/g)].map(x=>x[1]);
-                  if(refs.length<2) continue;
-                  const first=nodes.get(refs[0]),last=nodes.get(refs.at(-1));
-                  if(!first||!last) continue;
-                  rows.push({hole_number:hole,par:/^[2-7]$/.test(tags.par||"")?parseInt(tags.par,10):null,tee_lat:first.lat,tee_lng:first.lon,green_center_lat:last.lat,green_center_lng:last.lon,yards:yards(first.lat,first.lon,last.lat,last.lon),osm_way_id:+wayId});
-                }
-                const groups=new Map();
-                for(const h of rows){if(!groups.has(h.hole_number))groups.set(h.hole_number,[]);groups.get(h.hole_number).push(h);}
-                const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
-                const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
-                const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
-                const candidate={id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,delta:d,holes:complete&&plausible?unique:[]};
-                if(!best || candidate.unique_holes>best.unique_holes || (candidate.unique_holes===best.unique_holes && candidate.raw_way_count<best.raw_way_count)) best=candidate;
-                if(candidate.status==="validated") return candidate;
-                await sleep(150);
-              }catch(e){ await sleep(150); }
-            }
-            return best ?? {id,name,city,expected,status:"fetch_error",reason:"No usable OSM map response",holes:[]};
+            const d=expected===9?0.010:0.012;
+            const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
+            const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
+            try{
+              const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),18000);
+              const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.5"}});
+              clearTimeout(timer);
+              if(!res.ok) throw new Error("OSM map "+res.status);
+              const xml=await res.text();
+              const nodes=new Map();
+              for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
+                const a=m[1];
+                const idm=a.match(/\bid="(\d+)"/), latm=a.match(/\blat="([^"]+)"/), lonm=a.match(/\blon="([^"]+)"/);
+                if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
+              }
+              const rows=[];
+              for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)){
+                const wayId=m[1],body=m[2],tags={};
+                for(const t of body.matchAll(/<tag\s+k="([^"]+)"\s+v="([^"]*)"\s*\/>/g)) tags[decodeXml(t[1])]=decodeXml(t[2]);
+                if(tags.golf!=="hole") continue;
+                const hole=parseInt(tags.ref||"",10);
+                if(!Number.isInteger(hole)||hole<1||hole>expected) continue;
+                const refs=[...body.matchAll(/<nd\s+ref="(\d+)"\s*\/>/g)].map(x=>x[1]);
+                if(refs.length<2) continue;
+                const first=nodes.get(refs[0]),last=nodes.get(refs.at(-1));
+                if(!first||!last) continue;
+                rows.push({hole_number:hole,par:/^[2-7]$/.test(tags.par||"")?parseInt(tags.par,10):null,tee_lat:first.lat,tee_lng:first.lon,green_center_lat:last.lat,green_center_lng:last.lon,yards:yards(first.lat,first.lon,last.lat,last.lon),osm_way_id:+wayId});
+              }
+              const groups=new Map();
+              for(const h of rows){if(!groups.has(h.hole_number))groups.set(h.hole_number,[]);groups.get(h.hole_number).push(h);}
+              const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
+              const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
+              const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
+              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]};
+            }catch(e){return {id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]};}
           }
 
           const out=new Array(courses.length);
@@ -110,7 +122,7 @@ jobs:
               await sleep(300);
             }
           }
-          await Promise.all(Array.from({length:3},()=>worker()));
+          await Promise.all(Array.from({length:4},()=>worker()));
           await fs.mkdir("data",{recursive:true});
           await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
           NODE
