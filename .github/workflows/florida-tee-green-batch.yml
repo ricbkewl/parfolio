@@ -29,24 +29,24 @@ jobs:
           import fs from 'node:fs/promises';
 
           const courses = [
-            ["5cc15aed-8935-40d0-8fe0-acbbd069eb68","Green Valley Country Club","Clermont",28.5616467,-81.814429,18],
-            ["352cdb94-41e6-463e-951e-46036071fda6","Hamptons Golf Club The","Auburndale",28.0503895,-81.845616,18],
-            ["b379660e-ccb7-4c7c-8c16-b643b3148862","Harbor Hills Country Club","Lady Lake",28.930544,-81.854096,18],
-            ["98d49fe9-e661-4fbf-8ad9-c7658728e64c","Heather Golf Country Club","Spring Hill",28.5393154,-82.5693703,9],
-            ["76f3319b-c32d-491d-b369-fe394ee264c5","Heritage Harbor","Lutz",28.1689971,-82.511952,18],
-            ["468e9cf3-331e-441f-b6f2-b79c7fb22f24","Heritage Isles Golf And Country Club","Tampa",28.14735,-82.29641,18],
-            ["0e83db10-af1f-48a4-ace2-79395d07f769","Heritage Pines Country Club","Trinity",28.1784388,-82.6272939,18],
-            ["f1ff2f15-aa58-4b6f-aeb3-680a4f6bb1df","Heritage Springs Country Club","Trinity",28.1784388,-82.6272939,18],
-            ["b107967c-db47-4adc-9707-a544c251615c","Hernando Oaks Golf Country Club","Brooksville",28.5080642,-82.4307098,18],
-            ["e4cb64bb-96b0-4cbe-b4da-5f87cc89a5e7","High Point Golf Club","Brooksville",28.5421962,-82.5234088,18],
-            ["1955d277-b612-4ac0-b46d-04bf8273cadf","Highland Fairways Golf Club","Lakeland",28.0837892,-81.9906873,18],
-            ["a5b0fcc3-34f1-4ded-a48a-ec50303669ee","Hunters Green Country Club","Tampa",28.1354473,-82.3514356,18],
-            ["d96aa37d-39bb-4e0e-b09e-bbe9b8455d2b","Huntington Golf Club","Lakeland",28.1308432,-82.003964,18],
-            ["bc1b5826-b6fa-459a-abdd-c37cc9f4c8d2","Imperial Lakes Golf Country Club","Mulberry",27.9281902,-81.9916152,18],
-            ["56ccac40-cb1c-4a42-8057-fcc26fccb338","Inverness Golf Country Club","Inverness",28.8166465,-82.2898864,18],
-            ["ae6b8acd-df39-4eba-b01c-8b4c153e5917","Isla Del Sol","Saint Petersburg",27.7108224,-82.7146332,18],
-            ["2ea48b09-c7be-4bf2-a1e9-c4b3c9a79e07","Isla Del Sol Golf Yacht Country Club","St. Petersburg",27.7142124,-82.7154686,18],
-            ["eec47760-c0cf-4472-a2d9-9d3b54dd9ce0","Key Royale Club","Holmes Beach",27.5252806,-82.7141689,9]
+            ["9c72d3b4-c901-4fd9-aba7-839337ecfd62","Abacoa Golf Club","Jupiter",26.8885231,-80.1199148,18],
+            ["6d69e238-3eb1-4c9e-a3de-ec34583ffde6","Aberdeen Golf Country Club","Boynton Beach",26.5508484,-80.1518542,18],
+            ["c9043af5-8ff4-4fa6-a1fc-15bf919d7a5c","Adios Golf Club","Coconut Creek",26.3269138,-80.1740264,18],
+            ["892c81c9-f94e-4d8a-a129-be0f4bc88214","Apogee Golf Club South","Indiantown",27.059337,-80.2951081,18],
+            ["eee4211e-0dd9-411c-b90f-7fada60589b3","Astor Creek Golf Country Club","Port St. Lucie",27.3004915,-80.4584176,18],
+            ["c4b9029b-67db-4d96-b9d2-a4a7903c10c6","Atlantic National Golf Club","Greenacres",26.5829336,-80.1804901,18],
+            ["ce7f09fa-503c-4896-bfbd-7494bd9283ba","Atlantis Country Club","Atlantis",26.6013511,-80.0972269,18],
+            ["a75e173b-256d-4138-ada7-3f9e4a337e49","Banyan Cay","West Palm Beach",26.73247,-80.0837862,18],
+            ["dd483f70-ce94-460e-bc6a-47f5e34b403d","Banyan Creek Golf Club","Palm City",27.1819544,-80.3052594,18],
+            ["c9d53bf3-a78f-4af4-a6e4-fe3d4a4c433c","Banyan Golf Course","West Palm Beach",26.6560821,-80.191452,18],
+            ["44f0d1ae-ea3b-4746-9496-d7d5a1c1c29b","Belle Glade Municipal Golf Club","Belle Glade",26.7057081,-80.701425,18],
+            ["0053b85b-b834-49fd-bdcd-25be978db1db","Blue Cypress Golf Rv Resort","Okeechobee",27.129764,-80.6837056,18],
+            ["d2f2305a-dd8c-4e01-b331-34277dea0046","Boca Delray Golf Country Club","Delray Beach",26.4273529,-80.1291046,18],
+            ["d468fbc1-9276-427f-85b8-0e08985b2799","Boca Dunes Golf Country Club","Boca Raton",26.3361032,-80.1946981,18],
+            ["155fd4cb-e77d-4e7a-9ab7-7490ad5cca7d","Boca Greens Country Club","Boca Raton",26.3843734,-80.209189,18],
+            ["9730002d-deab-4a86-9b2c-178ce33cb5bd","Boca Grove Plantation Golf Course","Boca Raton",26.3609435,-80.1635209,18],
+            ["7a2cbab5-5683-450b-a9b0-847f29434488","Boca Pointe Country Club","Boca Raton",26.336331,-80.155924,18],
+            ["d7d933c2-6d54-4555-8701-394cf092f61e","Boca Rio Golf Club","Boca Raton",26.3478732,-80.1731063,18]
           ];
 
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
