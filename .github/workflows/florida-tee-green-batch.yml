@@ -1513,10 +1513,20 @@ jobs:
             const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
             const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
             try{
-              const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),18000);
-              const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.5"}});
-              clearTimeout(timer);
-              if(!res.ok) throw new Error("OSM map "+res.status);
+              let res=null;
+              for(let attempt=0;attempt<4;attempt++){
+                const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),22000);
+                try{
+                  res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.6"}});
+                } finally { clearTimeout(timer); }
+                if(res.ok) break;
+                if(res.status===509 || res.status===429 || res.status>=500){
+                  await sleep(2500*(attempt+1));
+                  continue;
+                }
+                throw new Error("OSM map "+res.status);
+              }
+              if(!res?.ok) throw new Error("OSM map "+(res?.status||"fetch_failed"));
               const xml=await res.text();
               const nodes=new Map();
               for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
@@ -1569,7 +1579,7 @@ jobs:
               await sleep(300);
             }
           }
-          await Promise.all(Array.from({length:4},()=>worker()));
+          await Promise.all(Array.from({length:2},()=>worker()));
           await fs.mkdir("data",{recursive:true});
           await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
           NODE
