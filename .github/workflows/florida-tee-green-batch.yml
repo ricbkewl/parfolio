@@ -29,10 +29,6 @@ jobs:
           import fs from 'node:fs/promises';
 
           const courses = [
-            ["27aeb554-b3c7-47cc-abff-9b35c34aa745","Bent Pine Golf Club","Vero Beach",27.7015027,-80.4340776,18],
-            ["98b9dfa0-034d-4fad-938a-b2dd1dbca2d1","Crane Creek Reserve Golf Course At Melbourne","Melbourne",28.0756762,-80.6300978,18],
-            ["5572b67b-c164-43ef-a6d2-36686e4f4486","Deercreek Country Club","Jacksonville",30.1859403,-81.5382825,18],
-            ["c22631eb-892d-4d1f-adcc-dd277bec031a","Eagle Landing Golf Club","Orange Park",30.163559,-81.851738,18],
             ["d89242fb-b919-452f-a7d7-dbc15a4fe60f","Julington Creek Golf Club","St Johns",30.11172,-81.6088329,18]
           ];
 
@@ -49,7 +45,7 @@ jobs:
           }
 
           async function processCourse([id,name,city,lat,lng,expected]){
-            const d=name.startsWith('Crane Creek')?0.009:(['Deercreek Country Club','Eagle Landing Golf Club','Julington Creek Golf Club'].includes(name)?0.019:(name==='Bent Pine Golf Club'?0.011:(expected===9?0.010:0.014)));
+            const d=0.016;
             const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
             const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
             try{
