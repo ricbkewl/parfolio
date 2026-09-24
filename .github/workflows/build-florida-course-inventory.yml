@@ -173,3 +173,5 @@ on conflict (id) do update set
           if git diff --cached --quiet; then echo "No inventory changes"; exit 0; fi
           git commit -m "Build Florida statewide course inventory"
           git push
+
+# trigger-run-2026-09-24
