@@ -30,11 +30,8 @@ jobs:
 
           const courses = [
             ["a503c1dc-7936-486e-8457-86e81449a771","Arlington Ridge Golf Club","Leesburg",28.736705,-81.8836029,18],
-            ["a3f17479-705e-4237-9f91-8a4c04742668","Baseline Golf Course","Ocala",29.0931925,-82.0545676,18],
             ["98aa8231-ffd6-4d2b-bf94-e7060acd36d3","Blue Cypress Golf Club","Jacksonville",30.3774091,-81.6097499,18],
-            ["21aca83d-81f0-41fc-993e-b2e845bbdcb1","Cimarrone Golf Club","Jacksonville",30.060731,-81.5447528,18],
             ["d7a806d3-0427-43e9-9dc0-c401fc86646f","Colonial Country Club","Fort Myers",26.600995,-81.7908465,18],
-            ["89db7ffe-4414-4a27-8278-537abcd5561d","Country Club Of Silver Springs Shores","Ocala",29.1037596,-81.9999645,18],
             ["e9c72ec1-6d4e-479e-8e72-7a04efa7987d","Duran Golf Club Championship Course","Melbourne",28.2373726,-80.7360175,18],
             ["4a8455bb-4b42-455e-ad54-e022391775d0","Emerald Bay Golf Club","Destin",30.3916725,-86.3990001,18],
             ["065a8ec7-e5ae-4abb-8d7c-880c968e5584","Hidden Lakes Golf Course","New Smyrna Beach",29.0380211,-80.9453953,18],
@@ -43,9 +40,7 @@ jobs:
             ["1cf59da4-62d3-4b23-bee2-803ed9b64e87","Lake Diamond Golf Country Club","Ocala",29.1274779,-82.0167082,18],
             ["547a5347-3120-4027-a5e1-ec949c2cfd12","Lexington Country Club","Fort Myers",26.4945614,-81.9067417,18],
             ["fe0d32b5-fbcb-4d02-a4ad-91c702eb0928","Manatee Golf Course","Bradenton",27.4488245,-82.6228429,18],
-            ["75a9ed7c-d0fd-41a0-a2f3-b95e913f28d5","Maple Leaf Golf Country Club","Port Charlotte",26.999795,-82.052958,18],
-            ["b6392e3b-fbcf-4359-a505-3c6f966662e1","Nature Walk Golf Club","Lynn Haven",30.237656,-85.6075348,18],
-            ["7cd28956-64b3-420c-9e32-a5c1498a614f","Panama Country Club","Lynn Haven",30.2511036,-85.6293732,18]
+            ["75a9ed7c-d0fd-41a0-a2f3-b95e913f28d5","Maple Leaf Golf Country Club","Port Charlotte",26.999795,-82.052958,18]
           ];
 
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -61,7 +56,7 @@ jobs:
           }
 
           async function processCourse([id,name,city,lat,lng,expected]){
-            const d=0.014;
+            const d=name==='Blue Cypress Golf Club'?0.020:(name==='Emerald Bay Golf Club'?0.010:0.009);
             const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
             const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
             try{
