@@ -1,10 +1,10 @@
 {
-  "generated_at": "2026-09-24T19:57:13.120Z",
+  "generated_at": "2026-09-24T20:14:29.719Z",
   "courses": [
     {
-      "id": "39545b5d-5d58-4cf1-8ca0-ed53adfab6d3",
-      "name": "Blue Red At Myakka Pines Golf Club",
-      "city": "Englewood",
+      "id": "e12b3e79-4a1a-4e31-a941-ddf985c12b66",
+      "name": "1 10 At University Park Country Club",
+      "city": "University Park",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -13,77 +13,9 @@
       "holes": []
     },
     {
-      "id": "badd5e14-d363-4616-ac3e-042345efadd2",
-      "name": "Blue Sky Golf Club",
-      "city": "Jacksonville",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 3,
-      "unique_holes": 3,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "bb9e681b-566e-462a-a433-8c2e6c2f3825",
-      "name": "Blue White At Sugar Mill Country Club",
-      "city": "New Smyrna Beach",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 27,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 8,
-          "candidates": 3,
-          "selected_way_id": 913680480
-        },
-        {
-          "hole_number": 7,
-          "candidates": 3,
-          "selected_way_id": 913680485
-        },
-        {
-          "hole_number": 6,
-          "candidates": 3,
-          "selected_way_id": 913680486
-        },
-        {
-          "hole_number": 9,
-          "candidates": 3,
-          "selected_way_id": 914421038
-        },
-        {
-          "hole_number": 1,
-          "candidates": 3,
-          "selected_way_id": 1452939052
-        },
-        {
-          "hole_number": 2,
-          "candidates": 3,
-          "selected_way_id": 1452939053
-        },
-        {
-          "hole_number": 3,
-          "candidates": 3,
-          "selected_way_id": 1452939054
-        },
-        {
-          "hole_number": 4,
-          "candidates": 3,
-          "selected_way_id": 1452939055
-        },
-        {
-          "hole_number": 5,
-          "candidates": 3,
-          "selected_way_id": 1452939056
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "27cac807-e71c-45d9-95c1-75b2430eb166",
-      "name": "Bluewater Bay Resort",
-      "city": "Niceville",
+      "id": "ae8fce56-0829-405b-af7d-2ea7cd59a35f",
+      "name": "10 19 At University Park Country Club",
+      "city": "University Park",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -92,9 +24,9 @@
       "holes": []
     },
     {
-      "id": "d8588c12-7054-4c9e-97a3-5cd3eb3f0a17",
-      "name": "Bluffs Golf Course",
-      "city": "Zolfo Springs",
+      "id": "64e34ad7-9603-4a21-ad59-807422ad4ef1",
+      "name": "19 1 At University Park Country Club",
+      "city": "University Park",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -103,42 +35,9 @@
       "holes": []
     },
     {
-      "id": "ae4b75e2-3f2f-4214-9c4f-cfaf03a021ec",
-      "name": "Boca Lago Country Club East Course",
-      "city": "Boca Raton",
-      "expected": 9,
-      "status": "unresolved",
-      "raw_way_count": 5,
-      "unique_holes": 5,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "a4177a5f-7758-4887-90a0-327d178f1fe2",
-      "name": "Boca Lago Country Club South Course",
-      "city": "Boca Raton",
-      "expected": 9,
-      "status": "unresolved",
-      "raw_way_count": 5,
-      "unique_holes": 5,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "5a68d515-ef4c-4cf1-97d9-a6d288c334e8",
-      "name": "Boca Lago Country Club West Course",
-      "city": "Boca Raton",
-      "expected": 9,
-      "status": "unresolved",
-      "raw_way_count": 5,
-      "unique_holes": 5,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "7d12972e-d893-4daf-ae8b-522d14f5c82e",
-      "name": "Boca Royale Golf Country Club",
-      "city": "Englewood",
+      "id": "9c72d3b4-c901-4fd9-aba7-839337ecfd62",
+      "name": "Abacoa Golf Club",
+      "city": "Jupiter",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -147,235 +46,9 @@
       "holes": []
     },
     {
-      "id": "5ab2240e-46ee-4dc5-af53-dca4740f66a2",
-      "name": "Boca West Country Club Dye Iv",
-      "city": "Boca Raton",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "b1a4f146-e5b0-4b08-978c-76349cb6b57c",
-      "name": "Boca West Country Club Fazio Ii",
-      "city": "Boca Raton",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "a5f37eba-446b-4f80-926e-508043a7ca0e",
-      "name": "Boca West Country Club Palmer I",
-      "city": "Boca Raton",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "3c9e1383-72ba-4443-b211-c91e4725cc69",
-      "name": "Boca West Country Club Palmer Iii",
-      "city": "Boca Raton",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "77090ea5-18cf-4ae9-a103-b5922484133b",
-      "name": "Bonifay Country Club (The Villages)",
-      "city": "The Villages",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 46,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 1,
-          "candidates": 5,
-          "selected_way_id": 1221579165
-        },
-        {
-          "hole_number": 2,
-          "candidates": 5,
-          "selected_way_id": 1221579166
-        },
-        {
-          "hole_number": 3,
-          "candidates": 5,
-          "selected_way_id": 1221579167
-        },
-        {
-          "hole_number": 4,
-          "candidates": 5,
-          "selected_way_id": 1221579168
-        },
-        {
-          "hole_number": 5,
-          "candidates": 4,
-          "selected_way_id": 1221575478
-        },
-        {
-          "hole_number": 6,
-          "candidates": 5,
-          "selected_way_id": 1217611147
-        },
-        {
-          "hole_number": 7,
-          "candidates": 6,
-          "selected_way_id": 1221575480
-        },
-        {
-          "hole_number": 8,
-          "candidates": 6,
-          "selected_way_id": 1221579172
-        },
-        {
-          "hole_number": 9,
-          "candidates": 5,
-          "selected_way_id": 1221579173
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "c7557735-dcd2-4c0f-837c-dc2bb1700445",
-      "name": "Bonifay Country Club Destin Fort Walton",
-      "city": "The Villages",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 49,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 1,
-          "candidates": 5,
-          "selected_way_id": 1221579165
-        },
-        {
-          "hole_number": 2,
-          "candidates": 5,
-          "selected_way_id": 1221579166
-        },
-        {
-          "hole_number": 3,
-          "candidates": 5,
-          "selected_way_id": 1221579167
-        },
-        {
-          "hole_number": 4,
-          "candidates": 5,
-          "selected_way_id": 1221579168
-        },
-        {
-          "hole_number": 5,
-          "candidates": 5,
-          "selected_way_id": 1221579169
-        },
-        {
-          "hole_number": 6,
-          "candidates": 6,
-          "selected_way_id": 1217611147
-        },
-        {
-          "hole_number": 7,
-          "candidates": 6,
-          "selected_way_id": 1221575480
-        },
-        {
-          "hole_number": 8,
-          "candidates": 6,
-          "selected_way_id": 1221579172
-        },
-        {
-          "hole_number": 9,
-          "candidates": 6,
-          "selected_way_id": 1221579173
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "e43dac0d-0a0c-452c-b3c6-cf1428a8f7f3",
-      "name": "Bonifay Country Club Fort Walton Pensacola",
-      "city": "The Villages",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 49,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 1,
-          "candidates": 5,
-          "selected_way_id": 1221579165
-        },
-        {
-          "hole_number": 2,
-          "candidates": 5,
-          "selected_way_id": 1221579166
-        },
-        {
-          "hole_number": 3,
-          "candidates": 5,
-          "selected_way_id": 1221579167
-        },
-        {
-          "hole_number": 4,
-          "candidates": 5,
-          "selected_way_id": 1221579168
-        },
-        {
-          "hole_number": 5,
-          "candidates": 5,
-          "selected_way_id": 1221579169
-        },
-        {
-          "hole_number": 6,
-          "candidates": 6,
-          "selected_way_id": 1217611147
-        },
-        {
-          "hole_number": 7,
-          "candidates": 6,
-          "selected_way_id": 1221575480
-        },
-        {
-          "hole_number": 8,
-          "candidates": 6,
-          "selected_way_id": 1221579172
-        },
-        {
-          "hole_number": 9,
-          "candidates": 6,
-          "selected_way_id": 1221579173
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "b141e221-e8cd-4f41-989e-b8739c5cc8db",
-      "name": "Bonita Bay Club West",
-      "city": "Bonita Springs",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "698f9c5e-32ec-48c0-9d19-5c99b5da8f74",
-      "name": "Bonita Bay East",
-      "city": "Naples",
+      "id": "ea570233-572a-4fa9-ae60-d4ce7b1ef38f",
+      "name": "Abbey Course At St Leo University The",
+      "city": "St Leo",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 2,
@@ -384,123 +57,9 @@
       "holes": []
     },
     {
-      "id": "60f8d7b4-1bda-4989-a96b-ac39ca392b84",
-      "name": "Bonita Bay East Cypress Course",
-      "city": "Naples",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 22,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 1,
-          "candidates": 3,
-          "selected_way_id": 1018579250
-        },
-        {
-          "hole_number": 2,
-          "candidates": 2,
-          "selected_way_id": 1018575416
-        },
-        {
-          "hole_number": 3,
-          "candidates": 2,
-          "selected_way_id": 1018575417
-        },
-        {
-          "hole_number": 4,
-          "candidates": 3,
-          "selected_way_id": 1018579253
-        },
-        {
-          "hole_number": 5,
-          "candidates": 3,
-          "selected_way_id": 1018579254
-        },
-        {
-          "hole_number": 6,
-          "candidates": 2,
-          "selected_way_id": 1018575420
-        },
-        {
-          "hole_number": 7,
-          "candidates": 2,
-          "selected_way_id": 1018575421
-        },
-        {
-          "hole_number": 8,
-          "candidates": 2,
-          "selected_way_id": 1018575422
-        },
-        {
-          "hole_number": 9,
-          "candidates": 3,
-          "selected_way_id": 1016636097
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "86ef0e83-2682-4cba-a3bf-6a4bbe805ee4",
-      "name": "Bonita Bay East Sabal Course",
-      "city": "Naples",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 22,
-      "unique_holes": 9,
-      "duplicate_holes": [
-        {
-          "hole_number": 1,
-          "candidates": 3,
-          "selected_way_id": 1018579250
-        },
-        {
-          "hole_number": 2,
-          "candidates": 2,
-          "selected_way_id": 1018575416
-        },
-        {
-          "hole_number": 3,
-          "candidates": 2,
-          "selected_way_id": 1018575417
-        },
-        {
-          "hole_number": 4,
-          "candidates": 3,
-          "selected_way_id": 1018579253
-        },
-        {
-          "hole_number": 5,
-          "candidates": 3,
-          "selected_way_id": 1018579254
-        },
-        {
-          "hole_number": 6,
-          "candidates": 2,
-          "selected_way_id": 1018575420
-        },
-        {
-          "hole_number": 7,
-          "candidates": 2,
-          "selected_way_id": 1018575421
-        },
-        {
-          "hole_number": 8,
-          "candidates": 2,
-          "selected_way_id": 1018575422
-        },
-        {
-          "hole_number": 9,
-          "candidates": 3,
-          "selected_way_id": 1016636097
-        }
-      ],
-      "holes": []
-    },
-    {
-      "id": "675a8068-f4fe-476e-b6f5-6a0965e2c5b9",
-      "name": "Bonita Fairways",
-      "city": "Bonita Springs",
+      "id": "6d69e238-3eb1-4c9e-a3de-ec34583ffde6",
+      "name": "Aberdeen Golf Country Club",
+      "city": "Boynton Beach",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -509,9 +68,66 @@
       "holes": []
     },
     {
-      "id": "3cb5c6ed-20fd-4ac0-a6f3-8ccb0886c794",
-      "name": "Bonita National Golf Country Club",
-      "city": "Bonita Springs",
+      "id": "c49915cf-db09-48b9-9da9-455573b26148",
+      "name": "Addison Reserve Country Club",
+      "city": "Delray Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 27,
+      "unique_holes": 9,
+      "duplicate_holes": [
+        {
+          "hole_number": 1,
+          "candidates": 3,
+          "selected_way_id": 1223808331
+        },
+        {
+          "hole_number": 2,
+          "candidates": 3,
+          "selected_way_id": 1223808332
+        },
+        {
+          "hole_number": 3,
+          "candidates": 3,
+          "selected_way_id": 1223808333
+        },
+        {
+          "hole_number": 4,
+          "candidates": 3,
+          "selected_way_id": 1223808334
+        },
+        {
+          "hole_number": 5,
+          "candidates": 3,
+          "selected_way_id": 1223808335
+        },
+        {
+          "hole_number": 6,
+          "candidates": 3,
+          "selected_way_id": 1223808336
+        },
+        {
+          "hole_number": 7,
+          "candidates": 3,
+          "selected_way_id": 1223808337
+        },
+        {
+          "hole_number": 8,
+          "candidates": 3,
+          "selected_way_id": 1223808338
+        },
+        {
+          "hole_number": 9,
+          "candidates": 3,
+          "selected_way_id": 1223808339
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "c9043af5-8ff4-4fa6-a1fc-15bf919d7a5c",
+      "name": "Adios Golf Club",
+      "city": "Coconut Creek",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -520,51 +136,128 @@
       "holes": []
     },
     {
-      "id": "8c022ac4-2ee0-4e80-99ae-2fc253553b47",
-      "name": "Breckenridge Golf Tennis Club",
-      "city": "Estero",
+      "id": "a9a8ce4e-a1ef-4ea4-80e0-17c8acaf5509",
+      "name": "Admirals Cove East Course",
+      "city": "Jupiter",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 11,
-      "unique_holes": 11,
+      "unique_holes": 7,
+      "duplicate_holes": [
+        {
+          "hole_number": 3,
+          "candidates": 3,
+          "selected_way_id": 1275253832
+        },
+        {
+          "hole_number": 6,
+          "candidates": 2,
+          "selected_way_id": 1275253835
+        },
+        {
+          "hole_number": 7,
+          "candidates": 2,
+          "selected_way_id": 1275253836
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "612a2e07-c339-41b3-9391-c202143751de",
+      "name": "Admirals Cove Golf Village North Course",
+      "city": "Jupiter",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 7,
+      "unique_holes": 7,
       "duplicate_holes": [],
       "holes": []
     },
     {
-      "id": "f3d8865d-58c7-4835-b4fa-d88dd564098d",
-      "name": "Broken Sound Club Club Course",
-      "city": "Boca Raton",
+      "id": "73b9c338-990a-45ca-9bf9-653f89558450",
+      "name": "Admirals Cove Golf Village South Course",
+      "city": "Jupiter",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 7,
+      "unique_holes": 7,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "65326f4d-7e47-4b5b-a519-6eaf5e3f86ae",
+      "name": "Admirals Cove Golf Village West Course",
+      "city": "Jupiter",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 7,
+      "unique_holes": 7,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "594546eb-d765-4255-bf1f-451fdbb62f52",
+      "name": "Alaqua Country Club",
+      "city": "Longwood",
       "expected": 18,
       "status": "unresolved",
-      "raw_way_count": 1,
-      "unique_holes": 1,
+      "raw_way_count": 0,
+      "unique_holes": 0,
       "duplicate_holes": [],
       "holes": []
     },
     {
-      "id": "15515ab3-3a20-4e94-a3d2-f06ef3337815",
-      "name": "Broken Sound Club Old Course",
-      "city": "Boca Raton",
+      "id": "b749a671-cf18-4518-b920-bc4cedabb596",
+      "name": "Alden Pines Country Club",
+      "city": "Bokeelia",
       "expected": 18,
       "status": "unresolved",
-      "raw_way_count": 1,
-      "unique_holes": 1,
+      "raw_way_count": 0,
+      "unique_holes": 0,
       "duplicate_holes": [],
       "holes": []
     },
     {
-      "id": "25912100-1604-4e6b-a5da-b988e4256822",
-      "name": "Burnt Pine At Sandestin Golf And Beach Resort",
-      "city": "Miramar Beach",
+      "id": "3bbbfd98-6ee5-48ef-807f-32152a5048c4",
+      "name": "Alico Family Golf Short Course",
+      "city": "Fort Myers",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "0c79d696-14d8-4536-9597-c533d8ccf4d4",
+      "name": "Amelia Caroline At Mallory Hill Golf Course",
+      "city": "Lady Lake",
       "expected": 18,
       "status": "fetch_error",
       "reason": "Error: OSM map 400",
       "holes": []
     },
     {
-      "id": "019bcd10-9d00-4c96-a45b-b26255334aeb",
-      "name": "Cabot Citrus Farms Karoo Course",
-      "city": "Brooksville",
+      "id": "0122f028-908a-4667-a72c-445fe5981e74",
+      "name": "Amelia National Golf And Country Club",
+      "city": "Nassauville",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 17,
+      "unique_holes": 16,
+      "duplicate_holes": [
+        {
+          "hole_number": 2,
+          "candidates": 2,
+          "selected_way_id": 1420827832
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "6a2e3a83-8fa5-4fc2-8b01-5f9857aeee51",
+      "name": "American Golf Club",
+      "city": "Vero Beach",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -573,20 +266,9 @@
       "holes": []
     },
     {
-      "id": "20f35d52-7006-42f8-9466-4cb38d9982c1",
-      "name": "Cabot Citrus Farms The Roost Course",
-      "city": "Brooksville",
-      "expected": 18,
-      "status": "unresolved",
-      "raw_way_count": 0,
-      "unique_holes": 0,
-      "duplicate_holes": [],
-      "holes": []
-    },
-    {
-      "id": "a606c15a-7338-4516-a3a9-ccea989fb370",
-      "name": "Cabot Citrus Farms The Squeeze Course",
-      "city": "Brooksville",
+      "id": "96de5541-d7a3-41d4-a06e-e553c8a91dd4",
+      "name": "American Golf Club Vero Beach Blue Course",
+      "city": "Vero Beach",
       "expected": 9,
       "status": "unresolved",
       "raw_way_count": 0,
@@ -595,9 +277,410 @@
       "holes": []
     },
     {
-      "id": "8e7af3f1-2703-4ed7-bb59-5ac7ac211f9a",
-      "name": "Cabot Citrus Farms The Wedge Course",
-      "city": "Brooksville",
+      "id": "b1cb0a2b-f265-4e1c-8d04-a2bcf69217a2",
+      "name": "American Golf Club Vero Beach White Course",
+      "city": "Vero Beach",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "5579ba5b-dac3-4bd4-8b26-eda133055b81",
+      "name": "Anglers Green",
+      "city": "Mulberry",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "892c81c9-f94e-4d8a-a129-be0f4bc88214",
+      "name": "Apogee Golf Club South",
+      "city": "Indiantown",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "a821a377-ddb7-46ea-ba07-e3e93cd8bdad",
+      "name": "Apogee Golf Club West Couse",
+      "city": "Indiantown",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "13769b8f-cf4a-486f-8775-d4fd51acd830",
+      "name": "Apollo Beach Golf Sea Club",
+      "city": "Apollo Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "93f3db12-3cd4-4843-ad26-b9d9bd3b7f73",
+      "name": "Arcadia Municipal Golf Course",
+      "city": "Arcadia",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "434e112d-4e5c-42a7-bc43-709047426aba",
+      "name": "Arcadia Village Country Club",
+      "city": "Arcadia",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "3af8bb9e-e016-4b59-a25d-7c2bac4aadb6",
+      "name": "Ardea Country Club North Course",
+      "city": "Oldsmar",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "ba69d2a3-4606-4335-8b20-2cbb5aff1af0",
+      "name": "Ardea Country Club South Course",
+      "city": "Oldsmar",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "eeed29d0-ee2e-469d-bd68-cf54551dfd22",
+      "name": "Arrowhead Golf Course",
+      "city": "Naples",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "a14ee94e-e62c-4e1b-bdf3-e2e1736c5fd3",
+      "name": "Ashley Torri At Nancy Lopez Legacy Golf Country Club",
+      "city": "The Villages",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 52,
+      "unique_holes": 9,
+      "duplicate_holes": [
+        {
+          "hole_number": 1,
+          "candidates": 5,
+          "selected_way_id": 1220134125
+        },
+        {
+          "hole_number": 2,
+          "candidates": 5,
+          "selected_way_id": 1220134135
+        },
+        {
+          "hole_number": 3,
+          "candidates": 6,
+          "selected_way_id": 1220299495
+        },
+        {
+          "hole_number": 4,
+          "candidates": 6,
+          "selected_way_id": 1220134137
+        },
+        {
+          "hole_number": 5,
+          "candidates": 6,
+          "selected_way_id": 1220299497
+        },
+        {
+          "hole_number": 6,
+          "candidates": 6,
+          "selected_way_id": 1220299498
+        },
+        {
+          "hole_number": 7,
+          "candidates": 6,
+          "selected_way_id": 1220299499
+        },
+        {
+          "hole_number": 8,
+          "candidates": 6,
+          "selected_way_id": 1220299500
+        },
+        {
+          "hole_number": 9,
+          "candidates": 6,
+          "selected_way_id": 1220299494
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "eee4211e-0dd9-411c-b90f-7fada60589b3",
+      "name": "Astor Creek Golf Country Club",
+      "city": "Port St. Lucie",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "ec45d3ec-9c45-4333-b2d3-158d43712814",
+      "name": "Atkinson Resort Country Club Par 3 Course",
+      "city": null,
+      "expected": 9,
+      "status": "fetch_error",
+      "reason": "Missing catalog coordinates",
+      "holes": []
+    },
+    {
+      "id": "253704d9-4284-4638-bece-59e148d2441d",
+      "name": "Atlantic Beach Country Club",
+      "city": "Atlantic Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "ce7f09fa-503c-4896-bfbd-7494bd9283ba",
+      "name": "Atlantis Country Club",
+      "city": "Atlantis",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 19,
+      "unique_holes": 16,
+      "duplicate_holes": [
+        {
+          "hole_number": 1,
+          "candidates": 2,
+          "selected_way_id": 1554386486
+        },
+        {
+          "hole_number": 2,
+          "candidates": 2,
+          "selected_way_id": 1554386480
+        },
+        {
+          "hole_number": 3,
+          "candidates": 2,
+          "selected_way_id": 1554386472
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "732d6245-4335-4ffd-9df1-be922c74e073",
+      "name": "Audubon Country Club",
+      "city": "Naples",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "68a0a8d5-6946-4c2b-9f5e-77f5071be6ea",
+      "name": "Azalea Boganvilia Golf Course At Cleveland Heights Golf Club",
+      "city": "Lakeland",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "e1268256-98a9-47d5-a6c2-662029741d89",
+      "name": "Azalea Camelia Golf Course At Cleveland Heights Golf Club",
+      "city": "Lakeland",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "4f08ecb3-ad18-4792-9978-e08f67d0d1fe",
+      "name": "Babe Zaharias Golf Course",
+      "city": "Tampa",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "21eed2c9-24e0-47a2-848a-732e6cce2778",
+      "name": "BallenIsles",
+      "city": "North Palm Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "2c92528d-0446-42a2-a5a1-341719507095",
+      "name": "Ballenisles Country Club East Course",
+      "city": "Palm Beach Gardens",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 3,
+      "unique_holes": 3,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "4093ba74-d6ad-4103-8b4f-5bf9b470319f",
+      "name": "Ballenisles Country Club North Course",
+      "city": "Palm Beach Gardens",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 3,
+      "unique_holes": 3,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "34709265-9a76-4131-bc93-db3b2d71f5d0",
+      "name": "Ballenisles Country Club South Course",
+      "city": "Palm Beach Gardens",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 3,
+      "unique_holes": 3,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "a75e173b-256d-4138-ada7-3f9e4a337e49",
+      "name": "Banyan Cay",
+      "city": "West Palm Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "dd483f70-ce94-460e-bc6a-47f5e34b403d",
+      "name": "Banyan Creek Golf Club",
+      "city": "Palm City",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "1b88c289-a049-49a2-8df8-aae9dfe31e10",
+      "name": "Barefoot Bay Golf Course",
+      "city": "Micco",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "f91dce56-d236-47a1-98ff-5c2bba075853",
+      "name": "Barefoot Bay Golf Recreation Park",
+      "city": "Barefoot Bay",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "d2a0f14a-9122-4fb3-894a-c1aab536e6c6",
+      "name": "Bartow Golf Course",
+      "city": "Bartow",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 0,
+      "unique_holes": 0,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "3e0f9a55-df44-44d0-8370-6d310253219e",
+      "name": "Bay Colony Golf Club",
+      "city": "Naples",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 6,
+      "unique_holes": 4,
+      "duplicate_holes": [
+        {
+          "hole_number": 3,
+          "candidates": 2,
+          "selected_way_id": 1042715088
+        },
+        {
+          "hole_number": 4,
+          "candidates": 2,
+          "selected_way_id": 1042715096
+        }
+      ],
+      "holes": []
+    },
+    {
+      "id": "567ff501-25d0-49da-9cca-2962c7fd174c",
+      "name": "Bay Hill Club Lodge Charger Course",
+      "city": "Orlando",
+      "expected": 9,
+      "status": "unresolved",
+      "raw_way_count": 7,
+      "unique_holes": 7,
+      "duplicate_holes": [],
+      "holes": []
+    },
+    {
+      "id": "bea099ed-c1fe-4846-9d3d-bb0a699d17b2",
+      "name": "Bay Island At Bonita Bay Club",
+      "city": "Bonita Springs",
       "expected": 18,
       "status": "unresolved",
       "raw_way_count": 0,
