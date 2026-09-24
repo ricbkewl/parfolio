@@ -9,6 +9,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: florida-tee-green-batch
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -85,11 +89,10 @@ jobs:
             throw err;
           }
 
-          const out=[];
-          for(const [id,name,city,lat,lng,expected] of courses){
+          async function processCourse([id,name,city,lat,lng,expected]){
             const d=expected===9?0.012:0.016;
             const bbox=`${lat-d},${lng-d},${lat+d},${lng+d}`;
-            const q=`[out:json][timeout:30];way["golf"="hole"](${bbox});out tags geom;`;
+            const q=`[out:json][timeout:22];way["golf"="hole"](${bbox});out tags geom;`;
             try{
               const data=await get(q);
               const rows=(data.elements||[]).filter(w=>w.type==="way"&&Array.isArray(w.geometry)&&w.geometry.length>=2).map(w=>{
@@ -109,10 +112,20 @@ jobs:
               const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
               const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
               const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
-              out.push({id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]});
-            }catch(e){out.push({id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]});}
-            await sleep(750);
+              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]};
+            }catch(e){return {id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]};}
           }
+          const out=new Array(courses.length);
+          let next=0;
+          async function worker(){
+            while(true){
+              const i=next++;
+              if(i>=courses.length) return;
+              out[i]=await processCourse(courses[i]);
+              await sleep(250);
+            }
+          }
+          await Promise.all(Array.from({length:6},()=>worker()));
           await fs.mkdir("data",{recursive:true});
           await fs.writeFile("data/fl-tee-green-results.json",JSON.stringify({generated_at:new Date().toISOString(),courses:out},null,2));
           NODE
