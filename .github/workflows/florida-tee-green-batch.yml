@@ -30,403 +30,403 @@ jobs:
 
           const courses = [
                     [
-                              "9be9289c-857f-4004-b077-e7733e4e2868",
-                              "Championship At Seven Springs Country Club",
-                              "New Port Richey",
-                              28.211031,
-                              -82.6596829,
+                              "3b9a4bdb-b64a-4dd8-979a-d13ac6184dd3",
+                              "Crescent Oaks Country Club",
+                              "Tarpon Springs",
+                              28.159418,
+                              -82.68852,
                               18
                     ],
                     [
-                              "ec39b447-c298-489d-85d8-13bb10e15611",
-                              "Cheeca Lodge",
-                              "Islamorada",
-                              24.916591,
-                              -80.6338821,
+                              "747bfe1f-4bee-44f5-b93c-458fa4854f38",
+                              "Crooked Cat At Orange County National",
+                              "Winter Garden",
+                              28.4433799,
+                              -81.6290262,
                               18
                     ],
                     [
-                              "0ea1a1d2-8092-49d9-8eae-72b0934d2e75",
-                              "Cherry Hills Course At Palmer Legends",
-                              "The Villages",
-                              28.9101941,
-                              -81.9932891,
+                              "f5742268-6f9e-4769-bfb4-70b1298c883c",
+                              "Cross Creek Golf Club",
+                              "Fort Myers",
+                              26.5548013,
+                              -81.8273491,
                               9
                     ],
                     [
-                              "d9369fa4-b916-4a31-80a7-0a7eb6b07653",
-                              "Cheval Golf & Country Club",
-                              "Cheval",
-                              28.1497178,
-                              -82.5136583,
+                              "2457db09-a539-46bf-baf9-88f132121c4b",
+                              "Crown Colony Golf Country Club",
+                              "Fort Myers",
+                              26.5028591,
+                              -81.8896731,
                               18
                     ],
                     [
-                              "9b3b9c84-0bd8-4d4a-b00c-369c3dd45ad9",
-                              "Cheval Golf And Athletic Club",
-                              "Lutz",
-                              28.1500127,
-                              -82.5072091,
+                              "e90847cd-4a2c-4c47-808c-7660a3f4d40b",
+                              "Crystal Lake Club",
+                              "Avon Park",
+                              27.5536054,
+                              -81.4880448,
                               18
                     ],
                     [
-                              "1f6963e7-e2f5-4374-8c71-387396dfc450",
-                              "Chiefland Golf Country Club",
-                              "Chiefland",
-                              29.4953937,
-                              -82.9329376,
+                              "19558e0f-0fae-4e6c-9365-ac910173b354",
+                              "Crystal Lake Country Club - Tam O'Shanter Golf Course (closed)",
+                              "Deerfield Beach",
+                              26.2877882,
+                              -80.1418137,
                               18
                     ],
                     [
-                              "129a5c42-611e-49c5-8647-0ed9fd659a74",
-                              "Chula Vista At The Villages Executive Golf Trail",
-                              "Lady Lake",
-                              28.9293822,
-                              -81.9471074,
-                              9
-                    ],
-                    [
-                              "be9eecb0-170c-4b70-bff3-7e057ab9e3d9",
-                              "Churchill Greens At The Villages Executive Golf Trail",
-                              "The Villages",
-                              28.9198585,
-                              -82.0183792,
-                              9
-                    ],
-                    [
-                              "67a9d36e-4a13-4e20-913f-33777d8ba60c",
-                              "Citrus Hills Golf Country Club Meadows Course",
-                              "Hernando",
-                              28.8872814,
-                              -82.4264068,
+                              "efab9f8d-2b49-4e6e-8036-e44fc9d53e51",
+                              "Cypress At Palm Aire Country Club",
+                              "Pompano Beach",
+                              26.219146,
+                              -80.17728,
                               18
                     ],
                     [
-                              "9a64a44e-c79f-4a3f-a1e3-12224f4c35e4",
-                              "Citrus Hills Golf Country Club Oaks Course",
-                              "Hernando",
-                              28.8872814,
-                              -82.4264068,
-                              18
-                    ],
-                    [
-                              "c5c5efe5-55bc-4d29-81d9-0aed00f395a2",
-                              "Citrus National Golf Club",
-                              "Homosassa",
-                              28.7230534,
-                              -82.5082359,
-                              18
-                    ],
-                    [
-                              "263e0a44-bb90-4615-959f-71a682bfed42",
-                              "Citrus Springs Golf Country Club",
-                              "Citrus Springs",
-                              28.9885787,
-                              -82.4712677,
-                              18
-                    ],
-                    [
-                              "db316e39-fc33-41eb-8616-1d4585d39e61",
-                              "Classic At Suntree Country Club",
-                              "Melbourne",
-                              28.2252141,
-                              -80.6803042,
-                              18
-                    ],
-                    [
-                              "6a15683e-8248-4fdf-83e8-59d6a1520e21",
-                              "Clearwater Country Club",
-                              "Clearwater",
-                              27.9714647,
-                              -82.7819421,
-                              18
-                    ],
-                    [
-                              "2ff0a2cb-05ad-4292-a4b8-06cb35ffc986",
-                              "Clerbrook Golf Rv Resort",
-                              "Clermont",
-                              28.6380102,
-                              -81.7874657,
-                              18
-                    ],
-                    [
-                              "9916e5ab-c4b2-4ede-8053-ca79f02f5153",
-                              "Clermont National Golf Course",
-                              "Clermont",
-                              28.5563224,
-                              -81.7055847,
-                              18
-                    ],
-                    [
-                              "3fd44420-e695-4029-ab89-81468cdb6d35",
-                              "Cleveland Heights Golf Course",
-                              "Lakeland",
-                              28.0057817,
-                              -81.9425939,
-                              18
-                    ],
-                    [
-                              "f2cd934d-55c3-41e5-892f-b335e69ed57f",
-                              "Clewiston Golf Course",
-                              "Clewiston",
-                              26.7437882,
-                              -80.9507371,
-                              18
-                    ],
-                    [
-                              "9bb41235-2be7-4f35-8ea2-25988c14663a",
-                              "Club Adena",
-                              "Ocala",
-                              29.25967,
-                              -82.1414202,
-                              18
-                    ],
-                    [
-                              "0ab20fc3-eeab-45c6-b948-9716cf48f5bf",
-                              "Club At Hidden Creek The",
-                              "Navarre",
-                              30.437728,
-                              -86.9244505,
-                              18
-                    ],
-                    [
-                              "18ba0524-1a44-450b-babb-ee9578d2600a",
-                              "Club at Pelican Bay South Course",
-                              "Daytona Beach",
-                              29.1456583,
-                              -81.0534068,
-                              18
-                    ],
-                    [
-                              "1d0d32e6-c6cc-46fa-94ec-8fe73dc235dd",
-                              "Club At Polo Club The",
-                              "Boca Raton",
-                              26.4195549,
-                              -80.1281689,
-                              18
-                    ],
-                    [
-                              "6ff3cf3b-e7ae-4c68-bda9-e39934ac4582",
-                              "Club Med Sandpiper Bay",
-                              "Port St. Lucie",
-                              27.244491,
-                              -80.3101354,
-                              18
-                    ],
-                    [
-                              "b8699fda-0619-41e1-9bbf-5ad79744a313",
-                              "Club Pelican Bay",
+                              "06c2889c-308c-4dea-bb53-4dd76e2427d0",
+                              "Cypress At Royal Poinciana Golf Club",
                               "Naples",
-                              26.2367272,
-                              -81.8079537,
+                              26.1965228,
+                              -81.7795811,
                               18
                     ],
                     [
-                              "3f76d94f-f4db-463b-8ae0-15b4c27622f0",
-                              "Colliers Reserve Country Club",
-                              "Naples",
-                              26.2818818,
-                              -81.7949729,
-                              18
-                    ],
-                    [
-                              "287b2606-9875-40d9-8501-f953641be526",
-                              "Colony West Golf Club - Championship Course",
+                              "f835000c-2870-4c88-b904-c07c6e64d46a",
+                              "Cypress At Woodmont Country Club",
                               "Tamarac",
-                              26.2045704,
-                              -80.2608106,
+                              26.2216061,
+                              -80.2633194,
                               18
                     ],
                     [
-                              "fcbc3ad2-5934-42f2-93b0-003b39a95d17",
-                              "Colony West Golf Club - Glades Course",
-                              "Tamarac",
-                              26.2038161,
-                              -80.2763964,
+                              "add8c5af-4304-441e-983a-93911062a84a",
+                              "Cypress Course",
+                              "Pompano Beach",
+                              26.2143455,
+                              -80.1799949,
                               18
                     ],
                     [
-                              "ecaec575-b808-4637-ac7c-31e85158c951",
-                              "Continental Country Club",
-                              "Wildwood",
-                              28.8216734,
-                              -81.9867774,
-                              18
-                    ],
-                    [
-                              "3673698d-17de-4ac3-88c2-683a4b63a5aa",
-                              "Cooper Colony Country Club",
-                              "Cooper City",
-                              26.0577009,
-                              -80.2700675,
-                              18
-                    ],
-                    [
-                              "c683fce9-505d-4331-b8ba-bbf1c89df89f",
-                              "Copperleaf Golf Club",
-                              "Bonita Springs",
-                              26.4026371,
-                              -81.7810883,
-                              18
-                    ],
-                    [
-                              "248a470a-032d-4927-b7e3-e49b7122b963",
-                              "Coral Creek Club",
-                              "Placida",
-                              26.8398426,
-                              -82.2657298,
-                              18
-                    ],
-                    [
-                              "401bd15b-27f8-4a46-8c9a-195f57411c6b",
-                              "Coral Oaks Golf Course",
-                              "Cape Coral",
-                              26.6851534,
-                              -82.0309765,
-                              18
-                    ],
-                    [
-                              "5261693c-f778-4c47-924e-5107f3b9fe5d",
-                              "Coral Ridge Country Club Rees 9",
-                              "Fort Lauderdale",
-                              26.1755733,
-                              -80.1069346,
-                              9
-                    ],
-                    [
-                              "d8fc3bd1-ddbe-4bf9-873b-f70bb13fd874",
-                              "Country Club Of Florida",
-                              "Boynton Beach",
-                              26.504377,
-                              -80.1033358,
-                              18
-                    ],
-                    [
-                              "e550db08-0d54-4d64-8e82-cbad7eea91ea",
-                              "Country Club Of Miami East",
-                              "Hialeah",
-                              25.9436769,
-                              -80.3135786,
-                              18
-                    ],
-                    [
-                              "8373e96d-a8e8-458a-8065-eb2b58fdd83a",
-                              "Country Club Of Miami West",
-                              "Hialeah",
-                              25.9436769,
-                              -80.3135786,
-                              18
-                    ],
-                    [
-                              "fa780c67-8dd8-4f0b-a986-5bbe32a954d9",
-                              "Country Club Of Naples",
-                              "Naples",
-                              26.2043104,
-                              -81.7861695,
-                              18
-                    ],
-                    [
-                              "e6166f58-59a9-4aef-93ac-0a78654a1bcb",
-                              "Country Club of Orange Park",
-                              "Bellair-Meadowbrook Terrace",
-                              30.1746676,
-                              -81.7662805,
-                              18
-                    ],
-                    [
-                              "57ff0c9b-ede6-4af2-b891-513c276f417c",
-                              "Country Club Of Sebring",
-                              "Sebring",
-                              27.4482647,
-                              -81.5233761,
-                              18
-                    ],
-                    [
-                              "2a282790-2f8c-4f5d-9dd7-20064d32d0d2",
-                              "Country Club Of Winter Haven",
-                              "Winter Haven",
-                              28.0363635,
-                              -81.6581965,
-                              18
-                    ],
-                    [
-                              "95c3d4b9-9433-4a91-8743-c6f7a8af4b80",
-                              "Countryside Golf Club",
-                              "Naples",
-                              26.141877,
-                              -81.724395,
-                              18
-                    ],
-                    [
-                              "562fa24b-de17-4af9-9860-2e3b82df7cda",
-                              "Countryway Golf Club",
-                              "Tampa",
-                              28.0345726,
-                              -82.6071238,
-                              18
-                    ],
-                    [
-                              "06026e9d-7275-4d85-a60e-8d9f7bfa7f26",
-                              "Cove Cay Golf Club",
-                              "Clearwater",
-                              27.934406,
-                              -82.722378,
-                              18
-                    ],
-                    [
-                              "7e17c2ad-76e9-4e2b-939b-48504d6eb8d4",
-                              "Crane Lakes Golf Country Club",
-                              "Port Orange",
-                              29.105411,
-                              -81.0558204,
-                              18
-                    ],
-                    [
-                              "a416f010-81c1-4d4f-953c-0bcbc0e62b83",
-                              "Crane Watch Club",
-                              "Palm City",
-                              27.200816,
-                              -80.312117,
-                              18
-                    ],
-                    [
-                              "731c1491-2b31-4386-ae6e-5f0aec71cc64",
-                              "Crane's Bend",
-                              "Four Corners",
-                              28.3514999,
-                              -81.6251676,
-                              18
-                    ],
-                    [
-                              "f1d80cdc-5bbb-4113-a186-7b02935a93e0",
-                              "Cranes Bend At Orange Lake Resort",
+                              "d50fd7f6-d602-4141-b655-2cc705b81d7b",
+                              "Cypress Course At Stonegate Golf Club",
                               "Kissimmee",
-                              28.3688919,
-                              -81.60375,
-                              9
-                    ],
-                    [
-                              "13f1d009-6649-4e07-8200-13f804d3e8a4",
-                              "Creek At Quail Creek Country Club",
-                              "Naples",
-                              26.2958874,
-                              -81.7296689,
+                              28.1360381,
+                              -81.4818024,
                               18
                     ],
                     [
-                              "321dd98e-baf9-4c54-8783-22af9562a29c",
-                              "Creeks Golf Course At Quail Heights Country Club",
-                              "Lake City",
-                              30.169127,
-                              -82.675478,
+                              "a731a657-ca6f-44eb-a499-bdc0a236d1a6",
+                              "Cypress Greens Golf Tennis Community",
+                              "Fort Myers",
+                              26.5395116,
+                              -81.8972163,
                               9
                     ],
                     [
-                              "08c9f3bc-410d-4634-bea5-a75c2e9b171e",
-                              "Creekside At Bonita Bay Club",
-                              "Bonita Springs",
-                              26.3522004,
-                              -81.8136528,
+                              "db0518c7-7c20-4042-a4b1-e116b76395ce",
+                              "Cypress Head Golf Club",
+                              "Port Orange",
+                              29.0660341,
+                              -81.0216169,
+                              18
+                    ],
+                    [
+                              "a1add574-01b2-472b-b62d-7cc0f782020a",
+                              "Cypress Knoll Golf Country Club",
+                              "Palm Coast",
+                              29.4878033,
+                              -81.2336192,
+                              18
+                    ],
+                    [
+                              "5390eb03-3a05-473f-9bc3-10f9eba540c1",
+                              "Cypress Lake Country Club",
+                              "Fort Myers",
+                              26.5395116,
+                              -81.8972163,
+                              18
+                    ],
+                    [
+                              "6402c3b7-599c-4a38-9aff-2567c9ef26f9",
+                              "Cypress Lakes Homeowners Golf Course",
+                              "West Palm Beach",
+                              26.7318831,
+                              -80.1240178,
+                              18
+                    ],
+                    [
+                              "d8aa31af-d967-4d01-b267-aa204cad52f4",
+                              "Cypress Links At Mangrove Bay",
+                              "St. Petersburg",
+                              27.8334107,
+                              -82.6272216,
+                              9
+                    ],
+                    [
+                              "b33ee8fe-e7bf-4ec2-902b-0c542f647eef",
+                              "Cypress Links Course",
+                              "Lakewood Ranch",
+                              27.4053309,
+                              -82.4052251,
+                              18
+                    ],
+                    [
+                              "41e9257e-9469-4788-be04-f27ec8d28f9d",
+                              "Cypress Point Golf Club",
+                              "Osteen",
+                              28.847627,
+                              -81.1411499,
+                              18
+                    ],
+                    [
+                              "24cbbaf8-c10d-4445-b993-e5497576567c",
+                              "Cypress Point Rv Golf Club",
+                              "Osteen",
+                              28.8483276,
+                              -81.1420822,
+                              9
+                    ],
+                    [
+                              "cb5543d5-841d-42ba-9dbc-b730cb77d443",
+                              "Cypress Woods Golf Country Club",
+                              "Naples",
+                              26.2929611,
+                              -81.7413496,
+                              18
+                    ],
+                    [
+                              "2d86097e-5fbb-4405-9842-b9eda27a492f",
+                              "Cypresswood Golf Country Club",
+                              "Winter Haven",
+                              28.0142947,
+                              -81.6486899,
+                              18
+                    ],
+                    [
+                              "4d0f5f48-3c80-4f34-81c2-fba364d3c0c3",
+                              "De La Vista At The Villages Executive Golf Trail",
+                              "The Villages",
+                              28.9345629,
+                              -81.9694934,
+                              9
+                    ],
+                    [
+                              "a295651c-b380-4b21-a15a-0d5b2c21e9c1",
+                              "Deep Creek Golf Club",
+                              "Punta Gorda",
+                              27.0104174,
+                              -82.0137446,
+                              18
+                    ],
+                    [
+                              "72e4eebe-5ebb-47de-ba03-5a349f577da1",
+                              "Deer Creek Golf Club",
+                              "Deerfield Beach",
+                              26.32073,
+                              -80.141914,
+                              18
+                    ],
+                    [
+                              "9eb10512-b6d5-49f6-838b-b4cb5f9b9c85",
+                              "Deer Creek Rv Golf Country Club",
+                              "Davenport",
+                              28.219614,
+                              -81.6380233,
+                              18
+                    ],
+                    [
+                              "ff896fd2-98e7-44de-a619-870af782b3dd",
+                              "Deer Island Country Club",
+                              "Tavares",
+                              28.7811613,
+                              -81.6565682,
+                              18
+                    ],
+                    [
+                              "0e6de7da-cbd2-4288-9fec-286f59d7843c",
+                              "Deer Run At Sun N Lake Golf Country Club",
+                              "Sebring",
+                              27.5323028,
+                              -81.5182342,
+                              18
+                    ],
+                    [
+                              "8b01a162-1776-4b20-bf66-f574b28ab2d2",
+                              "Deer Run Course",
+                              "Sebring",
+                              27.5345491,
+                              -81.5251526,
+                              18
+                    ],
+                    [
+                              "9e4ef1f0-a755-4f51-a33a-9e357854137e",
+                              "Deerwood Club The",
+                              "Jacksonville",
+                              30.225826,
+                              -81.5455987,
+                              18
+                    ],
+                    [
+                              "8d9260c7-6a6a-4769-afc5-402cfd9e750c",
+                              "Del Tura Golf Country Club North West",
+                              "North Fort Myers",
+                              26.7325603,
+                              -81.9158336,
+                              18
+                    ],
+                    [
+                              "3bf89b34-c343-460c-9aa8-4a104a57e9e1",
+                              "Del Tura Golf Country Club South North",
+                              "North Fort Myers",
+                              26.7325603,
+                              -81.9158336,
+                              18
+                    ],
+                    [
+                              "77d132c8-adf1-4eae-9dde-34ae330bbfee",
+                              "Del Tura Golf Country Club West South",
+                              "North Fort Myers",
+                              26.7325603,
+                              -81.9158336,
+                              18
+                    ],
+                    [
+                              "d32230c8-b895-45db-b0d7-2a3b09d7b4f1",
+                              "Delaire Country Club Hills Woods",
+                              "Delray Beach",
+                              26.4285661,
+                              -80.1152032,
+                              18
+                    ],
+                    [
+                              "09d12e8c-111f-4000-8a33-5a4ade0c1a00",
+                              "Delaire Country Club Lakes Hills",
+                              "Delray Beach",
+                              26.4285661,
+                              -80.1152032,
+                              18
+                    ],
+                    [
+                              "b118d151-f289-4cfa-bfff-955ae4de451a",
+                              "Delaire Country Club Woods Lakes",
+                              "Delray Beach",
+                              26.4285661,
+                              -80.1152032,
+                              18
+                    ],
+                    [
+                              "cb1d5846-dccf-46c4-8895-ba6b6b1b04fc",
+                              "Delray Beach Golf Club",
+                              "Delray Beach",
+                              26.4519564,
+                              -80.097697,
+                              18
+                    ],
+                    [
+                              "bd90d524-ac9d-42e9-9aae-b1e85ac3eec6",
+                              "Delray Dunes Golf Country Club",
+                              "Boynton Beach",
+                              26.498239,
+                              -80.1162662,
+                              18
+                    ],
+                    [
+                              "cccf7608-6932-4c0a-b59c-94c6753bc8c6",
+                              "Diamond Dunes At Black Diamond Ranch Golf Country Club",
+                              "Lecanto",
+                              28.9073928,
+                              -82.4898582,
+                              18
+                    ],
+                    [
+                              "c703bb8f-ca58-4808-923c-a39fc986a3b6",
+                              "Disneys Lake Buena Vista Golf Course",
+                              "Lake Buena Vista",
+                              28.375684,
+                              -81.522828,
+                              18
+                    ],
+                    [
+                              "91e5cfa8-de31-47ad-b921-317624c0574c",
+                              "Disneys Magnolia Golf Course",
+                              "Lake Buena Vista",
+                              28.4035703,
+                              -81.5924024,
+                              18
+                    ],
+                    [
+                              "c6404305-be53-42e2-9ade-5d3317ea783f",
+                              "Disneys Oak Trail Golf Course",
+                              "Lake Buena Vista",
+                              28.4033169,
+                              -81.5924759,
+                              9
+                    ],
+                    [
+                              "42d1121c-4b34-4d46-bcf4-53a6a24f2e80",
+                              "Disneys Palm Golf Course",
+                              "Lake Buena Vista",
+                              28.4033823,
+                              -81.5923747,
+                              18
+                    ],
+                    [
+                              "dcc96ac8-3e8b-41a5-a8b2-b1e4df6da974",
+                              "Dogwood Lakes Golf Club",
+                              "Bonifay",
+                              30.857518,
+                              -85.7457466,
+                              18
+                    ],
+                    [
+                              "17138356-8b3c-4ec2-8b00-d0418f493fd0",
+                              "Dolphin At Ocean Reef Club",
+                              "Key Largo",
+                              25.3127883,
+                              -80.2786553,
+                              18
+                    ],
+                    [
+                              "3479c6be-cf92-4eba-8b4d-6696469d4214",
+                              "Dunedin Golf Club",
+                              "Dunedin",
+                              28.0424156,
+                              -82.777164,
+                              18
+                    ],
+                    [
+                              "ccaeedac-c7d6-4cd3-8faa-62ed4b2ec905",
+                              "Dunedin Stirling Links",
+                              "Dunedin",
+                              28.0430624,
+                              -82.776469,
+                              18
+                    ],
+                    [
+                              "d2b60db9-a9e8-4561-9092-72952c900ae4",
+                              "Dunes At Sandridge Golf Club",
+                              "Vero Beach",
+                              27.7274468,
+                              -80.439966,
+                              18
+                    ],
+                    [
+                              "ffd7bb67-95f6-40ca-8915-7c7849e33a8d",
+                              "Duran Golf Club Short Course",
+                              "Melbourne",
+                              28.2373726,
+                              -80.7360175,
+                              9
+                    ],
+                    [
+                              "a7b5c92b-f31e-404c-a39b-33c0093f8fdf",
+                              "Dutchmans Pipe Golf Club",
+                              "West Palm Beach",
+                              26.7354033,
+                              -80.0841692,
                               18
                     ]
           ];
