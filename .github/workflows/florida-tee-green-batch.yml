@@ -30,403 +30,403 @@ jobs:
 
           const courses = [
                     [
-                              "e12b3e79-4a1a-4e31-a941-ddf985c12b66",
-                              "1 10 At University Park Country Club",
-                              "University Park",
-                              27.4046791,
-                              -82.4740262,
+                              "8c022ac4-2ee0-4e80-99ae-2fc253553b47",
+                              "Breckenridge Golf Tennis Club",
+                              "Estero",
+                              26.4476129,
+                              -81.8229598,
                               18
                     ],
                     [
-                              "ae8fce56-0829-405b-af7d-2ea7cd59a35f",
-                              "10 19 At University Park Country Club",
-                              "University Park",
-                              27.4046791,
-                              -82.4740262,
-                              18
-                    ],
-                    [
-                              "64e34ad7-9603-4a21-ad59-807422ad4ef1",
-                              "19 1 At University Park Country Club",
-                              "University Park",
-                              27.4046791,
-                              -82.4740262,
-                              18
-                    ],
-                    [
-                              "9c72d3b4-c901-4fd9-aba7-839337ecfd62",
-                              "Abacoa Golf Club",
-                              "Jupiter",
-                              26.8885231,
-                              -80.1199148,
-                              18
-                    ],
-                    [
-                              "ea570233-572a-4fa9-ae60-d4ce7b1ef38f",
-                              "Abbey Course At St Leo University The",
-                              "St Leo",
-                              28.3343507,
-                              -82.2594556,
-                              18
-                    ],
-                    [
-                              "6d69e238-3eb1-4c9e-a3de-ec34583ffde6",
-                              "Aberdeen Golf Country Club",
-                              "Boynton Beach",
-                              26.5508484,
-                              -80.1518542,
-                              18
-                    ],
-                    [
-                              "c49915cf-db09-48b9-9da9-455573b26148",
-                              "Addison Reserve Country Club",
-                              "Delray Beach",
-                              26.4316367,
-                              -80.1588945,
-                              18
-                    ],
-                    [
-                              "c9043af5-8ff4-4fa6-a1fc-15bf919d7a5c",
-                              "Adios Golf Club",
-                              "Coconut Creek",
-                              26.3269138,
-                              -80.1740264,
-                              18
-                    ],
-                    [
-                              "a9a8ce4e-a1ef-4ea4-80e0-17c8acaf5509",
-                              "Admirals Cove East Course",
-                              "Jupiter",
-                              26.9086303,
-                              -80.0843953,
-                              18
-                    ],
-                    [
-                              "612a2e07-c339-41b3-9391-c202143751de",
-                              "Admirals Cove Golf Village North Course",
-                              "Jupiter",
-                              26.903945,
-                              -80.0974719,
+                              "74bd456c-7323-4305-b351-e51201b8c047",
+                              "Brentwood Farms Golf Club",
+                              "Lecanto",
+                              28.9004174,
+                              -82.4627187,
                               9
                     ],
                     [
-                              "73b9c338-990a-45ca-9bf9-653f89558450",
-                              "Admirals Cove Golf Village South Course",
-                              "Jupiter",
-                              26.903945,
-                              -80.0974719,
+                              "f3d8865d-58c7-4835-b4fa-d88dd564098d",
+                              "Broken Sound Club Club Course",
+                              "Boca Raton",
+                              26.3977945,
+                              -80.1352726,
+                              18
+                    ],
+                    [
+                              "15515ab3-3a20-4e94-a3d2-f06ef3337815",
+                              "Broken Sound Club Old Course",
+                              "Boca Raton",
+                              26.4006978,
+                              -80.1297207,
+                              18
+                    ],
+                    [
+                              "fad762ed-b28e-4777-a147-66249c02d2ee",
+                              "Brookridge Golf Country Club",
+                              "Brooksville",
+                              28.545756,
+                              -82.4918932,
+                              18
+                    ],
+                    [
+                              "efbc47fc-064f-47fa-9ebc-5465ecb507b6",
+                              "Buckhorn Springs Golf Country Club",
+                              "Valrico",
+                              27.9052984,
+                              -82.2428319,
+                              18
+                    ],
+                    [
+                              "a668d2db-f75b-4dec-b4d6-1e076ec933cf",
+                              "Buffalo Creek Golf Course",
+                              "Palmetto",
+                              27.5784473,
+                              -82.4826126,
+                              18
+                    ],
+                    [
+                              "25912100-1604-4e6b-a5da-b988e4256822",
+                              "Burnt Pine At Sandestin Golf And Beach Resort",
+                              "Miramar Beach",
+                              30.4006976,
+                              -86.3162433,
+                              18
+                    ],
+                    [
+                              "019bcd10-9d00-4c96-a45b-b26255334aeb",
+                              "Cabot Citrus Farms Karoo Course",
+                              "Brooksville",
+                              28.6833699,
+                              -82.4799318,
+                              18
+                    ],
+                    [
+                              "20f35d52-7006-42f8-9466-4cb38d9982c1",
+                              "Cabot Citrus Farms The Roost Course",
+                              "Brooksville",
+                              28.6833699,
+                              -82.4799318,
+                              18
+                    ],
+                    [
+                              "a606c15a-7338-4516-a3a9-ccea989fb370",
+                              "Cabot Citrus Farms The Squeeze Course",
+                              "Brooksville",
+                              28.6833699,
+                              -82.4799318,
                               9
                     ],
                     [
-                              "65326f4d-7e47-4b5b-a519-6eaf5e3f86ae",
-                              "Admirals Cove Golf Village West Course",
-                              "Jupiter",
-                              26.903945,
-                              -80.0974719,
+                              "8e7af3f1-2703-4ed7-bb59-5ac7ac211f9a",
+                              "Cabot Citrus Farms The Wedge Course",
+                              "Brooksville",
+                              28.6833699,
+                              -82.4799318,
+                              18
+                    ],
+                    [
+                              "5d315303-823f-4dda-bb3e-efe37be12d67",
+                              "Caloosa Golf Country Club",
+                              "Sun City Center",
+                              27.7322384,
+                              -82.3437864,
+                              18
+                    ],
+                    [
+                              "12c4b919-fafa-4a8a-a9f5-dcebe1b0bfc8",
+                              "Calusa Country Club",
+                              "Lakewood Ranch",
+                              27.438455,
+                              -82.342075,
+                              18
+                    ],
+                    [
+                              "16eba2cb-670e-4aa8-8051-67dd650029b9",
+                              "Calusa Country Club 12 Hole Course",
+                              "Lakewood Ranch",
+                              27.438455,
+                              -82.342075,
+                              18
+                    ],
+                    [
+                              "f9a764b6-bded-4c85-b7dc-95a817a151ed",
+                              "Calusa Lakes Golf Club",
+                              "Nokomis",
+                              27.162747,
+                              -82.4442035,
+                              18
+                    ],
+                    [
+                              "35cf6f93-b486-4000-8f3e-23d62731f7cf",
+                              "Calusa Pines Golf Club",
+                              "Naples",
+                              26.2635836,
+                              -81.6664427,
+                              18
+                    ],
+                    [
+                              "68df9587-8276-41f0-9c67-95ff1bcda9d9",
+                              "Camelia Boganvilia Golf Course At Cleveland Heights Golf Club",
+                              "Lakeland",
+                              28.010058,
+                              -81.945634,
+                              18
+                    ],
+                    [
+                              "d3a0ae4c-e0e0-4c0d-bd29-183a3f05a6e5",
+                              "Camp Creek Golf Club",
+                              "Inlet Beach",
+                              30.2969166,
+                              -86.040043,
+                              18
+                    ],
+                    [
+                              "955c9838-9f2f-4ec5-b7dd-a05da56cbf8b",
+                              "Camp Phosphate Co #1",
+                              "Citrus Springs",
+                              29.0089958,
+                              -82.4391268,
+                              18
+                    ],
+                    [
+                              "5738bd38-08df-45ba-8f45-0dc7616a2753",
+                              "Candler Hills Golf Club",
+                              "Ocala",
+                              29.1046104,
+                              -82.2594985,
+                              18
+                    ],
+                    [
+                              "7d9855bc-3e68-4743-a560-c2927ff7ae56",
+                              "Cane Garden Country Club Allamanda Hibiscus Course",
+                              "The Villages",
+                              28.8928427,
+                              -81.994343,
+                              18
+                    ],
+                    [
+                              "b87dbc73-4791-42d9-b6be-a09424223785",
+                              "Cane Garden Country Club Hibiscus Jacaranda Course",
+                              "The Villages",
+                              28.8928427,
+                              -81.994343,
+                              18
+                    ],
+                    [
+                              "b6c6a983-0db2-4118-84fb-41dee23a0d3d",
+                              "Cane Garden Country Club Jacaranda Allamanda Course",
+                              "The Villages",
+                              28.8928427,
+                              -81.994343,
+                              18
+                    ],
+                    [
+                              "29ce2f82-757d-4f9f-8069-2251d145339e",
+                              "Cape Haze Links At Rotonda Golf Country Club",
+                              "Rotonda West",
+                              26.8627799,
+                              -82.2872382,
+                              18
+                    ],
+                    [
+                              "edaac588-6425-454b-9c47-c70b51a700cb",
+                              "Cape Royal Golf Club King Prince",
+                              "Cape Coral",
+                              26.6242644,
+                              -82.0328891,
+                              18
+                    ],
+                    [
+                              "8775af0a-ae0b-4c3c-943a-77c3edcfaf66",
+                              "Cape Royal Golf Club Prince Queen",
+                              "Cape Coral",
+                              26.6242644,
+                              -82.0328891,
+                              18
+                    ],
+                    [
+                              "b985340c-7076-403a-866d-980b74d5d8bf",
+                              "Cape Royal Golf Club Queen King",
+                              "Cape Coral",
+                              26.6242644,
+                              -82.0328891,
+                              18
+                    ],
+                    [
+                              "06a623ff-de03-45a5-a2d8-62dddfff474e",
+                              "Capital City Country Club",
+                              "Tallahassee",
+                              30.4262919,
+                              -84.2749701,
+                              18
+                    ],
+                    [
+                              "9a0b8c04-9164-4895-98d6-5e6eca7fa894",
+                              "Capri Isles Golf Club",
+                              "Venice",
+                              27.1103028,
+                              -82.4099162,
+                              18
+                    ],
+                    [
+                              "93e39c90-9df8-46a5-a575-805ed6ea669b",
+                              "Captiva Course At South Seas Island Resort",
+                              "Captiva",
+                              26.5252621,
+                              -82.1908904,
                               9
                     ],
                     [
-                              "594546eb-d765-4255-bf1f-451fdbb62f52",
-                              "Alaqua Country Club",
-                              "Longwood",
-                              28.7446458,
-                              -81.3973396,
+                              "8be31a42-56dd-442f-b4b8-5bc22b2858be",
+                              "Carefree Country Club",
+                              "FL 33884",
+                              27.9685435,
+                              -81.6491757,
+                              9
+                    ],
+                    [
+                              "c794b848-9779-488c-9b13-8397ee31c49c",
+                              "Carolina Golf Club",
+                              "Margate",
+                              26.2652249,
+                              -80.2277654,
                               18
                     ],
                     [
-                              "b749a671-cf18-4518-b920-bc4cedabb596",
-                              "Alden Pines Country Club",
-                              "Bokeelia",
-                              26.6680737,
-                              -82.1547103,
-                              18
-                    ],
-                    [
-                              "3bbbfd98-6ee5-48ef-807f-32152a5048c4",
-                              "Alico Family Golf Short Course",
-                              "Fort Myers",
-                              26.4970075,
-                              -81.8146252,
-                              18
-                    ],
-                    [
-                              "0c79d696-14d8-4536-9597-c533d8ccf4d4",
-                              "Amelia Caroline At Mallory Hill Golf Course",
+                              "a3d35d0b-4eef-4afc-bba2-aa42c8982380",
+                              "Caroline Virginia At Mallory Hill Golf Course",
                               "Lady Lake",
                               28.8952781,
                               -81.9675856,
                               18
                     ],
                     [
-                              "0122f028-908a-4667-a72c-445fe5981e74",
-                              "Amelia National Golf And Country Club",
-                              "Nassauville",
-                              30.6006301,
-                              -81.5399491,
-                              18
-                    ],
-                    [
-                              "6a2e3a83-8fa5-4fc2-8b01-5f9857aeee51",
-                              "American Golf Club",
-                              "Vero Beach",
-                              27.598657,
-                              -80.3767634,
-                              18
-                    ],
-                    [
-                              "96de5541-d7a3-41d4-a06e-e553c8a91dd4",
-                              "American Golf Club Vero Beach Blue Course",
-                              "Vero Beach",
-                              27.6503482,
-                              -80.390663,
-                              9
-                    ],
-                    [
-                              "b1cb0a2b-f265-4e1c-8d04-a2bcf69217a2",
-                              "American Golf Club Vero Beach White Course",
-                              "Vero Beach",
-                              27.6503482,
-                              -80.390663,
-                              9
-                    ],
-                    [
-                              "5579ba5b-dac3-4bd4-8b26-eda133055b81",
-                              "Anglers Green",
-                              "Mulberry",
-                              27.9149788,
-                              -81.9774847,
-                              18
-                    ],
-                    [
-                              "892c81c9-f94e-4d8a-a129-be0f4bc88214",
-                              "Apogee Golf Club South",
-                              "Indiantown",
-                              27.059337,
-                              -80.2951081,
-                              18
-                    ],
-                    [
-                              "a821a377-ddb7-46ea-ba07-e3e93cd8bdad",
-                              "Apogee Golf Club West Couse",
-                              "Indiantown",
-                              27.059337,
-                              -80.2951081,
-                              18
-                    ],
-                    [
-                              "13769b8f-cf4a-486f-8775-d4fd51acd830",
-                              "Apollo Beach Golf Sea Club",
-                              "Apollo Beach",
-                              27.7649163,
-                              -82.4145038,
-                              18
-                    ],
-                    [
-                              "93f3db12-3cd4-4843-ad26-b9d9bd3b7f73",
-                              "Arcadia Municipal Golf Course",
-                              "Arcadia",
-                              27.2453271,
-                              -81.8467264,
-                              18
-                    ],
-                    [
-                              "434e112d-4e5c-42a7-bc43-709047426aba",
-                              "Arcadia Village Country Club",
-                              "Arcadia",
-                              27.213588,
-                              -81.8292459,
-                              9
-                    ],
-                    [
-                              "3af8bb9e-e016-4b59-a25d-7c2bac4aadb6",
-                              "Ardea Country Club North Course",
-                              "Oldsmar",
-                              28.0610446,
-                              -82.694757,
-                              18
-                    ],
-                    [
-                              "ba69d2a3-4606-4335-8b20-2cbb5aff1af0",
-                              "Ardea Country Club South Course",
-                              "Oldsmar",
-                              28.0610446,
-                              -82.694757,
-                              18
-                    ],
-                    [
-                              "eeed29d0-ee2e-469d-bd68-cf54551dfd22",
-                              "Arrowhead Golf Course",
-                              "Naples",
-                              26.264732,
-                              -81.71168,
-                              18
-                    ],
-                    [
-                              "a14ee94e-e62c-4e1b-bdf3-e2e1736c5fd3",
-                              "Ashley Torri At Nancy Lopez Legacy Golf Country Club",
-                              "The Villages",
-                              28.9730905,
-                              -82.014098,
-                              18
-                    ],
-                    [
-                              "eee4211e-0dd9-411c-b90f-7fada60589b3",
-                              "Astor Creek Golf Country Club",
-                              "Port St. Lucie",
-                              27.3004915,
-                              -80.4584176,
-                              18
-                    ],
-                    [
-                              "ec45d3ec-9c45-4333-b2d3-158d43712814",
-                              "Atkinson Resort Country Club Par 3 Course",
-                              null,
-                              null,
-                              null,
-                              9
-                    ],
-                    [
-                              "253704d9-4284-4638-bece-59e148d2441d",
-                              "Atlantic Beach Country Club",
-                              "Atlantic Beach",
-                              30.3409611,
-                              -81.4047754,
-                              18
-                    ],
-                    [
-                              "ce7f09fa-503c-4896-bfbd-7494bd9283ba",
-                              "Atlantis Country Club",
-                              "Atlantis",
-                              26.6013511,
-                              -80.0972269,
-                              18
-                    ],
-                    [
-                              "732d6245-4335-4ffd-9df1-be922c74e073",
-                              "Audubon Country Club",
-                              "Naples",
-                              26.3143582,
-                              -81.8131611,
-                              18
-                    ],
-                    [
-                              "68a0a8d5-6946-4c2b-9f5e-77f5071be6ea",
-                              "Azalea Boganvilia Golf Course At Cleveland Heights Golf Club",
-                              "Lakeland",
-                              28.010058,
-                              -81.945634,
-                              18
-                    ],
-                    [
-                              "e1268256-98a9-47d5-a6c2-662029741d89",
-                              "Azalea Camelia Golf Course At Cleveland Heights Golf Club",
-                              "Lakeland",
-                              28.010058,
-                              -81.945634,
-                              18
-                    ],
-                    [
-                              "4f08ecb3-ad18-4792-9978-e08f67d0d1fe",
-                              "Babe Zaharias Golf Course",
+                              "ea94843d-d321-46b2-90b1-d3183538dcd0",
+                              "Carrollwood Country Club Cypress Meadows Course",
                               "Tampa",
-                              28.052082,
-                              -82.4729012,
+                              28.0732654,
+                              -82.5134866,
                               18
                     ],
                     [
-                              "21eed2c9-24e0-47a2-848a-732e6cce2778",
-                              "BallenIsles",
-                              "North Palm Beach",
-                              26.8246925,
-                              -80.118264,
+                              "5aefd663-34d5-4de9-95d4-32aaabd5f764",
+                              "Carrollwood Country Club Meadows Pines Course",
+                              "Tampa",
+                              28.0732654,
+                              -82.5134866,
                               18
                     ],
                     [
-                              "2c92528d-0446-42a2-a5a1-341719507095",
-                              "Ballenisles Country Club East Course",
-                              "Palm Beach Gardens",
-                              26.8321158,
-                              -80.116677,
+                              "3041fb46-c9e5-4cec-9359-0224df52eaa7",
+                              "Carrollwood Country Club Pines Cypress Course",
+                              "Tampa",
+                              28.0732654,
+                              -82.5134866,
                               18
                     ],
                     [
-                              "4093ba74-d6ad-4103-8b4f-5bf9b470319f",
-                              "Ballenisles Country Club North Course",
-                              "Palm Beach Gardens",
-                              26.8321158,
-                              -80.116677,
+                              "52369387-6d5a-4400-8685-d3042232dc56",
+                              "Casselberry Golf Club",
+                              "Casselberry",
+                              28.666319,
+                              -81.3295808,
                               18
                     ],
                     [
-                              "34709265-9a76-4131-bc93-db3b2d71f5d0",
-                              "Ballenisles Country Club South Course",
-                              "Palm Beach Gardens",
-                              26.8321158,
-                              -80.116677,
+                              "8b9b7a61-50e5-4361-9bfd-4f076921a7bf",
+                              "Cecil Field Golf Club",
+                              "Jacksonville",
+                              30.2316665,
+                              -81.8948974,
                               18
                     ],
                     [
-                              "a75e173b-256d-4138-ada7-3f9e4a337e49",
-                              "Banyan Cay",
-                              "West Palm Beach",
-                              26.73247,
-                              -80.0837862,
-                              18
-                    ],
-                    [
-                              "dd483f70-ce94-460e-bc6a-47f5e34b403d",
-                              "Banyan Creek Golf Club",
-                              "Palm City",
-                              27.1819544,
-                              -80.3052594,
-                              18
-                    ],
-                    [
-                              "1b88c289-a049-49a2-8df8-aae9dfe31e10",
-                              "Barefoot Bay Golf Course",
-                              "Micco",
-                              27.8896627,
-                              -80.5294377,
-                              18
-                    ],
-                    [
-                              "f91dce56-d236-47a1-98ff-5c2bba075853",
-                              "Barefoot Bay Golf Recreation Park",
-                              "Barefoot Bay",
-                              27.8896203,
-                              -80.5282661,
-                              18
-                    ],
-                    [
-                              "d2a0f14a-9122-4fb3-894a-c1aab536e6c6",
-                              "Bartow Golf Course",
-                              "Bartow",
-                              27.8955509,
-                              -81.8202713,
-                              18
-                    ],
-                    [
-                              "3e0f9a55-df44-44d0-8370-6d310253219e",
-                              "Bay Colony Golf Club",
+                              "a9769b94-7064-4960-9f5e-8efe3e9712ce",
+                              "Cedar Hammock Golf Country Club",
                               "Naples",
-                              26.2641085,
-                              -81.7949279,
+                              26.1480655,
+                              -81.6974334,
                               18
                     ],
                     [
-                              "567ff501-25d0-49da-9cca-2962c7fd174c",
-                              "Bay Hill Club Lodge Charger Course",
-                              "Orlando",
-                              28.4583333,
-                              -81.5105556,
+                              "66ba7aae-c423-4740-8db1-75edffeeaa70",
+                              "Celebration Golf Club",
+                              "Kissimmee",
+                              28.3234004,
+                              -81.5421158,
+                              18
+                    ],
+                    [
+                              "abf99941-d65e-450f-a7f6-6aec8c8dbd9a",
+                              "Challenge At Suntree Country Club",
+                              "Melbourne",
+                              28.2252141,
+                              -80.6803042,
+                              18
+                    ],
+                    [
+                              "062a29a2-73a9-40a8-8cb3-ec22a4accada",
+                              "Champions At Palm Aire Country Club",
+                              "Sarasota",
+                              27.4054214,
+                              -82.4913138,
+                              18
+                    ],
+                    [
+                              "95d7dd20-3d91-472a-b3e7-0b2fdffbad26",
+                              "Championsgate Country Club",
+                              "Four Corners",
+                              28.2721903,
+                              -81.6474157,
+                              18
+                    ],
+                    [
+                              "85607785-8701-43ee-9c19-f66a5be353d7",
+                              "Championsgate Golf Club Champions 9",
+                              "Championsgate",
+                              28.2675211,
+                              -81.6285701,
                               9
                     ],
                     [
-                              "bea099ed-c1fe-4846-9d3d-bb0a699d17b2",
-                              "Bay Island At Bonita Bay Club",
-                              "Bonita Springs",
-                              26.3522004,
-                              -81.8136528,
+                              "755ed097-d14b-4d8a-baa5-fcc8ba71f3b1",
+                              "Championsgate Golf Club International",
+                              "Championsgate",
+                              28.2675211,
+                              -81.6285701,
+                              18
+                    ],
+                    [
+                              "93603571-04f0-49a7-80cf-db33f8d9a2db",
+                              "Championsgate Golf Club National",
+                              "Championsgate",
+                              28.2675211,
+                              -81.6285701,
+                              18
+                    ],
+                    [
+                              "91f5e8d7-bb25-4308-b2a0-b0b67a35e75c",
+                              "Championship At Boca Raton Municipal Golf Course",
+                              "Boca Raton",
+                              26.4128733,
+                              -80.1047321,
+                              18
+                    ],
+                    [
+                              "a0dbf750-ef03-40f4-a3b3-6a1c47dbaaf6",
+                              "Championship At Colony West Country Club",
+                              "Tamarac",
+                              26.2064809,
+                              -80.2668563,
+                              18
+                    ],
+                    [
+                              "78f259b1-10e9-4b4d-bb7c-07d587dcb1ae",
+                              "Championship At Hollybrook Golf Tennis Club",
+                              "Pembroke Pines",
+                              26.0004567,
+                              -80.2649137,
                               18
                     ]
           ];
