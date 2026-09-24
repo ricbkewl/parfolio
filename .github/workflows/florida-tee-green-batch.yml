@@ -45,24 +45,31 @@ jobs:
           }
 
           async function processCourse([id,name,city,lat,lng,expected]){
-            const d=0.016;
-            const minlat=lat-d,maxlat=lat+d,minlon=lng-d,maxlon=lng+d;
-            const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
+            const boxes=[
+              [lng-0.020,lat-0.020,lng+0.002,lat+0.002],
+              [lng-0.002,lat-0.020,lng+0.020,lat+0.002],
+              [lng-0.020,lat-0.002,lng+0.002,lat+0.020],
+              [lng-0.002,lat-0.002,lng+0.020,lat+0.020]
+            ];
             try{
-              const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),20000);
-              const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.1"}});
-              clearTimeout(timer);
-              if(!res.ok) throw new Error("OSM map "+res.status);
-              const xml=await res.text();
-              const nodes=new Map();
-              for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
-                const a=m[1];
-                const idm=a.match(/\bid="(\d+)"/), latm=a.match(/\blat="([^"]+)"/), lonm=a.match(/\blon="([^"]+)"/);
-                if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
+              const nodes=new Map(), ways=new Map();
+              for(const [minlon,minlat,maxlon,maxlat] of boxes){
+                const url=`https://api.openstreetmap.org/api/0.6/map?bbox=${minlon},${minlat},${maxlon},${maxlat}`;
+                const ctl=new AbortController(); const timer=setTimeout(()=>ctl.abort(),20000);
+                const res=await fetch(url,{signal:ctl.signal,headers:{"User-Agent":"ParFolio-TeeGreen-Batch/1.2"}});
+                clearTimeout(timer);
+                if(!res.ok) throw new Error("OSM map "+res.status);
+                const xml=await res.text();
+                for(const m of xml.matchAll(/<node\s+([^>]*?)\/?>(?:<\/node>)?/g)){
+                  const a=m[1];
+                  const idm=a.match(/\bid="(\d+)"/), latm=a.match(/\blat="([^"]+)"/), lonm=a.match(/\blon="([^"]+)"/);
+                  if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
+                }
+                for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)) ways.set(m[1],m[2]);
+                await sleep(300);
               }
               const rows=[];
-              for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)){
-                const wayId=m[1], body=m[2];
+              for(const [wayId,body] of ways){
                 const tags={};
                 for(const t of body.matchAll(/<tag\s+k="([^"]+)"\s+v="([^"]*)"\s*\/>/g)) tags[decodeXml(t[1])]=decodeXml(t[2]);
                 if(tags.golf!=="hole") continue;
@@ -86,7 +93,7 @@ jobs:
               const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
               const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
               const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
-              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]};
+              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[],all_refs:[...groups.entries()].map(([n,v])=>[n,v.length])};
             }catch(e){return {id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]};}
           }
 
