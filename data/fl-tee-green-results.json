@@ -1,0 +1,4739 @@
+{
+  "generated_at": "2026-09-24T18:22:16.290Z",
+  "courses": [
+    {
+      "id": "3eab6e00-558f-450b-a6dd-2902cc30da2a",
+      "name": "Bent Creek Golf Course",
+      "city": "Jacksonville",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 30.2432587,
+          "tee_lng": -81.8315568,
+          "green_center_lat": 30.2406092,
+          "green_center_lng": -81.8280436,
+          "yards": 489.9245193652613,
+          "osm_way_id": 1017917375
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 30.2394203,
+          "tee_lng": -81.8281144,
+          "green_center_lat": 30.2387904,
+          "green_center_lng": -81.8296771,
+          "yards": 181.16408303105015,
+          "osm_way_id": 1017917376
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 30.2387516,
+          "tee_lng": -81.8300948,
+          "green_center_lat": 30.2363123,
+          "green_center_lng": -81.8320763,
+          "yards": 362.38955067406613,
+          "osm_way_id": 1017917377
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.2362843,
+          "tee_lng": -81.8329848,
+          "green_center_lat": 30.2330626,
+          "green_center_lng": -81.8322902,
+          "yards": 398.51175062752253,
+          "osm_way_id": 1017917378
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 30.23306,
+          "tee_lng": -81.8328268,
+          "green_center_lat": 30.2329824,
+          "green_center_lng": -81.8357807,
+          "yards": 310.49305404881375,
+          "osm_way_id": 1017917379
+        },
+        {
+          "hole_number": 6,
+          "par": 5,
+          "tee_lat": 30.2332821,
+          "tee_lng": -81.8367224,
+          "green_center_lat": 30.2364101,
+          "green_center_lng": -81.83912,
+          "yards": 456.2239777879117,
+          "osm_way_id": 1017917380
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 30.2356514,
+          "tee_lng": -81.8382808,
+          "green_center_lat": 30.2351029,
+          "green_center_lng": -81.8369649,
+          "yards": 153.49983646280938,
+          "osm_way_id": 1017917381
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 30.2355967,
+          "tee_lng": -81.8362219,
+          "green_center_lat": 30.2379305,
+          "green_center_lng": -81.8338344,
+          "yards": 378.76003460327667,
+          "osm_way_id": 1017917382
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 30.238427,
+          "tee_lng": -81.834011,
+          "green_center_lat": 30.2421791,
+          "green_center_lng": -81.8342323,
+          "yards": 456.86387411288365,
+          "osm_way_id": 1017917383
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 30.241599,
+          "tee_lng": -81.8349302,
+          "green_center_lat": 30.2387873,
+          "green_center_lng": -81.8351871,
+          "yards": 342.978680520601,
+          "osm_way_id": 1017919176
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 30.2389593,
+          "tee_lng": -81.8368313,
+          "green_center_lat": 30.2414173,
+          "green_center_lng": -81.8392914,
+          "yards": 395.14528881982517,
+          "osm_way_id": 1017919177
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 30.2429413,
+          "tee_lng": -81.8393315,
+          "green_center_lat": 30.2427572,
+          "green_center_lng": -81.8422311,
+          "yards": 305.4357333306181,
+          "osm_way_id": 1017919178
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 30.2419658,
+          "tee_lng": -81.8426615,
+          "green_center_lat": 30.2389319,
+          "green_center_lng": -81.8421215,
+          "yards": 373.27182702122366,
+          "osm_way_id": 1017919179
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 30.2397541,
+          "tee_lng": -81.841392,
+          "green_center_lat": 30.2414022,
+          "green_center_lng": -81.8411758,
+          "yards": 201.69917763099502,
+          "osm_way_id": 1017919180
+        },
+        {
+          "hole_number": 15,
+          "par": 5,
+          "tee_lat": 30.241215,
+          "tee_lng": -81.840081,
+          "green_center_lat": 30.2385028,
+          "green_center_lng": -81.8369656,
+          "yards": 464.65053649089685,
+          "osm_way_id": 1017919181
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 30.2379042,
+          "tee_lng": -81.8360342,
+          "green_center_lat": 30.2379898,
+          "green_center_lng": -81.8347282,
+          "yards": 137.60147368986506,
+          "osm_way_id": 1017919182
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 30.238454,
+          "tee_lng": -81.8338294,
+          "green_center_lat": 30.2391318,
+          "green_center_lng": -81.8301403,
+          "yards": 396.2376554015305,
+          "osm_way_id": 1017919183
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 30.2407776,
+          "tee_lng": -81.8286485,
+          "green_center_lat": 30.2424301,
+          "green_center_lng": -81.8312401,
+          "yards": 338.38956113911104,
+          "osm_way_id": 1017919184
+        }
+      ]
+    },
+    {
+      "id": "27aeb554-b3c7-47cc-abff-9b35c34aa745",
+      "name": "Bent Pine Golf Club",
+      "city": "Vero Beach",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 22,
+      "unique_holes": 14,
+      "holes": []
+    },
+    {
+      "id": "fa1f6a0f-d854-4024-860f-8e0abab7dfe5",
+      "name": "Black Bear Golf Club",
+      "city": "Eustis",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 28.8830053,
+          "tee_lng": -81.5490376,
+          "green_center_lat": 28.8820868,
+          "green_center_lng": -81.552584,
+          "yards": 393.78695434224505,
+          "osm_way_id": 1245114683
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 28.8817316,
+          "tee_lng": -81.5527156,
+          "green_center_lat": 28.881185,
+          "green_center_lng": -81.5478223,
+          "yards": 525.2581336823259,
+          "osm_way_id": 1271720494
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 28.8815718,
+          "tee_lng": -81.5478195,
+          "green_center_lat": 28.8807693,
+          "green_center_lng": -81.546326,
+          "yards": 186.58251676204398,
+          "osm_way_id": 1271720495
+        },
+        {
+          "hole_number": 4,
+          "par": 5,
+          "tee_lat": 28.8803941,
+          "tee_lng": -81.5466912,
+          "green_center_lat": 28.8808615,
+          "green_center_lng": -81.5517323,
+          "yards": 539.7782505787214,
+          "osm_way_id": 1271720496
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 28.8804463,
+          "tee_lng": -81.5525248,
+          "green_center_lat": 28.8808683,
+          "green_center_lng": -81.5542678,
+          "yards": 192.55890981607718,
+          "osm_way_id": 1271720497
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 28.8805036,
+          "tee_lng": -81.5548267,
+          "green_center_lat": 28.8836153,
+          "green_center_lng": -81.5548442,
+          "yards": 378.40105746371586,
+          "osm_way_id": 1271720498
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 28.883892,
+          "tee_lng": -81.5548809,
+          "green_center_lat": 28.8839784,
+          "green_center_lng": -81.55129,
+          "yards": 382.491973552482,
+          "osm_way_id": 1271720499
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 28.8840965,
+          "tee_lng": -81.5505353,
+          "green_center_lat": 28.8870737,
+          "green_center_lng": -81.5506305,
+          "yards": 362.18254755262717,
+          "osm_way_id": 1271720500
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 28.8874587,
+          "tee_lng": -81.5499686,
+          "green_center_lat": 28.8840186,
+          "green_center_lng": -81.5500686,
+          "yards": 418.46684030847973,
+          "osm_way_id": 1271720501
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 28.8832484,
+          "tee_lng": -81.5483735,
+          "green_center_lat": 28.8809522,
+          "green_center_lng": -81.5454986,
+          "yards": 414.3369394771523,
+          "osm_way_id": 1271720502
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 28.880388,
+          "tee_lng": -81.5449322,
+          "green_center_lat": 28.8806124,
+          "green_center_lng": -81.5431872,
+          "yards": 187.80129877425173,
+          "osm_way_id": 1271720503
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 28.8816697,
+          "tee_lng": -81.5431007,
+          "green_center_lat": 28.8846879,
+          "green_center_lng": -81.5429355,
+          "yards": 367.4477259052204,
+          "osm_way_id": 1271720504
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 28.8839628,
+          "tee_lng": -81.5434825,
+          "green_center_lat": 28.8872107,
+          "green_center_lng": -81.5430895,
+          "yards": 397.1694677117528,
+          "osm_way_id": 1271720505
+        },
+        {
+          "hole_number": 14,
+          "par": 5,
+          "tee_lat": 28.8875312,
+          "tee_lng": -81.5435393,
+          "green_center_lat": 28.8829581,
+          "green_center_lng": -81.5435093,
+          "yards": 556.1183406496563,
+          "osm_way_id": 1271720506
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 28.8824721,
+          "tee_lng": -81.5445137,
+          "green_center_lat": 28.8828338,
+          "green_center_lng": -81.5457633,
+          "yards": 140.13663547268666,
+          "osm_way_id": 1271720507
+        },
+        {
+          "hole_number": 16,
+          "par": 5,
+          "tee_lat": 28.8835837,
+          "tee_lng": -81.5456284,
+          "green_center_lat": 28.8868553,
+          "green_center_lng": -81.5441261,
+          "yards": 428.7937586510502,
+          "osm_way_id": 1271720508
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 28.8875669,
+          "tee_lng": -81.5437864,
+          "green_center_lat": 28.8870945,
+          "green_center_lng": -81.5477617,
+          "yards": 427.1440308527725,
+          "osm_way_id": 1271720509
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 28.8877501,
+          "tee_lng": -81.5485043,
+          "green_center_lat": 28.8843549,
+          "green_center_lng": -81.5476734,
+          "yards": 422.2435706703762,
+          "osm_way_id": 1271720510
+        }
+      ]
+    },
+    {
+      "id": "5436edda-d860-4ca5-a671-b8df5aafc1cd",
+      "name": "Bradenton Country Club",
+      "city": "Bradenton",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 27.4912444,
+          "tee_lng": -82.6078638,
+          "green_center_lat": 27.4884247,
+          "green_center_lng": -82.6062795,
+          "yards": 383.1198567588049,
+          "osm_way_id": 1316558547
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 27.4882714,
+          "tee_lng": -82.6060222,
+          "green_center_lat": 27.4881776,
+          "green_center_lng": -82.6043859,
+          "yards": 176.88561504338222,
+          "osm_way_id": 1316558548
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 27.4879466,
+          "tee_lng": -82.6042557,
+          "green_center_lat": 27.4850864,
+          "green_center_lng": -82.6044362,
+          "yards": 348.3575883679258,
+          "osm_way_id": 1316558549
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 27.4848981,
+          "tee_lng": -82.6047388,
+          "green_center_lat": 27.4851109,
+          "green_center_lng": -82.6085929,
+          "yards": 416.5814605543622,
+          "osm_way_id": 1316558550
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 27.4853814,
+          "tee_lng": -82.6088816,
+          "green_center_lat": 27.4859657,
+          "green_center_lng": -82.6051291,
+          "yards": 411.0023674205592,
+          "osm_way_id": 1316558551
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 27.4862003,
+          "tee_lng": -82.6053831,
+          "green_center_lat": 27.4877042,
+          "green_center_lng": -82.604831,
+          "yards": 192.33484934796556,
+          "osm_way_id": 1316558552
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 27.4873998,
+          "tee_lng": -82.6053809,
+          "green_center_lat": 27.4857191,
+          "green_center_lng": -82.6087715,
+          "yards": 418.9975673381471,
+          "osm_way_id": 1316558553
+        },
+        {
+          "hole_number": 8,
+          "par": 5,
+          "tee_lat": 27.4857047,
+          "tee_lng": -82.6093936,
+          "green_center_lat": 27.4878758,
+          "green_center_lng": -82.6056452,
+          "yards": 482.92570656085206,
+          "osm_way_id": 1316558554
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 27.4880357,
+          "tee_lng": -82.6064594,
+          "green_center_lat": 27.4909149,
+          "green_center_lng": -82.608248,
+          "yards": 399.76757183376685,
+          "osm_way_id": 1316558555
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 27.4910392,
+          "tee_lng": -82.6086029,
+          "green_center_lat": 27.4882346,
+          "green_center_lng": -82.6074401,
+          "yards": 363.3877158921316,
+          "osm_way_id": 1316558556
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 27.4879789,
+          "tee_lng": -82.6065669,
+          "green_center_lat": 27.4863777,
+          "green_center_lng": -82.6092177,
+          "yards": 345.9573272751445,
+          "osm_way_id": 1316558557
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 27.4855468,
+          "tee_lng": -82.6096377,
+          "green_center_lat": 27.488832,
+          "green_center_lng": -82.610156,
+          "yards": 403.388581572504,
+          "osm_way_id": 1316558558
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 27.4884968,
+          "tee_lng": -82.6108069,
+          "green_center_lat": 27.4916597,
+          "green_center_lng": -82.6095344,
+          "yards": 408.3840996160631,
+          "osm_way_id": 1316558559
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 27.4919772,
+          "tee_lng": -82.6101103,
+          "green_center_lat": 27.4889238,
+          "green_center_lng": -82.6111067,
+          "yards": 386.55136685843803,
+          "osm_way_id": 1316558560
+        },
+        {
+          "hole_number": 15,
+          "par": 5,
+          "tee_lat": 27.4890698,
+          "tee_lng": -82.6106202,
+          "green_center_lat": 27.4850104,
+          "green_center_lng": -82.611262,
+          "yards": 498.47264207523074,
+          "osm_way_id": 1316558561
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 27.4849312,
+          "tee_lng": -82.610976,
+          "green_center_lat": 27.4851525,
+          "green_center_lng": -82.609401,
+          "yards": 172.02751841696306,
+          "osm_way_id": 1316558562
+        },
+        {
+          "hole_number": 17,
+          "par": 5,
+          "tee_lat": 27.4855497,
+          "tee_lng": -82.6096169,
+          "green_center_lat": 27.489915,
+          "green_center_lng": -82.609111,
+          "yards": 533.637758998548,
+          "osm_way_id": 1316558563
+        },
+        {
+          "hole_number": 18,
+          "par": 3,
+          "tee_lat": 27.4898805,
+          "tee_lng": -82.6095003,
+          "green_center_lat": 27.4915821,
+          "green_center_lng": -82.6088173,
+          "yards": 219.64775750391817,
+          "osm_way_id": 1316558564
+        }
+      ]
+    },
+    {
+      "id": "7e1d0c6e-0e2b-42cc-bad1-0505ffacff2e",
+      "name": "Country Club Of Ocala",
+      "city": "Ocala",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 29.1116421,
+          "tee_lng": -82.1204907,
+          "green_center_lat": 29.1116408,
+          "green_center_lng": -82.1156951,
+          "yards": 509.4967720528682,
+          "osm_way_id": 1221624317
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 29.1123484,
+          "tee_lng": -82.1161763,
+          "green_center_lat": 29.1112337,
+          "green_center_lng": -82.1130106,
+          "yards": 362.6201412015673,
+          "osm_way_id": 1221624318
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 29.1102229,
+          "tee_lng": -82.1116233,
+          "green_center_lat": 29.11335,
+          "green_center_lng": -82.111617,
+          "yards": 380.26976657712993,
+          "osm_way_id": 1221624319
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 29.1140214,
+          "tee_lng": -82.1128388,
+          "green_center_lat": 29.1153384,
+          "green_center_lng": -82.1138177,
+          "yards": 190.9568610718672,
+          "osm_way_id": 1221624320
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 29.1137949,
+          "tee_lng": -82.1142432,
+          "green_center_lat": 29.1161643,
+          "green_center_lng": -82.1174678,
+          "yards": 447.63680314790287,
+          "osm_way_id": 1221624321
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 29.1162198,
+          "tee_lng": -82.1170199,
+          "green_center_lat": 29.1185642,
+          "green_center_lng": -82.1186115,
+          "yards": 331.46055965731006,
+          "osm_way_id": 1221624322
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 29.1187401,
+          "tee_lng": -82.1191414,
+          "green_center_lat": 29.1160273,
+          "green_center_lng": -82.1200258,
+          "yards": 343.00738627963375,
+          "osm_way_id": 1221624323
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 29.1154854,
+          "tee_lng": -82.1197309,
+          "green_center_lat": 29.1160764,
+          "green_center_lng": -82.1210089,
+          "yards": 153.6203570157269,
+          "osm_way_id": 1221624324
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 29.1164277,
+          "tee_lng": -82.1216272,
+          "green_center_lat": 29.1127262,
+          "green_center_lng": -82.1217455,
+          "yards": 450.29418399039076,
+          "osm_way_id": 1221624325
+        },
+        {
+          "hole_number": 10,
+          "par": 5,
+          "tee_lat": 29.1118169,
+          "tee_lng": -82.1224308,
+          "green_center_lat": 29.1162876,
+          "green_center_lng": -82.1221975,
+          "yards": 544.2215846616245,
+          "osm_way_id": 1221624326
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 29.1167995,
+          "tee_lng": -82.1220529,
+          "green_center_lat": 29.1186137,
+          "green_center_lng": -82.1219205,
+          "yards": 221.06267284766187,
+          "osm_way_id": 1221624327
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 29.1186723,
+          "tee_lng": -82.1223386,
+          "green_center_lat": 29.1184319,
+          "green_center_lng": -82.1260059,
+          "yards": 390.6923590645944,
+          "osm_way_id": 1221624328
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 29.118345,
+          "tee_lng": -82.127675,
+          "green_center_lat": 29.1152825,
+          "green_center_lng": -82.1273095,
+          "yards": 374.43234944786303,
+          "osm_way_id": 1221624329
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 29.1147098,
+          "tee_lng": -82.1256608,
+          "green_center_lat": 29.1176911,
+          "green_center_lng": -82.124259,
+          "yards": 391.93510615861163,
+          "osm_way_id": 1221624330
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 29.1160852,
+          "tee_lng": -82.1244011,
+          "green_center_lat": 29.112602,
+          "green_center_lng": -82.1234983,
+          "yards": 434.29600925699106,
+          "osm_way_id": 1221624331
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 29.1120824,
+          "tee_lng": -82.1250515,
+          "green_center_lat": 29.1110132,
+          "green_center_lng": -82.1235792,
+          "yards": 203.40255157786524,
+          "osm_way_id": 1221624332
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 29.1099207,
+          "tee_lng": -82.1233896,
+          "green_center_lat": 29.1067852,
+          "green_center_lng": -82.1218497,
+          "yards": 414.9098472062559,
+          "osm_way_id": 1221624333
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 29.1076836,
+          "tee_lng": -82.1204271,
+          "green_center_lat": 29.1115323,
+          "green_center_lng": -82.1228278,
+          "yards": 533.0085298940617,
+          "osm_way_id": 1221624334
+        }
+      ]
+    },
+    {
+      "id": "98b9dfa0-034d-4fad-938a-b2dd1dbca2d1",
+      "name": "Crane Creek Reserve Golf Course At Melbourne",
+      "city": "Melbourne",
+      "expected": 18,
+      "status": "fetch_error",
+      "reason": "Error: OSM map 400",
+      "holes": []
+    },
+    {
+      "id": "ebba8038-3858-4a05-8986-b02e7a84c321",
+      "name": "Cross Creek Country Club",
+      "city": "Fort Myers",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 3,
+          "tee_lat": 26.5541153,
+          "tee_lng": -81.8277627,
+          "green_center_lat": 26.554939,
+          "green_center_lng": -81.8287287,
+          "yards": 145.1705987329503,
+          "osm_way_id": 1238894113
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 26.5544228,
+          "tee_lng": -81.8290214,
+          "green_center_lat": 26.5533838,
+          "green_center_lng": -81.8296313,
+          "yards": 142.7058447430048,
+          "osm_way_id": 1238894114
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 26.5514705,
+          "tee_lng": -81.8301074,
+          "green_center_lat": 26.5502872,
+          "green_center_lng": -81.8293008,
+          "yards": 168.53558450089832,
+          "osm_way_id": 1238894115
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 26.5493684,
+          "tee_lng": -81.8279559,
+          "green_center_lat": 26.5482374,
+          "green_center_lng": -81.8286846,
+          "yards": 158.7431176715645,
+          "osm_way_id": 1238894116
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 26.5469573,
+          "tee_lng": -81.8289835,
+          "green_center_lat": 26.5472635,
+          "green_center_lng": -81.8273801,
+          "yards": 178.3533312023563,
+          "osm_way_id": 1238894117
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 26.5475981,
+          "tee_lng": -81.8265089,
+          "green_center_lat": 26.5488015,
+          "green_center_lng": -81.8266235,
+          "yards": 146.86879960233247,
+          "osm_way_id": 1238894118
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 26.5494026,
+          "tee_lng": -81.8262561,
+          "green_center_lat": 26.5514043,
+          "green_center_lng": -81.8266528,
+          "yards": 247.21109930014754,
+          "osm_way_id": 1238894119
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 26.5517197,
+          "tee_lng": -81.8269188,
+          "green_center_lat": 26.5509836,
+          "green_center_lng": -81.8269557,
+          "yards": 89.60296457814796,
+          "osm_way_id": 1238894120
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 26.5510872,
+          "tee_lng": -81.8272216,
+          "green_center_lat": 26.5531081,
+          "green_center_lng": -81.827809,
+          "yards": 253.92127232227614,
+          "osm_way_id": 1238894121
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 26.5547554,
+          "tee_lng": -81.8256432,
+          "green_center_lat": 26.552829,
+          "green_center_lng": -81.8248237,
+          "yards": 250.64634566206928,
+          "osm_way_id": 1238894122
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 26.5508496,
+          "tee_lng": -81.8246739,
+          "green_center_lat": 26.5497318,
+          "green_center_lng": -81.8254065,
+          "yards": 157.56806091070834,
+          "osm_way_id": 1238894124
+        },
+        {
+          "hole_number": 12,
+          "par": 3,
+          "tee_lat": 26.5482622,
+          "tee_lng": -81.8259276,
+          "green_center_lat": 26.5474345,
+          "green_center_lng": -81.8257466,
+          "yards": 102.55975347667903,
+          "osm_way_id": 1238894125
+        },
+        {
+          "hole_number": 13,
+          "par": 3,
+          "tee_lat": 26.5473509,
+          "tee_lng": -81.8253146,
+          "green_center_lat": 26.5476684,
+          "green_center_lng": -81.8236905,
+          "yards": 180.84391584918612,
+          "osm_way_id": 1238894126
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 26.5497096,
+          "tee_lng": -81.8234877,
+          "green_center_lat": 26.5511083,
+          "green_center_lng": -81.8233796,
+          "yards": 170.4941032026083,
+          "osm_way_id": 1238894127
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 26.5529292,
+          "tee_lng": -81.8233235,
+          "green_center_lat": 26.5544783,
+          "green_center_lng": -81.8235652,
+          "yards": 190.2032736163379,
+          "osm_way_id": 1238894128
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 26.5567894,
+          "tee_lng": -81.8238035,
+          "green_center_lat": 26.5586156,
+          "green_center_lng": -81.8235274,
+          "yards": 224.09550600395383,
+          "osm_way_id": 1238894130
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 26.5605137,
+          "tee_lng": -81.8244412,
+          "green_center_lat": 26.5600544,
+          "green_center_lng": -81.8261555,
+          "yards": 194.6510986743908,
+          "osm_way_id": 1238894131
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 26.5584768,
+          "tee_lng": -81.8262831,
+          "green_center_lat": 26.5558323,
+          "green_center_lng": -81.8259529,
+          "yards": 323.5824323273602,
+          "osm_way_id": 1238894132
+        }
+      ]
+    },
+    {
+      "id": "6dba20e3-f0e1-42ef-8e6e-5dcde04360e8",
+      "name": "Cypress Lakes Golf Club",
+      "city": "Cantonment",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 30.5794838,
+          "tee_lng": -87.2715672,
+          "green_center_lat": 30.5827983,
+          "green_center_lng": -87.2713175,
+          "yards": 403.9046779694449,
+          "osm_way_id": 732600836
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 30.5830234,
+          "tee_lng": -87.2710824,
+          "green_center_lat": 30.5813043,
+          "green_center_lng": -87.2668623,
+          "yards": 488.7623118400987,
+          "osm_way_id": 732600842
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 30.5807108,
+          "tee_lng": -87.2668999,
+          "green_center_lat": 30.5817984,
+          "green_center_lng": -87.2693192,
+          "yards": 285.72931734128696,
+          "osm_way_id": 732600846
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 30.5819693,
+          "tee_lng": -87.2698691,
+          "green_center_lat": 30.5805907,
+          "green_center_lng": -87.2699039,
+          "yards": 167.6834339319303,
+          "osm_way_id": 732600851
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 30.5804776,
+          "tee_lng": -87.2693997,
+          "green_center_lat": 30.5798703,
+          "green_center_lng": -87.2651296,
+          "yards": 453.1018370265857,
+          "osm_way_id": 732600853
+        },
+        {
+          "hole_number": 6,
+          "par": 5,
+          "tee_lat": 30.5800065,
+          "tee_lng": -87.2646119,
+          "green_center_lat": 30.5770669,
+          "green_center_lng": -87.2636544,
+          "yards": 371.2579031729178,
+          "osm_way_id": 732600855
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 30.5766467,
+          "tee_lng": -87.2637516,
+          "green_center_lat": 30.5781984,
+          "green_center_lng": -87.2663286,
+          "yards": 329.23542498783394,
+          "osm_way_id": 732600858
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 30.5786702,
+          "tee_lng": -87.2658682,
+          "green_center_lat": 30.5789258,
+          "green_center_lng": -87.2675409,
+          "yards": 177.85686609956147,
+          "osm_way_id": 732600869
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 30.5780504,
+          "tee_lng": -87.2677257,
+          "green_center_lat": 30.5793138,
+          "green_center_lng": -87.2711994,
+          "yards": 394.79266017669266,
+          "osm_way_id": 732600866
+        },
+        {
+          "hole_number": 10,
+          "par": 5,
+          "tee_lat": 30.5793228,
+          "tee_lng": -87.2718618,
+          "green_center_lat": 30.5823503,
+          "green_center_lng": -87.2721034,
+          "yards": 369.02520863542446,
+          "osm_way_id": 732600833
+        },
+        {
+          "hole_number": 11,
+          "par": 5,
+          "tee_lat": 30.58187,
+          "tee_lng": -87.2728619,
+          "green_center_lat": 30.5781199,
+          "green_center_lng": -87.2751289,
+          "yards": 514.0919720071007,
+          "osm_way_id": 732600826
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 30.5777403,
+          "tee_lng": -87.2759096,
+          "green_center_lat": 30.5801728,
+          "green_center_lng": -87.2770359,
+          "yards": 318.4388812172363,
+          "osm_way_id": 732600821
+        },
+        {
+          "hole_number": 13,
+          "par": 5,
+          "tee_lat": 30.5802882,
+          "tee_lng": -87.2776099,
+          "green_center_lat": 30.5772193,
+          "green_center_lng": -87.2774705,
+          "yards": 373.4770549475831,
+          "osm_way_id": 732600816
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 30.5770831,
+          "tee_lng": -87.2769689,
+          "green_center_lat": 30.5772263,
+          "green_center_lng": -87.2752201,
+          "yards": 183.91635324112278,
+          "osm_way_id": 732600818
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 30.5772153,
+          "tee_lng": -87.2747326,
+          "green_center_lat": 30.5793138,
+          "green_center_lng": -87.2723743,
+          "yards": 355.076483382798,
+          "osm_way_id": 732600828
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 30.5788612,
+          "tee_lng": -87.2713926,
+          "green_center_lat": 30.5778636,
+          "green_center_lng": -87.2683268,
+          "yards": 343.12951080602284,
+          "osm_way_id": 732600862
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 30.5780014,
+          "tee_lng": -87.2677774,
+          "green_center_lat": 30.5768316,
+          "green_center_lng": -87.2677281,
+          "yards": 142.34645566138886,
+          "osm_way_id": 955382453
+        },
+        {
+          "hole_number": 18,
+          "par": 3,
+          "tee_lat": 30.5771824,
+          "tee_lng": -87.2692414,
+          "green_center_lat": 30.5783578,
+          "green_center_lng": -87.2714248,
+          "yards": 269.5978476099399,
+          "osm_way_id": 732600860
+        }
+      ]
+    },
+    {
+      "id": "02ebc4b1-4c22-4f27-8f34-883d8fd0ce61",
+      "name": "Debary Golf Country Club",
+      "city": "DeBary",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 28.9026858,
+          "tee_lng": -81.3137216,
+          "green_center_lat": 28.9055843,
+          "green_center_lng": -81.3165974,
+          "yards": 466.863000856774,
+          "osm_way_id": 1120702737
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 28.9048539,
+          "tee_lng": -81.3166069,
+          "green_center_lat": 28.9058616,
+          "green_center_lng": -81.3177425,
+          "yards": 172.13560455902078,
+          "osm_way_id": 1120702744
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 28.9066383,
+          "tee_lng": -81.3181945,
+          "green_center_lat": 28.9051962,
+          "green_center_lng": -81.3213918,
+          "yards": 382.8868604622013,
+          "osm_way_id": 1120702748
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 28.905406,
+          "tee_lng": -81.3216362,
+          "green_center_lat": 28.9084986,
+          "green_center_lng": -81.3211009,
+          "yards": 380.3665928031783,
+          "osm_way_id": 1120702759
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 28.9085457,
+          "tee_lng": -81.3201763,
+          "green_center_lat": 28.9077646,
+          "green_center_lng": -81.3163732,
+          "yards": 415.8409988710415,
+          "osm_way_id": 1120702769
+        },
+        {
+          "hole_number": 6,
+          "par": 5,
+          "tee_lat": 28.9076368,
+          "tee_lng": -81.3158391,
+          "green_center_lat": 28.904258,
+          "green_center_lng": -81.3125202,
+          "yards": 541.8935284969182,
+          "osm_way_id": 1120702780
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 28.9045351,
+          "tee_lng": -81.3118159,
+          "green_center_lat": 28.9054014,
+          "green_center_lng": -81.3103258,
+          "yards": 190.4229864846068,
+          "osm_way_id": 1120702785
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 28.905112,
+          "tee_lng": -81.3093968,
+          "green_center_lat": 28.9020721,
+          "green_center_lng": -81.3094065,
+          "yards": 369.6667144977044,
+          "osm_way_id": 1120702876
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 28.9015561,
+          "tee_lng": -81.3092884,
+          "green_center_lat": 28.9012866,
+          "green_center_lng": -81.3128551,
+          "yards": 381.11861099293435,
+          "osm_way_id": 1120702797
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 28.9016213,
+          "tee_lng": -81.3150535,
+          "green_center_lat": 28.9042408,
+          "green_center_lng": -81.3173752,
+          "yards": 403.1855231614765,
+          "osm_way_id": 1120702807
+        },
+        {
+          "hole_number": 11,
+          "par": 5,
+          "tee_lat": 28.9049446,
+          "tee_lng": -81.3187304,
+          "green_center_lat": 28.9012668,
+          "green_center_lng": -81.3201506,
+          "yards": 472.1008918842334,
+          "osm_way_id": 1120702818
+        },
+        {
+          "hole_number": 12,
+          "par": 3,
+          "tee_lat": 28.9008316,
+          "tee_lng": -81.320233,
+          "green_center_lat": 28.8993564,
+          "green_center_lng": -81.319688,
+          "yards": 188.5404223623664,
+          "osm_way_id": 1120702826
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 28.8989472,
+          "tee_lng": -81.3194372,
+          "green_center_lat": 28.8969356,
+          "green_center_lng": -81.3223277,
+          "yards": 393.1110264075646,
+          "osm_way_id": 1120702836
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 28.8957331,
+          "tee_lng": -81.3222786,
+          "green_center_lat": 28.89289,
+          "green_center_lng": -81.3202743,
+          "yards": 406.2844308350554,
+          "osm_way_id": 1120702843
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 28.8923162,
+          "tee_lng": -81.320237,
+          "green_center_lat": 28.8923544,
+          "green_center_lng": -81.3169761,
+          "yards": 347.2132801181374,
+          "osm_way_id": 1120702850
+        },
+        {
+          "hole_number": 16,
+          "par": 5,
+          "tee_lat": 28.892288,
+          "tee_lng": -81.3163943,
+          "green_center_lat": 28.8966615,
+          "green_center_lng": -81.316849,
+          "yards": 534.0356284810072,
+          "osm_way_id": 1120702860
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 28.8973865,
+          "tee_lng": -81.3168962,
+          "green_center_lat": 28.8987668,
+          "green_center_lng": -81.3166483,
+          "yards": 169.91278683871695,
+          "osm_way_id": 1120702866
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 28.8992428,
+          "tee_lng": -81.3166516,
+          "green_center_lat": 28.9010194,
+          "green_center_lng": -81.313546,
+          "yards": 394.9503750753987,
+          "osm_way_id": 1120702875
+        }
+      ]
+    },
+    {
+      "id": "5572b67b-c164-43ef-a6d2-36686e4f4486",
+      "name": "Deercreek Country Club",
+      "city": "Jacksonville",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 16,
+      "unique_holes": 16,
+      "holes": []
+    },
+    {
+      "id": "ee86e16f-55f5-4c1b-8d87-2794bbffc424",
+      "name": "Deltona Club",
+      "city": "Deltona",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 28.9243389,
+          "tee_lng": -81.2435472,
+          "green_center_lat": 28.9232021,
+          "green_center_lng": -81.239647,
+          "yards": 437.53419177476354,
+          "osm_way_id": 885014086
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 28.9234372,
+          "tee_lng": -81.2394082,
+          "green_center_lat": 28.9256172,
+          "green_center_lng": -81.2417039,
+          "yards": 360.5279227199565,
+          "osm_way_id": 1485551510
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 28.9256076,
+          "tee_lng": -81.2412558,
+          "green_center_lat": 28.925459,
+          "green_center_lng": -81.2396009,
+          "yards": 177.0623998178534,
+          "osm_way_id": 1485551511
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 28.9255342,
+          "tee_lng": -81.238774,
+          "green_center_lat": 28.9251464,
+          "green_center_lng": -81.2345685,
+          "yards": 450.0870040087818,
+          "osm_way_id": 1485551512
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 28.9249318,
+          "tee_lng": -81.2340783,
+          "green_center_lat": 28.9222765,
+          "green_center_lng": -81.2377947,
+          "yards": 510.6163775389562,
+          "osm_way_id": 885014084
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 28.9220409,
+          "tee_lng": -81.2362918,
+          "green_center_lat": 28.9241439,
+          "green_center_lng": -81.2334135,
+          "yards": 399.0668061784599,
+          "osm_way_id": 885014085
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 28.9258883,
+          "tee_lng": -81.2344752,
+          "green_center_lat": 28.9259413,
+          "green_center_lng": -81.2386121,
+          "yards": 440.35300036368994,
+          "osm_way_id": 1485551513
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 28.9262118,
+          "tee_lng": -81.2392069,
+          "green_center_lat": 28.9261229,
+          "green_center_lng": -81.2419171,
+          "yards": 288.65858804857254,
+          "osm_way_id": 1485551514
+        },
+        {
+          "hole_number": 9,
+          "par": 3,
+          "tee_lat": 28.925619,
+          "tee_lng": -81.242296,
+          "green_center_lat": 28.924516,
+          "green_center_lng": -81.2423945,
+          "yards": 134.53876646430956,
+          "osm_way_id": 1485551515
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 28.9248883,
+          "tee_lng": -81.245393,
+          "green_center_lat": 28.9281752,
+          "green_center_lng": -81.2457901,
+          "yards": 401.9298894171761,
+          "osm_way_id": 1485552762
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 28.9284274,
+          "tee_lng": -81.2455826,
+          "green_center_lat": 28.9279812,
+          "green_center_lng": -81.243407,
+          "yards": 237.82461643461932,
+          "osm_way_id": 1485552763
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 28.9278004,
+          "tee_lng": -81.2430861,
+          "green_center_lat": 28.9293593,
+          "green_center_lng": -81.2397733,
+          "yards": 400.31541171012987,
+          "osm_way_id": 1485552764
+        },
+        {
+          "hole_number": 13,
+          "par": 5,
+          "tee_lat": 28.9293861,
+          "tee_lng": -81.2390986,
+          "green_center_lat": 28.9281158,
+          "green_center_lng": -81.23464,
+          "yards": 499.04251010118054,
+          "osm_way_id": 1485552765
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 28.9276732,
+          "tee_lng": -81.2339742,
+          "green_center_lat": 28.9259133,
+          "green_center_lng": -81.2332348,
+          "yards": 228.02215755559354,
+          "osm_way_id": 1485552766
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 28.9254573,
+          "tee_lng": -81.2334746,
+          "green_center_lat": 28.9273951,
+          "green_center_lng": -81.2354641,
+          "yards": 316.80624024471496,
+          "osm_way_id": 1485552767
+        },
+        {
+          "hole_number": 16,
+          "par": 5,
+          "tee_lat": 28.9278859,
+          "tee_lng": -81.2348654,
+          "green_center_lat": 28.9282405,
+          "green_center_lng": -81.2399355,
+          "yards": 541.3387929419619,
+          "osm_way_id": 1485552768
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 28.9277719,
+          "tee_lng": -81.2399245,
+          "green_center_lat": 28.9274536,
+          "green_center_lng": -81.2436915,
+          "yards": 402.7935025092681,
+          "osm_way_id": 1485552769
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 28.9277826,
+          "tee_lng": -81.2440277,
+          "green_center_lat": 28.9252828,
+          "green_center_lng": -81.2442325,
+          "yards": 304.76722366282223,
+          "osm_way_id": 1485552770
+        }
+      ]
+    },
+    {
+      "id": "c22631eb-892d-4d1f-adcc-dd277bec031a",
+      "name": "Eagle Landing Golf Club",
+      "city": "Orange Park",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 16,
+      "unique_holes": 16,
+      "holes": []
+    },
+    {
+      "id": "f41c8cb0-2783-4389-8580-dee5917c451a",
+      "name": "Fleming Island Golf Club",
+      "city": "Fleming Island",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 30.0705629,
+          "tee_lng": -81.7190652,
+          "green_center_lat": 30.0738748,
+          "green_center_lng": -81.7189889,
+          "yards": 402.8217084181404,
+          "osm_way_id": 1024097568
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 30.0740056,
+          "tee_lng": -81.7172028,
+          "green_center_lat": 30.0708698,
+          "green_center_lng": -81.716542,
+          "yards": 387.6159810128717,
+          "osm_way_id": 1024097583
+        },
+        {
+          "hole_number": 3,
+          "par": 5,
+          "tee_lat": 30.071394,
+          "tee_lng": -81.7152958,
+          "green_center_lat": 30.0738783,
+          "green_center_lng": -81.7111219,
+          "yards": 533.1030989076808,
+          "osm_way_id": 1024102468
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.0742305,
+          "tee_lng": -81.7116861,
+          "green_center_lat": 30.0762931,
+          "green_center_lng": -81.7146801,
+          "yards": 402.71338421336446,
+          "osm_way_id": 1024102469
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 30.0768994,
+          "tee_lng": -81.714672,
+          "green_center_lat": 30.0744454,
+          "green_center_lng": -81.7108595,
+          "yards": 500.012252249339,
+          "osm_way_id": 1024102470
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 30.0740573,
+          "tee_lng": -81.7106743,
+          "green_center_lat": 30.075446,
+          "green_center_lng": -81.7092512,
+          "yards": 225.70998556380286,
+          "osm_way_id": 1024102471
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 30.0746814,
+          "tee_lng": -81.7076624,
+          "green_center_lat": 30.0714565,
+          "green_center_lng": -81.7082055,
+          "yards": 396.30490509699627,
+          "osm_way_id": 1024102472
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 30.0703847,
+          "tee_lng": -81.7078752,
+          "green_center_lat": 30.069504,
+          "green_center_lng": -81.709105,
+          "yards": 167.9875351330345,
+          "osm_way_id": 1024102473
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 30.0690092,
+          "tee_lng": -81.7114744,
+          "green_center_lat": 30.0694513,
+          "green_center_lng": -81.7151225,
+          "yards": 387.66816480642024,
+          "osm_way_id": 1024102474
+        },
+        {
+          "hole_number": 10,
+          "par": 3,
+          "tee_lat": 30.0690656,
+          "tee_lng": -81.7176097,
+          "green_center_lat": 30.0682662,
+          "green_center_lng": -81.7186385,
+          "yards": 145.50735510361073,
+          "osm_way_id": 1024102475
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 30.0675764,
+          "tee_lng": -81.7179278,
+          "green_center_lat": 30.0684116,
+          "green_center_lng": -81.7210829,
+          "yards": 347.2293463833718,
+          "osm_way_id": 1024102476
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 30.0677846,
+          "tee_lng": -81.7216544,
+          "green_center_lat": 30.0687867,
+          "green_center_lng": -81.7242431,
+          "yards": 298.4467929638389,
+          "osm_way_id": 1024102477
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 30.0685696,
+          "tee_lng": -81.7246167,
+          "green_center_lat": 30.0649503,
+          "green_center_lng": -81.7240152,
+          "yards": 444.6519875266657,
+          "osm_way_id": 1024102478
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 30.0646306,
+          "tee_lng": -81.7243556,
+          "green_center_lat": 30.063483,
+          "green_center_lng": -81.7208007,
+          "yards": 399.3132073736072,
+          "osm_way_id": 1024102479
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 30.064287,
+          "tee_lng": -81.7193461,
+          "green_center_lat": 30.0645159,
+          "green_center_lng": -81.7174845,
+          "yards": 197.88986652952264,
+          "osm_way_id": 1024102480
+        },
+        {
+          "hole_number": 16,
+          "par": 5,
+          "tee_lat": 30.0649556,
+          "tee_lng": -81.7172955,
+          "green_center_lat": 30.0666499,
+          "green_center_lng": -81.7216917,
+          "yards": 506.4696038683149,
+          "osm_way_id": 1024102481
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 30.0680313,
+          "tee_lng": -81.7216265,
+          "green_center_lat": 30.0691342,
+          "green_center_lng": -81.7227501,
+          "yards": 178.8013623467156,
+          "osm_way_id": 1024102482
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 30.0695317,
+          "tee_lng": -81.7226553,
+          "green_center_lat": 30.0694618,
+          "green_center_lng": -81.7178835,
+          "yards": 502.2499074630581,
+          "osm_way_id": 1024102483
+        }
+      ]
+    },
+    {
+      "id": "84e2929f-fb30-43e8-8905-70997ca6284b",
+      "name": "Indian River Colony Club",
+      "city": "Melbourne",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 28.2509258,
+          "tee_lng": -80.7105178,
+          "green_center_lat": 28.2502428,
+          "green_center_lng": -80.7130697,
+          "yards": 285.69768821559506,
+          "osm_way_id": 1160252046
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 28.2498535,
+          "tee_lng": -80.7145011,
+          "green_center_lat": 28.2545183,
+          "green_center_lng": -80.7157326,
+          "yards": 582.3967934307791,
+          "osm_way_id": 1160252047
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 28.2541952,
+          "tee_lng": -80.7141527,
+          "green_center_lat": 28.2513444,
+          "green_center_lng": -80.7130568,
+          "yards": 366.0060270230927,
+          "osm_way_id": 1160252048
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 28.2519643,
+          "tee_lng": -80.7117516,
+          "green_center_lat": 28.2545409,
+          "green_center_lng": -80.7128303,
+          "yards": 333.9524916024841,
+          "osm_way_id": 1160252049
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 28.2547385,
+          "tee_lng": -80.7105106,
+          "green_center_lat": 28.2520112,
+          "green_center_lng": -80.7103705,
+          "yards": 331.99108823732206,
+          "osm_way_id": 1160252050
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 28.2494408,
+          "tee_lng": -80.7092298,
+          "green_center_lat": 28.2480232,
+          "green_center_lng": -80.7089275,
+          "yards": 175.40161453278927,
+          "osm_way_id": 1160252060
+        },
+        {
+          "hole_number": 7,
+          "par": 5,
+          "tee_lat": 28.2475858,
+          "tee_lng": -80.7075796,
+          "green_center_lat": 28.2520089,
+          "green_center_lng": -80.7076394,
+          "yards": 537.906647996349,
+          "osm_way_id": 1160252061
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 28.2521586,
+          "tee_lng": -80.7073604,
+          "green_center_lat": 28.2532666,
+          "green_center_lng": -80.7075571,
+          "yards": 136.37518814541824,
+          "osm_way_id": 1160252062
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 28.253448,
+          "tee_lng": -80.7078479,
+          "green_center_lat": 28.2515493,
+          "green_center_lng": -80.7098851,
+          "yards": 317.69541662565575,
+          "osm_way_id": 1160252063
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 28.2517638,
+          "tee_lng": -80.7101346,
+          "green_center_lat": 28.2546519,
+          "green_center_lng": -80.7088035,
+          "yards": 379.0454979033924,
+          "osm_way_id": 1160252059
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 28.2551054,
+          "tee_lng": -80.707528,
+          "green_center_lat": 28.2544189,
+          "green_center_lng": -80.7059985,
+          "yards": 183.87608313168744,
+          "osm_way_id": 1160252058
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 28.2535246,
+          "tee_lng": -80.7058619,
+          "green_center_lat": 28.2512158,
+          "green_center_lng": -80.7060631,
+          "yards": 281.5862729225415,
+          "osm_way_id": 1160252057
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 28.2484969,
+          "tee_lng": -80.7062404,
+          "green_center_lat": 28.2454984,
+          "green_center_lng": -80.7063233,
+          "yards": 364.73897488411916,
+          "osm_way_id": 1160252056
+        },
+        {
+          "hole_number": 14,
+          "par": 5,
+          "tee_lat": 28.2465092,
+          "tee_lng": -80.7078113,
+          "green_center_lat": 28.2477531,
+          "green_center_lng": -80.7119207,
+          "yards": 465.47501129412933,
+          "osm_way_id": 1160252055
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 28.2479903,
+          "tee_lng": -80.7129158,
+          "green_center_lat": 28.2460638,
+          "green_center_lng": -80.7104824,
+          "yards": 350.47621030289537,
+          "osm_way_id": 1160252054
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 28.2449881,
+          "tee_lng": -80.7110225,
+          "green_center_lat": 28.2454445,
+          "green_center_lng": -80.7128307,
+          "yards": 201.4976507643132,
+          "osm_way_id": 1160252053
+        },
+        {
+          "hole_number": 17,
+          "par": 5,
+          "tee_lat": 28.2454288,
+          "tee_lng": -80.7146442,
+          "green_center_lat": 28.2489457,
+          "green_center_lng": -80.7147305,
+          "yards": 427.7704872040121,
+          "osm_way_id": 1160252052
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 28.2489038,
+          "tee_lng": -80.7134148,
+          "green_center_lat": 28.2497887,
+          "green_center_lng": -80.7106456,
+          "yards": 315.5537665360966,
+          "osm_way_id": 1160252051
+        }
+      ]
+    },
+    {
+      "id": "98dc9c65-cb40-4417-b435-635bc83d3af2",
+      "name": "Ironwood Golf Course",
+      "city": "Gainesville",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 29.6897066,
+          "tee_lng": -82.2962287,
+          "green_center_lat": 29.6933562,
+          "green_center_lng": -82.2941386,
+          "yards": 495.69685974516494,
+          "osm_way_id": 1235274747
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 29.693661,
+          "tee_lng": -82.2936037,
+          "green_center_lat": 29.6965424,
+          "green_center_lng": -82.2928075,
+          "yards": 360.343856604827,
+          "osm_way_id": 1235274748
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 29.6968847,
+          "tee_lng": -82.2926678,
+          "green_center_lat": 29.7001674,
+          "green_center_lng": -82.2915193,
+          "yards": 417.2183758706167,
+          "osm_way_id": 1235274749
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 29.7004259,
+          "tee_lng": -82.2915613,
+          "green_center_lat": 29.7008692,
+          "green_center_lng": -82.2931056,
+          "yards": 171.7991068449471,
+          "osm_way_id": 1235274750
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 29.7007804,
+          "tee_lng": -82.2935354,
+          "green_center_lat": 29.6977703,
+          "green_center_lng": -82.2938522,
+          "yards": 367.56790715106024,
+          "osm_way_id": 1235274751
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 29.6979126,
+          "tee_lng": -82.2933303,
+          "green_center_lat": 29.6995234,
+          "green_center_lng": -82.2927799,
+          "yards": 204.32644087799196,
+          "osm_way_id": 1235274752
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 29.6998404,
+          "tee_lng": -82.2921632,
+          "green_center_lat": 29.6972641,
+          "green_center_lng": -82.2931211,
+          "yards": 329.2240386042974,
+          "osm_way_id": 1235274753
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 29.6972844,
+          "tee_lng": -82.2938035,
+          "green_center_lat": 29.6938537,
+          "green_center_lng": -82.294184,
+          "yards": 419.12002980195393,
+          "osm_way_id": 1235274754
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 29.6931927,
+          "tee_lng": -82.2935746,
+          "green_center_lat": 29.6893537,
+          "green_center_lng": -82.2958166,
+          "yards": 523.4816210105993,
+          "osm_way_id": 1235274755
+        },
+        {
+          "hole_number": 10,
+          "par": 3,
+          "tee_lat": 29.689455,
+          "tee_lng": -82.297894,
+          "green_center_lat": 29.6895883,
+          "green_center_lng": -82.2989328,
+          "yards": 110.9300367560346,
+          "osm_way_id": 1235274756
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 29.6898918,
+          "tee_lng": -82.2991002,
+          "green_center_lat": 29.691411,
+          "green_center_lng": -82.3022058,
+          "yards": 376.51225333868524,
+          "osm_way_id": 1235274757
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 29.6917259,
+          "tee_lng": -82.302511,
+          "green_center_lat": 29.6960858,
+          "green_center_lng": -82.3035901,
+          "yards": 542.2990106861267,
+          "osm_way_id": 1235274758
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 29.6962841,
+          "tee_lng": -82.3030947,
+          "green_center_lat": 29.6990089,
+          "green_center_lng": -82.3008872,
+          "yards": 405.1732436167532,
+          "osm_way_id": 1235274759
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 29.6992754,
+          "tee_lng": -82.3004829,
+          "green_center_lat": 29.7002625,
+          "green_center_lng": -82.2997456,
+          "yards": 143.08734029703774,
+          "osm_way_id": 1235274760
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 29.700755,
+          "tee_lng": -82.2990585,
+          "green_center_lat": 29.6982014,
+          "green_center_lng": -82.3004917,
+          "yards": 345.4661801006019,
+          "osm_way_id": 1235274761
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 29.6981889,
+          "tee_lng": -82.300027,
+          "green_center_lat": 29.695685,
+          "green_center_lng": -82.3012756,
+          "yards": 331.8238158402377,
+          "osm_way_id": 1235274762
+        },
+        {
+          "hole_number": 17,
+          "par": 5,
+          "tee_lat": 29.6961626,
+          "tee_lng": -82.300717,
+          "green_center_lat": 29.6921299,
+          "green_center_lng": -82.2999705,
+          "yards": 496.69390216175793,
+          "osm_way_id": 1235274763
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 29.6916305,
+          "tee_lng": -82.3003411,
+          "green_center_lat": 29.689903,
+          "green_center_lng": -82.298238,
+          "yards": 305.7604521308656,
+          "osm_way_id": 1235274764
+        }
+      ]
+    },
+    {
+      "id": "31e377d1-3da8-46d0-9247-6108de3c4ada",
+      "name": "Juliette Falls",
+      "city": "Dunnellon",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 29.1162467,
+          "tee_lng": -82.4154878,
+          "green_center_lat": 29.1145417,
+          "green_center_lng": -82.4170693,
+          "yards": 266.8661705776082,
+          "osm_way_id": 824972307
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 29.1137955,
+          "tee_lng": -82.4172875,
+          "green_center_lat": 29.1106393,
+          "green_center_lng": -82.4183249,
+          "yards": 399.3193111348252,
+          "osm_way_id": 824972308
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 29.1104061,
+          "tee_lng": -82.4171523,
+          "green_center_lat": 29.1102142,
+          "green_center_lng": -82.4159729,
+          "yards": 127.45852563859553,
+          "osm_way_id": 824972309
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 29.1118351,
+          "tee_lng": -82.4158377,
+          "green_center_lat": 29.1140937,
+          "green_center_lng": -82.4165339,
+          "yards": 284.44087745457256,
+          "osm_way_id": 824972310
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 29.11327,
+          "tee_lng": -82.4149016,
+          "green_center_lat": 29.1108165,
+          "green_center_lng": -82.4156789,
+          "yards": 309.5744723473066,
+          "osm_way_id": 824972311
+        },
+        {
+          "hole_number": 6,
+          "par": 5,
+          "tee_lat": 29.1110586,
+          "tee_lng": -82.413881,
+          "green_center_lat": 29.1140553,
+          "green_center_lng": -82.4123299,
+          "yards": 399.9403266536735,
+          "osm_way_id": 824972312
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 29.1128684,
+          "tee_lng": -82.4132795,
+          "green_center_lat": 29.1121657,
+          "green_center_lng": -82.4139588,
+          "yards": 111.85011042999506,
+          "osm_way_id": 824972313
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 29.113704,
+          "tee_lng": -82.4136918,
+          "green_center_lat": 29.116184,
+          "green_center_lng": -82.4134113,
+          "yards": 303.04770687777284,
+          "osm_way_id": 824972314
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 29.1163404,
+          "tee_lng": -82.4126172,
+          "green_center_lat": 29.1181531,
+          "green_center_lng": -82.4136783,
+          "yards": 247.58427625459677,
+          "osm_way_id": 824972315
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 29.1185045,
+          "tee_lng": -82.4155775,
+          "green_center_lat": 29.1208751,
+          "green_center_lng": -82.4155268,
+          "yards": 288.32574656628515,
+          "osm_way_id": 824972316
+        },
+        {
+          "hole_number": 11,
+          "par": 5,
+          "tee_lat": 29.1216929,
+          "tee_lng": -82.4153308,
+          "green_center_lat": 29.1237653,
+          "green_center_lng": -82.418379,
+          "yards": 410.3240324008801,
+          "osm_way_id": 824972317
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 29.1238155,
+          "tee_lng": -82.4203221,
+          "green_center_lat": 29.1235262,
+          "green_center_lng": -82.4231473,
+          "yards": 302.1762089115404,
+          "osm_way_id": 824972318
+        },
+        {
+          "hole_number": 13,
+          "par": 3,
+          "tee_lat": 29.1245033,
+          "tee_lng": -82.4227249,
+          "green_center_lat": 29.1253594,
+          "green_center_lng": -82.42237,
+          "yards": 110.72172269366868,
+          "osm_way_id": 824972319
+        },
+        {
+          "hole_number": 14,
+          "par": 5,
+          "tee_lat": 29.1262007,
+          "tee_lng": -82.4199065,
+          "green_center_lat": 29.1262775,
+          "green_center_lng": -82.4156991,
+          "yards": 447.0390142326694,
+          "osm_way_id": 824972320
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 29.1262303,
+          "tee_lng": -82.413881,
+          "green_center_lat": 29.1264841,
+          "green_center_lng": -82.4116067,
+          "yards": 243.55624397773036,
+          "osm_way_id": 824972321
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 29.1252502,
+          "tee_lng": -82.411627,
+          "green_center_lat": 29.1247277,
+          "green_center_lng": -82.4128199,
+          "yards": 141.75735568702552,
+          "osm_way_id": 824972322
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 29.1240073,
+          "tee_lng": -82.4124989,
+          "green_center_lat": 29.1233638,
+          "green_center_lng": -82.4149591,
+          "yards": 272.811032804068,
+          "osm_way_id": 824972323
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 29.1215157,
+          "tee_lng": -82.4141514,
+          "green_center_lat": 29.1187495,
+          "green_center_lng": -82.4141007,
+          "yards": 336.42526002064375,
+          "osm_way_id": 824972324
+        }
+      ]
+    },
+    {
+      "id": "d89242fb-b919-452f-a7d7-dbc15a4fe60f",
+      "name": "Julington Creek Golf Club",
+      "city": "St Johns",
+      "expected": 18,
+      "status": "unresolved",
+      "raw_way_count": 16,
+      "unique_holes": 16,
+      "holes": []
+    },
+    {
+      "id": "93f2efdf-e347-49bb-ad7f-ca9853880e8b",
+      "name": "Lost Key Golf Club",
+      "city": "Pensacola",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 30.3074355,
+          "tee_lng": -87.4351213,
+          "green_center_lat": 30.305692,
+          "green_center_lng": -87.4300148,
+          "yards": 576.5107328649972,
+          "osm_way_id": 824901178
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 30.3058285,
+          "tee_lng": -87.4296022,
+          "green_center_lat": 30.3044279,
+          "green_center_lng": -87.4284287,
+          "yards": 210.20815812298807,
+          "osm_way_id": 824909226
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 30.3039211,
+          "tee_lng": -87.4283727,
+          "green_center_lat": 30.3056369,
+          "green_center_lng": -87.4314904,
+          "yards": 388.16570905105,
+          "osm_way_id": 824909239
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.3056541,
+          "tee_lng": -87.4322683,
+          "green_center_lat": 30.3038039,
+          "green_center_lng": -87.4301322,
+          "yards": 317.6728157884142,
+          "osm_way_id": 824909251
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 30.3025609,
+          "tee_lng": -87.4305319,
+          "green_center_lat": 30.3022579,
+          "green_center_lng": -87.4346139,
+          "yards": 430.1507275666547,
+          "osm_way_id": 824917371
+        },
+        {
+          "hole_number": 6,
+          "par": 5,
+          "tee_lat": 30.3025896,
+          "tee_lng": -87.434437,
+          "green_center_lat": 30.3028779,
+          "green_center_lng": -87.4394023,
+          "yards": 522.4833259083903,
+          "osm_way_id": 824917375
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 30.3032128,
+          "tee_lng": -87.4397475,
+          "green_center_lat": 30.303861,
+          "green_center_lng": -87.4380031,
+          "yards": 199.38521239071315,
+          "osm_way_id": 824917384
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 30.3041461,
+          "tee_lng": -87.4375359,
+          "green_center_lat": 30.3031187,
+          "green_center_lng": -87.4335594,
+          "yards": 435.7813426725203,
+          "osm_way_id": 824917393
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 30.30422,
+          "tee_lng": -87.4322092,
+          "green_center_lat": 30.305671,
+          "green_center_lng": -87.4353745,
+          "yards": 376.2555946275864,
+          "osm_way_id": 824917395
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 30.3076824,
+          "tee_lng": -87.4347553,
+          "green_center_lat": 30.30677,
+          "green_center_lng": -87.4308652,
+          "yards": 423.20509699773703,
+          "osm_way_id": 824918733
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 30.3065709,
+          "tee_lng": -87.4305377,
+          "green_center_lat": 30.3060431,
+          "green_center_lng": -87.4292672,
+          "yards": 148.0233137063409,
+          "osm_way_id": 824969277
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 30.3052623,
+          "tee_lng": -87.4286338,
+          "green_center_lat": 30.3095162,
+          "green_center_lng": -87.4284148,
+          "yards": 517.8037297125954,
+          "osm_way_id": 824969295
+        },
+        {
+          "hole_number": 13,
+          "par": 3,
+          "tee_lat": 30.3105184,
+          "tee_lng": -87.4294084,
+          "green_center_lat": 30.3104194,
+          "green_center_lng": -87.430857,
+          "yards": 152.55197602853949,
+          "osm_way_id": 824969303
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 30.3100991,
+          "tee_lng": -87.430044,
+          "green_center_lat": 30.3103839,
+          "green_center_lng": -87.4337298,
+          "yards": 388.48852436617034,
+          "osm_way_id": 825060039
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 30.3105733,
+          "tee_lng": -87.4358044,
+          "green_center_lat": 30.3088207,
+          "green_center_lng": -87.4327164,
+          "yards": 387.96648370506455,
+          "osm_way_id": 825060050
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 30.3089253,
+          "tee_lng": -87.4335736,
+          "green_center_lat": 30.3090949,
+          "green_center_lng": -87.4354255,
+          "yards": 195.50899214821388,
+          "osm_way_id": 825060052
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 30.3092594,
+          "tee_lng": -87.435679,
+          "green_center_lat": 30.3071421,
+          "green_center_lng": -87.4390567,
+          "yards": 438.2197173318675,
+          "osm_way_id": 825060053
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 30.3059092,
+          "tee_lng": -87.4402943,
+          "green_center_lat": 30.3069375,
+          "green_center_lng": -87.4360756,
+          "yards": 460.2175391391098,
+          "osm_way_id": 825060064
+        }
+      ]
+    },
+    {
+      "id": "d0aade05-afdf-4237-bfa3-f38b5b5573b1",
+      "name": "Marsh Creek Country Club",
+      "city": "Saint Augustine",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 29.8391069,
+          "tee_lng": -81.2813453,
+          "green_center_lat": 29.8361724,
+          "green_center_lng": -81.2818044,
+          "yards": 360.1192494057628,
+          "osm_way_id": 1518202277
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 29.8358442,
+          "tee_lng": -81.2819864,
+          "green_center_lat": 29.8337741,
+          "green_center_lng": -81.2796366,
+          "yards": 353.2864238372449,
+          "osm_way_id": 1518202278
+        },
+        {
+          "hole_number": 3,
+          "par": 5,
+          "tee_lat": 29.8328487,
+          "tee_lng": -81.2798398,
+          "green_center_lat": 29.8304099,
+          "green_center_lng": -81.2832629,
+          "yards": 467.2795209862866,
+          "osm_way_id": 1518448992
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 29.8301033,
+          "tee_lng": -81.2835199,
+          "green_center_lat": 29.8294738,
+          "green_center_lng": -81.2824243,
+          "yards": 138.62944378924374,
+          "osm_way_id": 1518448993
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 29.8286171,
+          "tee_lng": -81.2812398,
+          "green_center_lat": 29.8315938,
+          "green_center_lng": -81.2794876,
+          "yards": 406.4438664902018,
+          "osm_way_id": 1518449009
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 29.8331816,
+          "tee_lng": -81.2787489,
+          "green_center_lat": 29.8302039,
+          "green_center_lng": -81.2786182,
+          "yards": 362.3638760567497,
+          "osm_way_id": 1518449022
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 29.8302054,
+          "tee_lng": -81.2769823,
+          "green_center_lat": 29.8305661,
+          "green_center_lng": -81.2752067,
+          "yards": 192.37880235448418,
+          "osm_way_id": 1518449021
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 29.8317614,
+          "tee_lng": -81.2752653,
+          "green_center_lat": 29.8341673,
+          "green_center_lng": -81.277631,
+          "yards": 384.54430477066984,
+          "osm_way_id": 1518449031
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 29.8341878,
+          "tee_lng": -81.2770628,
+          "green_center_lat": 29.8384494,
+          "green_center_lng": -81.2788164,
+          "yards": 550.2538086197711,
+          "osm_way_id": 1518449040
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 29.8431808,
+          "tee_lng": -81.2826332,
+          "green_center_lat": 29.8463485,
+          "green_center_lng": -81.28374,
+          "yards": 402.50782972172317,
+          "osm_way_id": 1518511359
+        },
+        {
+          "hole_number": 11,
+          "par": 5,
+          "tee_lat": 29.8468314,
+          "tee_lng": -81.2838268,
+          "green_center_lat": 29.8511399,
+          "green_center_lng": -81.2840486,
+          "yards": 524.4546479677897,
+          "osm_way_id": 1518511360
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 29.8513991,
+          "tee_lng": -81.2849732,
+          "green_center_lat": 29.8483775,
+          "green_center_lng": -81.2845669,
+          "yards": 369.9303616205386,
+          "osm_way_id": 1518511361
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 29.8478043,
+          "tee_lng": -81.2852744,
+          "green_center_lat": 29.8447551,
+          "green_center_lng": -81.2859893,
+          "yards": 378.385544612842,
+          "osm_way_id": 1518511362
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 29.8443423,
+          "tee_lng": -81.2868799,
+          "green_center_lat": 29.8474464,
+          "green_center_lng": -81.286236,
+          "yards": 383.53340517995554,
+          "osm_way_id": 1518511363
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 29.8480486,
+          "tee_lng": -81.287097,
+          "green_center_lat": 29.8478171,
+          "green_center_lng": -81.2891261,
+          "yards": 215.8598757485507,
+          "osm_way_id": 1518511364
+        },
+        {
+          "hole_number": 16,
+          "par": 5,
+          "tee_lat": 29.8467983,
+          "tee_lng": -81.2888354,
+          "green_center_lat": 29.8421937,
+          "green_center_lng": -81.2895781,
+          "yards": 565.393046964678,
+          "osm_way_id": 1518511365
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 29.8431214,
+          "tee_lng": -81.2884868,
+          "green_center_lat": 29.8433259,
+          "green_center_lng": -81.2868128,
+          "yards": 178.3135978128902,
+          "osm_way_id": 1518511366
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 29.8436023,
+          "tee_lng": -81.286182,
+          "green_center_lat": 29.8422529,
+          "green_center_lng": -81.2824681,
+          "yards": 424.71751216703717,
+          "osm_way_id": 1518511367
+        }
+      ]
+    },
+    {
+      "id": "17d016a6-4ad6-4385-af21-7bf213c68a62",
+      "name": "Mayfair Country Club",
+      "city": "Sanford",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 28.7806163,
+          "tee_lng": -81.3192806,
+          "green_center_lat": 28.7835685,
+          "green_center_lng": -81.3198767,
+          "yards": 364.5789961211064,
+          "osm_way_id": 1423466883
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 28.7829919,
+          "tee_lng": -81.3209001,
+          "green_center_lat": 28.7862101,
+          "green_center_lng": -81.3197867,
+          "yards": 408.9425461514306,
+          "osm_way_id": 1423466884
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 28.7862373,
+          "tee_lng": -81.3193256,
+          "green_center_lat": 28.7835931,
+          "green_center_lng": -81.3185439,
+          "yards": 332.1641264621714,
+          "osm_way_id": 1423466885
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 28.7825811,
+          "tee_lng": -81.3179309,
+          "green_center_lat": 28.7795092,
+          "green_center_lng": -81.3178383,
+          "yards": 373.68696889987524,
+          "osm_way_id": 1423466886
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 28.7794156,
+          "tee_lng": -81.3172252,
+          "green_center_lat": 28.7806673,
+          "green_center_lng": -81.3169559,
+          "yards": 154.89487623483217,
+          "osm_way_id": 1423466887
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 28.7811842,
+          "tee_lng": -81.3170186,
+          "green_center_lat": 28.779151,
+          "green_center_lng": -81.3145409,
+          "yards": 361.75861947861443,
+          "osm_way_id": 1423466888
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 28.77901,
+          "tee_lng": -81.3142018,
+          "green_center_lat": 28.7802012,
+          "green_center_lng": -81.314207,
+          "yards": 144.85624376493467,
+          "osm_way_id": 1423466889
+        },
+        {
+          "hole_number": 8,
+          "par": 5,
+          "tee_lat": 28.7805761,
+          "tee_lng": -81.3137845,
+          "green_center_lat": 28.7827702,
+          "green_center_lng": -81.3176037,
+          "yards": 486.70670002506296,
+          "osm_way_id": 1423466890
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 28.7833581,
+          "tee_lng": -81.3187191,
+          "green_center_lat": 28.7807209,
+          "green_center_lng": -81.3188419,
+          "yards": 320.9621377370917,
+          "osm_way_id": 1423466891
+        },
+        {
+          "hole_number": 10,
+          "par": 3,
+          "tee_lat": 28.7801611,
+          "tee_lng": -81.3203512,
+          "green_center_lat": 28.7816218,
+          "green_center_lng": -81.3207807,
+          "yards": 183.4314523189033,
+          "osm_way_id": 1423466892
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 28.7819697,
+          "tee_lng": -81.3211873,
+          "green_center_lat": 28.7788517,
+          "green_center_lng": -81.3211144,
+          "yards": 379.24218007909764,
+          "osm_way_id": 1423466893
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 28.7789258,
+          "tee_lng": -81.3205858,
+          "green_center_lat": 28.7762644,
+          "green_center_lng": -81.3213668,
+          "yards": 334.1721400869184,
+          "osm_way_id": 1423466894
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 28.7762161,
+          "tee_lng": -81.3220167,
+          "green_center_lat": 28.7791902,
+          "green_center_lng": -81.3216848,
+          "yards": 363.38970311127395,
+          "osm_way_id": 1423466895
+        },
+        {
+          "hole_number": 14,
+          "par": 5,
+          "tee_lat": 28.7787961,
+          "tee_lng": -81.3220026,
+          "green_center_lat": 28.783045,
+          "green_center_lng": -81.3220032,
+          "yards": 516.685018308323,
+          "osm_way_id": 1423466896
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 28.7833376,
+          "tee_lng": -81.3221113,
+          "green_center_lat": 28.7859531,
+          "green_center_lng": -81.3219103,
+          "yards": 318.7769751230693,
+          "osm_way_id": 1423466897
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 28.7862485,
+          "tee_lng": -81.3220184,
+          "green_center_lat": 28.7858612,
+          "green_center_lng": -81.3206991,
+          "yards": 148.28523257851455,
+          "osm_way_id": 1423466898
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 28.7862152,
+          "tee_lng": -81.3201559,
+          "green_center_lat": 28.7835044,
+          "green_center_lng": -81.3215574,
+          "yards": 361.9077441310039,
+          "osm_way_id": 1423466899
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 28.7833721,
+          "tee_lng": -81.3217803,
+          "green_center_lat": 28.7805289,
+          "green_center_lng": -81.3196649,
+          "yards": 412.7628204382174,
+          "osm_way_id": 1423466900
+        }
+      ]
+    },
+    {
+      "id": "e8ac2656-3d57-40c6-a174-32c58771357d",
+      "name": "Ocala Golf Club",
+      "city": "Ocala",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 29.1922084,
+          "tee_lng": -82.092441,
+          "green_center_lat": 29.1921913,
+          "green_center_lng": -82.0887016,
+          "yards": 396.9773728564872,
+          "osm_way_id": 1189224947
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 29.1919219,
+          "tee_lng": -82.0897275,
+          "green_center_lat": 29.187573,
+          "green_center_lng": -82.0899314,
+          "yards": 529.2882794526332,
+          "osm_way_id": 1189226098
+        },
+        {
+          "hole_number": 3,
+          "par": 3,
+          "tee_lat": 29.1873273,
+          "tee_lng": -82.090516,
+          "green_center_lat": 29.1873707,
+          "green_center_lng": -82.0886721,
+          "yards": 195.8274430284793,
+          "osm_way_id": 1189228620
+        },
+        {
+          "hole_number": 4,
+          "par": 5,
+          "tee_lat": 29.1874507,
+          "tee_lng": -82.0884206,
+          "green_center_lat": 29.1917203,
+          "green_center_lng": -82.0893189,
+          "yards": 527.8877628464387,
+          "osm_way_id": 1189376105
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 29.1921356,
+          "tee_lng": -82.0882765,
+          "green_center_lat": 29.1907967,
+          "green_center_lng": -82.0883297,
+          "yards": 162.9140796640203,
+          "osm_way_id": 1189412771
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 29.1909902,
+          "tee_lng": -82.0878308,
+          "green_center_lat": 29.1878353,
+          "green_center_lng": -82.0880667,
+          "yards": 384.46630326254433,
+          "osm_way_id": 1189454578
+        },
+        {
+          "hole_number": 7,
+          "par": 5,
+          "tee_lat": 29.1876439,
+          "tee_lng": -82.0874597,
+          "green_center_lat": 29.1918354,
+          "green_center_lng": -82.0874329,
+          "yards": 509.71286133244155,
+          "osm_way_id": 1189456168
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 29.1915233,
+          "tee_lng": -82.0877416,
+          "green_center_lat": 29.1931537,
+          "green_center_lng": -82.0878329,
+          "yards": 198.5006123425028,
+          "osm_way_id": 1189486625
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 29.1934005,
+          "tee_lng": -82.0879117,
+          "green_center_lat": 29.1929338,
+          "green_center_lng": -82.0914925,
+          "yards": 384.3446662653089,
+          "osm_way_id": 1189493140
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 29.1920877,
+          "tee_lng": -82.0932962,
+          "green_center_lat": 29.1907709,
+          "green_center_lng": -82.0962656,
+          "yards": 353.5706491974235,
+          "osm_way_id": 1189495222
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 29.1903957,
+          "tee_lng": -82.0956535,
+          "green_center_lat": 29.1902569,
+          "green_center_lng": -82.0970541,
+          "yards": 149.64431044799562,
+          "osm_way_id": 1189512522
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 29.1900275,
+          "tee_lng": -82.0961306,
+          "green_center_lat": 29.1871145,
+          "green_center_lng": -82.0982485,
+          "yards": 419.5660968777992,
+          "osm_way_id": 1189513904
+        },
+        {
+          "hole_number": 13,
+          "par": 5,
+          "tee_lat": 29.1867315,
+          "tee_lng": -82.098462,
+          "green_center_lat": 29.1886248,
+          "green_center_lng": -82.0948592,
+          "yards": 446.4349553761557,
+          "osm_way_id": 1189654706
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 29.1883885,
+          "tee_lng": -82.0954213,
+          "green_center_lat": 29.1895789,
+          "green_center_lng": -82.0949299,
+          "yards": 153.8713118002442,
+          "osm_way_id": 1189655280
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 29.189864,
+          "tee_lng": -82.0951138,
+          "green_center_lat": 29.1909258,
+          "green_center_lng": -82.0913479,
+          "yards": 420.1257591024253,
+          "osm_way_id": 1189660706
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 29.1905099,
+          "tee_lng": -82.0913174,
+          "green_center_lat": 29.1873295,
+          "green_center_lng": -82.0908336,
+          "yards": 390.14625636502035,
+          "osm_way_id": 1189692956
+        },
+        {
+          "hole_number": 17,
+          "par": 5,
+          "tee_lat": 29.1874548,
+          "tee_lng": -82.0904901,
+          "green_center_lat": 29.1915772,
+          "green_center_lng": -82.0904922,
+          "yards": 501.3021049663866,
+          "osm_way_id": 1189692964
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 29.1919588,
+          "tee_lng": -82.0900399,
+          "green_center_lat": 29.1917569,
+          "green_center_lng": -82.0933217,
+          "yards": 349.25864810371485,
+          "osm_way_id": 1189693931
+        }
+      ]
+    },
+    {
+      "id": "1c2b2c25-ac0a-4c43-b19b-69bab60df49d",
+      "name": "Palm Valley Golf Club",
+      "city": "Ponte Vedra Beach",
+      "expected": 9,
+      "status": "validated",
+      "raw_way_count": 9,
+      "unique_holes": 9,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 3,
+          "tee_lat": 30.101763,
+          "tee_lng": -81.4366766,
+          "green_center_lat": 30.1025486,
+          "green_center_lng": -81.4372766,
+          "yards": 114.50274374501853,
+          "osm_way_id": 1249963769
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 30.1021855,
+          "tee_lng": -81.4373665,
+          "green_center_lat": 30.1012393,
+          "green_center_lng": -81.4366579,
+          "yards": 137.10094290496568,
+          "osm_way_id": 1249963774
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 30.1009888,
+          "tee_lng": -81.4364218,
+          "green_center_lat": 30.0989106,
+          "green_center_lng": -81.4360543,
+          "yards": 255.65874170891803,
+          "osm_way_id": 1249963780
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.0994936,
+          "tee_lng": -81.4363176,
+          "green_center_lat": 30.1010165,
+          "green_center_lng": -81.4369762,
+          "yards": 197.72900631014153,
+          "osm_way_id": 1249963781
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 30.1007217,
+          "tee_lng": -81.4370573,
+          "green_center_lat": 30.099803,
+          "green_center_lng": -81.4367034,
+          "yards": 117.75889619349144,
+          "osm_way_id": 1249963782
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 30.0996185,
+          "tee_lng": -81.4368074,
+          "green_center_lat": 30.0988502,
+          "green_center_lng": -81.4365118,
+          "yards": 98.46866394587609,
+          "osm_way_id": 1249963783
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 30.0988555,
+          "tee_lng": -81.4357454,
+          "green_center_lat": 30.0997084,
+          "green_center_lng": -81.4359507,
+          "yards": 105.94154094943195,
+          "osm_way_id": 1249963784
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 30.0997494,
+          "tee_lng": -81.435729,
+          "green_center_lat": 30.1004851,
+          "green_center_lng": -81.4360526,
+          "yards": 95.7231166669624,
+          "osm_way_id": 1249963785
+        },
+        {
+          "hole_number": 9,
+          "par": 3,
+          "tee_lat": 30.1004884,
+          "tee_lng": -81.435793,
+          "green_center_lat": 30.1011438,
+          "green_center_lng": -81.4361116,
+          "yards": 86.46098065822436,
+          "osm_way_id": 1249963786
+        }
+      ]
+    },
+    {
+      "id": "df035787-4dd1-4c4c-80ae-af880f69b8cd",
+      "name": "River Hall Country Club",
+      "city": "Alva",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": null,
+          "tee_lat": 26.6947867,
+          "tee_lng": -81.6826958,
+          "green_center_lat": 26.6973268,
+          "green_center_lng": -81.6804213,
+          "yards": 395.5660900227605,
+          "osm_way_id": 1140845239
+        },
+        {
+          "hole_number": 2,
+          "par": null,
+          "tee_lat": 26.6977725,
+          "tee_lng": -81.6796005,
+          "green_center_lat": 26.6997805,
+          "green_center_lng": -81.6763014,
+          "yards": 433.6856670332664,
+          "osm_way_id": 1140845240
+        },
+        {
+          "hole_number": 3,
+          "par": null,
+          "tee_lat": 26.6999531,
+          "tee_lng": -81.6742683,
+          "green_center_lat": 26.6970153,
+          "green_center_lng": -81.6757167,
+          "yards": 390.3680565487523,
+          "osm_way_id": 1140845241
+        },
+        {
+          "hole_number": 4,
+          "par": null,
+          "tee_lat": 26.6967325,
+          "tee_lng": -81.674912,
+          "green_center_lat": 26.6999243,
+          "green_center_lng": -81.6735173,
+          "yards": 416.66351049874345,
+          "osm_way_id": 1140845242
+        },
+        {
+          "hole_number": 5,
+          "par": null,
+          "tee_lat": 26.7002454,
+          "tee_lng": -81.6729057,
+          "green_center_lat": 26.7005329,
+          "green_center_lng": -81.6714842,
+          "yards": 158.3362802431161,
+          "osm_way_id": 1140845243
+        },
+        {
+          "hole_number": 6,
+          "par": null,
+          "tee_lat": 26.700739,
+          "tee_lng": -81.6707117,
+          "green_center_lat": 26.6965216,
+          "green_center_lng": -81.6730774,
+          "yards": 573.6486002668153,
+          "osm_way_id": 1140845244
+        },
+        {
+          "hole_number": 7,
+          "par": null,
+          "tee_lat": 26.6954337,
+          "tee_lng": -81.6744185,
+          "green_center_lat": 26.6959082,
+          "green_center_lng": -81.6784096,
+          "yards": 437.4236702394103,
+          "osm_way_id": 1140845245
+        },
+        {
+          "hole_number": 8,
+          "par": null,
+          "tee_lat": 26.6949401,
+          "tee_lng": -81.6776532,
+          "green_center_lat": 26.6932435,
+          "green_center_lng": -81.6769237,
+          "yards": 221.01338993265335,
+          "osm_way_id": 1140845246
+        },
+        {
+          "hole_number": 9,
+          "par": null,
+          "tee_lat": 26.6931236,
+          "tee_lng": -81.6776854,
+          "green_center_lat": 26.694063,
+          "green_center_lng": -81.682728,
+          "yards": 559.6315414059213,
+          "osm_way_id": 1140845247
+        },
+        {
+          "hole_number": 10,
+          "par": null,
+          "tee_lat": 26.6966175,
+          "tee_lng": -81.6854102,
+          "green_center_lat": 26.6994355,
+          "green_center_lng": -81.6827977,
+          "yards": 444.9551178070591,
+          "osm_way_id": 1140845256
+        },
+        {
+          "hole_number": 11,
+          "par": null,
+          "tee_lat": 26.7003125,
+          "tee_lng": -81.6832054,
+          "green_center_lat": 26.698592,
+          "green_center_lng": -81.6866547,
+          "yards": 429.177300911132,
+          "osm_way_id": 1140845255
+        },
+        {
+          "hole_number": 12,
+          "par": null,
+          "tee_lat": 26.7001831,
+          "tee_lng": -81.6886235,
+          "green_center_lat": 26.7010745,
+          "green_center_lng": -81.6897017,
+          "yards": 159.59400173883773,
+          "osm_way_id": 1140845254
+        },
+        {
+          "hole_number": 13,
+          "par": null,
+          "tee_lat": 26.7012134,
+          "tee_lng": -81.6908068,
+          "green_center_lat": 26.7009451,
+          "green_center_lng": -81.6961176,
+          "yards": 577.8705147286041,
+          "osm_way_id": 1140845253
+        },
+        {
+          "hole_number": 14,
+          "par": null,
+          "tee_lat": 26.7002789,
+          "tee_lng": -81.6948516,
+          "green_center_lat": 26.7005473,
+          "green_center_lng": -81.6909731,
+          "yards": 422.6128340849495,
+          "osm_way_id": 1140845252
+        },
+        {
+          "hole_number": 15,
+          "par": null,
+          "tee_lat": 26.7004419,
+          "tee_lng": -81.690501,
+          "green_center_lat": 26.6974993,
+          "green_center_lng": -81.6871912,
+          "yards": 507.2842525169948,
+          "osm_way_id": 1140845251
+        },
+        {
+          "hole_number": 16,
+          "par": null,
+          "tee_lat": 26.6971638,
+          "tee_lng": -81.6865314,
+          "green_center_lat": 26.6966654,
+          "green_center_lng": -81.6883392,
+          "yards": 205.53980493188374,
+          "osm_way_id": 1140845250
+        },
+        {
+          "hole_number": 17,
+          "par": null,
+          "tee_lat": 26.697207,
+          "tee_lng": -81.689927,
+          "green_center_lat": 26.6948059,
+          "green_center_lng": -81.6882104,
+          "yards": 346.4607081220404,
+          "osm_way_id": 1140845249
+        },
+        {
+          "hole_number": 18,
+          "par": null,
+          "tee_lat": 26.6951318,
+          "tee_lng": -81.6871107,
+          "green_center_lat": 26.6941972,
+          "green_center_lng": -81.6836829,
+          "yards": 389.36259920340143,
+          "osm_way_id": 1140845248
+        }
+      ]
+    },
+    {
+      "id": "d01fcf87-5927-4670-a19b-beaf099c2aa2",
+      "name": "Royal St Augustine Golf And Country Club",
+      "city": "West Augustine",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 29.9093208,
+          "tee_lng": -81.3512627,
+          "green_center_lat": 29.9053735,
+          "green_center_lng": -81.3498475,
+          "yards": 502.6555491662501,
+          "osm_way_id": 826554494
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 29.905868,
+          "tee_lng": -81.3480141,
+          "green_center_lat": 29.90426,
+          "green_center_lng": -81.3482126,
+          "yards": 196.6562721369109,
+          "osm_way_id": 826554495
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 29.9039431,
+          "tee_lng": -81.348547,
+          "green_center_lat": 29.9053665,
+          "green_center_lng": -81.3507167,
+          "yards": 286.8303586979131,
+          "osm_way_id": 826581416
+        },
+        {
+          "hole_number": 4,
+          "par": 5,
+          "tee_lat": 29.9058701,
+          "tee_lng": -81.3507154,
+          "green_center_lat": 29.9093792,
+          "green_center_lng": -81.3520049,
+          "yards": 447.8479590684513,
+          "osm_way_id": 826581426
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 29.9059554,
+          "tee_lng": -81.3528764,
+          "green_center_lat": 29.9032069,
+          "green_center_lng": -81.3514895,
+          "yards": 364.80600924433907,
+          "osm_way_id": 826331891
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 29.9029039,
+          "tee_lng": -81.353129,
+          "green_center_lat": 29.9027004,
+          "green_center_lng": -81.351849,
+          "yards": 137.1823394653706,
+          "osm_way_id": 826595072
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 29.9022372,
+          "tee_lng": -81.3513959,
+          "green_center_lat": 29.9039679,
+          "green_center_lng": -81.354612,
+          "yards": 399.0391311071322,
+          "osm_way_id": 826595083
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 29.9059617,
+          "tee_lng": -81.353883,
+          "green_center_lat": 29.9091888,
+          "green_center_lng": -81.3545141,
+          "yards": 398.02829138404724,
+          "osm_way_id": 826611716
+        },
+        {
+          "hole_number": 9,
+          "par": 3,
+          "tee_lat": 29.9094852,
+          "tee_lng": -81.3548007,
+          "green_center_lat": 29.9105679,
+          "green_center_lng": -81.3540263,
+          "yards": 154.9120795727255,
+          "osm_way_id": 826611717
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 29.9103457,
+          "tee_lng": -81.3528254,
+          "green_center_lat": 29.9120011,
+          "green_center_lng": -81.3499348,
+          "yards": 365.1826180543424,
+          "osm_way_id": 826554477
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 29.9116778,
+          "tee_lng": -81.3498649,
+          "green_center_lat": 29.9099457,
+          "green_center_lng": -81.349603,
+          "yards": 212.4323909971815,
+          "osm_way_id": 826611731
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 29.9095887,
+          "tee_lng": -81.3488649,
+          "green_center_lat": 29.9128214,
+          "green_center_lng": -81.349145,
+          "yards": 394.2177531625775,
+          "osm_way_id": 826784365
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 29.9134924,
+          "tee_lng": -81.3493215,
+          "green_center_lat": 29.9158693,
+          "green_center_lng": -81.3508622,
+          "yards": 331.5372150322299,
+          "osm_way_id": 826784380
+        },
+        {
+          "hole_number": 14,
+          "par": 3,
+          "tee_lat": 29.9146313,
+          "tee_lng": -81.3510034,
+          "green_center_lat": 29.9132728,
+          "green_center_lng": -81.3504927,
+          "yards": 173.7485040726421,
+          "osm_way_id": 827523756
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 29.9159884,
+          "tee_lng": -81.3516403,
+          "green_center_lat": 29.9157834,
+          "green_center_lng": -81.3552415,
+          "yards": 380.3902104005914,
+          "osm_way_id": 826784393
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 29.9157277,
+          "tee_lng": -81.3556275,
+          "green_center_lat": 29.9131189,
+          "green_center_lng": -81.355388,
+          "yards": 318.24440366545025,
+          "osm_way_id": 826795190
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 29.9115528,
+          "tee_lng": -81.3539266,
+          "green_center_lat": 29.9145533,
+          "green_center_lng": -81.3527094,
+          "yards": 386.77331543715064,
+          "osm_way_id": 827523771
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 29.9150141,
+          "tee_lng": -81.3516275,
+          "green_center_lat": 29.9112048,
+          "green_center_lng": -81.3533559,
+          "yards": 497.76494929521266,
+          "osm_way_id": 827523782
+        }
+      ]
+    },
+    {
+      "id": "2cee72c2-fb05-41c1-b32b-594eccf764dc",
+      "name": "Sara Bay Country Club",
+      "city": "Sarasota",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 27.4157853,
+          "tee_lng": -82.5668188,
+          "green_center_lat": 27.4167424,
+          "green_center_lng": -82.5630315,
+          "yards": 425.0696764557406,
+          "osm_way_id": 894001491
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 27.4169551,
+          "tee_lng": -82.5634903,
+          "green_center_lat": 27.4198507,
+          "green_center_lng": -82.5609064,
+          "yards": 449.20123677721546,
+          "osm_way_id": 894011208
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 27.4202048,
+          "tee_lng": -82.5610358,
+          "green_center_lat": 27.4181721,
+          "green_center_lng": -82.563676,
+          "yards": 377.254949193053,
+          "osm_way_id": 894020956
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 27.4185637,
+          "tee_lng": -82.5637278,
+          "green_center_lat": 27.4197994,
+          "green_center_lng": -82.5635132,
+          "yards": 152.04159823726758,
+          "osm_way_id": 894020966
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 27.4200481,
+          "tee_lng": -82.5634066,
+          "green_center_lat": 27.4217671,
+          "green_center_lng": -82.5606975,
+          "yards": 359.4571082579156,
+          "osm_way_id": 899526982
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 27.4213169,
+          "tee_lng": -82.5602747,
+          "green_center_lat": 27.4245412,
+          "green_center_lng": -82.5605268,
+          "yards": 393.032259409771,
+          "osm_way_id": 904780798
+        },
+        {
+          "hole_number": 7,
+          "par": 5,
+          "tee_lat": 27.4244589,
+          "tee_lng": -82.5609258,
+          "green_center_lat": 27.4203979,
+          "green_center_lng": -82.5634404,
+          "yards": 563.5122597821718,
+          "osm_way_id": 912053784
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 27.4202596,
+          "tee_lng": -82.5637819,
+          "green_center_lat": 27.4187472,
+          "green_center_lng": -82.5642964,
+          "yards": 192.11685568978783,
+          "osm_way_id": 920131911
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 27.4188637,
+          "tee_lng": -82.5638097,
+          "green_center_lat": 27.4161616,
+          "green_center_lng": -82.5668138,
+          "yards": 461.6555832919987,
+          "osm_way_id": 920138712
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 27.4154236,
+          "tee_lng": -82.5668925,
+          "green_center_lat": 27.415734,
+          "green_center_lng": -82.563014,
+          "yards": 420.3707255051172,
+          "osm_way_id": 920144531
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 27.4160533,
+          "tee_lng": -82.5632058,
+          "green_center_lat": 27.4190698,
+          "green_center_lng": -82.560806,
+          "yards": 449.0678128343802,
+          "osm_way_id": 920151146
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 27.4188071,
+          "tee_lng": -82.5602963,
+          "green_center_lat": 27.4197381,
+          "green_center_lng": -82.5570655,
+          "yards": 366.659920922259,
+          "osm_way_id": 941948470
+        },
+        {
+          "hole_number": 13,
+          "par": 3,
+          "tee_lat": 27.4199375,
+          "tee_lng": -82.5571199,
+          "green_center_lat": 27.4201686,
+          "green_center_lng": -82.5592995,
+          "yards": 236.94433469553528,
+          "osm_way_id": 941948488
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 27.4206381,
+          "tee_lng": -82.5596202,
+          "green_center_lat": 27.4208452,
+          "green_center_lng": -82.5559355,
+          "yards": 398.5304450737788,
+          "osm_way_id": 941948489
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 27.4212289,
+          "tee_lng": -82.5557094,
+          "green_center_lat": 27.4211077,
+          "green_center_lng": -82.5597936,
+          "yards": 441.10134063795977,
+          "osm_way_id": 941948458
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 27.4207533,
+          "tee_lng": -82.5598247,
+          "green_center_lat": 27.4192583,
+          "green_center_lng": -82.5603113,
+          "yards": 189.23425024339784,
+          "osm_way_id": 941948459
+        },
+        {
+          "hole_number": 17,
+          "par": 5,
+          "tee_lat": 27.419036,
+          "tee_lng": -82.5602462,
+          "green_center_lat": 27.4155587,
+          "green_center_lng": -82.5626182,
+          "yards": 494.3340590168229,
+          "osm_way_id": 941948440
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 27.415481,
+          "tee_lng": -82.5623018,
+          "green_center_lat": 27.4150318,
+          "green_center_lng": -82.5668838,
+          "yards": 497.6220465492319,
+          "osm_way_id": 941948439
+        }
+      ]
+    },
+    {
+      "id": "f2250ca9-b1d0-4e21-9e6f-90af5038d18f",
+      "name": "Sarasota National Golf Club",
+      "city": "Venice",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 27.0315439,
+          "tee_lng": -82.3613978,
+          "green_center_lat": 27.0286769,
+          "green_center_lng": -82.3620323,
+          "yards": 355.3499011807797,
+          "osm_way_id": 1271498946
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 27.0283243,
+          "tee_lng": -82.3616497,
+          "green_center_lat": 27.0293678,
+          "green_center_lng": -82.3582827,
+          "yards": 386.16606312373756,
+          "osm_way_id": 1271498947
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 27.0292122,
+          "tee_lng": -82.356294,
+          "green_center_lat": 27.0314113,
+          "green_center_lng": -82.3543695,
+          "yards": 339.0734914822048,
+          "osm_way_id": 1271498948
+        },
+        {
+          "hole_number": 4,
+          "par": 3,
+          "tee_lat": 27.0299673,
+          "tee_lng": -82.3541206,
+          "green_center_lat": 27.0290743,
+          "green_center_lng": -82.3557216,
+          "yards": 204.61679049446983,
+          "osm_way_id": 1271498949
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 27.0271193,
+          "tee_lng": -82.3576749,
+          "green_center_lat": 27.0264497,
+          "green_center_lng": -82.3634026,
+          "yards": 625.7705791379711,
+          "osm_way_id": 1271498950
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 27.0276979,
+          "tee_lng": -82.367282,
+          "green_center_lat": 27.02796,
+          "green_center_lng": -82.3710069,
+          "yards": 404.75108423048533,
+          "osm_way_id": 1271498951
+        },
+        {
+          "hole_number": 7,
+          "par": 5,
+          "tee_lat": 27.0279951,
+          "tee_lng": -82.3726536,
+          "green_center_lat": 27.0308399,
+          "green_center_lng": -82.3698801,
+          "yards": 458.1849344746916,
+          "osm_way_id": 1271498952
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 27.0312822,
+          "tee_lng": -82.3691691,
+          "green_center_lat": 27.0298933,
+          "green_center_lng": -82.3678431,
+          "yards": 221.71276534696221,
+          "osm_way_id": 1271498953
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 27.0279456,
+          "tee_lng": -82.364114,
+          "green_center_lat": 27.0314728,
+          "green_center_lng": -82.364143,
+          "yards": 428.9346084322161,
+          "osm_way_id": 1271498954
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 27.0314585,
+          "tee_lng": -82.3604932,
+          "green_center_lat": 27.0330711,
+          "green_center_lng": -82.3572181,
+          "yards": 405.3479450911726,
+          "osm_way_id": 1271498955
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 27.0339846,
+          "tee_lng": -82.3562703,
+          "green_center_lat": 27.0373534,
+          "green_center_lng": -82.3554444,
+          "yards": 419.3147560392987,
+          "osm_way_id": 1271498956
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 27.0370115,
+          "tee_lng": -82.3564697,
+          "green_center_lat": 27.0409242,
+          "green_center_lng": -82.3548978,
+          "yards": 505.34597761931724,
+          "osm_way_id": 1271498957
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 27.0413877,
+          "tee_lng": -82.3555872,
+          "green_center_lat": 27.0437758,
+          "green_center_lng": -82.3547792,
+          "yards": 303.3032821495113,
+          "osm_way_id": 1271498958
+        },
+        {
+          "hole_number": 14,
+          "par": 5,
+          "tee_lat": 27.0441632,
+          "tee_lng": -82.3552779,
+          "green_center_lat": 27.0395175,
+          "green_center_lng": -82.3571685,
+          "yards": 600.9040279850556,
+          "osm_way_id": 1271498959
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 27.0398396,
+          "tee_lng": -82.3576004,
+          "green_center_lat": 27.0407926,
+          "green_center_lng": -82.3588967,
+          "yards": 182.05379943059464,
+          "osm_way_id": 1271498960
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 27.0402172,
+          "tee_lng": -82.3597698,
+          "green_center_lat": 27.0388911,
+          "green_center_lng": -82.3630976,
+          "yards": 394.8703650690379,
+          "osm_way_id": 1271498961
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 27.0368161,
+          "tee_lng": -82.3622665,
+          "green_center_lat": 27.0371649,
+          "green_center_lng": -82.363754,
+          "yards": 166.6076704396831,
+          "osm_way_id": 1271498962
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 27.0353673,
+          "tee_lng": -82.3620802,
+          "green_center_lat": 27.0324949,
+          "green_center_lng": -82.3617143,
+          "yards": 351.5378713676937,
+          "osm_way_id": 1271498963
+        }
+      ]
+    },
+    {
+      "id": "a22513a5-b472-4435-ab7f-97670d556d98",
+      "name": "Serenoa Golf Club",
+      "city": "Sarasota",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 27.2502813,
+          "tee_lng": -82.4360799,
+          "green_center_lat": 27.2476245,
+          "green_center_lng": -82.4365937,
+          "yards": 327.8188858370833,
+          "osm_way_id": 1392803706
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 27.2471826,
+          "tee_lng": -82.438084,
+          "green_center_lat": 27.2473783,
+          "green_center_lng": -82.4393985,
+          "yards": 144.09080325177212,
+          "osm_way_id": 1392829859
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 27.246929,
+          "tee_lng": -82.4399382,
+          "green_center_lat": 27.2463932,
+          "green_center_lng": -82.4370621,
+          "yards": 317.6930955284492,
+          "osm_way_id": 1392843872
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 27.2449766,
+          "tee_lng": -82.4375412,
+          "green_center_lat": 27.244664,
+          "green_center_lng": -82.4407814,
+          "yards": 352.3656564497678,
+          "osm_way_id": 1392847074
+        },
+        {
+          "hole_number": 5,
+          "par": 5,
+          "tee_lat": 27.2456927,
+          "tee_lng": -82.4417171,
+          "green_center_lat": 27.2441132,
+          "green_center_lng": -82.4456297,
+          "yards": 464.5698802436596,
+          "osm_way_id": 1392858040
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 27.2441976,
+          "tee_lng": -82.4472858,
+          "green_center_lat": 27.2455885,
+          "green_center_lng": -82.4469729,
+          "yards": 172.48935842473674,
+          "osm_way_id": 1392868272
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 27.2458737,
+          "tee_lng": -82.4464939,
+          "green_center_lat": 27.24849,
+          "green_center_lng": -82.4469204,
+          "yards": 321.4775517371023,
+          "osm_way_id": 1392871969
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 27.2482774,
+          "tee_lng": -82.4453267,
+          "green_center_lat": 27.2478935,
+          "green_center_lng": -82.4419191,
+          "yards": 371.3427261582106,
+          "osm_way_id": 1392877670
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 27.2486102,
+          "tee_lng": -82.4419592,
+          "green_center_lat": 27.2502268,
+          "green_center_lng": -82.4380114,
+          "yards": 469.89135033905774,
+          "osm_way_id": 1392882497
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 27.2507828,
+          "tee_lng": -82.4381565,
+          "green_center_lat": 27.2499858,
+          "green_center_lng": -82.4414224,
+          "yards": 366.13070808377324,
+          "osm_way_id": 1392883601
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 27.2499165,
+          "tee_lng": -82.4424056,
+          "green_center_lat": 27.2525674,
+          "green_center_lng": -82.4408855,
+          "yards": 361.8318656284741,
+          "osm_way_id": 1392887828
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 27.2526876,
+          "tee_lng": -82.4415982,
+          "green_center_lat": 27.2492777,
+          "green_center_lng": -82.4442501,
+          "yards": 504.1163170393666,
+          "osm_way_id": 1392889128
+        },
+        {
+          "hole_number": 13,
+          "par": 3,
+          "tee_lat": 27.248924,
+          "tee_lng": -82.4464744,
+          "green_center_lat": 27.2502128,
+          "green_center_lng": -82.4462525,
+          "yards": 158.54914214375913,
+          "osm_way_id": 1392894028
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 27.2494435,
+          "tee_lng": -82.447194,
+          "green_center_lat": 27.2519744,
+          "green_center_lng": -82.4459415,
+          "yards": 336.23803889581944,
+          "osm_way_id": 1393160436
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 27.2522271,
+          "tee_lng": -82.4469366,
+          "green_center_lat": 27.254579,
+          "green_center_lng": -82.4458749,
+          "yards": 308.1722952306982,
+          "osm_way_id": 1393162916
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 27.2546331,
+          "tee_lng": -82.4454663,
+          "green_center_lat": 27.2546047,
+          "green_center_lng": -82.4420581,
+          "yards": 368.45597834774844,
+          "osm_way_id": 1393163642
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 27.2545899,
+          "tee_lng": -82.4412794,
+          "green_center_lat": 27.2547405,
+          "green_center_lng": -82.4396696,
+          "yards": 174.98658993757192,
+          "osm_way_id": 1393163871
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 27.2532257,
+          "tee_lng": -82.4389755,
+          "green_center_lat": 27.251126,
+          "green_center_lng": -82.4358483,
+          "yards": 423.65808494374585,
+          "osm_way_id": 1393252297
+        }
+      ]
+    },
+    {
+      "id": "ab8a46d2-1047-416f-a4b4-21e0fc848053",
+      "name": "St James Bay Golf Club",
+      "city": "Carrabelle",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 29.9066094,
+          "tee_lng": -84.5630077,
+          "green_center_lat": 29.9096425,
+          "green_center_lng": -84.5617259,
+          "yards": 392.8073741109093,
+          "osm_way_id": 1019927523
+        },
+        {
+          "hole_number": 2,
+          "par": 3,
+          "tee_lat": 29.9097171,
+          "tee_lng": -84.5623189,
+          "green_center_lat": 29.9085738,
+          "green_center_lng": -84.5631349,
+          "yards": 163.4862959866777,
+          "osm_way_id": 1019927524
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 29.9082226,
+          "tee_lng": -84.5638571,
+          "green_center_lat": 29.9057459,
+          "green_center_lng": -84.563358,
+          "yards": 305.73823435322134,
+          "osm_way_id": 1019927525
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 29.9057246,
+          "tee_lng": -84.5639683,
+          "green_center_lat": 29.9027858,
+          "green_center_lng": -84.5659754,
+          "yards": 415.305484128425,
+          "osm_way_id": 1019955115
+        },
+        {
+          "hole_number": 5,
+          "par": 4,
+          "tee_lat": 29.9016255,
+          "tee_lng": -84.5659242,
+          "green_center_lat": 29.8984119,
+          "green_center_lng": -84.5666683,
+          "yards": 398.5829359825833,
+          "osm_way_id": 1019955116
+        },
+        {
+          "hole_number": 6,
+          "par": 3,
+          "tee_lat": 29.8980134,
+          "tee_lng": -84.5668368,
+          "green_center_lat": 29.8964183,
+          "green_center_lng": -84.566671,
+          "yards": 194.7571322162313,
+          "osm_way_id": 1019955117
+        },
+        {
+          "hole_number": 7,
+          "par": 5,
+          "tee_lat": 29.8955489,
+          "tee_lng": -84.5668071,
+          "green_center_lat": 29.8973906,
+          "green_center_lng": -84.5629357,
+          "yards": 465.54154142712423,
+          "osm_way_id": 1019955118
+        },
+        {
+          "hole_number": 8,
+          "par": 5,
+          "tee_lat": 29.8979749,
+          "tee_lng": -84.5629586,
+          "green_center_lat": 29.9013731,
+          "green_center_lng": -84.565443,
+          "yards": 489.24128175204464,
+          "osm_way_id": 1019955119
+        },
+        {
+          "hole_number": 9,
+          "par": 4,
+          "tee_lat": 29.9023787,
+          "tee_lng": -84.5645591,
+          "green_center_lat": 29.9052033,
+          "green_center_lng": -84.5636393,
+          "yards": 356.90675813088967,
+          "osm_way_id": 1019955120
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 29.9038832,
+          "tee_lng": -84.5629252,
+          "green_center_lat": 29.901012,
+          "green_center_lng": -84.5629377,
+          "yards": 349.15309328926844,
+          "osm_way_id": 1019955121
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 29.8999658,
+          "tee_lng": -84.5624234,
+          "green_center_lat": 29.8990718,
+          "green_center_lng": -84.5611287,
+          "yards": 174.4913377212111,
+          "osm_way_id": 1019955122
+        },
+        {
+          "hole_number": 12,
+          "par": 4,
+          "tee_lat": 29.898106,
+          "tee_lng": -84.5613595,
+          "green_center_lat": 29.8996025,
+          "green_center_lng": -84.5581528,
+          "yards": 383.9198169247307,
+          "osm_way_id": 1019955123
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 29.9003464,
+          "tee_lng": -84.5585292,
+          "green_center_lat": 29.9032415,
+          "green_center_lng": -84.560805,
+          "yards": 426.0275678305805,
+          "osm_way_id": 1019955124
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 29.9038288,
+          "tee_lng": -84.5605516,
+          "green_center_lat": 29.9063301,
+          "green_center_lng": -84.5587575,
+          "yards": 358.17015133948485,
+          "osm_way_id": 1019955125
+        },
+        {
+          "hole_number": 15,
+          "par": 5,
+          "tee_lat": 29.905347,
+          "tee_lng": -84.5577464,
+          "green_center_lat": 29.9022823,
+          "green_center_lng": -84.5574879,
+          "yards": 373.6759509191383,
+          "osm_way_id": 1019955126
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 29.9016842,
+          "tee_lng": -84.5568656,
+          "green_center_lat": 29.9048641,
+          "green_center_lng": -84.557094,
+          "yards": 387.438722138897,
+          "osm_way_id": 1019955127
+        },
+        {
+          "hole_number": 17,
+          "par": 3,
+          "tee_lat": 29.9066281,
+          "tee_lng": -84.5579672,
+          "green_center_lat": 29.9080157,
+          "green_center_lng": -84.5578844,
+          "yards": 168.96386915489214,
+          "osm_way_id": 1019955128
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 29.9082093,
+          "tee_lng": -84.5586045,
+          "green_center_lat": 29.9055775,
+          "green_center_lng": -84.562446,
+          "yards": 516.1382217154686,
+          "osm_way_id": 1019955129
+        }
+      ]
+    },
+    {
+      "id": "8f42978f-c775-4591-9bf5-4fe2a6e70893",
+      "name": "Stonebrook Golf Course",
+      "city": "Pace",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 4,
+          "tee_lat": 30.641367,
+          "tee_lng": -87.1893743,
+          "green_center_lat": 30.6395146,
+          "green_center_lng": -87.186292,
+          "yards": 393.37219195605013,
+          "osm_way_id": 1153484540
+        },
+        {
+          "hole_number": 2,
+          "par": 5,
+          "tee_lat": 30.6381511,
+          "tee_lng": -87.1860609,
+          "green_center_lat": 30.6374749,
+          "green_center_lng": -87.1908187,
+          "yards": 504.55031686804324,
+          "osm_way_id": 1153488112
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 30.6368499,
+          "tee_lng": -87.190693,
+          "green_center_lat": 30.6337846,
+          "green_center_lng": -87.1922642,
+          "yards": 407.3967663946042,
+          "osm_way_id": 1153488115
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.633871,
+          "tee_lng": -87.1928563,
+          "green_center_lat": 30.63398,
+          "green_center_lng": -87.1969404,
+          "yards": 427.5386351332098,
+          "osm_way_id": 1153488118
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 30.6347862,
+          "tee_lng": -87.1965731,
+          "green_center_lat": 30.6362903,
+          "green_center_lng": -87.197406,
+          "yards": 202.6056062447941,
+          "osm_way_id": 1153488121
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 30.6369592,
+          "tee_lng": -87.1974788,
+          "green_center_lat": 30.6401303,
+          "green_center_lng": -87.1973018,
+          "yards": 386.0642045783296,
+          "osm_way_id": 1153491922
+        },
+        {
+          "hole_number": 7,
+          "par": 3,
+          "tee_lat": 30.6409671,
+          "tee_lng": -87.1972227,
+          "green_center_lat": 30.6398147,
+          "green_center_lng": -87.1957218,
+          "yards": 210.47077827294171,
+          "osm_way_id": 1153491927
+        },
+        {
+          "hole_number": 8,
+          "par": 4,
+          "tee_lat": 30.6393936,
+          "tee_lng": -87.1954941,
+          "green_center_lat": 30.6361176,
+          "green_center_lng": -87.1947296,
+          "yards": 406.3271389516614,
+          "osm_way_id": 1153491930
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 30.6361556,
+          "tee_lng": -87.1934523,
+          "green_center_lat": 30.6401867,
+          "green_center_lng": -87.1910884,
+          "yards": 549.0616673572973,
+          "osm_way_id": 1153492859
+        },
+        {
+          "hole_number": 10,
+          "par": 5,
+          "tee_lat": 30.6415862,
+          "tee_lng": -87.1911492,
+          "green_center_lat": 30.6421253,
+          "green_center_lng": -87.1959943,
+          "yards": 511.139034757311,
+          "osm_way_id": 1153496055
+        },
+        {
+          "hole_number": 11,
+          "par": 4,
+          "tee_lat": 30.6425879,
+          "tee_lng": -87.196126,
+          "green_center_lat": 30.6454942,
+          "green_center_lng": -87.1947603,
+          "yards": 381.20918218384213,
+          "osm_way_id": 1153496059
+        },
+        {
+          "hole_number": 12,
+          "par": 3,
+          "tee_lat": 30.6454991,
+          "tee_lng": -87.1941149,
+          "green_center_lat": 30.646836,
+          "green_center_lng": -87.1931779,
+          "yards": 189.8411401158524,
+          "osm_way_id": 1153496064
+        },
+        {
+          "hole_number": 13,
+          "par": 5,
+          "tee_lat": 30.6473448,
+          "tee_lng": -87.1916833,
+          "green_center_lat": 30.6469784,
+          "green_center_lng": -87.1873362,
+          "yards": 456.9668158914981,
+          "osm_way_id": 1153496066
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 30.6464133,
+          "tee_lng": -87.188257,
+          "green_center_lat": 30.6433836,
+          "green_center_lng": -87.1879567,
+          "yards": 369.76207558119035,
+          "osm_way_id": 1153498939
+        },
+        {
+          "hole_number": 15,
+          "par": 3,
+          "tee_lat": 30.6428591,
+          "tee_lng": -87.1873758,
+          "green_center_lat": 30.6423413,
+          "green_center_lng": -87.1887743,
+          "yards": 159.29021279502803,
+          "osm_way_id": 1153498943
+        },
+        {
+          "hole_number": 16,
+          "par": 4,
+          "tee_lat": 30.6428777,
+          "tee_lng": -87.1887598,
+          "green_center_lat": 30.6462011,
+          "green_center_lng": -87.188866,
+          "yards": 404.2928287855538,
+          "osm_way_id": 1153498942
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 30.6468486,
+          "tee_lng": -87.18896,
+          "green_center_lat": 30.6470883,
+          "green_center_lng": -87.19242,
+          "yards": 363.1543159172744,
+          "osm_way_id": 1153498947
+        },
+        {
+          "hole_number": 18,
+          "par": 4,
+          "tee_lat": 30.6459611,
+          "tee_lng": -87.1920596,
+          "green_center_lat": 30.6424423,
+          "green_center_lng": -87.1910321,
+          "yards": 441.1982726415691,
+          "osm_way_id": 1153498950
+        }
+      ]
+    },
+    {
+      "id": "7396d0bb-b0d3-47f1-b327-76070d227fbf",
+      "name": "Tanglewood Golf And Country Club",
+      "city": "Milton",
+      "expected": 18,
+      "status": "validated",
+      "raw_way_count": 18,
+      "unique_holes": 18,
+      "holes": [
+        {
+          "hole_number": 1,
+          "par": 5,
+          "tee_lat": 30.6503352,
+          "tee_lng": -87.0786907,
+          "green_center_lat": 30.6512786,
+          "green_center_lng": -87.0746169,
+          "yards": 441.3516653559919,
+          "osm_way_id": 954382901
+        },
+        {
+          "hole_number": 2,
+          "par": 4,
+          "tee_lat": 30.651551,
+          "tee_lng": -87.0749244,
+          "green_center_lat": 30.6509522,
+          "green_center_lng": -87.0784991,
+          "yards": 380.98918270072704,
+          "osm_way_id": 954383633
+        },
+        {
+          "hole_number": 3,
+          "par": 4,
+          "tee_lat": 30.6501681,
+          "tee_lng": -87.0787467,
+          "green_center_lat": 30.6489369,
+          "green_center_lng": -87.0759907,
+          "yards": 324.8784637443723,
+          "osm_way_id": 954384377
+        },
+        {
+          "hole_number": 4,
+          "par": 4,
+          "tee_lat": 30.6494343,
+          "tee_lng": -87.0758545,
+          "green_center_lat": 30.6473826,
+          "green_center_lng": -87.0732749,
+          "yards": 367.5308706408545,
+          "osm_way_id": 954387299
+        },
+        {
+          "hole_number": 5,
+          "par": 3,
+          "tee_lat": 30.6475053,
+          "tee_lng": -87.0717213,
+          "green_center_lat": 30.6486857,
+          "green_center_lng": -87.071582,
+          "yards": 144.27974633786232,
+          "osm_way_id": 954388502
+        },
+        {
+          "hole_number": 6,
+          "par": 4,
+          "tee_lat": 30.6486105,
+          "tee_lng": -87.0710267,
+          "green_center_lat": 30.6473338,
+          "green_center_lng": -87.0681606,
+          "yards": 337.65514818482046,
+          "osm_way_id": 954389585
+        },
+        {
+          "hole_number": 7,
+          "par": 4,
+          "tee_lat": 30.6471471,
+          "tee_lng": -87.0685064,
+          "green_center_lat": 30.6473086,
+          "green_center_lng": -87.0716244,
+          "yards": 326.7926157935153,
+          "osm_way_id": 955361667
+        },
+        {
+          "hole_number": 8,
+          "par": 3,
+          "tee_lat": 30.6471333,
+          "tee_lng": -87.0727497,
+          "green_center_lat": 30.6467363,
+          "green_center_lng": -87.0747868,
+          "yards": 218.51951986728918,
+          "osm_way_id": 955364086
+        },
+        {
+          "hole_number": 9,
+          "par": 5,
+          "tee_lat": 30.6470509,
+          "tee_lng": -87.0748694,
+          "green_center_lat": 30.6497777,
+          "green_center_lng": -87.0789712,
+          "yards": 542.3073304381106,
+          "osm_way_id": 955365316
+        },
+        {
+          "hole_number": 10,
+          "par": 4,
+          "tee_lat": 30.6494616,
+          "tee_lng": -87.0788163,
+          "green_center_lat": 30.6466656,
+          "green_center_lng": -87.0772523,
+          "yards": 377.3280061807015,
+          "osm_way_id": 955366905
+        },
+        {
+          "hole_number": 11,
+          "par": 3,
+          "tee_lat": 30.6467086,
+          "tee_lng": -87.0785648,
+          "green_center_lat": 30.6466745,
+          "green_center_lng": -87.0800312,
+          "yards": 153.4701456218763,
+          "osm_way_id": 955367635
+        },
+        {
+          "hole_number": 12,
+          "par": 5,
+          "tee_lat": 30.6468919,
+          "tee_lng": -87.0788258,
+          "green_center_lat": 30.6504915,
+          "green_center_lng": -87.0798929,
+          "yards": 451.73889251317263,
+          "osm_way_id": 955368630
+        },
+        {
+          "hole_number": 13,
+          "par": 4,
+          "tee_lat": 30.6503409,
+          "tee_lng": -87.0805869,
+          "green_center_lat": 30.650382,
+          "green_center_lng": -87.0840042,
+          "yards": 357.53776756722544,
+          "osm_way_id": 955370079
+        },
+        {
+          "hole_number": 14,
+          "par": 4,
+          "tee_lat": 30.6504026,
+          "tee_lng": -87.0845389,
+          "green_center_lat": 30.6504639,
+          "green_center_lng": -87.088078,
+          "yards": 370.3197701883629,
+          "osm_way_id": 955370922
+        },
+        {
+          "hole_number": 15,
+          "par": 4,
+          "tee_lat": 30.6504237,
+          "tee_lng": -87.088474,
+          "green_center_lat": 30.6534661,
+          "green_center_lng": -87.0882826,
+          "yards": 370.51072168248976,
+          "osm_way_id": 955372382
+        },
+        {
+          "hole_number": 16,
+          "par": 3,
+          "tee_lat": 30.6534331,
+          "tee_lng": -87.0878388,
+          "green_center_lat": 30.6521165,
+          "green_center_lng": -87.0873751,
+          "yards": 167.29177568889537,
+          "osm_way_id": 955373212
+        },
+        {
+          "hole_number": 17,
+          "par": 4,
+          "tee_lat": 30.6525866,
+          "tee_lng": -87.0871432,
+          "green_center_lat": 30.6520532,
+          "green_center_lng": -87.0840152,
+          "yards": 333.597639164751,
+          "osm_way_id": 955374226
+        },
+        {
+          "hole_number": 18,
+          "par": 5,
+          "tee_lat": 30.6526103,
+          "tee_lng": -87.0850437,
+          "green_center_lat": 30.651326,
+          "green_center_lng": -87.0808044,
+          "yards": 470.1851006561943,
+          "osm_way_id": 955375533
+        }
+      ]
+    }
+  ]
+}
