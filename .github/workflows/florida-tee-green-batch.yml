@@ -29,24 +29,21 @@ jobs:
           import fs from 'node:fs/promises';
 
           const courses = [
-            ["9c72d3b4-c901-4fd9-aba7-839337ecfd62","Abacoa Golf Club","Jupiter",26.8885231,-80.1199148,18],
-            ["6d69e238-3eb1-4c9e-a3de-ec34583ffde6","Aberdeen Golf Country Club","Boynton Beach",26.5508484,-80.1518542,18],
-            ["c9043af5-8ff4-4fa6-a1fc-15bf919d7a5c","Adios Golf Club","Coconut Creek",26.3269138,-80.1740264,18],
-            ["892c81c9-f94e-4d8a-a129-be0f4bc88214","Apogee Golf Club South","Indiantown",27.059337,-80.2951081,18],
-            ["eee4211e-0dd9-411c-b90f-7fada60589b3","Astor Creek Golf Country Club","Port St. Lucie",27.3004915,-80.4584176,18],
-            ["c4b9029b-67db-4d96-b9d2-a4a7903c10c6","Atlantic National Golf Club","Greenacres",26.5829336,-80.1804901,18],
-            ["ce7f09fa-503c-4896-bfbd-7494bd9283ba","Atlantis Country Club","Atlantis",26.6013511,-80.0972269,18],
-            ["a75e173b-256d-4138-ada7-3f9e4a337e49","Banyan Cay","West Palm Beach",26.73247,-80.0837862,18],
-            ["dd483f70-ce94-460e-bc6a-47f5e34b403d","Banyan Creek Golf Club","Palm City",27.1819544,-80.3052594,18],
-            ["c9d53bf3-a78f-4af4-a6e4-fe3d4a4c433c","Banyan Golf Course","West Palm Beach",26.6560821,-80.191452,18],
-            ["44f0d1ae-ea3b-4746-9496-d7d5a1c1c29b","Belle Glade Municipal Golf Club","Belle Glade",26.7057081,-80.701425,18],
-            ["0053b85b-b834-49fd-bdcd-25be978db1db","Blue Cypress Golf Rv Resort","Okeechobee",27.129764,-80.6837056,18],
-            ["d2f2305a-dd8c-4e01-b331-34277dea0046","Boca Delray Golf Country Club","Delray Beach",26.4273529,-80.1291046,18],
-            ["d468fbc1-9276-427f-85b8-0e08985b2799","Boca Dunes Golf Country Club","Boca Raton",26.3361032,-80.1946981,18],
-            ["155fd4cb-e77d-4e7a-9ab7-7490ad5cca7d","Boca Greens Country Club","Boca Raton",26.3843734,-80.209189,18],
-            ["9730002d-deab-4a86-9b2c-178ce33cb5bd","Boca Grove Plantation Golf Course","Boca Raton",26.3609435,-80.1635209,18],
-            ["7a2cbab5-5683-450b-a9b0-847f29434488","Boca Pointe Country Club","Boca Raton",26.336331,-80.155924,18],
-            ["d7d933c2-6d54-4555-8701-394cf092f61e","Boca Rio Golf Club","Boca Raton",26.3478732,-80.1731063,18]
+            ["ec61c988-c335-4feb-8519-d70bf705f2a4","Bocaire Country Club","Boca Raton",26.421444,-80.1193,18],
+            ["7cb69332-ced8-4d69-90cd-c7f91848dec5","Bonaventure Golf Club","Weston",26.1200473,-80.3699796,18],
+            ["c7ff6b29-ed6d-4ff1-b457-195ff966179e","Briar Bay Golf Course","Miami",25.6455169,-80.3461062,9],
+            ["4b5383b2-0d3d-4687-bfd3-67253a31edfd","Card Sound Golf Club","Key Largo",25.3271642,-80.2816157,18],
+            ["c794b848-9779-488c-9b13-8397ee31c49c","Carolina Golf Club","Margate",26.2652249,-80.2277654,18],
+            ["703b4290-0ed0-44e1-a99e-8edd0b859953","City Of Lauderhill Golf Course","Fort Lauderdale",26.1466537,-80.2060935,9],
+            ["f2cd934d-55c3-41e5-892f-b335e69ed57f","Clewiston Golf Course","Clewiston",26.7437882,-80.9507371,18],
+            ["6ff3cf3b-e7ae-4c68-bda9-e39934ac4582","Club Med Sandpiper Bay","Port St. Lucie",27.244491,-80.3101354,18],
+            ["3673698d-17de-4ac3-88c2-683a4b63a5aa","Cooper Colony Country Club","Cooper City",26.0577009,-80.2700675,18],
+            ["ae9a1659-cf57-4a6e-b135-4833527ff10f","Coral Ridge Country Club","Fort Lauderdale",26.1755733,-80.1069346,18],
+            ["768ab827-bf66-46a2-ab28-4f5e1b65dd4d","Costa Del Sol Golf Club","Doral",25.8072004,-80.359371,18],
+            ["c1260217-7446-4d07-8d25-2a28c1353526","Country Club At Boca Raton Resort Club The","Boca Raton",26.3427958,-80.0801027,18],
+            ["e80d5b5c-457d-4b55-aedb-486cb52c72a1","Country Club at Mirasol","Palm Beach Gardens",26.851717,-80.1501554,18],
+            ["29ca44fc-52a7-43e8-a11d-042d4a805c85","Country Club Of Coral Springs","Coral Springs",26.2700801,-80.2708805,18],
+            ["d8fc3bd1-ddbe-4bf9-873b-f70bb13fd874","Country Club Of Florida","Boynton Beach",26.504377,-80.1033358,18]
           ];
 
           const sleep=ms=>new Promise(r=>setTimeout(r,ms));
