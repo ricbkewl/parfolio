@@ -461,8 +461,10 @@ jobs:
                 if(idm&&latm&&lonm) nodes.set(idm[1],{lat:+latm[1],lon:+lonm[1]});
               }
               const rows=[];
-              for(const m of xml.matchAll(/<way\s+[^>]*\bid="(\d+)"[^>]*>([\s\S]*?)<\/way>/g)){
-                const wayId=m[1],body=m[2],tags={};
+              for(const m of xml.matchAll(/<way\s+([^>]*\bid="(\d+)"[^>]*)>([\s\S]*?)<\/way>/g)){
+                const attrs=m[1],wayId=m[2],body=m[3],tags={};
+                const timestamp=(attrs.match(/\btimestamp="([^"]+)"/)||[])[1]||null;
+                const version=Number((attrs.match(/\bversion="(\d+)"/)||[])[1]||0);
                 for(const t of body.matchAll(/<tag\s+k="([^"]+)"\s+v="([^"]*)"\s*\/>/g)) tags[decodeXml(t[1])]=decodeXml(t[2]);
                 if(tags.golf!=="hole") continue;
                 const hole=parseInt(tags.ref||"",10);
@@ -471,14 +473,24 @@ jobs:
                 if(refs.length<2) continue;
                 const first=nodes.get(refs[0]),last=nodes.get(refs.at(-1));
                 if(!first||!last) continue;
-                rows.push({hole_number:hole,par:/^[2-7]$/.test(tags.par||"")?parseInt(tags.par,10):null,tee_lat:first.lat,tee_lng:first.lon,green_center_lat:last.lat,green_center_lng:last.lon,yards:yards(first.lat,first.lon,last.lat,last.lon),osm_way_id:+wayId});
+                rows.push({hole_number:hole,par:/^[2-7]$/.test(tags.par||"")?parseInt(tags.par,10):null,tee_lat:first.lat,tee_lng:first.lon,green_center_lat:last.lat,green_center_lng:last.lon,yards:yards(first.lat,first.lon,last.lat,last.lon),osm_way_id:+wayId,osm_timestamp:timestamp,osm_version:version});
               }
               const groups=new Map();
               for(const h of rows){if(!groups.has(h.hole_number))groups.set(h.hole_number,[]);groups.get(h.hole_number).push(h);}
-              const unique=[...groups.entries()].filter(([,v])=>v.length===1).map(([,v])=>v[0]).sort((a,b)=>a.hole_number-b.hole_number);
-              const complete=unique.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>unique[i]?.hole_number===n);
-              const plausible=complete&&unique.every(h=>h.yards>=20&&h.yards<=1000);
-              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:unique.length,holes:complete&&plausible?unique:[]};
+              const selected=[...groups.entries()].map(([hole,items])=>{
+                items.sort((a,b)=>{
+                  const ta=a.osm_timestamp?Date.parse(a.osm_timestamp):0;
+                  const tb=b.osm_timestamp?Date.parse(b.osm_timestamp):0;
+                  if(tb!==ta) return tb-ta;
+                  if(b.osm_version!==a.osm_version) return b.osm_version-a.osm_version;
+                  return b.osm_way_id-a.osm_way_id;
+                });
+                return items[0];
+              }).sort((a,b)=>a.hole_number-b.hole_number);
+              const duplicate_holes=[...groups.entries()].filter(([,v])=>v.length>1).map(([hole,v])=>({hole_number:hole,candidates:v.length,selected_way_id:v.slice().sort((a,b)=>(Date.parse(b.osm_timestamp||0)-Date.parse(a.osm_timestamp||0))||b.osm_version-a.osm_version||b.osm_way_id-a.osm_way_id)[0].osm_way_id}));
+              const complete=selected.length===expected&&Array.from({length:expected},(_,i)=>i+1).every((n,i)=>selected[i]?.hole_number===n);
+              const plausible=complete&&selected.every(h=>h.yards>=20&&h.yards<=1000);
+              return {id,name,city,expected,status:complete&&plausible?"validated":"unresolved",raw_way_count:rows.length,unique_holes:selected.length,duplicate_holes,holes:complete&&plausible?selected:[]};
             }catch(e){return {id,name,city,expected,status:"fetch_error",reason:String(e),holes:[]};}
           }
 
