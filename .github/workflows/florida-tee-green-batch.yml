@@ -30,403 +30,403 @@ jobs:
 
           const courses = [
                     [
-                              "cb4717b8-d60c-4a8f-9318-05fc0bd125c1",
-                              "Glen Eagle Golf Country Club",
-                              "East Naples",
-                              26.1415108,
-                              -81.7309838,
-                              18
-                    ],
-                    [
-                              "b739e5d6-0e0d-48af-8a8f-931499bdc24b",
-                              "Glen Kernan Club",
-                              "Jacksonville",
-                              30.2573509,
-                              -81.4828033,
-                              18
-                    ],
-                    [
-                              "f5d30c80-cec6-46c6-a19f-3101f0d1aadb",
-                              "Gleneagles Country Club Legends Course",
-                              "Delray Beach",
-                              26.4417188,
-                              -80.1654537,
-                              18
-                    ],
-                    [
-                              "ac901a71-c387-46ca-ac59-afc77245ad83",
-                              "Gleneagles Country Club Victory Course",
-                              "Delray Beach",
-                              26.4417188,
-                              -80.1654537,
-                              18
-                    ],
-                    [
-                              "d48523bb-c884-422d-8028-f87fb03db002",
-                              "Gleneagles Turnberry At Waterford Golf Club",
-                              "Venice",
-                              27.126044,
-                              -82.4062168,
-                              18
-                    ],
-                    [
-                              "2eae034d-272f-40db-84c1-14339cbc6022",
-                              "Glenlakes Country Club",
-                              "Spring Hill",
-                              28.5673748,
-                              -82.5598062,
-                              18
-                    ],
-                    [
-                              "5e2d9497-9102-43fe-89d6-87c00ed633a3",
-                              "Glynlea Country Club",
-                              "Port St. Lucie",
-                              27.345391,
-                              -80.437714,
-                              18
-                    ],
-                    [
-                              "2f7e5f5f-65ef-450b-93d2-ed466ddc8d6c",
-                              "Gold Green At Wyndemere Country Club",
-                              "Naples",
-                              26.1876551,
-                              -81.7447652,
-                              18
-                    ],
-                    [
-                              "cde06798-a489-4438-991c-e6e6fe7b02bb",
-                              "Gold Red At Westchester Golf Country Club",
-                              "Boynton Beach",
-                              26.4955169,
-                              -80.1457414,
-                              18
-                    ],
-                    [
-                              "055913ce-4447-49eb-8bfe-8d3569b1f76e",
-                              "Golden Eagle Country Club",
-                              "Tallahassee",
-                              30.5950881,
-                              -84.2353556,
-                              18
-                    ],
-                    [
-                              "3943f159-89dd-4f29-883a-c83026c26c34",
-                              "Golden Marsh At Harbour Ridge Yacht Country Club",
-                              "Palm City",
-                              27.2320516,
-                              -80.3057941,
-                              18
-                    ],
-                    [
-                              "e832be2f-7fb7-4814-8b24-584be3d053fe",
-                              "Golden Ocala Golf Equestrian Club",
-                              "Ocala",
-                              29.2189136,
-                              -82.2562865,
-                              18
-                    ],
-                    [
-                              "43c65e9b-54e1-41dc-8f0c-5cee9fe846e5",
-                              "Golf Club At South Hampton",
-                              "St. Augustine",
-                              30.0465965,
-                              -81.5471344,
-                              18
-                    ],
-                    [
-                              "df8fa201-f4a8-46e5-a696-5989c3aa0218",
-                              "Golf Club Of Amelia Island At Summer Beach The",
-                              "Amelia Island",
-                              30.5944805,
-                              -81.4458007,
-                              18
-                    ],
-                    [
-                              "b1853586-e3d3-4e9f-9553-cce1c30adf83",
-                              "Golf Club Of The Everglades",
-                              "Naples",
-                              26.2449267,
-                              -81.66242,
-                              18
-                    ],
-                    [
-                              "02324c82-cc57-40ef-a68a-44fa0a951022",
-                              "Golf Hammock Country Club",
-                              "Naples",
-                              25.9976635,
-                              -81.6937714,
-                              18
-                    ],
-                    [
-                              "f45665cb-877f-47db-8c14-005579215ff1",
-                              "Golfview Golf Recreation",
-                              "Fort Myers",
-                              26.524963,
-                              -81.8924536,
-                              9
-                    ],
-                    [
-                              "f32533ec-7685-4e4e-ac65-2eb5a07eb768",
-                              "Granada Golf Course",
-                              "Coral Gables",
-                              25.7525704,
-                              -80.2746846,
-                              9
-                    ],
-                    [
-                              "231a8ce1-b311-45ff-a3d1-0fb75d33afbb",
-                              "Grand Cypress Golf Club Cypress Course",
-                              "Orlando",
-                              28.4035455,
-                              -81.5299663,
-                              18
-                    ],
-                    [
-                              "ad3910d6-f64e-4dce-8227-82daaee308e8",
-                              "Grand Cypress Golf Club Links Course",
-                              "Orlando",
-                              28.4035455,
-                              -81.5299663,
-                              18
-                    ],
-                    [
-                              "38f86001-1ac3-453f-88a3-79449dd048e2",
-                              "Grand Harbor - Harbor Course",
-                              "Gifford",
-                              27.6915198,
-                              -80.4020412,
-                              18
-                    ],
-                    [
-                              "4705f859-dca8-48f5-a67b-4ac223fd69d4",
-                              "Grand Haven Golf Club",
+                              "37928c8d-adcb-466b-ae6a-237155df326e",
+                              "Hammock Dunes Links Course",
                               "Palm Coast",
-                              29.538713,
-                              -81.164483,
+                              29.5739688,
+                              -81.1786186,
                               18
                     ],
                     [
-                              "7df000e1-c9e4-490d-8835-e33b6ff81db3",
-                              "Grand Lake Rv And Golf Resort",
-                              "Citra",
-                              29.4260086,
-                              -82.2069658,
+                              "3dbebd6b-1e07-4ff8-8a53-aeaf4b6ceccf",
+                              "Hammock Dunes Rees Jones Creek Course",
+                              "Palm Coast",
+                              29.615141,
+                              -81.228517,
                               18
                     ],
                     [
-                              "b10c9ff4-9203-49e7-b48d-4b00fa4fde72",
-                              "Grand Reserve Golf Club",
-                              "Bunnell",
-                              29.4830045,
-                              -81.2548516,
+                              "da4997d1-aad6-4157-8250-3642bf9e6369",
+                              "Hammock Dunes Tom Fazio Links Course",
+                              "Palm Coast",
+                              29.5793388,
+                              -81.175438,
                               18
                     ],
                     [
-                              "5f81e7d8-8790-4d89-9785-2f0d748b9715",
-                              "Grand Royal At Grand Palms Golf Country Club",
-                              "Pembroke Pines",
-                              26.0053595,
-                              -80.3508245,
+                              "352cdb94-41e6-463e-951e-46036071fda6",
+                              "Hamptons Golf Club The",
+                              "Auburndale",
+                              28.0503895,
+                              -81.845616,
                               18
                     ],
                     [
-                              "ea646172-8f69-4527-9567-702a3fa4cd68",
-                              "Grande Oaks Golf Club",
-                              "Davie",
-                              26.0789638,
-                              -80.2584842,
+                              "b379660e-ccb7-4c7c-8c16-b643b3148862",
+                              "Harbor Hills Country Club",
+                              "Lady Lake",
+                              28.930544,
+                              -81.854096,
                               18
                     ],
                     [
-                              "000ade28-1dc6-4523-aa8e-878b3321af74",
-                              "Grande Oaks Golf Club Par 3",
-                              "Davie",
-                              26.0789638,
-                              -80.2584842,
-                              18
-                    ],
-                    [
-                              "2f8eccb4-6696-44c3-9844-9fd207165c50",
-                              "Grasslands Golf Country Club",
-                              "Lakeland",
-                              28.0127625,
-                              -81.9800781,
-                              18
-                    ],
-                    [
-                              "a42bbce8-d7fa-42c4-983f-d24da145e1c2",
-                              "Great Outdoors Rv Golf Resort",
-                              "Titusville",
-                              28.5247404,
-                              -80.8639998,
-                              18
-                    ],
-                    [
-                              "fc63037a-a046-4bad-9c20-5e3d515d9c07",
-                              "Green White At Wyndemere Country Club",
-                              "Naples",
-                              26.1876551,
-                              -81.7447652,
-                              18
-                    ],
-                    [
-                              "bdc5a304-350d-465c-880e-76daa049cd80",
-                              "Greens Of Manatee Golf Course",
-                              "Bradenton",
-                              27.4569012,
-                              -82.5624799,
-                              18
-                    ],
-                    [
-                              "8a53fcd3-88cd-4e4c-8d38-5790211bfd18",
-                              "Grenelefe Golf & Tennis Resort - East Course",
-                              "Haines City",
-                              28.0700078,
-                              -81.5488505,
-                              18
-                    ],
-                    [
-                              "ae115033-1d3a-490c-b380-94a4b987d5d9",
-                              "Grenelefe Golf & Tennis Resort - South Course",
-                              "Haines City",
-                              28.0636004,
-                              -81.5487725,
-                              18
-                    ],
-                    [
-                              "c8181b9c-da63-43bc-90f3-17f5e180aaa3",
-                              "Grey Oaks Country Club",
-                              "Naples",
-                              26.1855138,
-                              -81.7676409,
-                              18
-                    ],
-                    [
-                              "bca3bdcc-3fcb-4969-ac1c-37a42ddb56b6",
-                              "Grey Oaks Country Club Estuary Golf Course",
-                              "Naples",
-                              26.1885964,
-                              -81.7597185,
-                              18
-                    ],
-                    [
-                              "1fbe5bd3-9395-4e28-8f87-b66f7599dcbe",
-                              "Grey Oaks Country Club Palm Golf Course",
-                              "Naples",
-                              26.1885964,
-                              -81.7597185,
-                              18
-                    ],
-                    [
-                              "9dfc8d53-ff7a-4e20-94f2-1545564be4b6",
-                              "Grey Oaks Country Club Pine Golf Course",
-                              "Naples",
-                              26.1885964,
-                              -81.7597185,
-                              18
-                    ],
-                    [
-                              "e61932ad-a4a1-4e77-bc95-cdf4a753009d",
-                              "Greynolds Golf Course",
-                              "North Miami Beach",
-                              25.9394532,
-                              -80.1568911,
+                              "5e2480f3-251b-434e-ab2f-3d2d925a5681",
+                              "Harbour Village Golf Yacht Club",
+                              "Port Orange",
+                              29.1019379,
+                              -80.9414786,
                               9
                     ],
                     [
-                              "5683419a-59bc-4c6c-af18-2d70efeb6646",
-                              "Grove Xxiii",
-                              "Hobe Sound",
-                              27.0776906,
-                              -80.2165558,
+                              "2aa5a720-2389-42a5-8eaf-86c41a0bf425",
+                              "Harbourside Golf Course (Longboat Key Club)",
+                              "Longboat Key",
+                              27.3690302,
+                              -82.620952,
                               18
                     ],
                     [
-                              "97ab6d65-719c-4f29-9dbf-b1216af72b67",
-                              "Gulf Harbour Golf Country Club",
-                              "Fort Myers",
-                              26.530909,
-                              -81.938856,
+                              "1d09638d-ef20-43c7-92e8-da0df333e7c8",
+                              "Harmony Golf Preserve",
+                              "Harmony",
+                              28.1912333,
+                              -81.1452007,
                               18
                     ],
                     [
-                              "a1b2580c-87a1-4538-97f9-2b07b2b21e06",
-                              "Gulf Harbour Yacht & Country Club",
-                              "Iona",
-                              26.5295269,
-                              -81.9416811,
-                              18
-                    ],
-                    [
-                              "41bb17d9-cf65-4729-ba71-b091780cd04d",
-                              "Gulf Stream Golf Course",
-                              "Delray Beach",
-                              26.4870003,
-                              -80.0543469,
-                              18
-                    ],
-                    [
-                              "4248d201-71b3-4d31-9f25-b8a9ccf2c1ae",
-                              "Hacienda Hills Golf & Country Club",
+                              "8b5a7b16-9345-4a2c-9b7f-2916394fc681",
+                              "Havana Golf Country Club",
                               "The Villages",
-                              28.9432878,
-                              -81.9629589,
+                              28.8709302,
+                              -81.9657557,
+                              9
+                    ],
+                    [
+                              "7712d014-0dd7-433f-9390-e4c71fe8604f",
+                              "Havana Golf Country Club",
+                              "Havana",
+                              30.6337403,
+                              -84.4186202,
+                              9
+                    ],
+                    [
+                              "0ba611fd-b943-433f-af2b-83ee0975a5fc",
+                              "Hawk's Nest Golf Club",
+                              "Vero Beach",
+                              27.6984516,
+                              -80.4212479,
                               18
                     ],
                     [
-                              "eed1bd40-9db9-45f1-a061-fd870f722695",
-                              "Haile Plantation Golf Country Club",
-                              "Venice",
-                              27.0604345,
-                              -82.358504,
+                              "5221e342-0f24-4f7a-94da-bb4e4690d916",
+                              "Hawkes Bay At The Villages Executive Golf Trail",
+                              "The Villages",
+                              28.9301706,
+                              -82.004179,
+                              9
+                    ],
+                    [
+                              "24cdbc5a-8c23-4b28-9a4c-957f3bd475a7",
+                              "Hawkes Bay Golf course (The Villages)",
+                              "The Villages",
+                              28.9304302,
+                              -82.0041154,
                               18
                     ],
                     [
-                              "1402f388-3ab9-4d0d-8598-59ac108a9e56",
-                              "Halifax Plantation",
-                              "Ormond Beach",
-                              29.3905392,
-                              -81.1371307,
+                              "0add94c9-cfe6-4401-8647-bbe0a45b06c1",
+                              "Hawks Landing Golf Club",
+                              "Orlando",
+                              28.3618866,
+                              -81.5076057,
                               18
                     ],
                     [
-                              "7e1289af-1647-4d75-b49f-37a47084b3d3",
-                              "Hammock At Ocean Reef Club",
-                              "Key Largo",
-                              25.3127883,
-                              -80.2786553,
+                              "98d49fe9-e661-4fbf-8ad9-c7658728e64c",
+                              "Heather Golf Country Club",
+                              "Spring Hill",
+                              28.5393154,
+                              -82.5693703,
+                              9
+                    ],
+                    [
+                              "023e5840-875f-45c0-821f-4a499c5d9728",
+                              "Heathrow Country Club",
+                              "Lake Mary",
+                              28.7649072,
+                              -81.3677227,
                               18
                     ],
                     [
-                              "da79f169-46d4-46b3-a45a-3f42cb3673f8",
-                              "Hammock Bay Golf Course",
+                              "b344dc3d-0e37-4c15-8766-1bc4a551aa97",
+                              "Hemingway Kilimanjaro At Havana Country Club",
+                              "The Villages",
+                              28.8709302,
+                              -81.9657557,
+                              18
+                    ],
+                    [
+                              "f7bbcc93-94e3-4a2b-b606-27c24bc0e0b3",
+                              "Heritage Bay Golf and Country Club",
                               "Naples",
-                              25.9976635,
-                              -81.6937714,
+                              26.2901255,
+                              -81.6649261,
                               18
                     ],
                     [
-                              "671c9e55-7fc6-4866-bcac-c49ec10a7d27",
-                              "Hammock Beach Resort The Conservatory Course",
-                              "Palm Coast",
-                              29.6185131,
-                              -81.2389831,
+                              "d1c17820-abf4-4353-a6ea-88546c922547",
+                              "Heritage Bay Golf And Country Club Cypress Course",
+                              "Naples",
+                              26.2847037,
+                              -81.6622868,
+                              9
+                    ],
+                    [
+                              "87019c6c-d5a2-43c1-b5aa-b42e0e1bd732",
+                              "Heritage Bay Golf And Country Club Oak Course",
+                              "Naples",
+                              26.2847037,
+                              -81.6622868,
+                              9
+                    ],
+                    [
+                              "949126d9-2785-4bd7-b060-14fef0aa3518",
+                              "Heritage Bay Golf And Country Club Pine Course",
+                              "Naples",
+                              26.2847037,
+                              -81.6622868,
+                              9
+                    ],
+                    [
+                              "76f3319b-c32d-491d-b369-fe394ee264c5",
+                              "Heritage Harbor",
+                              "Lutz",
+                              28.1689971,
+                              -82.511952,
                               18
                     ],
                     [
-                              "bcc23409-7ba0-4dd6-a598-b844f6b62293",
-                              "Hammock Beach Resort The Ocean Course",
-                              "Palm Coast",
-                              29.6056444,
-                              -81.1886889,
+                              "17d4d19c-01b5-4d93-9755-83ab8522a32d",
+                              "Heritage Harbour Golf Club",
+                              "Bradenton",
+                              27.4945784,
+                              -82.4590054,
                               18
                     ],
                     [
-                              "1edce6b1-cbb0-4143-89d9-b19061519120",
-                              "Hammock Creek Golf Club",
-                              "Palm City",
-                              27.1489677,
-                              -80.2871399,
+                              "468e9cf3-331e-441f-b6f2-b79c7fb22f24",
+                              "Heritage Isles Golf And Country Club",
+                              "Tampa",
+                              28.14735,
+                              -82.29641,
+                              18
+                    ],
+                    [
+                              "f4930f00-4513-4801-be36-c75981d01cb2",
+                              "Heritage Landing Golf Country Club",
+                              "Punta Gorda",
+                              26.8180812,
+                              -82.0286934,
+                              18
+                    ],
+                    [
+                              "9ef47fe7-e48b-4dff-bd87-fa99961792df",
+                              "Heritage Oaks Golf Country Club",
+                              "Sarasota",
+                              27.2854774,
+                              -82.4053237,
+                              18
+                    ],
+                    [
+                              "0e83db10-af1f-48a4-ace2-79395d07f769",
+                              "Heritage Pines Country Club",
+                              "Trinity",
+                              28.1784388,
+                              -82.6272939,
+                              18
+                    ],
+                    [
+                              "56f4eb8f-a52d-41da-ad9d-7332690f1c92",
+                              "Heritage Ridge Golf Club",
+                              "Hobe Sound",
+                              27.1148912,
+                              -80.1657726,
+                              18
+                    ],
+                    [
+                              "f1ff2f15-aa58-4b6f-aeb3-680a4f6bb1df",
+                              "Heritage Springs Country Club",
+                              "Trinity",
+                              28.1784388,
+                              -82.6272939,
+                              18
+                    ],
+                    [
+                              "b107967c-db47-4adc-9707-a544c251615c",
+                              "Hernando Oaks Golf Country Club",
+                              "Brooksville",
+                              28.5080642,
+                              -82.4307098,
+                              18
+                    ],
+                    [
+                              "1bf4ceab-0a0a-4811-9482-74aab080060f",
+                              "Heron At The Villages Executive Golf Trail",
+                              "The Villages",
+                              28.9010353,
+                              -81.9864929,
+                              9
+                    ],
+                    [
+                              "9fe2df65-693a-4e4e-8fce-72fcc109b5bd",
+                              "Heron Creek Golf And Country Club Creek Oaks Course",
+                              "North Port",
+                              27.0590752,
+                              -82.2203667,
+                              18
+                    ],
+                    [
+                              "4d46eb26-7490-4653-afdf-7312289b0cea",
+                              "Heron Creek Golf And Country Club Marsh Creek Course",
+                              "North Port",
+                              27.0590752,
+                              -82.2203667,
+                              18
+                    ],
+                    [
+                              "8d5c0ca5-193a-4dee-9293-8e162fef8806",
+                              "Heron Creek Golf And Country Club Oaks Marsh Course",
+                              "North Port",
+                              27.0590752,
+                              -82.2203667,
+                              18
+                    ],
+                    [
+                              "1c79bbfb-aee8-491a-88ee-17ad9f84f254",
+                              "Heron Eagle At Okeeheelee Golf Course",
+                              "West Palm Beach",
+                              26.6569637,
+                              -80.1561294,
+                              18
+                    ],
+                    [
+                              "3779c011-b356-419f-af54-845f6d21beef",
+                              "Heron Golf Course At Pelican Preserve Golf Club",
+                              "The Villages",
+                              28.9010353,
+                              -81.9864929,
+                              9
+                    ],
+                    [
+                              "7e2c72ad-cb7e-44be-a18e-827b291a99c3",
+                              "Heron Osprey At Burnt Store Marina Country Club",
+                              "Punta Gorda",
+                              26.7697772,
+                              -82.0453262,
+                              18
+                    ],
+                    [
+                              "5eabee09-c06f-4204-af40-7f45187256f6",
+                              "Heron Pelican At Burnt Store Marina Country Club",
+                              "Punta Gorda",
+                              26.7697772,
+                              -82.0453262,
+                              18
+                    ],
+                    [
+                              "7c372b9f-c3d6-4771-bd66-d069d4db6712",
+                              "Herons Glen Golf Country Club",
+                              "North Fort Myers",
+                              26.7674628,
+                              -81.9169752,
+                              18
+                    ],
+                    [
+                              "45950ce6-5bcf-43a0-ac06-5c38b6d4d100",
+                              "Hibiscus Golf Club",
+                              "Naples",
+                              26.1076661,
+                              -81.7383629,
+                              18
+                    ],
+                    [
+                              "8a7a4119-fa44-4b4d-93bf-8f0353eb53e5",
+                              "Hidden Hills Country Club",
+                              "Jacksonville",
+                              30.3738091,
+                              -81.4955538,
+                              18
+                    ],
+                    [
+                              "e6ea42e0-ecc1-48aa-8dfc-1f731edd4005",
+                              "Hidden Lake Park",
+                              "Boca Raton",
+                              26.4186775,
+                              -80.0830461,
+                              18
+                    ],
+                    [
+                              "464f7e9a-7e9f-4a47-b416-5980cffb06e0",
+                              "Hideaway Beach Golf Course",
+                              "Marco Island",
+                              25.9604701,
+                              -81.7451876,
+                              9
+                    ],
+                    [
+                              "be279890-bcc5-402d-b15b-db2f469ea339",
+                              "Hideout Golf Club",
+                              "Naples",
+                              26.1854626,
+                              -81.6652843,
+                              18
+                    ],
+                    [
+                              "e664b590-9d44-4339-922d-82bd5a2e7d91",
+                              "High Grove Golf",
+                              "Lake Placid",
+                              27.1718207,
+                              -81.3089352,
+                              18
+                    ],
+                    [
+                              "0f300f74-cc0f-4df8-8f1b-68bf3b3fba5f",
+                              "High Point Country Club",
+                              "Naples",
+                              26.18613,
+                              -81.797147,
+                              9
+                    ],
+                    [
+                              "e4cb64bb-96b0-4cbe-b4da-5f87cc89a5e7",
+                              "High Point Golf Club",
+                              "Brooksville",
+                              28.5421962,
+                              -82.5234088,
+                              18
+                    ],
+                    [
+                              "c438de5d-cdce-4840-9d73-20a62db2ac6a",
+                              "High Ridge Country Club",
+                              "Lantana",
+                              26.5684219,
+                              -80.0792615,
+                              18
+                    ],
+                    [
+                              "1955d277-b612-4ac0-b46d-04bf8273cadf",
+                              "Highland Fairways Golf Club",
+                              "Lakeland",
+                              28.0837892,
+                              -81.9906873,
+                              18
+                    ],
+                    [
+                              "31e852fe-6c1a-4225-bfc9-ec128b505a02",
+                              "Highland Woods Golf Country Club",
+                              "Bonita Springs",
+                              26.3514548,
+                              -81.8000042,
                               18
                     ]
           ];
