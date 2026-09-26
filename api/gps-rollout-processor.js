@@ -1,6 +1,7 @@
 /*
  * Course processor for staged ParFolio GPS rollout data.
- * Conservative by design: ambiguity goes to review, never promotion.
+ * Facility enrichment is independent from GPS promotion: useful verified
+ * facility facts survive even when geometry remains unresolved.
  */
 const {validateTeeCenterCourse,protectVerifiedGeometry,dedupeNewestHoleEdits}=require('./gps-rollout-engine');
 
@@ -12,11 +13,9 @@ function nameSimilarity(a,b){
   return n/Math.max(A.size,B.size);
 }
 function candidateDecision({course,matchedCourse,rows}){
-  /* Never proximity-promote a multi-course facility without a named identity match. */
   if(!matchedCourse?.name)return {status:'review',reason:'missing_source_course_identity'};
   const similarity=nameSimilarity(course.name,matchedCourse.name);
   if(similarity<0.6)return {status:'review',reason:'ambiguous_course_identity',name_similarity:similarity};
-
   const newest=dedupeNewestHoleEdits(rows);
   const declared=Number(course.holes);
   const validation=validateTeeCenterCourse(newest,declared);
@@ -31,15 +30,30 @@ function createCourseProcessor(adapter){
   return {
     async processCandidate({region,candidate,batch_id}){
       const staged=await adapter.loadStagedCandidate({region,candidate});
+
+      // Enrichment is allowed only from a resolved source identity, but it does
+      // not require a complete GPS hole set.
+      let enrichment=null;
+      if(staged?.matchedCourse?.name){
+        const similarity=nameSimilarity(candidate.name,staged.matchedCourse.name);
+        if(similarity>=0.6 && adapter.enrichFacility){
+          enrichment=await adapter.enrichFacility({
+            region,candidate,batch_id,matchedCourse:staged.matchedCourse,
+            source:staged.facilitySource||'rollout_source',
+            confidence:Math.min(1,Math.max(0.6,similarity))
+          });
+        }
+      }
+
       if(!staged?.matchedCourse)return adapter.markReview({region,candidate,batch_id,reason:'missing_source_course_identity'});
       const decision=candidateDecision({course:candidate,matchedCourse:staged.matchedCourse,rows:staged.rows||[]});
-      if(decision.status==='preserved')return decision;
-      if(decision.status!=='promotable')return adapter.markReview({region,candidate,batch_id,reason:decision.reason,detail:decision});
-      /*
-       * Adapter promotion must be transactional: geometry + mapping_class
-       * commit together, and must re-check existing verified geometry.
-       */
-      return adapter.promoteValidated({region,candidate,batch_id,decision});
+      if(decision.status==='preserved')return {...decision,enrichment};
+      if(decision.status!=='promotable'){
+        const review=await adapter.markReview({region,candidate,batch_id,reason:decision.reason,detail:decision});
+        return {...review,enrichment};
+      }
+      const promoted=await adapter.promoteValidated({region,candidate,batch_id,decision});
+      return {...promoted,enrichment};
     }
   };
 }
