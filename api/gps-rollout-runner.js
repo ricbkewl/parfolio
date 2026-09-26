@@ -3,6 +3,7 @@
  * Never exposes service credentials to the browser.
  */
 const crypto=require('crypto');
+const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
 function safeEqual(a,b){const A=Buffer.from(String(a||'')),B=Buffer.from(String(b||''));return A.length===B.length&&crypto.timingSafeEqual(A,B);}
 module.exports=async function handler(req,res){
   res.setHeader('Cache-Control','private, no-store, max-age=0');
@@ -25,6 +26,11 @@ module.exports=async function handler(req,res){
   const batchSize=Math.min(50,Math.max(1,Number(req.body?.batch_size||5)));
   if(country==='US'&&!/^[A-Z]{2}$/.test(state))return res.status(400).json({error:'valid state_code required'});
   if(!['rollout','recovery','dry_run'].includes(mode))return res.status(400).json({error:'invalid mode'});
+  if(mode==='dry_run'){
+    if(country!=='US'||state!=='FL')return res.status(400).json({error:'initial dry run is restricted to US/FL'});
+    try{const candidates=await floridaSample(batchSize);return res.status(200).json({ok:true,armed:false,read_only:true,mode,country_code:country,state_code:state,count:candidates.length,candidates});}
+    catch(err){return res.status(503).json({ok:false,armed:false,read_only:true,error:String(err?.message||err)});}
+  }
   return res.status(200).json({
     ok:true,armed:false,mode,country_code:country,state_code:state,batch_size:batchSize,
     message:'Protected rollout runner authenticated; execution remains disarmed pending service-client verification.'
