@@ -1,7 +1,77 @@
 {
-  "generatedAt": "2026-09-26T06:11:15.231Z",
+  "generatedAt": "2026-09-26T17:14:00.471Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "The Easiest Way To Improve Your Golf Swing #golf #golfinstruction",
+      "summary": "Fix your swing plane with this simple alignment stick drill. If you struggle with inconsistent direction, placing an alignment stick in ...",
+      "source": "The Golf Shop Online",
+      "url": "https://www.youtube.com/watch?v=QeJfONneJDc",
+      "publishedAt": "2026-09-26T17:00:27.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/QeJfONneJDc/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "My wife and I go to play in a golf tournament at one of the best courses in Bangkok, Thailand!",
+      "summary": "My wife and I play in a golf tournament at Alpine Golf Club in Bangkok, Thailand. I take my chronic overswing golf swing to a ...",
+      "source": "Rick Apichairuk",
+      "url": "https://www.youtube.com/watch?v=Q_pLVI7BFjw",
+      "publishedAt": "2026-09-26T15:16:39.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Q_pLVI7BFjw/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This Mobility Test Explains Your Swing #golfswing #golftips",
+      "summary": "This simple 90/90 mobility test gives you a clear look at how your right arm should function in the golf swing. From a 5-iron posture ...",
+      "source": "Meandmygolf",
+      "url": "https://www.youtube.com/watch?v=cmnT4KGv7LU",
+      "publishedAt": "2026-09-26T13:00:26.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/cmnT4KGv7LU/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Bridging the Gap Between Strength Training and the Golf Swing",
+      "summary": "K-스윙은 골프를 사랑하는 모든 사람을 위한 레슨 채널입니다. 쉽고 짧은 영상으로 스윙, 퍼팅, 드라이버, 아이언 꿀팁을 배워보세요.",
+      "source": "K-스윙",
+      "url": "https://www.youtube.com/watch?v=JrNoUqOqWwQ",
+      "publishedAt": "2026-09-26T13:00:22.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/JrNoUqOqWwQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Hilarious Golf Grip Mix Up Putter, Baseball Bat, and More!",
+      "summary": "dkpartner.",
+      "source": "PhantmBlitz",
+      "url": "https://www.youtube.com/watch?v=GocbsHR6rhM",
+      "publishedAt": "2026-09-26T12:35:40.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/GocbsHR6rhM/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Winter Park Golf Course",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOV19BRlBVU1dZb2E2dmx1WFpOcHlCRF9icGNjNHVRNTl5U3ZDajQ4bVhpcXVxWlZndEFScnY4UHJGNkdBZExXU1BRX1JOTUdPUkMyZ2tScW1uN09NOTlnTXVLSTltOGNpN3RqQkJCa25GX3kwejU1d1IyY1ZoSnlud293?oc=5",
+      "publishedAt": "2026-09-26T10:52:08.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The best courses in the Chicago area, ranked",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1pamlQVGdTS0MxVzJheG1QaFZONEdfMVVNZ3dBVkRaNkhMYm1fYmJBWlVpODJBNGhRU2p4eWZDTWxwTHB2aVVfQ3ZaOXB6OVA4WjlORFlaNl9NQWFBajdxUHJRNWppWFV0bTNmMWQ2VDlnaWNpc2c?oc=5",
+      "publishedAt": "2026-09-26T09:17:35.000Z",
+      "thumbnail": ""
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -25,22 +95,12 @@
     {
       "type": "article",
       "category": "Courses",
-      "title": "The best courses in the Chicago area, ranked",
+      "title": "Thoroughbred Golf Club at High Point in Nicholasville, Kentucky, USA",
       "summary": "",
-      "source": "golfdigest.com",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE1pamlQVGdTS0MxVzJheG1QaFZONEdfMVVNZ3dBVkRaNkhMYm1fYmJBWlVpODJBNGhRU2p4eWZDTWxwTHB2aVVfQ3ZaOXB6OVA4WjlORFlaNl9NQWFBajdxUHJRNWppWFV0bTNmMWQ2VDlnaWNpc2c?oc=5",
-      "publishedAt": "2026-09-26T03:17:35.000Z",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPR0lvcjlfdUJpanpZa04zUU1zYWNWUkJMbVh5ZWJvRjlDZHZCSGUyWjZvOEl1M081TzRreEJET0dHaTdPRzdOZXFnRVFSeF9lTEc1ZDd5SmtUWjNWejRGUVRnNUt5VTM3S3RLeFVpV2ZBa092MENtMjAycTR5d2Z2THJWUHNKVUhSZm5NcXJaZWZ0Z3c?oc=5",
+      "publishedAt": "2026-09-25T19:29:47.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Why Do I Hit My Irons Fat and Thin? Often One Mistake",
-      "summary": "Fat and thin iron shots feel like opposites, but very often they start in the same place: your club bottoming out behind the ball.",
-      "source": "Par Theory",
-      "url": "https://www.youtube.com/watch?v=KVipHgGKnng",
-      "publishedAt": "2026-09-26T03:00:41.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/KVipHgGKnng/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -83,16 +143,6 @@
       "thumbnail": "https://i.ytimg.com/vi/zOiqALDSAkY/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Does your swing feel rushed? 🏌️⛳",
-      "summary": "Does your swing feel rushed? 🏌️⛳ Try Coach Barry's simple 1–2–3 Tempo Drill to work on a smoother, more controlled swing.",
-      "source": "Ohio Golf Lounge",
-      "url": "https://www.youtube.com/watch?v=cjENj2Z6xlY",
-      "publishedAt": "2026-09-25T12:49:28.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/cjENj2Z6xlY/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Short Game",
       "title": "5 Short Game Myths You Need To Stop Following To Save Shots",
@@ -121,16 +171,6 @@
       "url": "https://www.youtube.com/watch?v=wHPilx6YO74",
       "publishedAt": "2026-09-25T01:00:01.000Z",
       "thumbnail": "https://i.ytimg.com/vi/wHPilx6YO74/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Rutgers University Golf Course in Piscataway, New Jersey, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNd3cwV2oxVXBWczVBRXltamJzUGxCSnB2RkE0ODBZUGwyZmsyQThtTFFrT21LQkJmaTdGNmJISVI5YzcxRFJUTUlTUGpqMmQxcmlTTU1UM0VWdzBBRHkyd25IMEFyT3M1NXQwU1QzWDNqd2tqRTdDakxlUXlDNWtPaWtIdVRJQ0tSUVVF?oc=5",
-      "publishedAt": "2026-09-25T00:10:19.000Z",
-      "thumbnail": ""
     },
     {
       "type": "video",
@@ -170,6 +210,16 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNTnUzSmhuQkp1TGNpTDZuSXoyMThyb0Rhb1VQMkpDcnJ1M3gyVURlNmZ3cGhkYU5Gck9SZGdEb0RkdHpsWWpZVmFlZm9Gdi1ZbWg3eXZYb1FoYS0tX3dZc2V1Z2FnX0ZJV294VzVEcEx1ZDI3WnRlbmttMG8yZ1IwMmRueHZPbXJTUFR1c2RNOG9BOW9R?oc=5",
       "publishedAt": "2026-09-23T20:27:56.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "The Kirkland Golf Ball Is $19.99 A Dozen. Ball Lab Found The Catch.",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPa2dUVHhHQ08xSWZuVEhSVk9feFRxREF0TWFFcEdTaUViUTdCTnJKMjNpbzF3X1pLV19MbjhYUlMzRi1oeXVENjY1RVRsNWNDdUs4aERCSVJyQktDay1VNDAtcjIxQktHeG1tWlRBZmVFWEtDTGlhV3VDbC1QVnRMWFdzeVNWczRYb0dQb3J2WmRNNzhmMHRB?oc=5",
+      "publishedAt": "2026-09-23T16:10:38.000Z",
       "thumbnail": ""
     },
     {
@@ -217,7 +267,7 @@
       "category": "Trends",
       "title": "USGA and R&A ask manufacturers to weigh in on tour-only golf ball, driver and club-length limits",
       "summary": "",
-      "source": "golfdigest.com",
+      "source": "Golf Digest",
       "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNUHQxUkZaR21nNkJZS044aGNtTXFncnRYc3VwT3d2aHNESGtHZjNscnVEcFNTSVN5OUduWkF6dEI3X2Fua0haOU1rOGNZaXhsSkxwemVPdmhoX1dUYmtNRWIxamotOFNyOUhNNjJKX3p3R1kxR1RIMnoteEJPVzlOR2hkT2U5Q1dJbmJGUEtn?oc=5",
       "publishedAt": "2026-09-21T22:22:44.000Z",
       "thumbnail": ""
@@ -247,59 +297,9 @@
       "category": "Trends",
       "title": "We tested 30 irons on a swing robot to determine their carry and spin consistency",
       "summary": "",
-      "source": "golfdigest.com",
+      "source": "Golf Digest",
       "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQRHpKeGRhZG9XQzdHaDdKRlU4a2RKUWVWbkhUUTZBek56Sko5Yks3eVhZaEJBMkd3am4yVEFodlFWSFRjazRIWEtZMjRaOVNta3RiZ2MxbWhQaWo5Slk0eGJMQnFBVEtZRDFHVmF4cnZadVduQXBKS3VhNkR5YmJfVXA5X2VjUQ?oc=5",
       "publishedAt": "2026-09-21T12:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "The Best Golf Course Under $75 In Each State",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNWUNaR2VQT25zSC1LZ3VJWVZLZk1iOXVBV0xnUVFUNmNENm44VXJPa2dzWXhZMy11VWVueXgzV0x2WWhvZ2pLS3ZjYkxfcFlqRFpMZW1VZGxoZmN4VXlHT2xORVFJSjBYYkROdlJWWlNCdmIwd0dNdnV2YVhoaFFnS0lCeE04UQ?oc=5",
-      "publishedAt": "2026-09-21T11:37:38.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "I Talked Golf Equipment With Major Champion Rich Beem. Here’s What He Told Me",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQME9Lb2R1eEF4NTh0aE5QN25yUThzWGgyNlVWbFVYVGF3bW5FaGgxX2hIQTU4VWhBRkVxVjZCaHNIRVZTVUktaG9RV3FfcXlIeS1WQ1JYZS1RNlBzMk9PeXV5VUJ5MElmc0FCdEctQUNGRDhqaUt1cVNiOVNMRTQzN2RRMVZXT3lyQnp6MjZvWFlyZGhCTkhqaFV0Qk9DRXJ5MzNwQS1pY2RxRWxXbDg2Mg?oc=5",
-      "publishedAt": "2026-09-21T11:37:38.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Jacob Bridgeman’s clubs: Earns 2nd win of season with new TaylorMade driver",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE43N3A2WEQyN2g2b3pJTjNjZXpkUGNDampXd3ZoeEo3UjlVMkpCMWsxNE9XQndWRFVSVVVBMlo2WTFhSTlqUVVDXzJKZEZ1azRQcXhGckN4cDYxOVY4c2hrNkhMWEJWQ01penc?oc=5",
-      "publishedAt": "2026-09-21T01:41:38.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Consistent Ground Contact",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5QRkdMRTN5S1R6bUFGQkIyVXQyZTVwQkY3bUNrYmROUlQyQnY3bVRZRGNwblhId1NhekRWbUZaUFdBRGl4T2x4MVZoNVE5NlRBUUw4c1lRWW5lM1lBVVpaaEVRV2ZTamFaRGViUU9fTGlkTFRJVjdLR2dESQ?oc=5",
-      "publishedAt": "2026-09-21T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Thoroughbred Golf Club at High Point in Nicholasville, Kentucky, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPR0lvcjlfdUJpanpZa04zUU1zYWNWUkJMbVh5ZWJvRjlDZHZCSGUyWjZvOEl1M081TzRreEJET0dHaTdPRzdOZXFnRVFSeF9lTEc1ZDd5SmtUWjNWejRGUVRnNUt5VTM3S3RLeFVpV2ZBa092MENtMjAycTR5d2Z2THJWUHNKVUhSZm5NcXJaZWZ0Z3c?oc=5",
-      "publishedAt": "2026-09-20T20:04:40.000Z",
       "thumbnail": ""
     }
   ]
