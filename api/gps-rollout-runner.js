@@ -14,6 +14,17 @@ module.exports=async function handler(req,res){
   if(!expected||!safeEqual(expected,supplied))return res.status(401).json({error:'unauthorized'});
 
   const mode=String(req.body?.mode||'rollout');
+  if(mode==='vision_report'){
+    if(req.body?.country_code!=='US'||req.body?.state_code!=='FL'||req.body?.report_only!==true||req.body?.test_course!=='eastpointe_east'||req.body?.batch_size!==1)
+      return res.status(400).json({error:'vision_report requires US/FL, report_only:true, test_course:eastpointe_east, batch_size:1'});
+    try{
+      const {createEastpointeReport}=require('../lib/gps-rollout/eastpointe-vision-report');
+      return res.status(200).json(await createEastpointeReport()());
+    }catch(err){
+      const known=new Set(['vision_configuration_missing','invalid_course_response','eastpointe_east_identity_requires_review','course_outside_test_region','course_already_protected','invalid_course_geometry_context','invalid_vision_point','geometry_rows_require_review','vision_returned_unrequested_or_duplicate_hole']);
+      return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,error:known.has(err?.code)?err.code:'vision_report_failed'});
+    }
+  }
   if(mode==='config_probe')return res.status(200).json({
     ok:true,armed:false,
     maptiler_configured:Boolean(String(process.env.MAPTILER_API_KEY||'').trim()),
