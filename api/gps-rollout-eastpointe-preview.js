@@ -6,8 +6,20 @@
 module.exports=async function handler(req,res){
   res.setHeader('Cache-Control','private, no-store, max-age=0');
   res.setHeader('X-Content-Type-Options','nosniff');
-  if(req.method!=='POST')return res.status(405).json({error:'POST only'});
   if(String(process.env.VERCEL_ENV||'')!=='preview')return res.status(404).json({error:'not_found'});
+  if(req.method==='GET'&&req.query?.probe==='supabase_auth'){
+    try{
+      const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
+      const rows=await floridaSample(1);
+      return res.status(200).json({ok:true,armed:false,read_only:true,report_only:true,promotable:false,probe:'supabase_auth',row_count:Array.isArray(rows)?rows.length:0});
+    }catch(err){
+      const code=String(err?.code||'');
+      const safe=code==='SUPABASE_CONFIG_MISSING'||code==='SUPABASE_PROJECT_MISMATCH'||(code==='SUPABASE_HTTP_ERROR'&&Number.isInteger(err?.status));
+      const error=code==='SUPABASE_HTTP_ERROR'?`supabase_auth_http_${err.status}`:code.toLowerCase();
+      return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,promotable:false,probe:'supabase_auth',error:safe?error:'supabase_auth_failed'});
+    }
+  }
+  if(req.method!=='POST')return res.status(405).json({error:'POST only'});
   if(req.body?.report_only!==true||req.body?.test_course!=='eastpointe_east'||req.body?.batch_size!==1)
     return res.status(400).json({error:'hard_locked_to_eastpointe_report_only'});
   try{
