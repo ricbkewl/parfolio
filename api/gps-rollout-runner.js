@@ -1,6 +1,6 @@
 /*
  * Protected Vercel server-side entrypoint for ParFolio GPS rollout.
- * Never exposes service credentials to the browser.
+ * Never exposes service credentials to the browser. Preview refresh marker: 2026-09-27.
  */
 const crypto=require('crypto');
 const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
