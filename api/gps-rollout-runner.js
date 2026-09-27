@@ -49,3 +49,5 @@ module.exports=async function handler(req,res){
     message:'Protected rollout runner authenticated; execution remains disarmed pending service-client verification.'
   });
 };
+
+// Secure Preview refresh: rollout secret configured 2026-09-27.
