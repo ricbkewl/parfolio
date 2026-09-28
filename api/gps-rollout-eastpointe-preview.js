@@ -29,7 +29,8 @@ module.exports=async function handler(req,res){
   }catch(err){
     const known=new Set(['vision_configuration_missing','invalid_course_response','eastpointe_east_identity_requires_review','course_outside_test_region','course_already_protected','invalid_course_geometry_context','invalid_vision_point','geometry_rows_require_review','vision_returned_unrequested_or_duplicate_hole','supabase_course_read_failed','supabase_geometry_read_failed','supabase_configuration_missing','supabase_project_mismatch','imagery_or_maptiler_failed','maptiler_configuration_missing','ai_gateway_analysis_failed','external_vision_pipeline_failed']);
     const code=String(err?.code||'');
-    const safeSupabase=/^supabase_(course|geometry)_read_http_\d{3}$/.test(code);\n    const safeMapTiler=/^maptiler_http_\d{3}$/.test(code);
+    const safeSupabase=/^supabase_(course|geometry)_read_http_\d{3}$/.test(code);
+    const safeMapTiler=/^maptiler_http_\d{3}$/.test(code);
     return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,promotable:false,error:(known.has(code)||safeSupabase||safeMapTiler)?code:'vision_report_failed'});
   }
 };
