@@ -5,6 +5,7 @@
  */
 const {floridaSample,floridaAfterCourse,select}=require('../lib/gps-rollout/read-only-supabase');
 const {upsert,rpc}=require('../lib/gps-rollout/supabase-stage-writer');
+const {classifyAuthoritativeStage}=require('../lib/gps-rollout/authoritative-stage-classifier');
 
 const EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
 function center(e){
@@ -66,7 +67,8 @@ module.exports=async function handler(req,res){
       const course_objects=await upsert('fl_osm_course_stage',courseRows,'osm_course_uri');
       const hole_objects=await upsert('fl_osm_hole_stage',holeRows,'osm_course_uri,osm_hole_uri');
       const feature_objects=await upsert('fl_osm_feature_stage',featureRows,'catalog_id,feature_uri');
-      results.push({course_id:item.course.id,name:item.course.name,course_objects,hole_objects,feature_objects,status:'staged'});
+      const classification=classifyAuthoritativeStage({course:item.course,courseRows,holeRows});
+      results.push({course_id:item.course.id,name:item.course.name,course_objects,hole_objects,feature_objects,status:'staged',classification});
     }catch(e){
       results.push({course_id:item.course.id,name:item.course.name,status:'failed',error:String(e?.code||e?.message||'stage_write_failed').slice(0,120)});
     }
