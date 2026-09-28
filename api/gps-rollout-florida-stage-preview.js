@@ -35,7 +35,7 @@ function rowsFor(course,data){
     const tags=e.tags||{},uri='https://www.openstreetmap.org/'+e.type+'/'+e.id,g=Array.isArray(e.geometry)?e.geometry:[],pt=center(e);
     if(tags.leisure==='golf_course'||tags.golf==='course'){
       if(!pt)continue;
-      courseRows.push({osm_course_uri:uri,osm_id:e.id,osm_type:e.type,osm_version:e.version||null,osm_timestamp:e.timestamp||null,name:tags.name||null,normalized_name:String(tags.name||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),geometry_wkt:null,centroid_wkt:'POINT('+pt.lng+' '+pt.lat+')',lat:pt.lat,lng:pt.lng,raw:e});
+      courseRows.push({osm_course_uri:uri,osm_id:e.id,osm_type:e.type,osm_version:e.version||null,osm_timestamp:e.timestamp||null,name:tags.name||null,normalized_name:String(tags.name||'').toLowerCase().replace(/[^a-z0-9]+/g,' ').trim(),geometry_wkt:null,centroid_wkt:'POINT('+pt.lng+' '+pt.lat+')',latitude:pt.lat,longitude:pt.lng,raw:e});
     }else if(tags.golf==='hole'){
       const n=parseInt(tags.ref||tags['golf:hole']||'',10);
       holeRows.push({osm_course_uri:candidateUri,osm_hole_uri:'osm:'+e.type+':'+e.id,osm_id:e.id,osm_type:e.type,osm_version:e.version||null,osm_timestamp:e.timestamp||null,hole_ref:tags.ref||null,hole_number:Number.isFinite(n)?n:null,hole_par:parseInt(tags.par||'',10)||null,geometry_wkt:g.length>1?'LINESTRING('+g.map(p=>p.lon+' '+p.lat).join(',')+')':null,object_type:e.type,valid_number:Number.isFinite(n)&&n>=1&&n<=18,raw:e});
