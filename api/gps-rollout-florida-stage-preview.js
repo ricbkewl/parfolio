@@ -3,7 +3,7 @@
  * Hard locked to 5 courses, staging writes only, zero promotions.
  * Uses five small bounded Overpass requests in parallel for resilience.
  */
-const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
+const {floridaSample,floridaAfterCourse,select}=require('../lib/gps-rollout/read-only-supabase');
 const {upsert}=require('../lib/gps-rollout/supabase-stage-writer');
 
 const EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
@@ -50,7 +50,10 @@ module.exports=async function handler(req,res){
   if(String(process.env.VERCEL_ENV||'')!=='preview')return res.status(404).json({error:'not_found'});
   if(req.method!=='POST')return res.status(405).json({error:'POST only'});
   if(req.body?.stage_only!==true||req.body?.batch_size!==5)return res.status(400).json({error:'hard_locked_stage_only_batch_5'});
-  const courses=await floridaSample(5);
+  let courses;
+  const regions=await select('gps_rollout_regions',{select:'cursor_course_id',rollout_key:'eq.US:FL',limit:'1'});
+  const cursorId=regions?.[0]?.cursor_course_id||null;
+  courses=cursorId?await floridaAfterCourse(cursorId,5):await floridaSample(5);
   const fetched=await Promise.all(courses.map(async(course,index)=>{
     try{return{course,data:await fetchOne(course,index),error:null};}
     catch(e){return{course,data:null,error:String(e?.code||e?.message||'overpass_failed')};}
@@ -69,7 +72,7 @@ module.exports=async function handler(req,res){
     }
   }
   return res.status(200).json({
-    ok:true,armed:false,stage_only:true,promoted:0,batch_size:5,
+    ok:true,armed:false,stage_only:true,promoted:0,batch_size:5,cursor_start:cursorId,
     staged:results.filter(x=>x.status==='staged').length,
     failed:results.filter(x=>x.status==='failed').length,
     results
