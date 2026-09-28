@@ -4,7 +4,7 @@
  * Uses five small bounded Overpass requests in parallel for resilience.
  */
 const {floridaSample,floridaAfterCourse,select}=require('../lib/gps-rollout/read-only-supabase');
-const {upsert}=require('../lib/gps-rollout/supabase-stage-writer');
+const {upsert,rpc}=require('../lib/gps-rollout/supabase-stage-writer');
 
 const EPS=['https://overpass-api.de/api/interpreter','https://overpass.kumi.systems/api/interpreter'];
 function center(e){
@@ -71,10 +71,25 @@ module.exports=async function handler(req,res){
       results.push({course_id:item.course.id,name:item.course.name,status:'failed',error:String(e?.code||e?.message||'stage_write_failed').slice(0,120)});
     }
   }
+  const cursorEnd=courses?.[courses.length-1]?.id||cursorId||null;
+  let finalization=null;
+  if(cursorId&&cursorEnd){
+    try{
+      finalization=await rpc('gps_rollout_finalize_stage_batch',{
+        p_rollout_key:'US:FL',
+        p_cursor_start:cursorId,
+        p_cursor_end:cursorEnd,
+        p_results:results
+      });
+    }catch(e){
+      return res.status(503).json({ok:false,armed:false,stage_only:true,promoted:0,error:String(e?.code||'stage_finalize_failed')});
+    }
+  }
   return res.status(200).json({
-    ok:true,armed:false,stage_only:true,promoted:0,batch_size:5,cursor_start:cursorId,
+    ok:true,armed:false,stage_only:true,promoted:0,batch_size:5,cursor_start:cursorId,cursor_end:cursorEnd,
     staged:results.filter(x=>x.status==='staged').length,
     failed:results.filter(x=>x.status==='failed').length,
+    finalized:Boolean(finalization),
     results
   });
 };
