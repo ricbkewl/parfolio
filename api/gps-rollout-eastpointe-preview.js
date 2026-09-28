@@ -7,6 +7,22 @@ module.exports=async function handler(req,res){
   res.setHeader('Cache-Control','private, no-store, max-age=0');
   res.setHeader('X-Content-Type-Options','nosniff');
   if(String(process.env.VERCEL_ENV||'')!=='preview')return res.status(404).json({error:'not_found'});
+  if(req.method==='GET'&&req.query?.probe==='usgs'){
+    try{
+      const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
+      const {exportUrl}=require('../lib/gps-rollout/usgs-imagery-provider');
+      const rows=await floridaSample(1);
+      const east=(Array.isArray(rows)?rows:[]).find(x=>/eastpointe/i.test(String(x.name||'')))||rows?.[0];
+      if(!east)return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,promotable:false,probe:'usgs',error:'course_context_missing'});
+      const url=exportUrl({lat:Number(east.latitude),lng:Number(east.longitude),width:1024,height:1024});
+      const response=await fetch(url,{headers:{Accept:'image/jpeg,image/*'},redirect:'error',signal:AbortSignal.timeout(20000)});
+      const type=String(response.headers.get('content-type')||'').split(';')[0];
+      const bytes=response.ok?Buffer.from(await response.arrayBuffer()).length:0;
+      return res.status(response.ok?200:503).json({ok:response.ok,armed:false,read_only:true,report_only:true,promotable:false,probe:'usgs',http_status:response.status,content_type:type,bytes});
+    }catch(err){
+      return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,promotable:false,probe:'usgs',error:'usgs_probe_failed'});
+    }
+  }
   if(req.method==='GET'&&req.query?.probe==='maptiler'){
     try{
       const {floridaSample}=require('../lib/gps-rollout/read-only-supabase');
