@@ -12,9 +12,19 @@ module.exports=async function handler(req,res){
     if(!url||!key)return res.status(503).json({ok:false,error:'supabase_server_config_missing'});
     const headers={apikey:key,'Content-Type':'application/json',Accept:'application/json'};
     if(!key.startsWith('sb_secret_'))headers.Authorization='Bearer '+key;
-    const response=await fetch(url+'/functions/v1/sierra-degraded-shadow-test',{
-      method:'POST',headers,body:'{}',redirect:'error',signal:AbortSignal.timeout(5000)
-    });
+    let response=null,lastError=null;
+    for(let attempt=0;attempt<2;attempt++){
+      try{
+        response=await fetch(url+'/functions/v1/sierra-degraded-shadow-test',{
+          method:'POST',headers,body:'{}',redirect:'error',signal:AbortSignal.timeout(9000)
+        });
+        break;
+      }catch(e){
+        lastError=e;
+        if(attempt===0)await new Promise(r=>setTimeout(r,350));
+      }
+    }
+    if(!response)throw lastError||new Error('shadow_trigger_unreachable');
     const text=await response.text();
     let body;try{body=JSON.parse(text)}catch{body={raw:text.slice(0,300)}}
     return res.status(response.status).json({
