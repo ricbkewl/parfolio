@@ -190,9 +190,10 @@
 
   window.smartCourseShowMore=function(){visibleLimit+=25;refreshCourseLibrary()};
 
-  window.smartQuickFilter=function(name,value=true){
+  window.smartQuickFilter=async function(name,value=true){
     if(name==='holes')courseLibraryFilters.holes=courseLibraryFilters.holes===value?null:value;
     else courseLibraryFilters[name]=!courseLibraryFilters[name];
+    if(name==='nearby'&&courseLibraryFilters.nearby===true&&typeof cachedCourseLibraryLocation==='function'&&!cachedCourseLibraryLocation()&&typeof requestCourseLibraryLocation==='function')await requestCourseLibraryLocation(true);
     decorateQuickFilters();refreshCourseLibrary();
   };
 
