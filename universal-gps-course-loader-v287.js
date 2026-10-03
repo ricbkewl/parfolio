@@ -36,7 +36,10 @@
     if(pending.has(catalogId))return pending.get(catalogId);
     const request=(async()=>{try{
       let response;
-      try{response=await db.rpc('parfolio_course_payload',{p_course_id:catalogId})}
+      try{
+        const request=db.rpc('parfolio_course_payload',{p_course_id:catalogId});
+        response=typeof promiseDeadline==='function'?await promiseDeadline(request,10000,'Course geometry'):await request;
+      }
       catch(networkError){response={error:networkError}}
       if(response.error){
         const offline=validate(course);
@@ -46,7 +49,11 @@
       const data=response.data;
       if(!data||String(data.mapping_class||'')!=='gps_ready')throw new Error('the authoritative catalog no longer marks this course GPS Ready');
       if(String(data.catalog_id||'')!==catalogId)throw new Error('the authoritative catalog payload belongs to a different course');
-      applyPayload(course,data);hydrated.add(catalogId);return true;
+      applyPayload(course,data);
+      // A catalog refresh may replace the object while this request is in flight.
+      // Commit only to records with this exact catalog identity, never a name match.
+      for(const current of courses||[])if(current!==course&&String(current?.parfolioCatalogId||'')===catalogId)applyPayload(current,data);
+      hydrated.add(catalogId);return true;
     }finally{pending.delete(catalogId)}})();
     pending.set(catalogId,request);return request;
   }

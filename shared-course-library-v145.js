@@ -105,8 +105,11 @@
         const prior=courses[idx],payload=result.data,holeCount=Number(payload.holes)||Number(prior.holes)||18;
         const incomingPars=Array.isArray(payload.pars)?payload.pars.map(Number):[];
         const pars=incomingPars.length===holeCount&&incomingPars.every(Number.isFinite)?incomingPars:null;
-        const greens=safeGps(payload,prior);
-        courses[idx]={...prior,holes:holeCount,pars:pars||prior.pars,greens:greens||prior.greens,
+        let greens=safeGps(payload,prior);
+        // Catalog hydration must not downgrade an already validated playing map.
+        const preserve=window.parfolioValidateCourseGeometry?.(prior)?.ok&&(!greens||!window.parfolioValidateCourseGeometry?.(prior,greens,holeCount)?.ok);
+        if(preserve)greens=prior.greens;
+        courses[idx]={...prior,holes:preserve?prior.holes:holeCount,pars:preserve?prior.pars:(pars||prior.pars),greens:greens||prior.greens,
           city:payload.city||prior.city,state:payload.state_code||payload.state||prior.state,country:payload.country||prior.country,
           address:payload.address||prior.address,postal_code:payload.postal_code||prior.postal_code,
           sharedMappingStatus:payload.mapping_status,sharedLibraryGpsActive:Boolean(greens)};

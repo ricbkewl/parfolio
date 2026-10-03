@@ -30,6 +30,8 @@ jobs:
         run: |
           set -euo pipefail
           for f in *.js; do node --check "$f" >/dev/null; done
+      - name: Active round map recovery
+        run: node tests/round-map-recovery.mjs
       - name: Universal GPS course loading standard
         run: node tests/universal-gps-standard-v287.mjs
       - name: Reject ATG private configuration and browser namespaces
@@ -57,3 +59,4 @@ jobs:
               if value in text:hits.append(f'{p}: {label}')
           if hits:raise SystemExit('ParFolio isolation guard failed:\n'+'\n'.join(hits))
           PY
+
