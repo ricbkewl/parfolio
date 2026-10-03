@@ -235,7 +235,49 @@ function playedScoreSummary(player){
   return{score,par,count:holes.length,relative:score-par,complete:holes.length>=s.holes};
 }
 const courseById=id=>courses.find(c=>c.id===id);
-const selectedRoundCourse=()=>s.catalogCourseId==='catalog-royale-jakarta'||royaleRouteFromCourseName(s.course)?royaleRoundCourse(s.royaleRoute||royaleRouteFromCourseName(s.course)||'west-south'):courseById(s.courseId||s.catalogCourseId)||courses.find(c=>courseMatchKey(c.name)===courseMatchKey(s.course));
+let activeRoundGeometry=null,roundMapRecovery=null,courseLoadGeneration=0;
+function roundGeometryKey(){return JSON.stringify([currentUser?.id||'',s.sharedRoundId||'',s.courseId||s.catalogCourseId||'',s.course||''])}
+function completeRoundGeometry(course){return window.parfolioValidateCourseGeometry?.(course)?.ok===true}
+function selectedRoundCourse(){
+  const course=s.catalogCourseId==='catalog-royale-jakarta'||royaleRouteFromCourseName(s.course)?royaleRoundCourse(s.royaleRoute||royaleRouteFromCourseName(s.course)||'west-south'):courseById(s.courseId||s.catalogCourseId)||courses.find(c=>courseMatchKey(c.name)===courseMatchKey(s.course));
+  const key=roundGeometryKey();
+  if(activeRoundGeometry?.key!==key)activeRoundGeometry=null;
+  if(completeRoundGeometry(course)){
+    // Keep a detached, validated round copy: catalog refreshes may replace objects.
+    if(activeRoundGeometry?.source!==course||activeRoundGeometry?.greens!==course.greens)activeRoundGeometry={key,source:course,greens:course.greens,course:JSON.parse(JSON.stringify(course))};
+    return course;
+  }
+  return activeRoundGeometry?.course||course;
+}
+function missingRoundMapPanel(h){
+  const key=roundGeometryKey(),recovery=roundMapRecovery?.key===key?roundMapRecovery:null;
+  if(!recovery)setTimeout(()=>recoverRoundMap(),0);
+  const pending=!recovery||recovery.status==='loading';
+  return `<section class="live-hole-map missing-hole-map" role="status"><b>${pending?'Loading hole map…':'Hole map temporarily unavailable'}</b><span>${pending?'Restoring the course data.':'The hole data could not be loaded. Your round is still saved.'}</span><span>Hole ${h}</span>${pending?'':'<button type="button" onclick="recoverRoundMap(true)">Retry map</button>'}</section>`;
+}
+async function recoverRoundMap(force=false){
+  if(!['round','coursePreview'].includes(s.v))return false;
+  const key=roundGeometryKey();
+  if(roundMapRecovery?.key===key&&(roundMapRecovery.status==='loading'||!force))return false;
+  const recovery={key,status:'loading'};roundMapRecovery=recovery;
+  if(force)render();
+  try{
+    await promiseDeadline((async()=>{
+      let course=selectedRoundCourse();
+      if(!course||!window.parfolioCourseClaimsGpsReady?.(course)){
+        await loadCourses();
+        await window.loadParFolioUniversalCatalog?.(true);
+        course=selectedRoundCourse();
+      }
+      if(!course)throw new Error('The selected course is not loaded');
+      if(!completeRoundGeometry(course))await window.ensureParFolioGpsCourseReady?.(course);
+      if(!completeRoundGeometry(selectedRoundCourse()))throw new Error('Complete hole geometry is not available');
+    })(),12000,'Hole map recovery');
+    recovery.status='ready';
+  }catch(error){recovery.status='failed';console.warn('Round map recovery deferred',error?.message||error)}
+  if(roundMapRecovery===recovery&&roundGeometryKey()===key&&['round','coursePreview'].includes(s.v))render();
+  return recovery.status==='ready';
+}
 function avatarUrl(path){if(!path)return'';return db.storage.from('golfer-avatars').getPublicUrl(path).data.publicUrl+'?v='+avatarCacheVersion}
 function avatarMarkup(path,name,className='profile-photo'){const label=name||'Golfer';return path?`<img class="${className}" src="${esc(avatarUrl(path))}" alt="${esc(label)} profile picture">`:`<span class="${className} avatar-fallback">${esc(label.charAt(0).toUpperCase()||'G')}</span>`}
 
@@ -429,13 +471,25 @@ async function loadGolferProfile(){
 }
 async function loadCourses(){
   if(!currentUser){courses=mergeListedCourseCatalog(courses);cloudError='';return}
+  const generation=++courseLoadGeneration,userId=currentUser.id;
+  selectedRoundCourse();
   const {data,error}=await db.from('courses').select('id,name,holes,pars,greens,updated_at').order('name');
+  if(generation!==courseLoadGeneration||currentUser?.id!==userId)return;
   if(error){courses=mergeListedCourseCatalog(courses);cloudError=courses.length?'You are offline. Using the courses saved on this device.':'Shared courses could not be loaded. Connect to the internet and try again.';return}
   // Regional loaders run once. Refresh private editor rows without discarding
   // the already-loaded reference catalog; deleted UUID-backed rows are not retained.
   const references=courses.filter(c=>/^(shared-|catalog-|parfolio-|opengolf-ny-)/.test(String(c.id)));
   const merged=new Map(references.map(c=>[c.id,c]));
-  for(const row of data||[])merged.set(row.id,row);
+  for(const row of data||[]){
+    const prior=courses.find(course=>course.id===row.id);
+    const next={...prior,...row};
+    // Editor rows do not contain catalog metadata and may lack hydrated GPS data.
+    // A refresh is not an authoritative geometry deletion.
+    if(completeRoundGeometry(prior)&&!completeRoundGeometry(row)){
+      next.greens=prior.greens;next.holes=prior.holes;next.pars=prior.pars;
+    }
+    merged.set(row.id,next);
+  }
   cloudError='';courses=mergeListedCourseCatalog([...merged.values()]);localStorage.parfolioCourses=JSON.stringify(courses);
 }
 async function loadClubDistances(){
@@ -588,6 +642,7 @@ async function changePassword(){
   recoveryMode=false;history.replaceState({},'',location.pathname);alert('Your password has been changed.');s.v='accountView';render();return true;
 }
 function clearAuthenticatedClientState(){
+  activeRoundGeometry=null;roundMapRecovery=null;courseLoadGeneration++;
   currentUser=null;adminRole=null;historyRounds=[];historyDetail=null;registeredGolfers=[];registeredGolfersError='';golferProfile=null;golferProfileError='';clubDistances={};clubProfileError='';sharedPlayers=[];chatMessages=[];unreadChatCount=0;draft=null;s={...roundDefault};save();
 }
 async function signOutAdmin(){await stopRoundRealtime();await db.auth.signOut({scope:'local'});delete localStorage.parfolioPendingJoinCode;clearAuthenticatedClientState();render()}
@@ -1005,7 +1060,7 @@ function updateShotPlanner(green){
 }
 function liveHoleMapPanel(green,h,p,{preview=false}={}){
   const c=selectedRoundCourse();
-  if(!selectedTee(green)||!green?.center)return`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>An administrator needs to map the tee and center green for Hole ${h}.</span></section>`;
+  if(!selectedTee(green)||!green?.center)return missingRoundMapPanel(h);
   const yards=mappedHoleDistance(green),previousAction=preview?'previewPrev()':'prev()',nextAction=preview?'previewNext()':'next()';
   const menuCell=preview?`<div class="round-qr-summary round-menu-summary preview-search-summary"><button class="preview-search-back" onclick="exitCoursePreview()" aria-label="Back to course search" title="Back to course search"><span>←</span><small>SEARCH</small></button></div>`:`<div class="round-qr-summary round-menu-summary"><button onclick="showAppMenu()" aria-label="${esc(t('menu'))}" title="${esc(t('menu'))}"><i></i><i></i><i></i></button></div>`;
   const legend=preview?`<div class="hole-map-legend inline-legend"><span><i class="tee-dot"></i>${esc(t('tee'))}</span><span><i class="aim-dot"></i>${esc(t('aim'))}</span><span><i class="green-dot"></i>${esc(t('green'))}</span></div>`:`<div class="hole-map-legend inline-legend"><span><i class="tee-dot"></i>${esc(t('tee'))}</span><span><i class="aim-dot"></i>${esc(t('aim'))}</span><span><i class="golfer-dot"></i>${esc(t('you'))}</span><span><i class="green-dot"></i>${esc(t('green'))}</span></div>`;
@@ -1015,7 +1070,7 @@ function floatingRoundScoreControl(){const name=myRoundPlayerName(),encoded=enco
 function round(){
   if(s.done){s.v='recap';recap();return}
   ensureCurrentHolePar();const h=s.hole,p=s.pars[h-1],c=selectedRoundCourse(),green=c?.greens?.[h-1];app.classList.add('round-fullscreen');
-  app.innerHTML=green?liveHoleMapPanel(green,h,p):`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>An administrator needs to map Hole ${h}.</span></section>`;
+  app.innerHTML=green?liveHoleMapPanel(green,h,p):missingRoundMapPanel(h);
   if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href=MAPTILER_API_KEY?'https://www.maptiler.com/copyright/':'https://www.openstreetmap.org/copyright/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent=MAPTILER_API_KEY?'© MapTiler · © OpenStreetMap':'© OpenStreetMap';document.querySelector('.live-hole-map')?.append(attribution)}
   updateSyncIndicator();if(green){initInlineHoleMap(green);const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin);startLocation(green)}
 }
@@ -1027,10 +1082,10 @@ function previewSelectedCourse(){
 function exitCoursePreview(){s.hole=coursePreviewReturnHole||1;s.v='coursesView';render()}
 async function startRoundFromPreview(){s.hole=1;s.v='setup';await createSharedRound()}
 function coursePreview(){
-  const course=selectedRoundCourse();if(!course){s.v='setup';render();return}
+  const course=selectedRoundCourse();if(!course){app.innerHTML=missingRoundMapPanel(s.hole);return}
   s.holes=Number(course.holes)||s.holes||18;s.pars=course.pars?.length===s.holes?[...course.pars]:Array.from({length:s.holes},(_,i)=>s.pars[i]||course.pars?.[i]||4);s.hole=Math.max(1,Math.min(s.holes,Number(s.hole)||1));
   const h=s.hole,p=s.pars[h-1]||4,green=course.greens?.[h-1];app.classList.add('round-fullscreen','course-preview-fullscreen');
-  app.innerHTML=`${green?liveHoleMapPanel(green,h,p,{preview:true}):`<section class="live-hole-map missing-hole-map"><b>Hole map unavailable</b><span>Hole ${h} does not yet have complete GPS geometry.</span></section>`}<div class="course-preview-actions" aria-label="Course preview controls"><small>PREVIEW</small><button id="createRoundButton" class="course-preview-start" onclick="startRoundFromPreview()">Start Round</button></div>`;
+  app.innerHTML=`${green?liveHoleMapPanel(green,h,p,{preview:true}):missingRoundMapPanel(h)}<div class="course-preview-actions" aria-label="Course preview controls"><small>PREVIEW</small><button id="createRoundButton" class="course-preview-start" onclick="startRoundFromPreview()">Start Round</button></div>`;
   if(green){const attribution=document.createElement('a');attribution.className='hole-map-attribution hidden';attribution.href='https://maps.google.com/';attribution.target='_blank';attribution.rel='noopener';attribution.textContent='Google Maps';document.querySelector('.live-hole-map')?.append(attribution);initInlineHoleMap(green);const segment=activeRouteSegment(null,green);if(segment)loadWeather(segment.origin,segment.target,segment.origin)}
 }
 function showPreviewMapNotice(message){
@@ -1725,7 +1780,23 @@ db.auth.onAuthStateChange((event,session)=>{
     setTimeout(()=>changePassword(),250);
   }
 });
-window.addEventListener('online',async()=>{const activeView=s.v;await Promise.all([syncPendingScores(),syncPendingHoleStats()]);await loadCourses();if(s.sharedRoundId)await loadSharedRound(false);if(activeView==='round'&&refreshLiveRoundUi())return;render()});
+window.addEventListener('online',async()=>{
+  const key=roundGeometryKey();selectedRoundCourse();
+  const results=await Promise.allSettled([
+    promiseDeadline(syncPendingScores(),12000,'Score sync'),
+    promiseDeadline(syncPendingHoleStats(),12000,'Hole stats sync'),
+    promiseDeadline(loadCourses(),12000,'Course refresh')
+  ]);
+  for(const result of results)if(result.status==='rejected')console.warn('Reconnect deferred',result.reason);
+  if(roundGeometryKey()!==key)return;
+  if(s.sharedRoundId)try{await promiseDeadline(loadSharedRound(false),12000,'Round refresh')}catch(error){console.warn('Round refresh deferred',error)}
+  if(['round','coursePreview'].includes(s.v)&&!completeRoundGeometry(selectedRoundCourse())){await recoverRoundMap(true);return}
+  if(s.v==='round'&&refreshLiveRoundUi())return;
+  render();
+});
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'&&['round','coursePreview'].includes(s.v)&&!completeRoundGeometry(selectedRoundCourse()))recoverRoundMap(true);
+});
 window.addEventListener('offline',updateSyncIndicator);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 window.addEventListener('DOMContentLoaded',()=>initializeCloud(),{once:true});
