@@ -5,7 +5,7 @@ module.exports=async function handler(req,res){
   try{
     const course={lat:30.6006301,lng:-81.5399491},dLat=0.015,dLng=0.018;
     const bbox=[course.lng-dLng,course.lat-dLat,course.lng+dLng,course.lat+dLat].join(',');
-    const rr=await fetch('https://api.openstreetmap.org/api/0.6/map?bbox='+bbox,{headers:{'user-agent':'ParFolio-Amelia-Boundary-Diagnostic/1.1'},signal:AbortSignal.timeout(20000)});
+    const rr=await fetch('https://api.openstreetmap.org/api/0.6/map?bbox='+bbox,{headers:{'user-agent':'ParFolio-Amelia-Boundary-Diagnostic/1.2'},signal:AbortSignal.timeout(20000)});
     if(!rr.ok)return res.status(502).json({ok:false,error:'osm_'+rr.status});
     const xml=await rr.text();
     const nodes=new Map();
@@ -27,16 +27,15 @@ module.exports=async function handler(req,res){
     const candidates=[];
     for(const w of blocks){
       if((w.tags.leisure!=='golf_course'&&w.tags.golf!=='course')||w.pts.length<3)continue;
-      const containsCenter=pointInPoly(course,w.pts);
-      const counts={tee:0,green:0,fairway:0};
-      for(const c of centers)if(pointInPoly(c,w.pts))counts[c.type]++;
-      candidates.push({type:'way',id:w.id,name:w.tags.name||null,point_count:w.pts.length,contains_course_center:containsCenter,counts,center:{lat:w.pts.reduce((s,p)=>s+p.lat,0)/w.pts.length,lng:w.pts.reduce((s,p)=>s+p.lng,0)/w.pts.length}});
+      const counts={tee:0,green:0,fairway:0};for(const c of centers)if(pointInPoly(c,w.pts))counts[c.type]++;
+      candidates.push({id:w.id,name:w.tags.name||null,contains_course_center:pointInPoly(course,w.pts),counts});
     }
     const relations=[];
     for(const m of xml.matchAll(/<relation\b[^>]*id="(\d+)"[\s\S]*?<\/relation>/g)){
       const block=m[0],tags=tagMap(block);if(tags.leisure!=='golf_course'&&tags.golf!=='course')continue;
-      relations.push({id:m[1],name:tags.name||null,member_count:[...block.matchAll(/<member\b/g)].length});
+      const members=[...block.matchAll(/<member\b[^>]*type="([^"]+)"[^>]*ref="(\d+)"[^>]*role="([^"]*)"[^>]*\/>/g)].map(x=>({type:x[1],ref:x[2],role:x[3]}));
+      relations.push({id:m[1],name:tags.name||null,members});
     }
-    return res.status(200).json({ok:true,bytes:xml.length,candidates,relations});
+    return res.status(200).json({ok:true,candidates,relations});
   }catch(e){return res.status(500).json({ok:false,error:String(e?.message||e)});}
 };
