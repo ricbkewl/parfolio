@@ -1,7 +1,8 @@
 /*
  * Preview-only Level 2 degraded shadow trigger.
+ * Third blind validation: Amelia National Golf And Country Club, Florida.
  * Vercel fetches weak OSM tee/green/fairway source XML, then sends the
- * payload to Supabase for local parsing + frozen Level 2 reconstruction.
+ * payload to Supabase for frozen Level 2 reconstruction.
  * golf=hole traces are not used by the worker.
  */
 module.exports=async function handler(req,res){
@@ -9,8 +10,8 @@ module.exports=async function handler(req,res){
   if(String(process.env.VERCEL_ENV||'')!=='preview')return res.status(404).json({error:'not_found'});
   if(req.method!=='GET')return res.status(405).json({error:'GET only'});
 
-  const COURSE_ID='9c2608c0-ee46-4f58-9339-af5cac338a0e'; // Apple Valley Golf Course
-  const TEST_NAME='apple_valley_golf_course_level2_payload_validation_v1';
+  const COURSE_ID='0122f028-908a-4667-a72c-445fe5981e74'; // Amelia National Golf And Country Club
+  const TEST_NAME='amelia_national_level2_blind_validation_v1';
 
   try{
     const url=String(process.env.SUPABASE_URL||process.env.VITE_SUPABASE_URL||'').replace(/\/$/,'');
@@ -34,7 +35,7 @@ module.exports=async function handler(req,res){
     const dLat=0.015,dLng=0.018;
     const bbox=[lng-dLng,lat-dLat,lng+dLng,lat+dLat].join(',');
     const osmResp=await fetch('https://api.openstreetmap.org/api/0.6/map?bbox='+encodeURIComponent(bbox),{
-      headers:{'user-agent':'ParFolio-Level2-Payload-Validation/1.0',Accept:'application/xml,text/xml,*/*'},
+      headers:{'user-agent':'ParFolio-Level2-Blind-Validation/1.0',Accept:'application/xml,text/xml,*/*'},
       redirect:'error',
       signal:AbortSignal.timeout(12000)
     });
@@ -59,7 +60,7 @@ module.exports=async function handler(req,res){
       production_geometry_modified:false,
       background:true,
       payload_fetch:'vercel',
-      course_name:course.name||'Apple Valley Golf Course',
+      course_name:course.name||'Amelia National Golf And Country Club',
       osm_payload_bytes:osmXml.length
     });
   }catch(e){
