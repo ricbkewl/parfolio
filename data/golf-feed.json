@@ -1,35 +1,15 @@
 {
-  "generatedAt": "2026-10-05T21:18:11.171Z",
+  "generatedAt": "2026-10-06T07:36:54.369Z",
   "youtubeEnabled": true,
   "items": [
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Tip #4: Keep Your Eyes on the Ball ⛳ #golftips #golfpractice #golftraining #sports #golftips",
-      "summary": "Stay focused on the golf ball until after contact. Keeping your eyes on the ball can help you maintain better control and ...",
-      "source": "Golf Club🏌️",
-      "url": "https://www.youtube.com/watch?v=_jMtoGNYq3o",
-      "publishedAt": "2026-10-05T21:00:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/_jMtoGNYq3o/hqdefault.jpg"
-    },
-    {
       "type": "article",
-      "category": "Travel",
-      "title": "Tiger Woods-linked real estate developer unveils new resort and private club network",
+      "category": "Courses",
+      "title": "Jones at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
       "summary": "",
       "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZldObU1Wdm9NTjdnUWtuMW4weFlrMlRBOXg0dUNJWmF6OVd4SXNabkhKVnpVQmtDbmFyd0thTFdzQndYampWWlA0Z3pubjlybGpUNUFTY2ZuSkhHRkJPaDhTSGl4SHQ5SHlsNFR3OVBWR3lWUXdwYVp1TjM0YVprN0xHVm9VX2FDbWNiZm5UQkhiTENkdklXRjdqb05uQ3VIc1dzQ2VyTFBJQQ?oc=5",
-      "publishedAt": "2026-10-05T20:30:10.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "5 Driver Fitting Lessons I Learned From Years Of Testing",
-      "summary": "",
-      "source": "mygolfspy.com",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZTd0V3Y4Z29PQmRqOHExSU40cHJGUjlrUUpwdlpxeW12cGhMY2hvLVkxb09TNnRFZEdaa05MeUxaTEpuYndETEt0UGU0dnd2UDZBcXRJLUkxNWNtdTRRbkctYWEwUEtxTHhZZEpRNkhJazE0aE1YaXZHQ2xoZmNZQ3lsTGxKS1ZYQlk5M0pmSmtnVXRHR1gtdTBXdUFfSk82SXRZRkhaTQ?oc=5",
-      "publishedAt": "2026-10-05T19:11:21.000Z",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
+      "publishedAt": "2026-10-06T03:42:45.000Z",
       "thumbnail": ""
     },
     {
@@ -39,28 +19,98 @@
       "summary": "",
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOaDVGem5tVDJHOFdoOGRwVnd6SElMd20zR21URHBMdkxmbXBQMVd5ODlKZ3p6aloxc2s0a3JUbXFrcWR2VWhxOG83LTctdnpldmwzalgzU2d0RE5USEJMUnRuQWt4a3dOV1VYdFJNb1lBaVY4WjZJeUhNX0l0VjF4a3NJYzlwNDQ?oc=5",
-      "publishedAt": "2026-10-05T19:00:21.000Z",
+      "publishedAt": "2026-10-06T03:11:01.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Oak Valley Golf Club in Advance, North Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBXUUZTLVREZjdsdlRiYU9kQ1Z4VWs4SUNEVC04TU9jSGc4ZzZVZjVjaEpENTNMVHZ1bEoxNFkybTRJZDEtNnd0bGxfUmpCS05DRGJsU1R5R2d1dXNrUWc1OFkwN1kxOGg0SUtIVDgyclpNc3haWmpHM28yZEdpUQ?oc=5",
+      "publishedAt": "2026-10-06T03:00:27.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Travel",
+      "title": "Tiger Woods-linked real estate developer unveils new resort and private club network",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZldObU1Wdm9NTjdnUWtuMW4weFlrMlRBOXg0dUNJWmF6OVd4SXNabkhKVnpVQmtDbmFyd0thTFdzQndYampWWlA0Z3pubjlybGpUNUFTY2ZuSkhHRkJPaDhTSGl4SHQ5SHlsNFR3OVBWR3lWUXdwYVp1TjM0YVprN0xHVm9VX2FDbWNiZm5UQkhiTENkdklXRjdqb05uQ3VIc1dzQ2VyTFBJQQ?oc=5",
+      "publishedAt": "2026-10-06T02:23:01.000Z",
       "thumbnail": ""
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "This Simple Drill Can Fix Your Golf Swing 👀🏌️‍♂️ #golfexercises #golfswing #golffit #golf",
-      "summary": "This Simple Drill Can Fix Your Golf Swing 🏌️‍♂️ #golfexercises #golfswing #golffit #golf Most golfers make this mistake ...",
-      "source": "Golf spotlight",
-      "url": "https://www.youtube.com/watch?v=WaBt7AB-Jic",
-      "publishedAt": "2026-10-05T18:30:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/WaBt7AB-Jic/hqdefault.jpg"
+      "title": "Working on posture, grip and stance #golfswing #golf #golfer #golftips #golflife #golfing #pga",
+      "summary": "",
+      "source": "Charlton’s Golf Concepts",
+      "url": "https://www.youtube.com/watch?v=PDNLLmmSfHw",
+      "publishedAt": "2026-10-06T02:18:56.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/PDNLLmmSfHw/hqdefault.jpg"
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Playing Tall in the Golf Swing",
-      "summary": "I've heard a great term this week from @fasteddie480 where he said he likes to “play tall” It's a great, simple way of feeling the “up ...",
-      "source": "Liam Robinson",
-      "url": "https://www.youtube.com/watch?v=62ONqvn7q20",
-      "publishedAt": "2026-10-05T18:30:26.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/62ONqvn7q20/hqdefault.jpg"
+      "title": "Fix Your Backswing Plane with These 3 Simple Checkpoints",
+      "summary": "Struggling with inconsistent ball striking or losing control of your swing path? Most downswing errors are simply compensations ...",
+      "source": "Tips from the Tour",
+      "url": "https://www.youtube.com/watch?v=OwJTtVkVEew",
+      "publishedAt": "2026-10-06T01:27:26.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/OwJTtVkVEew/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "🔥 BOMBED THE PUTT… AND SAVED PAR! 😳 | Soule Park Hole 3 #golf #golfshorts",
+      "summary": "When you need a clutch putt to save par… BOMB IT! ⛳️ Hole 3 at Soule Park and this one was all about getting the ball to the ...",
+      "source": "Just Swing Harder Golf",
+      "url": "https://www.youtube.com/watch?v=fqupTK1y5sc",
+      "publishedAt": "2026-10-06T01:00:20.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/fqupTK1y5sc/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Finally, a putting tip that actually works!",
+      "summary": "Finally, a putting tip that actually works! Learn the best putting tip that will change your golf score with our expert golf coaching and ...",
+      "source": "Trendy VS Vlogs",
+      "url": "https://www.youtube.com/watch?v=B3qIwiZxuXs",
+      "publishedAt": "2026-10-06T00:30:36.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/B3qIwiZxuXs/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Fred Couples shares his 5 best tips for hitting crisp iron shots",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQRkJGMllGS0dDU2diYmI1cFBrbElvNDFNalJESXc0S2ZyTnI2aDV4UFZWSGpWY01odlpCSVktS1hISmdCdkEwbGhfbUNQWVV3UG53bjU5d0U5dElqOXd1NzNBZFZkeUFaRUFwNVlxUEVVYlVPNWZyTUJ5TFdwd1FQV3V2czBFVzR4MF9sRHNMajZpT1UzYTZr?oc=5",
+      "publishedAt": "2026-10-05T22:02:33.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Why I Debunk Golf Tips | Clearing Up Confusing Golf Advice",
+      "summary": "Why do I make **golf tip debunk videos**? Because golfers looking for help online are surrounded by conflicting advice—and ...",
+      "source": "Swing Science by EgoFree Golf",
+      "url": "https://www.youtube.com/watch?v=5mOBvTVmKcs",
+      "publishedAt": "2026-10-05T21:54:09.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/5mOBvTVmKcs/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Tip #4: Keep Your Eyes on the Ball ⛳ #golftips #golfpractice #golftraining #sports #golftips",
+      "summary": "Stay focused on the golf ball until after contact. Keeping your eyes on the ball can help you maintain better control and ...",
+      "source": "Golf Club🏌️",
+      "url": "https://www.youtube.com/watch?v=_jMtoGNYq3o",
+      "publishedAt": "2026-10-05T21:00:03.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/_jMtoGNYq3o/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -75,26 +125,6 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Break 100: Aim Smart and Play Your Swing",
-      "summary": "Break 100: Aim Smart and Play Your Swing If you know you have a slice or fade and want to Break 100 in Golf, play smarter.",
-      "source": "Golf Reboot",
-      "url": "https://www.youtube.com/watch?v=EramhbOO8bs",
-      "publishedAt": "2026-10-05T17:56:51.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/EramhbOO8bs/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Chip and Putt... #golf #golfswing #golfgear",
-      "summary": "Road to Single Digits — following the good shots, bad decisions, and occasional signs of improvement as I try to get my golf ...",
-      "source": "TonyTGolf's",
-      "url": "https://www.youtube.com/watch?v=oIYXoZU4LdM",
-      "publishedAt": "2026-10-05T17:23:53.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/oIYXoZU4LdM/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
       "title": "Golf Swing Powerful Tips Guide Audiobook by Chris Adkins",
       "summary": "Listen to this title for free on Audible : https://amzn.to/4ygBDlL Title: Golf Swing Powerful Tips Guide Subtitle: Golf Instruction and ...",
       "source": "Free Audiobook",
@@ -105,22 +135,22 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "PlanePal helps new golfers, struggling golfers, high handicaps, low handicaps, advanced golfers.",
-      "summary": "PlanePal Golf helps golfers reset their swing, improve contact, and build confidence where it matters most — through the bottom of ...",
-      "source": "PlanePal Golf",
-      "url": "https://www.youtube.com/watch?v=GlGrPBbf8nk",
-      "publishedAt": "2026-10-05T17:17:11.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/GlGrPBbf8nk/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
       "title": "Imagina un cristal: mejora el plano de tu swing - Andreu Golf",
       "summary": "Una imagen sencilla, un cristal, para entender el plano del swing y bajar el palo por el camino correcto. Sígueme para más ...",
       "source": "Andreu Golf",
       "url": "https://www.youtube.com/watch?v=ScYN4gsfdZM",
       "publishedAt": "2026-10-05T17:00:20.000Z",
       "thumbnail": "https://i.ytimg.com/vi/ScYN4gsfdZM/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "5 Driver Fitting Lessons I Learned From Years Of Testing",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZTd0V3Y4Z29PQmRqOHExSU40cHJGUjlrUUpwdlpxeW12cGhMY2hvLVkxb09TNnRFZEdaa05MeUxaTEpuYndETEt0UGU0dnd2UDZBcXRJLUkxNWNtdTRRbkctYWEwUEtxTHhZZEpRNkhJazE0aE1YaXZHQ2xoZmNZQ3lsTGxKS1ZYQlk5M0pmSmtnVXRHR1gtdTBXdUFfSk82SXRZRkhaTQ?oc=5",
+      "publishedAt": "2026-10-05T13:23:45.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -173,36 +203,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "This Might Be The Most Important Driver Drill Ever #golf #golfswing #ericcogorno",
-      "summary": "shorts In this golf lesson, Eric Cogorno fixes the most common driver mistake with three drills that add effortless distance fast.",
-      "source": "Eric Cogorno Golf",
-      "url": "https://www.youtube.com/watch?v=l894Fh8yM7g",
-      "publishedAt": "2026-10-04T15:56:09.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/l894Fh8yM7g/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": ":WEIGHT FORWARD + ARMS STRAIGHT = BETTER CONTACT! | Golf Swing Tip",
-      "summary": "WEIGHT FORWARD + ARMS STRAIGHT = BETTER GOLF SWING! One of the keys to solid golf contact is getting your weight ...",
-      "source": "DailyCoaching",
-      "url": "https://www.youtube.com/watch?v=Kl2pdrYYkks",
-      "publishedAt": "2026-10-04T12:10:54.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/Kl2pdrYYkks/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Activate the Bounce for Better Wedge Shots ⛳️ | Stop Hitting the Leading Edge - Golf Swing Tip",
-      "summary": "Struggling with wedge shots around the green? Here's a great tip to help you make better contact and use the bounce more ...",
-      "source": "3Dgolfdecoded",
-      "url": "https://www.youtube.com/watch?v=v7yviMqfXSc",
-      "publishedAt": "2026-10-04T11:00:36.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/v7yviMqfXSc/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Courses",
       "title": "New par-3 course opens at Myrtle Beach golf resort",
@@ -210,16 +210,6 @@
       "source": "Golfweek",
       "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxOVmlEYkJacmxmTW9CWGYwTExzUFc0WEhrUmkzLWVKVVNYR2tYRXJybG9lTEtNR2JsMzF4V2VVNGY3WHdqZi1WLVFDSnVaalNJLVhCc05mam9qRlNFakE2NlhVOGNLbUJmVVdkbEtjanBTaVBtQlBjTHFERWZzbHBaNW1UUnBEdUJnTmdsb0didFhwLUVXYXgxRHE5Y3BXY0d4WWlMa0NBenJsRnZSOTI5LTBRZHdoM25aYkpYVTl5aFRPenVWdU1XTWJ3?oc=5",
       "publishedAt": "2026-10-03T18:03:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Instruction",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiQ0FVX3lxTE1CNnVLTzdYeWpvVkV0ajNpM21halFaWjE1QW1WSVJ0Mzg1ZF93M1hmUldJZE5TQlJNcTRZRE5lTF9sQXM?oc=5",
-      "publishedAt": "2026-10-03T15:38:38.000Z",
       "thumbnail": ""
     },
     {
@@ -237,8 +227,18 @@
       "category": "Trends",
       "title": "Vice Pro vs. Pro Plus vs. Pro Air: Which Vice Golf Ball Should You Play (2026)?",
       "summary": "",
-      "source": "mygolfspy.com",
+      "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQbi1hRVdOam5DS3hLRUlPZXdDdHJqX0ROR1JqbXJRV1k1MTZXR0gyZzU0QjFaQzN2dUdaNmJBV0RHajh1UkJNNlRVaF9sNjVoTTFtWGE5bU9YV1JCaUx0WlF5a2h6dnNsbXMxV1B5dXJ0MlB0N3BvNDBfQ0F4X19JOXNWQUVwSmlCdENRQ1ZJTU9ISjlDdFc1SHJJREdTNTItelQ5YnNGMXF6SWFvZnc?oc=5",
+      "publishedAt": "2026-10-02T13:41:17.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "10 Golf Equipment Questions I Wish More Golfers Asked Before They Buy",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNOUxBU1BpdUduWmxBTVd4a0FSY3ZOcktGd1FfWkhxeUttWnQ2endPNGNSR0JmcGt0SVItNjNXclIxZUx2WUtmM1B6TnpsTGpnc3ZwOXJNY0dKeXNma1FQR2xwMVBJNTdaRDE2YThpTUZkZV9uejNqbHo3S2pBa2V4YWtuOFZFaHotbVJhQzc4MkVlZjNIRko1Nm1vY0s1cy1VTXVQUU1iOTY?oc=5",
       "publishedAt": "2026-10-02T13:41:17.000Z",
       "thumbnail": ""
     },
@@ -267,18 +267,8 @@
       "category": "Trends",
       "title": "Foresight’s New GC2 Launch Monitor Has Me Totally Confused…And Excited",
       "summary": "",
-      "source": "mygolfspy.com",
+      "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNei0tNnU1RXdieExud0pwdWlLV1ZQa2pIanZMTVRubktxZTh4bl9FZ05NQkVzRXlxS2hOWEMyMnJGbkxEV2dval9lTlp5cWRFamY1aHVNbzhKclI0MzRpTy1PT3ZhWi1ZX09Ebmh4MmtSbGNjZDl1alR5a3JTZk5tYjI4SGhSeTB1SldyNWFFZDNyZ1o0anRpQnRlTDRheHVxdzFrNnd4bm4?oc=5",
-      "publishedAt": "2026-10-01T14:41:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "This Custom L.A.B. Golf Putter Is A VZN In Purple",
-      "summary": "",
-      "source": "mygolfspy.com",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSXNqeXZRcFZBOW5xQkhOSFVYODdkdVIydnkyd0pidjVWbFFiX2RrTDdnSUtKdW41bkZRb1I1dXktZzM1ZFRNMzY5ZFByU2g0ZklxdXpHZ1VHV2Z0YkF5ZlBlVklqcmk2ZDY1Z1NZREZ6bkZrenB0Yk9SY3l2bWtRaFF5dzhMdF9DTlIw?oc=5",
       "publishedAt": "2026-10-01T14:41:16.000Z",
       "thumbnail": ""
     },
@@ -287,8 +277,18 @@
       "category": "Trends",
       "title": "Wedge Spin Isn’t The Same As Control. Here’s What 11,400 Shots Showed",
       "summary": "",
-      "source": "mygolfspy.com",
+      "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOaFFuQXZHSGtyU0sxZUdmSVFzeUdxWEdCcW5OV2lHZTcyVkd1VUpGa2ZhaXIxQ3F4MFNVSENvT08xSDhkOEFoUGluYmpvR2FkczRRVkZ5RnBjUm1QMXNDZ2dxaXpjczZtWExBVVY3RkxCTmZmOWN1aUVzSlpGb0ZpbS11NGx0QUxmUDg1NDVjbTFsWkJvNUxkXzZWaXlLc1I0WXc4?oc=5",
+      "publishedAt": "2026-10-01T14:41:16.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "This Custom L.A.B. Golf Putter Is A VZN In Purple",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPSXNqeXZRcFZBOW5xQkhOSFVYODdkdVIydnkyd0pidjVWbFFiX2RrTDdnSUtKdW41bkZRb1I1dXktZzM1ZFRNMzY5ZFByU2g0ZklxdXpHZ1VHV2Z0YkF5ZlBlVklqcmk2ZDY1Z1NZREZ6bkZrenB0Yk9SY3l2bWtRaFF5dzhMdF9DTlIw?oc=5",
       "publishedAt": "2026-10-01T14:41:16.000Z",
       "thumbnail": ""
     },
@@ -297,7 +297,7 @@
       "category": "Swing",
       "title": "How A Bucket Of Range Balls Can Improve Your Golf Swing (Without Hitting A Single One)",
       "summary": "",
-      "source": "golfmonthly.com",
+      "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5qc1R0dzJ2XzdJbmZrNjllTV9hT0g2OXMzWE9iZ2xFenZYNjAwWTZlZnJ1U0RVd2lXeHNZdFJIdGNObnI4UXpOV0hvT3JuRXhvYlo5blpET09zWUVWbWkxWGUyRmNMLXhOWVk1YjJB?oc=5",
       "publishedAt": "2026-10-01T14:20:06.000Z",
       "thumbnail": ""
