@@ -7,23 +7,22 @@ module.exports=async function handler(req,res){
   try{
     const {lookupScorecardWeb}=require('../lib/gps-rollout/gps-rollout-scorecard-web-discovery');
     const {numberByScorecard}=require('../lib/gps-rollout/gps-rollout-scorecard-numbering');
-    const course={
-      name:'Eastpointe Country Club East Course',city:'Palm Beach Gardens',
-      state_code:'FL',holes:18,website:'https://www.eastpointe-cc.com/'
-    };
+    const course={name:'Eastpointe Country Club East Course',city:'Palm Beach Gardens',state_code:'FL',holes:18,website:'https://www.eastpointe-cc.com/'};
     const found=await lookupScorecardWeb(course);
-    if(!found.ok)return res.status(500).json({ok:false,stage:'lookup',found});
-    const pairs=found.holes.map((h,i)=>({
-      tee_index:i,green_index:i,hole_m:Math.max(...h.yardages)*0.9144,
-      global_score:1.5,green_fairway_m:10
-    })).sort((a,b)=>(b.tee_index*7%19)-(a.tee_index*7%19));
+    if(!found.ok){
+      const probes=[];
+      const urls=['https://zommagolf.com/courses/fl/eastpointe-country-club-east-course','https://www.golfusainfo.com/clubs/eastpointe-country-club-east-course-palm-beach-gardens-fl/'];
+      for(const url of urls){
+        try{
+          const r=await fetch(url,{headers:{'user-agent':'Mozilla/5.0 (compatible; ParFolioGPS/1.0)','accept':'text/html,application/xhtml+xml'},redirect:'follow',signal:AbortSignal.timeout(9000)});
+          const text=await r.text();
+          probes.push({url,status:r.status,final_url:r.url,bytes:text.length,has_scorecard:/scorecard/i.test(text),has_hole:/\bhole\b/i.test(text)});
+        }catch(e){probes.push({url,error:String(e?.message||e)});}
+      }
+      return res.status(500).json({ok:false,stage:'lookup',found,probes});
+    }
+    const pairs=found.holes.map((h,i)=>({tee_index:i,green_index:i,hole_m:Math.max(...h.yardages)*0.9144,global_score:1.5,green_fairway_m:10})).sort((a,b)=>(b.tee_index*7%19)-(a.tee_index*7%19));
     const numbered=numberByScorecard({course,assignment:{pairs},scorecard:found});
-    return res.status(numbered.ok?200:500).json({
-      ok:numbered.ok,lookup_path:found.lookup_path,source:found.source,
-      discovered_candidates:found.discovered_candidates??null,
-      hole_count:found.holes.length,numbering_verified:numbered.numbering_verified,
-      numbering_summary:numbered.summary,
-      first_three:numbered.numbered_pairs?.slice(0,3).map(x=>({hole_number:x.hole_number,published_par:x.published_par,published_yardages:x.published_yardages}))||[]
-    });
+    return res.status(numbered.ok?200:500).json({ok:numbered.ok,lookup_path:found.lookup_path,source:found.source,discovered_candidates:found.discovered_candidates??null,hole_count:found.holes.length,numbering_verified:numbered.numbering_verified,numbering_summary:numbered.summary,first_three:numbered.numbered_pairs?.slice(0,3).map(x=>({hole_number:x.hole_number,published_par:x.published_par,published_yardages:x.published_yardages}))||[]});
   }catch(e){return res.status(500).json({ok:false,error:String(e?.message||e)});}
 };
