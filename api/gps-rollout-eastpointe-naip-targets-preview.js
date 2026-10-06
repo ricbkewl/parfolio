@@ -35,7 +35,7 @@ module.exports=async function handler(req,res){
    }
    if(String(req.query?.solve||'')==='1'){
     const course={id:'0029b4a9-c5c1-4b52-ad18-be6d2211ef20',name:'Eastpointe Country Club East Course',city:'Palm Beach Gardens',state_code:'FL',country_code:'US',holes:18,par:72,website:'https://www.eastpointe-cc.com/'};
-    const {reconstructFromStagedFeatures}=require('../lib/gps-rollout/gps-rollout-level2-geometry');
+    const {reconstructFromStagedFeatures,solve}=require('../lib/gps-rollout/gps-rollout-level2-geometry');
     const {lookupScorecardWeb}=require('../lib/gps-rollout/gps-rollout-scorecard-web-discovery');
     const {numberByScorecard}=require('../lib/gps-rollout/gps-rollout-scorecard-numbering');
     const {numberedRows}=require('../lib/gps-rollout/gps-rollout-source-adapter');
@@ -43,10 +43,32 @@ module.exports=async function handler(req,res){
     const {level2RecoveryDecision}=require('../lib/gps-rollout/gps-rollout-level2-recovery');
     const featureRows=[...tees,...greens,...fairways];
     const reconstruction=reconstructFromStagedFeatures({course,featureRows});
-    let scorecard=null,numbering=null,rows=[],validation=null;
-    if(reconstruction.assignment?.pair_count===18){scorecard=await lookupScorecardWeb(course);if(scorecard?.ok){numbering=numberByScorecard({course,assignment:reconstruction.assignment,scorecard});if(numbering?.ok){rows=numberedRows(numbering)||[];validation=validateTeeCenterCourse(rows,18);}}}
-    const decision=level2RecoveryDecision({course:{holes:18},assignment:reconstruction.assignment,cleanup:reconstruction.cleanup,numbering_verified:Boolean(numbering?.ok),numbering_source:numbering?.source||scorecard?.source||null,numbering_summary:numbering?.summary||null});
-    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},reconstruction:{model_version:reconstruction.model_version,green_features:reconstruction.green_features,raw_green_features:reconstruction.raw_green_features,refined_tee_cluster_count:reconstruction.refined_tee_cluster_count,pair_count:reconstruction.assignment?.pair_count||0,cleanup:reconstruction.cleanup},scorecard:{ok:Boolean(scorecard?.ok),source:scorecard?.source||null},numbering:{ok:Boolean(numbering?.ok),reason:numbering?.reason||null,summary:numbering?.summary||null},final_geometry_validation:validation,level2_decision:decision,numbered_row_count:rows.length});
+    let scorecard=await lookupScorecardWeb(course),best=null,numbering=null,rows=[],validation=null,selectedAssignment=reconstruction.assignment,selectedCleanup=reconstruction.cleanup;
+    if(scorecard?.ok&&greens.length===20&&reconstruction.refined_tee_cluster_count>=18){
+      for(let a=0;a<20;a++)for(let b=a+1;b<20;b++){
+        const cand=reconstruction.candidates.filter(r=>r.green_index!==a&&r.green_index!==b);
+        const assignment=solve(cand,reconstruction.refined_tee_clusters);
+        if(assignment.pair_count!==18)continue;
+        const n=numberByScorecard({course,assignment,scorecard,max_pair_cost:999,max_average_cost:999});
+        if(!n?.summary)continue;
+        const avgGlobal=assignment.pairs.reduce((s,p)=>s+Number(p.global_score||0),0)/18;
+        const rank=[Number(n.summary.average_numbering_cost),Number(n.summary.max_numbering_cost),avgGlobal];
+        if(!best||rank[0]<best.rank[0]-1e-9||(Math.abs(rank[0]-best.rank[0])<1e-9&&(rank[1]<best.rank[1]-1e-9||(Math.abs(rank[1]-best.rank[1])<1e-9&&rank[2]<best.rank[2])))){
+          best={drop:[a,b],assignment,relaxed_numbering:n,rank};
+        }
+      }
+      if(best){
+        selectedAssignment=best.assignment;
+        selectedCleanup={applied:true,reason:'scorecard_selected_18_of_20_live_osm_greens',removed:best.drop.map(i=>({green_index:i,green:greens[i]})),unresolved_surplus_features:0};
+        numbering=numberByScorecard({course,assignment:selectedAssignment,scorecard});
+        if(numbering?.ok){rows=numberedRows(numbering)||[];validation=validateTeeCenterCourse(rows,18);}
+      }
+    }else if(reconstruction.assignment?.pair_count===18&&scorecard?.ok){
+      numbering=numberByScorecard({course,assignment:reconstruction.assignment,scorecard});
+      if(numbering?.ok){rows=numberedRows(numbering)||[];validation=validateTeeCenterCourse(rows,18);}
+    }
+    const decision=level2RecoveryDecision({course:{holes:18},assignment:selectedAssignment,cleanup:selectedCleanup,numbering_verified:Boolean(numbering?.ok),numbering_source:numbering?.source||scorecard?.source||null,numbering_summary:numbering?.summary||null});
+    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},reconstruction:{model_version:reconstruction.model_version,green_features:reconstruction.green_features,raw_green_features:reconstruction.raw_green_features,refined_tee_cluster_count:reconstruction.refined_tee_cluster_count,pair_count:reconstruction.assignment?.pair_count||0,cleanup:reconstruction.cleanup},subset_selection:best?{dropped_green_indices:best.drop,dropped_greens:best.drop.map(i=>greens[i]),rank:{average_numbering_cost:+best.rank[0].toFixed(3),max_numbering_cost:+best.rank[1].toFixed(3),average_assignment_score:+best.rank[2].toFixed(3)},selected_pair_count:selectedAssignment.pair_count}:null,scorecard:{ok:Boolean(scorecard?.ok),source:scorecard?.source||null},numbering:{ok:Boolean(numbering?.ok),reason:numbering?.reason||null,summary:numbering?.summary||null},final_geometry_validation:validation,level2_decision:decision,numbered_row_count:rows.length});
    }
    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',bytes:Buffer.byteLength(xml),raw_counts:{...rawCounts,nodes:nodeMap.size},golf_snippet:golfSnippet,counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},greens,tees});
   }
