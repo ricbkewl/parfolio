@@ -24,7 +24,7 @@ module.exports=async function handler(req,res){
    const xml=await rr.text();
    const nodeMap=new Map();
    for(const m of xml.matchAll(/<node\b([^>]*)\/?>(?:[\s\S]*?<\/node>)?/g)){const a=m[1],id=(a.match(/\bid="(\d+)"/)||[])[1],lat=(a.match(/\blat="([^"]+)"/)||[])[1],lon=(a.match(/\blon="([^"]+)"/)||[])[1];if(id&&lat&&lon)nodeMap.set(id,{lat:Number(lat),lng:Number(lon)});}
-   const greens=[],tees=[],fairways=[];
+   const golfIndex=xml.indexOf('golf');const rawCounts={golf:(xml.match(/golf/g)||[]).length,green:(xml.match(/v="green"/g)||[]).length,tee:(xml.match(/v="tee"/g)||[]).length,fairway:(xml.match(/v="fairway"/g)||[]).length};const golfSnippet=golfIndex>=0?xml.slice(Math.max(0,golfIndex-250),golfIndex+500):xml.slice(0,750);const greens=[],tees=[],fairways=[];
    for(const m of xml.matchAll(/<way\b([^>]*)>([\s\S]*?)<\/way>/g)){
     const attrs=m[1],body=m[2];const id=(attrs.match(/id="(\d+)"/)||[])[1];if(!id)continue;
     const tag=(k,v)=>new RegExp('<tag\\s+k="'+k+'"\\s+v="'+v+'"\\s*\\/>').test(body);
@@ -33,7 +33,7 @@ module.exports=async function handler(req,res){
     const lat=pts.reduce((s,p)=>s+p.lat,0)/pts.length,lng=pts.reduce((s,p)=>s+p.lng,0)/pts.length,row={id:'way/'+id,lat:+lat.toFixed(7),lng:+lng.toFixed(7),points:pts.length};
     (type==='green'?greens:type==='tee'?tees:fairways).push(row);
    }
-   return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',bytes:Buffer.byteLength(xml),counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},greens,tees});
+   return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',bytes:Buffer.byteLength(xml),raw_counts:rawCounts,golf_snippet:golfSnippet,counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},greens,tees});
   }
   const data=await loadTargets(),i=Number(req.query?.image);
   if(String(req.query?.course||'')==='1'){
