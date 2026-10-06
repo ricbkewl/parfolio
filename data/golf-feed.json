@@ -1,7 +1,97 @@
 {
-  "generatedAt": "2026-10-06T07:36:54.369Z",
+  "generatedAt": "2026-10-06T18:55:36.851Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Aprende a dominar el swing de golf con nuestra guía paso a paso",
+      "summary": "3 ÁREAS PARA ACELERAR TU GOLF Existen varias áreas de mejorar para tu golf, pero hay 3 que destacan por encima del ...",
+      "source": "RbtrainingGolf",
+      "url": "https://www.youtube.com/watch?v=Zs1-aSxWpxI",
+      "publishedAt": "2026-10-06T18:15:10.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Zs1-aSxWpxI/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Magic Incredible Chip in and Drives!",
+      "summary": "",
+      "source": "Golf Zone TV",
+      "url": "https://www.youtube.com/watch?v=ic0BIpKwB-U",
+      "publishedAt": "2026-10-06T16:40:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/ic0BIpKwB-U/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "How to Fix a Slice with ALIGNiX SWING™",
+      "summary": "Fighting a slice? Learn how to use ALIGNiX SWING™ to visualize your swing path, improve clubface control, and understand the ...",
+      "source": "ALIGNiX Golf",
+      "url": "https://www.youtube.com/watch?v=nBOJqoZlQZk",
+      "publishedAt": "2026-10-06T15:50:53.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/nBOJqoZlQZk/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Improve Your Pitching with ALIGNiX SWING™",
+      "summary": "Build more consistency into your short game. Learn how to use ALIGNiX SWING™ to train your swing path, improve contact, and ...",
+      "source": "ALIGNiX Golf",
+      "url": "https://www.youtube.com/watch?v=CWwbIt4jTjw",
+      "publishedAt": "2026-10-06T15:50:53.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/CWwbIt4jTjw/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Improve Your Impact & Ball Striking with ALIGNiX SWING™",
+      "summary": "Better ball striking starts with better impact. See how to use ALIGNiX SWING™ to train your swing path, improve clubface control, ...",
+      "source": "ALIGNiX Golf",
+      "url": "https://www.youtube.com/watch?v=-MWNZLe5Ung",
+      "publishedAt": "2026-10-06T15:50:53.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/-MWNZLe5Ung/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Struggling With Chipping? Watch This 1-Minute Tip | Bogey Nation | Short Game Tips | Golf Tips",
+      "summary": "Struggling with chipping? ⛳ This quick beginner golf tip gives you something simple to practice next time you're around the green ...",
+      "source": "Bogey Nation",
+      "url": "https://www.youtube.com/watch?v=ZDgUwKyH9_Q",
+      "publishedAt": "2026-10-06T14:43:00.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/ZDgUwKyH9_Q/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Travel",
+      "title": "Golf's Next Great Destination",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE80b1g1eHRBaHBEZXZ4bEFEd1pySm8xcHZDdlIxUjZVclVNSkt5QURoYkVKbmZRYUEteDZDVUkzYy1tR3VsWEhhbFBhNDB1QVpDbTdRRWtkZTlLdURTSkFKejRhSlhpc2Q4UHB6c3pVTFdfckFT?oc=5",
+      "publishedAt": "2026-10-06T13:50:38.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "#golf #golflesson #golfshortgame #golfaddict #golftips #golfshorts #golflessons #golfinstruction",
+      "summary": "Struggling with chipping? ⛳ This quick beginner golf tip gives you something simple to practice next time you're around the green ...",
+      "source": "Bogey Nation",
+      "url": "https://www.youtube.com/watch?v=F9h7KgT3oyg",
+      "publishedAt": "2026-10-06T13:21:27.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/F9h7KgT3oyg/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Golf's next great 'what ifs': Five courses that could benefit from a total reboot",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPbEN3TThza2dTTW0tekk1Y2ZxdDJtU3V1QUs4YlBEcjNiUDZKQTRHc0h6R2hkNUp3dnRPSDhkay0ydTA3UHZTbHZqOF9pVmx0dUVLdFVuaWhwWmJNUENQSmdBeEo5dWpYVS1kSGRsS3NkS2N6eWhpWlljYnhVSi11cXNyUXNDclNkcG84QnloeTU5ZDFrVVZndFU4U2RZYzhsMkE?oc=5",
+      "publishedAt": "2026-10-06T12:20:20.000Z",
+      "thumbnail": ""
+    },
     {
       "type": "article",
       "category": "Courses",
@@ -10,16 +100,6 @@
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
       "publishedAt": "2026-10-06T03:42:45.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Strawberry Farms Golf Club in Irvine, California, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOaDVGem5tVDJHOFdoOGRwVnd6SElMd20zR21URHBMdkxmbXBQMVd5ODlKZ3p6aloxc2s0a3JUbXFrcWR2VWhxOG83LTctdnpldmwzalgzU2d0RE5USEJMUnRuQWt4a3dOV1VYdFJNb1lBaVY4WjZJeUhNX0l0VjF4a3NJYzlwNDQ?oc=5",
-      "publishedAt": "2026-10-06T03:11:01.000Z",
       "thumbnail": ""
     },
     {
@@ -45,32 +125,12 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Working on posture, grip and stance #golfswing #golf #golfer #golftips #golflife #golfing #pga",
-      "summary": "",
-      "source": "Charlton’s Golf Concepts",
-      "url": "https://www.youtube.com/watch?v=PDNLLmmSfHw",
-      "publishedAt": "2026-10-06T02:18:56.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/PDNLLmmSfHw/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
       "title": "Fix Your Backswing Plane with These 3 Simple Checkpoints",
       "summary": "Struggling with inconsistent ball striking or losing control of your swing path? Most downswing errors are simply compensations ...",
       "source": "Tips from the Tour",
       "url": "https://www.youtube.com/watch?v=OwJTtVkVEew",
       "publishedAt": "2026-10-06T01:27:26.000Z",
       "thumbnail": "https://i.ytimg.com/vi/OwJTtVkVEew/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "🔥 BOMBED THE PUTT… AND SAVED PAR! 😳 | Soule Park Hole 3 #golf #golfshorts",
-      "summary": "When you need a clutch putt to save par… BOMB IT! ⛳️ Hole 3 at Soule Park and this one was all about getting the ball to the ...",
-      "source": "Just Swing Harder Golf",
-      "url": "https://www.youtube.com/watch?v=fqupTK1y5sc",
-      "publishedAt": "2026-10-06T01:00:20.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/fqupTK1y5sc/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -103,46 +163,6 @@
       "thumbnail": "https://i.ytimg.com/vi/5mOBvTVmKcs/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Tip #4: Keep Your Eyes on the Ball ⛳ #golftips #golfpractice #golftraining #sports #golftips",
-      "summary": "Stay focused on the golf ball until after contact. Keeping your eyes on the ball can help you maintain better control and ...",
-      "source": "Golf Club🏌️",
-      "url": "https://www.youtube.com/watch?v=_jMtoGNYq3o",
-      "publishedAt": "2026-10-05T21:00:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/_jMtoGNYq3o/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Pinnacle Golf Club in Mabank, Texas, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5jUmY2RXBoWjFSNHpHZWZFLW52VmxSemFWTkZsbmlGcE9IMk1kemZjQ0I1cURoeDEyU1hCZVlZOUJnNFVpRmFVOWFUSGV1OVFNT3Z4bm0tcHphc0szTkozbmJpRDRiOG13SDdEZkxJNms4RzYxdWpvMVZ5Zw?oc=5",
-      "publishedAt": "2026-10-05T18:15:46.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Swing Powerful Tips Guide Audiobook by Chris Adkins",
-      "summary": "Listen to this title for free on Audible : https://amzn.to/4ygBDlL Title: Golf Swing Powerful Tips Guide Subtitle: Golf Instruction and ...",
-      "source": "Free Audiobook",
-      "url": "https://www.youtube.com/watch?v=1Dx6lTqdL44",
-      "publishedAt": "2026-10-05T17:20:32.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/1Dx6lTqdL44/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Imagina un cristal: mejora el plano de tu swing - Andreu Golf",
-      "summary": "Una imagen sencilla, un cristal, para entender el plano del swing y bajar el palo por el camino correcto. Sígueme para más ...",
-      "source": "Andreu Golf",
-      "url": "https://www.youtube.com/watch?v=ScYN4gsfdZM",
-      "publishedAt": "2026-10-05T17:00:20.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/ScYN4gsfdZM/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "5 Driver Fitting Lessons I Learned From Years Of Testing",
@@ -151,26 +171,6 @@
       "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxNZTd0V3Y4Z29PQmRqOHExSU40cHJGUjlrUUpwdlpxeW12cGhMY2hvLVkxb09TNnRFZEdaa05MeUxaTEpuYndETEt0UGU0dnd2UDZBcXRJLUkxNWNtdTRRbkctYWEwUEtxTHhZZEpRNkhJazE0aE1YaXZHQ2xoZmNZQ3lsTGxKS1ZYQlk5M0pmSmtnVXRHR1gtdTBXdUFfSk82SXRZRkhaTQ?oc=5",
       "publishedAt": "2026-10-05T13:23:45.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "3 Things You Can Learn From US Open Winner JJ Spaun",
-      "summary": "Mark Immelman breaks down JJ Spaun's golf swing to uncover the key movements that make him one of the most effective ball ...",
-      "source": "Markology",
-      "url": "https://www.youtube.com/watch?v=UwF5mN1LfsM",
-      "publishedAt": "2026-10-05T10:00:37.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/UwF5mN1LfsM/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf practice between lessons: two free apps, two optional upgrades",
-      "summary": "Choose a practice task between lessons: review your swing with delayed playback, or practise with tempo cues. This overview ...",
-      "source": "SEARED BONITO",
-      "url": "https://www.youtube.com/watch?v=Gf3hzaXubS0",
-      "publishedAt": "2026-10-05T01:59:23.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/Gf3hzaXubS0/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -254,31 +254,11 @@
     },
     {
       "type": "article",
-      "category": "Swing",
-      "title": "Golf Instruction, Equipment Reviews & Course Rankings",
-      "summary": "",
-      "source": "Golf Digest",
-      "url": "https://news.google.com/rss/articles/CBMitANBVV95cUxOQkZCOGhWMGo5T0d2UEdqcktSUTFTaG85STFYS19oQ3lZQkFsMWZEbnhaVXZfd2s0RGVCVHBYdWZmLU1SeHdFbEZ6NXl2SFVuMkJvcVpUcjBmcEs0REZ1RUMzM0wwanhiN0h3aWozNmpZMHZkS18zU3c5SmZuNzNBa0tTN01hUlpLQmNDVjVCOU54djFiZXFLLVpza3JZOTR5aFJzZnJGS3k4RnVtWUhyS09RWTNzRjQ4MTVCYlM0NWU1NVNmaUg4WTg4MEdmeURPY0U1VEdtRjFqUmotMDctclEtalc0Uk4zTnYybzFwUWlyb1BMUHFQVEE1RmhObk0wZ3VHRVBpdXBWc2NvdGE3d2VGalVZdDMxNHI2MEtyN0cyd1N6NmtrYzFUbm5WVXE2amNtdWEtOW42WWZBSVdNN0szV2dzUzRYZlNObzRtSjA3eFdPRzlodi1fYzVkRDlGMFR3MFFyVEV5TnI2alhYcmc1UlIzWWt2V2xyRU5LdlZXMzJRUENKZU80c1luWTRvWDFiYkFUb1l2dlVsVU8zSU5oQ2tXZ2ZiTDQ5bjFMUEloUmFS?oc=5",
-      "publishedAt": "2026-10-01T15:32:18.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Trends",
       "title": "Foresight’s New GC2 Launch Monitor Has Me Totally Confused…And Excited",
       "summary": "",
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNei0tNnU1RXdieExud0pwdWlLV1ZQa2pIanZMTVRubktxZTh4bl9FZ05NQkVzRXlxS2hOWEMyMnJGbkxEV2dval9lTlp5cWRFamY1aHVNbzhKclI0MzRpTy1PT3ZhWi1ZX09Ebmh4MmtSbGNjZDl1alR5a3JTZk5tYjI4SGhSeTB1SldyNWFFZDNyZ1o0anRpQnRlTDRheHVxdzFrNnd4bm4?oc=5",
-      "publishedAt": "2026-10-01T14:41:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Wedge Spin Isn’t The Same As Control. Here’s What 11,400 Shots Showed",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOaFFuQXZHSGtyU0sxZUdmSVFzeUdxWEdCcW5OV2lHZTcyVkd1VUpGa2ZhaXIxQ3F4MFNVSENvT08xSDhkOEFoUGluYmpvR2FkczRRVkZ5RnBjUm1QMXNDZ2dxaXpjczZtWExBVVY3RkxCTmZmOWN1aUVzSlpGb0ZpbS11NGx0QUxmUDg1NDVjbTFsWkJvNUxkXzZWaXlLc1I0WXc4?oc=5",
       "publishedAt": "2026-10-01T14:41:16.000Z",
       "thumbnail": ""
     },
@@ -294,12 +274,32 @@
     },
     {
       "type": "article",
+      "category": "Trends",
+      "title": "Wedge Spin Isn’t The Same As Control. Here’s What 11,400 Shots Showed",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOaFFuQXZHSGtyU0sxZUdmSVFzeUdxWEdCcW5OV2lHZTcyVkd1VUpGa2ZhaXIxQ3F4MFNVSENvT08xSDhkOEFoUGluYmpvR2FkczRRVkZ5RnBjUm1QMXNDZ2dxaXpjczZtWExBVVY3RkxCTmZmOWN1aUVzSlpGb0ZpbS11NGx0QUxmUDg1NDVjbTFsWkJvNUxkXzZWaXlLc1I0WXc4?oc=5",
+      "publishedAt": "2026-10-01T14:41:16.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Swing",
       "title": "How A Bucket Of Range Balls Can Improve Your Golf Swing (Without Hitting A Single One)",
       "summary": "",
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE5qc1R0dzJ2XzdJbmZrNjllTV9hT0g2OXMzWE9iZ2xFenZYNjAwWTZlZnJ1U0RVd2lXeHNZdFJIdGNObnI4UXpOV0hvT3JuRXhvYlo5blpET09zWUVWbWkxWGUyRmNMLXhOWVk1YjJB?oc=5",
       "publishedAt": "2026-10-01T14:20:06.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Short Game",
+      "title": "Stock Chip Shot",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBMOTVpUjY5V2R0RzZqeFEtYXlGTmJzc2ZGZEZZWDU5M2VsbXNLSkstZU5GZVZ6NWxrMmVFcXRFNGFtQ2ItRHd4ZERBUGFyNWxXanNzTGVjZEtNUS1mU0JHX09JV0M3TkIxQmJacjlpR2U?oc=5",
+      "publishedAt": "2026-10-01T00:00:00.000Z",
       "thumbnail": ""
     }
   ]
