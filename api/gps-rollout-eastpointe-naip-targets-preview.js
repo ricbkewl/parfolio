@@ -30,8 +30,23 @@ module.exports=async function handler(req,res){
     const tag=(k,v)=>new RegExp('<tag\\s+k="'+k+'"\\s+v="'+v+'"\\s*\\/>').test(body);
     let type=null;if(tag('golf','green'))type='green';else if(tag('golf','tee'))type='tee';else if(tag('golf','fairway'))type='fairway';if(!type)continue;
     const refs=[...body.matchAll(/<nd\s+ref="(\d+)"\s*\/>/g)].map(x=>x[1]),pts=refs.map(x=>nodeMap.get(x)).filter(Boolean);if(!pts.length)continue;
-    const lat=pts.reduce((s,p)=>s+p.lat,0)/pts.length,lng=pts.reduce((s,p)=>s+p.lng,0)/pts.length,row={id:'way/'+id,lat:+lat.toFixed(7),lng:+lng.toFixed(7),points:pts.length};
+    const lat=pts.reduce((s,p)=>s+p.lat,0)/pts.length,lng=pts.reduce((s,p)=>s+p.lng,0)/pts.length,row={id:'way/'+id,feature_uri:'https://www.openstreetmap.org/way/'+id,feature_type:type,lat:+lat.toFixed(7),lng:+lng.toFixed(7),points:pts.length,raw:{geometry:pts.map(p=>({lat:p.lat,lon:p.lng}))}};
     (type==='green'?greens:type==='tee'?tees:fairways).push(row);
+   }
+   if(String(req.query?.solve||'')==='1'){
+    const course={id:'0029b4a9-c5c1-4b52-ad18-be6d2211ef20',name:'Eastpointe Country Club East Course',city:'Palm Beach Gardens',state_code:'FL',country_code:'US',holes:18,par:72,website:'https://www.eastpointe-cc.com/'};
+    const {reconstructFromStagedFeatures}=require('../lib/gps-rollout/gps-rollout-level2-geometry');
+    const {lookupScorecardWeb}=require('../lib/gps-rollout/gps-rollout-scorecard-web-discovery');
+    const {numberByScorecard}=require('../lib/gps-rollout/gps-rollout-scorecard-numbering');
+    const {numberedRows}=require('../lib/gps-rollout/gps-rollout-source-adapter');
+    const {validateTeeCenterCourse}=require('../lib/gps-rollout/gps-rollout-engine');
+    const {level2RecoveryDecision}=require('../lib/gps-rollout/gps-rollout-level2-recovery');
+    const featureRows=[...tees,...greens,...fairways];
+    const reconstruction=reconstructFromStagedFeatures({course,featureRows});
+    let scorecard=null,numbering=null,rows=[],validation=null;
+    if(reconstruction.assignment?.pair_count===18){scorecard=await lookupScorecardWeb(course);if(scorecard?.ok){numbering=numberByScorecard({course,assignment:reconstruction.assignment,scorecard});if(numbering?.ok){rows=numberedRows(numbering)||[];validation=validateTeeCenterCourse(rows,18);}}}
+    const decision=level2RecoveryDecision({course:{holes:18},assignment:reconstruction.assignment,cleanup:reconstruction.cleanup,numbering_verified:Boolean(numbering?.ok),numbering_source:numbering?.source||scorecard?.source||null,numbering_summary:numbering?.summary||null});
+    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},reconstruction:{model_version:reconstruction.model_version,green_features:reconstruction.green_features,raw_green_features:reconstruction.raw_green_features,refined_tee_cluster_count:reconstruction.refined_tee_cluster_count,pair_count:reconstruction.assignment?.pair_count||0,cleanup:reconstruction.cleanup},scorecard:{ok:Boolean(scorecard?.ok),source:scorecard?.source||null},numbering:{ok:Boolean(numbering?.ok),reason:numbering?.reason||null,summary:numbering?.summary||null},final_geometry_validation:validation,level2_decision:decision,numbered_row_count:rows.length});
    }
    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',bytes:Buffer.byteLength(xml),raw_counts:{...rawCounts,nodes:nodeMap.size},golf_snippet:golfSnippet,counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},greens,tees});
   }
