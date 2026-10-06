@@ -24,14 +24,14 @@ module.exports=async function handler(req,res){
    const xml=await rr.text();
    const nodeMap=new Map();
    for(const m of xml.matchAll(/<node\b([^>]*)\/>/g)){const a=m[1],id=(a.match(/\bid="(\d+)"/)||[])[1],lat=(a.match(/\blat="([^"]+)"/)||[])[1],lon=(a.match(/\blon="([^"]+)"/)||[])[1];if(id&&lat&&lon)nodeMap.set(id,{lat:Number(lat),lng:Number(lon)});}
-   const golfIndex=xml.indexOf('golf');const rawCounts={golf:(xml.match(/golf/g)||[]).length,green:(xml.match(/v="green"/g)||[]).length,tee:(xml.match(/v="tee"/g)||[]).length,fairway:(xml.match(/v="fairway"/g)||[]).length};const golfSnippet=golfIndex>=0?xml.slice(Math.max(0,golfIndex-250),golfIndex+500):xml.slice(0,750);const greens=[],tees=[],fairways=[];
+   const golfIndex=xml.indexOf('golf');const rawCounts={golf:(xml.match(/golf/g)||[]).length,green:(xml.match(/v="green"/g)||[]).length,tee:(xml.match(/v="tee"/g)||[]).length,fairway:(xml.match(/v="fairway"/g)||[]).length};const golfSnippet=golfIndex>=0?xml.slice(Math.max(0,golfIndex-250),golfIndex+500):xml.slice(0,750);const greens=[],tees=[],fairways=[],holeTraces=[];
    for(const m of xml.matchAll(/<way\b([^>]*)>([\s\S]*?)<\/way>/g)){
     const attrs=m[1],body=m[2];const id=(attrs.match(/id="(\d+)"/)||[])[1];if(!id)continue;
     const tag=(k,v)=>new RegExp('<tag\\s+k="'+k+'"\\s+v="'+v+'"\\s*\\/>').test(body);
-    let type=null;if(tag('golf','green'))type='green';else if(tag('golf','tee'))type='tee';else if(tag('golf','fairway'))type='fairway';if(!type)continue;
+    let type=null;if(tag('golf','green'))type='green';else if(tag('golf','tee'))type='tee';else if(tag('golf','fairway'))type='fairway';else if(tag('golf','hole'))type='hole';if(!type)continue;
     const refs=[...body.matchAll(/<nd\s+ref="(\d+)"\s*\/>/g)].map(x=>x[1]),pts=refs.map(x=>nodeMap.get(x)).filter(Boolean);if(!pts.length)continue;
     const lat=pts.reduce((s,p)=>s+p.lat,0)/pts.length,lng=pts.reduce((s,p)=>s+p.lng,0)/pts.length,row={id:'way/'+id,feature_uri:'https://www.openstreetmap.org/way/'+id,feature_type:type,lat:+lat.toFixed(7),lng:+lng.toFixed(7),points:pts.length,raw:{geometry:pts.map(p=>({lat:p.lat,lon:p.lng}))}};
-    (type==='green'?greens:type==='tee'?tees:fairways).push(row);
+    if(type==='hole'){const ref=(body.match(/<tag\s+k="ref"\s+v="(\d+)"\s*\/>/)||body.match(/<tag\s+k="name"\s+v="(?:Hole\s*)?(\d+)"\s*\/>/i)||[])[1];row.hole_number=ref?Number(ref):null;holeTraces.push(row);}else (type==='green'?greens:type==='tee'?tees:fairways).push(row);
    }
    if(String(req.query?.solve||'')==='1'){
     const course={id:'0029b4a9-c5c1-4b52-ad18-be6d2211ef20',name:'Eastpointe Country Club East Course',city:'Palm Beach Gardens',state_code:'FL',country_code:'US',holes:18,par:72,website:'https://www.eastpointe-cc.com/'};
@@ -67,8 +67,17 @@ module.exports=async function handler(req,res){
       numbering=numberByScorecard({course,assignment:reconstruction.assignment,scorecard});
       if(numbering?.ok){rows=numberedRows(numbering)||[];validation=validateTeeCenterCourse(rows,18);}
     }
+    let holeTraceValidation=null;
+    if(rows.length===18){
+      const traces=holeTraces.filter(h=>Number.isInteger(h.hole_number)&&h.hole_number>=1&&h.hole_number<=18);
+      const byHole=new Map();for(const h of traces)if(!byHole.has(h.hole_number))byHole.set(h.hole_number,h);
+      const scored=[];
+      for(const r of rows){const h=byHole.get(Number(r.hole_number));const g=h?.raw?.geometry||[];if(g.length<2)continue;const a={lat:Number(g[0].lat),lng:Number(g[0].lon)},b={lat:Number(g[g.length-1].lat),lng:Number(g[g.length-1].lon)},tee={lat:Number(r.tee_lat),lng:Number(r.tee_lng)},green={lat:Number(r.green_center_lat),lng:Number(r.green_center_lng)};const d1=dist(tee,a)+dist(green,b),d2=dist(tee,b)+dist(green,a),rev=d2<d1,teeErr=dist(tee,rev?b:a),greenErr=dist(green,rev?a:b);scored.push({hole_number:r.hole_number,tee_error_m:+teeErr.toFixed(1),green_error_m:+greenErr.toFixed(1)});}
+      const avg=x=>x.length?x.reduce((s,v)=>s+v,0)/x.length:null,tes=scored.map(x=>x.tee_error_m),ges=scored.map(x=>x.green_error_m);
+      holeTraceValidation={trace_count:byHole.size,scored_holes:scored.length,tee_within_50m:tes.filter(x=>x<=50).length,tee_within_75m:tes.filter(x=>x<=75).length,green_within_10m:ges.filter(x=>x<=10).length,green_within_25m:ges.filter(x=>x<=25).length,average_tee_error_m:avg(tes)==null?null:+avg(tes).toFixed(1),average_green_error_m:avg(ges)==null?null:+avg(ges).toFixed(1),max_tee_error_m:tes.length?Math.max(...tes):null,max_green_error_m:ges.length?Math.max(...ges):null,holes:scored};
+    }
     const decision=level2RecoveryDecision({course:{holes:18},assignment:selectedAssignment,cleanup:selectedCleanup,numbering_verified:Boolean(numbering?.ok),numbering_source:numbering?.source||scorecard?.source||null,numbering_summary:numbering?.summary||null});
-    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},reconstruction:{model_version:reconstruction.model_version,green_features:reconstruction.green_features,raw_green_features:reconstruction.raw_green_features,refined_tee_cluster_count:reconstruction.refined_tee_cluster_count,pair_count:reconstruction.assignment?.pair_count||0,cleanup:reconstruction.cleanup},subset_selection:best?{dropped_green_indices:best.drop,dropped_greens:best.drop.map(i=>greens[i]),rank:{average_numbering_cost:+best.rank[0].toFixed(3),max_numbering_cost:+best.rank[1].toFixed(3),average_assignment_score:+best.rank[2].toFixed(3)},selected_pair_count:selectedAssignment.pair_count}:null,scorecard:{ok:Boolean(scorecard?.ok),source:scorecard?.source||null},numbering:{ok:Boolean(numbering?.ok),reason:numbering?.reason||null,summary:numbering?.summary||null},final_geometry_validation:validation,level2_decision:decision,numbered_row_count:rows.length});
+    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},reconstruction:{model_version:reconstruction.model_version,green_features:reconstruction.green_features,raw_green_features:reconstruction.raw_green_features,refined_tee_cluster_count:reconstruction.refined_tee_cluster_count,pair_count:reconstruction.assignment?.pair_count||0,cleanup:reconstruction.cleanup},subset_selection:best?{dropped_green_indices:best.drop,dropped_greens:best.drop.map(i=>greens[i]),rank:{average_numbering_cost:+best.rank[0].toFixed(3),max_numbering_cost:+best.rank[1].toFixed(3),average_assignment_score:+best.rank[2].toFixed(3)},selected_pair_count:selectedAssignment.pair_count}:null,scorecard:{ok:Boolean(scorecard?.ok),source:scorecard?.source||null},numbering:{ok:Boolean(numbering?.ok),reason:numbering?.reason||null,summary:numbering?.summary||null},final_geometry_validation:validation,hole_trace_validation:holeTraceValidation,level2_decision:decision,numbered_row_count:rows.length});
    }
    return res.status(200).json({ok:true,read_only:true,production_write:false,source:'live_osm_map',bytes:Buffer.byteLength(xml),raw_counts:{...rawCounts,nodes:nodeMap.size},golf_snippet:golfSnippet,counts:{greens:greens.length,tees:tees.length,fairways:fairways.length},greens,tees});
   }
