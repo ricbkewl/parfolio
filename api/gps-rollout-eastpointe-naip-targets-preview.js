@@ -18,6 +18,13 @@ module.exports=async function handler(req,res){
  if(req.method!=='GET')return res.status(405).json({error:'GET only'});
  try{
   const data=await loadTargets(),i=Number(req.query?.image);
+  if(String(req.query?.course||'')==='1'){
+   const t={lat:26.8881,lng:-80.1237,source_fairway:'eastpointe_clean_fairway_footprint'},span=.011,h=span/2,b=[t.lng-h,t.lat-h,t.lng+h,t.lat+h].join(',');
+   const u='https://apps.geo.fpac.usda.gov/geo-imagery/rest/services/naip/conus_naip/ImageServer/exportImage?'+new URLSearchParams({bbox:b,bboxSR:'4326',imageSR:'4326',size:'700,700',format:'jpg',interpolation:'RSP_BilinearInterpolation',compressionQuality:'88',f:'image'});
+   const rr=await fetch(u,{headers:{Accept:'image/jpeg,image/*'},redirect:'error',signal:AbortSignal.timeout(7000)});if(!rr.ok)throw new Error('usda_naip_'+rr.status);const type=String(rr.headers.get('content-type')||'');if(!type.includes('image'))throw new Error('usda_naip_invalid_response');const bytes=Buffer.from(await rr.arrayBuffer());
+   if(String(req.query?.base64||'')==='1')return res.status(200).json({ok:true,read_only:true,production_write:false,imagery_source:'USDA NAIP',course_view:true,center:t,span,content_type:type,bytes:bytes.length,image_base64:bytes.toString('base64')});
+   res.setHeader('Content-Type','image/jpeg');return res.status(200).send(bytes);
+  }
   if(Number.isInteger(i)&&i>=0&&i<data.targets.length){
    const t=data.targets[i],span=Math.min(.006,Math.max(.0025,Number(req.query?.span)||.0035)),h=span/2,b=[t.lng-h,t.lat-h,t.lng+h,t.lat+h].join(',');
    const u='https://apps.geo.fpac.usda.gov/geo-imagery/rest/services/naip/conus_naip/ImageServer/exportImage?'+new URLSearchParams({bbox:b,bboxSR:'4326',imageSR:'4326',size:'600,600',format:'jpg',interpolation:'RSP_BilinearInterpolation',compressionQuality:'85',f:'image'});
