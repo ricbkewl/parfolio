@@ -16,7 +16,7 @@ function fairwayAxisRecovery(features,reconstruction,declared){
     const ab=a.tee_m+b.green_m,ba=b.tee_m+a.green_m,teeSide=ab<=ba?a:b,greenSide=ab<=ba?b:a;
     const info={source_fairway:f.feature_uri,axis_length_m:+axis.length_m.toFixed(1),orientation_cost:+Math.min(ab,ba).toFixed(1),tee_side:{...teeSide.p,tee_gap_m:+teeSide.tee_m.toFixed(1),green_gap_m:+teeSide.green_m.toFixed(1)},green_side:{...greenSide.p,tee_gap_m:+greenSide.tee_m.toFixed(1),green_gap_m:+greenSide.green_m.toFixed(1)}};axes.push(info);
     if(teeSide.tee_m>65&&teeSide.green_m>55)teePool.push({feature_uri:'fairway-axis-tee:'+String(f.feature_uri),feature_type:'tee',lat:teeSide.p.lat,lng:teeSide.p.lng,raw:{synthetic:true,source_fairway:f.feature_uri,axis_length_m:axis.length_m,tee_gap_m:teeSide.tee_m,opposite_green_gap_m:greenSide.green_m,orientation_cost:Math.min(ab,ba)}});
-    if(greenSide.green_m>65&&greenSide.tee_m>55)greenPool.push({feature_uri:'fairway-axis-green:'+String(f.feature_uri),feature_type:'green',lat:greenSide.p.lat,lng:greenSide.p.lng,raw:{synthetic:true,source_fairway:f.feature_uri,axis_length_m:axis.length_m,green_gap_m:greenSide.green_m,opposite_tee_gap_m:teeSide.tee_m,orientation_cost:Math.min(ab,ba)}});
+    if(greenSide.green_m>65)greenPool.push({feature_uri:'fairway-axis-green:'+String(f.feature_uri),feature_type:'green',lat:greenSide.p.lat,lng:greenSide.p.lng,raw:{synthetic:true,source_fairway:f.feature_uri,axis_length_m:axis.length_m,green_gap_m:greenSide.green_m,opposite_tee_gap_m:teeSide.tee_m,orientation_cost:Math.min(ab,ba)}});
   }
   teePool.sort((x,y)=>(y.raw.tee_gap_m-x.raw.tee_gap_m)||(y.raw.axis_length_m-x.raw.axis_length_m));
   greenPool.sort((x,y)=>(y.raw.green_gap_m-x.raw.green_gap_m)||(y.raw.axis_length_m-x.raw.axis_length_m));
