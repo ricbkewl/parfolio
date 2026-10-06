@@ -23,7 +23,7 @@ module.exports=async function handler(req,res){
    if(!rr.ok)throw new Error('osm_map_'+rr.status);
    const xml=await rr.text();
    const nodeMap=new Map();
-   for(const m of xml.matchAll(/<node\b[^>]*id="(\d+)"[^>]*lat="([^"]+)"[^>]*lon="([^"]+)"[^>]*(?:\/>|>[\s\S]*?<\/node>)/g))nodeMap.set(m[1],{lat:Number(m[2]),lng:Number(m[3])});
+   for(const m of xml.matchAll(/<node\b([^>]*)\/?>(?:[\s\S]*?<\/node>)?/g)){const a=m[1],id=(a.match(/\bid="(\d+)"/)||[])[1],lat=(a.match(/\blat="([^"]+)"/)||[])[1],lon=(a.match(/\blon="([^"]+)"/)||[])[1];if(id&&lat&&lon)nodeMap.set(id,{lat:Number(lat),lng:Number(lon)});}
    const greens=[],tees=[],fairways=[];
    for(const m of xml.matchAll(/<way\b([^>]*)>([\s\S]*?)<\/way>/g)){
     const attrs=m[1],body=m[2];const id=(attrs.match(/id="(\d+)"/)||[])[1];if(!id)continue;
