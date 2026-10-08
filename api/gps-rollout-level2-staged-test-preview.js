@@ -46,7 +46,8 @@ module.exports=async function handler(req,res){
       level2_decision:decision,
       numbered_row_count:level2.numbered_rows?.length||0,
       actual_processor_result:processorResult,
-      blocked_mutations:blockedMutations
+      blocked_mutations:blockedMutations,
+      promotion_rows:String(req.query?.rows||'')==='1'?(level2.numbered_rows||[]):undefined
     });
   }catch(e){return res.status(500).json({ok:false,dry_run:true,production_write:false,error:String(e?.message||e)});}
 };
