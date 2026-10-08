@@ -26,6 +26,16 @@ module.exports=async function handler(req,res){
     if(!level2)return res.status(200).json({ok:false,dry_run:true,production_write:false,reason:'no_level2_candidate'});
     const decision=level2RecoveryDecision(level2);
     const validation=Array.isArray(level2.numbered_rows)?validateTeeCenterCourse(level2.numbered_rows,Number(candidate.holes)):null;
+    const {createCourseProcessor}=require('../lib/gps-rollout/gps-rollout-processor');
+    const blockedMutations=[];
+    const processor=createCourseProcessor({
+      async loadStagedCandidate(){return {matchedCourse:{name:candidate.name,osm_course_uri:null,raw:{},identity_mode:'catalog_bound_level2'},rows:[],level2Recovery:level2,facilitySource:'catalog_bound_level2',imageryAvailable:true};},
+      async enrichFacility(){return {dry_run:true,would_enrich:false};},
+      async promoteValidated({decision}){blockedMutations.push({type:'promotion_blocked_by_dry_run',row_count:decision?.rows?.length||0});return {status:'would_promote',dry_run:true,row_count:decision?.rows?.length||0};},
+      async markReview({reason}){blockedMutations.push({type:'review_write_blocked_by_dry_run',reason});return {status:'review',dry_run:true,reason};},
+      async queueVisualRecovery({missing_holes}){blockedMutations.push({type:'visual_queue_write_blocked_by_dry_run',missing_holes});return {dry_run:true,would_queue:true,missing_holes};}
+    });
+    const processorResult=await processor.processCandidate({region:{country_code:'US',state_code:'FL'},candidate,batch_id:'dry-run-no-write'});
     return res.status(200).json({
       ok:true,dry_run:true,reusable_adapter:true,production_write:false,promoted:false,
       course:{id:candidate.id,name:candidate.name,holes:candidate.holes,par:candidate.par,mapping_class:candidate.mapping_class},
@@ -34,7 +44,9 @@ module.exports=async function handler(req,res){
       numbering:{verified:level2.numbering_verified,reason:level2.numbering_reason,source:level2.numbering_source,summary:level2.numbering_summary,route_aware:Boolean(level2.numbering?.route_aware)},
       final_geometry_validation:validation,
       level2_decision:decision,
-      numbered_row_count:level2.numbered_rows?.length||0
+      numbered_row_count:level2.numbered_rows?.length||0,
+      actual_processor_result:processorResult,
+      blocked_mutations:blockedMutations
     });
   }catch(e){return res.status(500).json({ok:false,dry_run:true,production_write:false,error:String(e?.message||e)});}
 };
