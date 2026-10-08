@@ -56,9 +56,23 @@ test('AI errors do not retry analysis with a second imagery source',async()=>{
     if(url.startsWith('https://imagery.nationalmap.gov/'))return {ok:true,headers:new Headers({'content-type':'image/jpeg'}),arrayBuffer:async()=>Buffer.alloc(12000)};
     return {ok:false,status:429};
   };
-  await assert.rejects(createEastpointeReport({settings,read,fetchImpl})(),{code:'ai_gateway_analysis_failed'});
+  await assert.rejects(createEastpointeReport({settings,read,fetchImpl})(),{code:'ai_gateway_http_429'});
   assert.equal(calls,2);
 });
 test('explicit model is required even when AI credentials exist',async()=>{
   await assert.rejects(createEastpointeReport({settings:{AI_GATEWAY_API_KEY:'test'},read:()=>assert.fail('unexpected DB read')})(),{code:'vision_configuration_missing'});
+});
+test('new diagnostic target is ID-bound and rejects the wrong identity',async()=>{
+  const treviso={...course,id:'4d58741c-12f9-4e3d-8947-cf4d7f2c4190',name:'Tpc Treviso Bay',city:'Naples'};
+  for(const wrong of [{id:'wrong'},{name:'Other course'},{city:'Miami'},{holes:9}]){
+    await assert.rejects(createEastpointeReport({testCourse:'tpc_treviso_bay',settings,read:async()=>[{...treviso,...wrong}],fetchImpl:()=>assert.fail('no imagery for mismatched course')})());
+  }
+  await assert.rejects(createEastpointeReport({testCourse:'anything',settings,read:()=>assert.fail('no query for unknown test')})(),{code:'test_course_not_allowed'});
+  const reads=[];
+  const report=await createEastpointeReport({testCourse:'tpc_treviso_bay',settings,read:async(table,params)=>{
+    reads.push(params);
+    return table==='course_catalog'?[treviso]:Array.from({length:18},(_,i)=>({hole_number:i+1,tee_lat:26,tee_lng:-81,green_center_lat:26.002,green_center_lng:-81}));
+  },fetchImpl:()=>assert.fail('complete geometry needs no AI')})();
+  assert.equal(reads[0].id,'eq.'+treviso.id);
+  assert.equal(report.promotable,false);
 });
