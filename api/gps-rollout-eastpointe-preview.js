@@ -74,7 +74,7 @@ module.exports=async function handler(req,res){
     const code=String(err?.code||'');
     const safeSupabase=/^supabase_(course|geometry)_read_http_\d{3}$/.test(code);
     const safeMapTiler=/^maptiler_http_\d{3}$/.test(code);
-    const safeUsgs=/^(usgs_imagery|ai_gateway)_http_\d{3}$/.test(code);
+    const safeUsgs=/^(usgs_imagery|ai_gateway)_http_\d{3}(?:_[a-z_]{1,50})?$/.test(code);
     return res.status(503).json({ok:false,armed:false,read_only:true,report_only:true,promotable:false,error:(known.has(code)||safeSupabase||safeMapTiler||safeUsgs)?code:'vision_report_failed'});
   }
 };
