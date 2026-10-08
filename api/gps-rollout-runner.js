@@ -29,7 +29,7 @@ module.exports=async function handler(req,res){
     ok:true,armed:false,
     maptiler_configured:Boolean(String(process.env.MAPTILER_API_KEY||'').trim()),
     supabase_url_configured:Boolean(String(process.env.SUPABASE_URL||process.env.VITE_SUPABASE_URL||'').trim()),
-    service_role_configured:Boolean(String(process.env.SUPABASE_SERVICE_ROLE_KEY||'').trim()),
+    service_role_configured:Boolean(String(process.env.SUPABASE_SECRET_KEY||process.env.SUPABASE_SERVICE_ROLE_KEY||'').trim()),
     ai_gateway_configured:Boolean(String(process.env.AI_GATEWAY_API_KEY||'').trim()),
     vision_model_configured:Boolean(String(process.env.PARFOLIO_VISION_MODEL||'').trim())
   });

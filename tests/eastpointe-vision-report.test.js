@@ -27,7 +27,7 @@ test('full report pipeline reads DB only and never accepts model coordinates',as
   const read=async(table,params)=>{reads.push({table,params});return table==='course_catalog'?[course]:[{hole_number:1,tee_lat:26.8,tee_lng:-80.1,green_center_lat:26.81,green_center_lng:-80.1}];};
   const fetchImpl=async(url,options)=>{
     calls.push({url,options});
-    if(url.startsWith('https://api.maptiler.com/'))return{ok:true,arrayBuffer:async()=>Buffer.from('fixture-image')};
+    if(url.startsWith('https://imagery.nationalmap.gov/'))return{ok:true,headers:new Headers({'content-type':'image/jpeg'}),arrayBuffer:async()=>Buffer.alloc(12000)};
     assert.equal(url,'https://ai-gateway.vercel.sh/v1/chat/completions');
     const request=JSON.parse(options.body);
     assert.equal(request.model,'test/model');
@@ -46,4 +46,19 @@ test('provider errors are redacted by endpoint',async()=>{
   process.env.SUPABASE_URL='https://example.invalid';process.env.SUPABASE_SERVICE_ROLE_KEY='test-service';
   try{const response=await invoke(body);assert.equal(response.code,503);assert.equal(response.data.error,'vision_report_failed');assert.ok(!JSON.stringify(response.data).includes('private-key'));}
   finally{global.fetch=old;}
+});
+
+test('AI errors do not retry analysis with a second imagery source',async()=>{
+  let calls=0;
+  const read=async table=>table==='course_catalog'?[course]:[];
+  const fetchImpl=async url=>{
+    calls++;
+    if(url.startsWith('https://imagery.nationalmap.gov/'))return {ok:true,headers:new Headers({'content-type':'image/jpeg'}),arrayBuffer:async()=>Buffer.alloc(12000)};
+    return {ok:false,status:429};
+  };
+  await assert.rejects(createEastpointeReport({settings,read,fetchImpl})(),{code:'ai_gateway_analysis_failed'});
+  assert.equal(calls,2);
+});
+test('explicit model is required even when AI credentials exist',async()=>{
+  await assert.rejects(createEastpointeReport({settings:{AI_GATEWAY_API_KEY:'test'},read:()=>assert.fail('unexpected DB read')})(),{code:'vision_configuration_missing'});
 });
