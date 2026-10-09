@@ -1299,8 +1299,11 @@ function updateInlineGolferPosition(here,green){
   inlineGolferMarker=L.circleMarker(here,{radius:9,color:'#fff',weight:3,fillColor:'#2476d1',fillOpacity:1}).addTo(inlineHoleMap);
 }
 function startLocation(green){
+  stopLocation();
   if(!navigator.geolocation){$('gpsStatus').textContent='GPS is not supported by this browser.';return}
+  const watchedHole=shotPlannerKey();
   locationWatch=navigator.geolocation.watchPosition(pos=>{
+    if(s.v!=='round'||document.visibilityState==='hidden'||shotPlannerKey()!==watchedHole||!$('gpsStatus'))return;
     const accuracyYards=Math.round(pos.coords.accuracy*1.094),status=$('gpsStatus');lastGpsAccuracyYards=accuracyYards;status.textContent=`Accuracy ±${accuracyYards} yd`;status.classList.toggle('gps-warning',accuracyYards>50);
     const here={lat:pos.coords.latitude,lng:pos.coords.longitude};lastKnownPosition=here;const near=golferIsNearHole(green),segment=activeRouteSegment(near?here:null,green);if(!segment)return;
     updateShotPlanner(green);
@@ -1800,3 +1803,4 @@ document.addEventListener('visibilitychange',()=>{
 window.addEventListener('offline',updateSyncIndicator);
 if('serviceWorker' in navigator)navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
 window.addEventListener('DOMContentLoaded',()=>initializeCloud(),{once:true});
+

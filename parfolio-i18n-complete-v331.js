@@ -72,6 +72,7 @@ function protectedElement(node){
   if(!el?.closest)return false;
   return !!el.closest(
     'script,style,noscript,code,pre,[contenteditable="true"],[data-pf-no-i18n],'+
+    '#liveHoleMap,#courseMap,.course-preview-map,.gm-style,.pf-planner-card-layer,'+
     '.chat-message-body,.pf-social-message-text,.pf-social-bubble .message-text,'+
     '.course-name[data-course-name],.user-details b,.profile-card .profile-name'
   );
@@ -91,7 +92,7 @@ function translateAttributes(el){
   }
 }
 function apply(root=document.body){
-  if(!root)return;
+  if(!root||protectedElement(root))return;
   rebuildReverse();
   if(root.nodeType===3){
     if(!protectedElement(root)){
@@ -101,7 +102,9 @@ function apply(root=document.body){
     return;
   }
   if(root.nodeType===1)translateAttributes(root);
-  const walker=document.createTreeWalker(root,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT);
+  const walker=document.createTreeWalker(root,NodeFilter.SHOW_ELEMENT|NodeFilter.SHOW_TEXT,{
+    acceptNode:node=>protectedElement(node)?NodeFilter.FILTER_REJECT:NodeFilter.FILTER_ACCEPT
+  });
   let node=walker.nextNode();
   while(node){
     if(node.nodeType===3&&!protectedElement(node)){
@@ -113,17 +116,20 @@ function apply(root=document.body){
     node=walker.nextNode();
   }
   const sourceTagline='Your Game. Your Score. Your Story.';
-  if(document.title.includes(sourceTagline)){
-    document.title=document.title.replace(sourceTagline,translate(sourceTagline));
+  const currentTitle=document.title;let nextTitle=currentTitle;
+  if(currentTitle.includes(sourceTagline)){
+    nextTitle=currentTitle.replace(sourceTagline,translate(sourceTagline));
   }else{
     for(const code of LANGS){
       const candidate=phrases()[sourceTagline]?.[code];
-      if(candidate&&document.title.includes(candidate)){
-        document.title=document.title.replace(candidate,translate(candidate));
+      if(candidate&&currentTitle.includes(candidate)){
+        nextTitle=currentTitle.replace(candidate,translate(candidate));
         break;
       }
     }
   }
+  // Assigning an unchanged title still emits a mutation and used to schedule us forever.
+  if(nextTitle!==currentTitle)document.title=nextTitle;
 }
 let queuedRoot=null,frame=0;
 function queue(root=document.body){
@@ -138,6 +144,7 @@ function queue(root=document.body){
 }
 const observer=new MutationObserver(records=>{
   for(const record of records){
+    if(protectedElement(record.target))continue;
     if(record.type==='attributes'&&record.target===document.documentElement&&record.attributeName==='lang'){
       queue(document.body);return;
     }

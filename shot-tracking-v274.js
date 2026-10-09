@@ -113,6 +113,7 @@
     if(inRound()){if(!document.querySelector('.pf-shot-tracker'))shell();ensureWatch();updateUi();}
     else{document.querySelector('.pf-shot-tracker')?.remove();stopWatch();origin=null;originHole=null;shotNumber=1;open=false;}
   }
-  let pending=false;new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync();});}).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
+  let pending=false;new MutationObserver(records=>{if(pending||records.every(record=>record.target.closest?.('#liveHoleMap,.gm-style,.pf-planner-card-layer')))return;pending=true;requestAnimationFrame(()=>{pending=false;sync();});}).observe(document.getElementById('app')||document.body,{childList:true,subtree:true});
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')sync();else stopWatch();});window.addEventListener('pagehide',stopWatch);setTimeout(sync,250);
 })();
+

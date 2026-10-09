@@ -112,4 +112,12 @@ function setup(){
   await c.loadSharedCourseLibrary({rerender:false});
   assert.equal(c.courses[0].holes,18);assert.equal(c.courses[0].greens.length,18);assert.notEqual(c.courses[0].greens[0].center.lat,0);
 }
-console.log('Round map recovery: 11 interruption/regression scenarios passed.');
+// A background catalog refresh cannot replace a healthy playing map.
+{
+  const {c,renders}=setup();const before=JSON.stringify(c.s);
+  c.parfolioLiveMapIsCurrent=()=>true;c.db.rpc=async()=>({data:[]});
+  assert.equal(await c.loadParFolioUniversalCatalog(true),true);
+  assert.equal(renders(),0);assert.equal(JSON.stringify(c.s),before);
+}
+console.log('Round map recovery: 12 interruption/regression scenarios passed.');
+

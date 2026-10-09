@@ -82,10 +82,15 @@
     catalogLoading=(async()=>{const stats={version:VERSION,loaded:false,rows:0,gpsReady:0,error:null,loadedAt:null};try{
       const rows=[];for(let offset=0;;offset+=PAGE_SIZE){const{data,error}=await db.rpc('parfolio_course_catalog_page',{p_state_code:null,p_offset:offset,p_limit:PAGE_SIZE});if(error)throw error;const page=Array.isArray(data)?data:[];rows.push(...page);if(page.length<PAGE_SIZE)break;if(offset>10000)throw new Error('Universal course catalog pagination exceeded safety limit')}
       if(generation!==catalogGeneration)return false;
-      for(const row of rows){mergeRow(row);if(row.mapping_class==='gps_ready')stats.gpsReady++}courses.sort((a,b)=>String(a?.name||'').localeCompare(String(b?.name||'')));stats.rows=rows.length;stats.loaded=true;stats.loadedAt=new Date().toISOString();if(typeof render==='function')render();window.normalizeParFolioGpsIndicators?.(document);
+      for(const row of rows){mergeRow(row);if(row.mapping_class==='gps_ready')stats.gpsReady++}courses.sort((a,b)=>String(a?.name||'').localeCompare(String(b?.name||'')));stats.rows=rows.length;stats.loaded=true;stats.loadedAt=new Date().toISOString();
+      if(['round','coursePreview'].includes(s?.v)&&window.parfolioLiveMapIsCurrent?.()){
+        if(s.v==='round'&&typeof refreshLiveRoundUi==='function')refreshLiveRoundUi();
+      }else if(typeof render==='function')render();
+      window.normalizeParFolioGpsIndicators?.(document);
     }catch(error){stats.error=String(error?.message||error);stats.loadedAt=new Date().toISOString();console.warn('Universal course catalog load failed',error)}if(generation===catalogGeneration)window.PARFOLIO_UNIVERSAL_GPS=stats;return stats.loaded})();return catalogLoading;
   }
   window.parfolioCourseClaimsGpsReady=claimsGps;window.parfolioValidateCourseGeometry=validate;window.ensureParFolioGpsCourseReady=ensureReady;window.loadParFolioUniversalCatalog=loadCatalog;window.clearParFolioRestrictedCatalog=clearRestrictedCatalog;window.PARFOLIO_GPS_GEOMETRY_VERSION=VERSION;
   if(typeof adminRole==='undefined'||!['course_admin','super_admin'].includes(adminRole))clearRestrictedCatalog();
   setTimeout(loadCatalog,0);
 })();
+
