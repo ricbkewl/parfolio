@@ -1,4 +1,4 @@
-/* ParFolio v356 — single-owner Google Maps renderer with bounded resume recovery.
+/* ParFolio v357 — single-owner Google Maps renderer with bounded resume recovery.
    Google Maps is the only map provider. No Leaflet, OpenStreetMap, MapTiler,
    Map ID, 3D tilt, Advanced Markers, flyover, or provider fallback.
    The vector renderer is required for the flat, rotated tee-to-green view. */
@@ -37,9 +37,14 @@
     panel.className='parfolio-google-error';
     panel.style.cssText='height:100%;min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;background:#12271f;color:#fff;font-family:system-ui,-apple-system,Segoe UI,sans-serif;box-sizing:border-box';
     const title=document.createElement('b');title.textContent='Google Maps unavailable';title.style.cssText='font-size:18px;margin-bottom:8px';
-    const text=document.createElement('span');text.textContent='ParFolio uses Google Maps only. Check your connection and try again.';text.style.cssText='max-width:320px;opacity:.88;font-size:13px;line-height:1.45';
-    const code=document.createElement('small');code.textContent=`${stage}: ${message}`;code.style.cssText='max-width:340px;margin-top:12px;opacity:.62;font-size:10px;line-height:1.35;word-break:break-word';
+    const text=document.createElement('span');text.textContent='Your scores are saved on this phone.';text.style.cssText='max-width:320px;opacity:.88;font-size:13px;line-height:1.45';
+    const code=document.createElement('small');code.textContent=`v357 · ${stage}: ${message}`;code.style.cssText='max-width:340px;margin-top:12px;opacity:.9;font-size:12px;line-height:1.35;word-break:break-word';
     panel.append(title,text,code);container.append(panel);
+    if(container.id==='liveHoleMap'){
+      document.querySelector('.pf-map-recovery-status')?.remove();container.dataset.mapState='failed';
+      const retry=document.createElement('button');retry.type='button';retry.textContent='Retry map';retry.style.cssText='margin-top:16px;padding:10px 18px;border:0;border-radius:8px;background:#f5cf68;color:#12271f;font-weight:700';
+      retry.addEventListener('click',()=>recoverLiveMap('manual-retry',true));panel.append(retry);
+    }
     const label=document.querySelector('.forward-label');if(label)label.textContent='GOOGLE MAPS UNAVAILABLE';
     document.querySelector('.live-map-viewport')?.classList.remove('google-map-active');
   }
@@ -109,6 +114,7 @@
     try{if(inlineHoleMap?.raw){google.maps.event.clearInstanceListeners(inlineHoleMap.raw);inlineHoleMap.raw.unbindAll?.();inlineHoleMap.container?.replaceChildren()}}catch{}
     document.querySelector('.pf-map-recovery-status')?.remove();
     document.querySelector('.pf-planner-card-layer')?.remove();inlineHoleMap=null;inlineHoleGreen=null;inlineUserMovedMap=false;inlineViewResetting=false;
+    document.querySelector('.pf-planner-error')?.remove();
     roundGestureActive=false;contextLost=false;
     liveMapMountId++;
     if(reason)record('ROUND_MAP_DISPOSE',reason);
@@ -120,6 +126,8 @@
     if(!container||!viewport)return;
     container.dataset.mapState=state;
     document.querySelector('.pf-map-recovery-status')?.remove();
+    // Do not cover the real initialization error with a generic recovery panel.
+    if(state==='failed'&&container.querySelector('.parfolio-google-error'))return;
     if(!message)return;
     const panel=document.createElement('div');panel.className='pf-map-recovery-status';panel.setAttribute('role','status');
     panel.style.cssText='position:absolute;top:48%;left:12%;right:12%;z-index:1400;padding:16px;border-radius:14px;background:#12271f;color:white;text-align:center;font:14px/1.4 system-ui;';
@@ -324,7 +332,17 @@
     document.getElementById('mapRecenterButton')?.classList.add('hidden');
   }
 
+  function plannerFailure(error){
+    const message=error?.message||String(error);record('ROUND_PLANNER_FAIL',message);
+    const viewport=document.querySelector('.live-map-viewport');if(!viewport)return;
+    let notice=viewport.querySelector('.pf-planner-error');
+    if(!notice){notice=document.createElement('div');notice.className='pf-planner-error';notice.setAttribute('role','status');notice.style.cssText='position:absolute;top:34%;left:14%;right:14%;z-index:1400;padding:10px;background:#12271f;color:white;border-radius:8px;font:12px/1.4 system-ui;text-align:center';viewport.append(notice)}
+    notice.textContent=`Shot planner unavailable · v357: ${message}`;
+  }
   function updatePlannerClean(green){
+    try{return updatePlannerUnchecked(green)}catch(error){plannerFailure(error)}
+  }
+  function updatePlannerUnchecked(green){
     if(!selectedTee(green)||!green?.center||!inlinePlannerMarker)return;
     const origin=shotPlannerOrigin(green),aim=shotPlannerAim(green),remainingPoints=remainingRoutePoints(origin,aim,green);
     const toTarget=Math.round(distanceYards(origin,aim)),remaining=Math.round(routeDistance(remainingPoints)),routeTotal=toTarget+remaining;
@@ -341,6 +359,12 @@
   window.updateShotPlanner=updatePlannerClean;
 
   function drawRoundOverlays(green,{fit=true}={}){
+    try{drawRoundOverlaysUnchecked(green,{fit})}catch(error){
+      clearCleanOverlays();document.querySelector('.pf-planner-card-layer')?.remove();plannerFailure(error);
+    }
+  }
+  function drawRoundOverlaysUnchecked(green,{fit=true}={}){
+    document.querySelector('.pf-planner-error')?.remove();
     const raw=inlineHoleMap?.raw;if(!raw)return;
     clearCleanOverlays();inlineHoleGreen=green;shotPlannerGreen=green;
     for(const aimPoint of[green.aim1,green.aim2].filter(Boolean))remember(new google.maps.Marker({map:raw,position:cleanPoint(aimPoint),clickable:false,icon:symbolCircle('#e0bd66',6),title:'Aim point'}));
@@ -372,13 +396,16 @@
     const container=currentLiveMapContainer(),key=shotPlannerKey();if(!container||!selectedTee(green)||!green?.center)return;
     if(inlineHoleMap)disposeLiveMap('replace-before-init');
     const mount=++liveMapMountId;
+    let initStage='GOOGLE_API_LOAD';
     roundMapStatus('loading','Loading hole map…');
     try{
       await window.loadGoogleMaps();
       if(mount!==liveMapMountId||currentLiveMapContainer()!==container||shotPlannerKey()!==key||document.visibilityState==='hidden')return;
       if(authFailed)throw new Error('Google Maps authorization failed');
+      initStage='ROUND_CAMERA';
       const camera=simpleRoundCamera(green,false,container)||{center:cleanPoint(green.center),zoom:17,heading:0,tilt:0};
       inlineViewResetting=true;
+      initStage='GOOGLE_MAP_CREATE';
       const raw=new google.maps.Map(container,{
         center:camera.center,zoom:camera.zoom,heading:camera.heading,tilt:0,mapTypeId:mapType(),
         renderingType:google.maps.RenderingType?.VECTOR,tiltInteractionEnabled:false,headingInteractionEnabled:false,
@@ -386,6 +413,7 @@
       });
       if(mount!==liveMapMountId||currentLiveMapContainer()!==container){try{google.maps.event.clearInstanceListeners(raw)}catch{}return}
       inlineHoleMap=makeMapFacade(raw,container);inlineHoleGreen=green;inlineUserMovedMap=false;
+      initStage='ROUND_MAP_SETUP';
       const lost=event=>{
         if(mount!==liveMapMountId||!liveMapOwnsCurrentContainer())return;
         event.preventDefault();contextLost=true;clearTimeout(liveMapTileTimer);
@@ -416,7 +444,7 @@
     }catch(error){
       if(mount!==liveMapMountId||currentLiveMapContainer()!==container)return;
       disposeLiveMap('init-failed');
-      showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':'ROUND_GOOGLE_INIT_FAIL');
+      showGoogleError(container,error,authFailed?'GOOGLE_AUTH_FAIL':initStage);
       roundMapStatus('failed','Map temporarily unavailable. Your scores are saved on this phone.',true);
       return false;
     }
@@ -474,6 +502,6 @@
     }catch(error){map=null;showGoogleError(container,error,'EDITOR_GOOGLE_MAP_FAIL')}
   };
 
-  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v356';record('GOOGLE_ONLY_V356_READY');
+  window.PARFOLIO_GOOGLE_MAP_OWNER='google-maps-clean-v357';record('GOOGLE_ONLY_V357_READY');
 })();
 

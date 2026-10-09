@@ -95,4 +95,22 @@ let scenarios=0;
 {
   const t=setup();await t.init();t.c.inlineHoleMap.container=new Element();await t.init();assert.equal(t.maps.length,2,'disposing a stale container must not invalidate its replacement mount');scenarios++;
 }
+{
+  const t=setup();t.c.google.maps.Marker=class{constructor(){throw new Error('marker initialization failed')}};
+  assert.equal(await t.init(),true,'a planner failure must preserve the base map');
+  t.emit(t.maps[0],'tilesloaded');assert.equal(t.container.dataset.mapState,'tiles');
+  assert.ok(t.c.inlineHoleMap);assert.match(t.viewport.querySelector('.pf-planner-error').textContent,/marker initialization failed/);scenarios++;
+}
+{
+  const t=setup();t.c.google.maps.Map=class{constructor(){throw new Error('graphics initialization failed')}};
+  assert.equal(await t.init(),false);assert.equal(t.container.dataset.mapState,'failed');
+  const panel=t.container.querySelector('.parfolio-google-error');
+  assert.match(panel.querySelector('small').textContent,/GOOGLE_MAP_CREATE: graphics initialization failed/);
+  assert.ok(panel.querySelector('button'));assert.equal(t.viewport.querySelector('.pf-map-recovery-status'),null,'recovery must not hide the real error');scenarios++;
+}
+{
+  const t=setup();await t.init();t.c.suggestedClubFor=()=>{throw new Error('club calculation failed')};
+  assert.doesNotThrow(()=>t.c.updateShotPlanner(t.course.greens[0]));
+  assert.ok(t.c.inlineHoleMap);assert.match(t.viewport.querySelector('.pf-planner-error').textContent,/club calculation failed/);scenarios++;
+}
 console.log(`Map lifecycle: ${scenarios} scenarios passed with DOM/Google Maps doubles (device GPU validation remains required).`);
