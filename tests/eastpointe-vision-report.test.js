@@ -59,6 +59,23 @@ test('AI errors do not retry analysis with a second imagery source',async()=>{
   await assert.rejects(createEastpointeReport({settings,read,fetchImpl})(),{code:'ai_gateway_http_429'});
   assert.equal(calls,2);
 });
+test('imagery outage stops without contacting MapTiler or AI, even with a MapTiler key',async()=>{
+  const calls=[];
+  await assert.rejects(createEastpointeReport({settings,read:async table=>table==='course_catalog'?[course]:[],fetchImpl:async url=>{
+    calls.push(url);
+    assert.equal(new URL(url).pathname,'/arcgis/rest/services/USGSNAIPImagery/ImageServer/exportImage');
+    return {ok:false,status:503};
+  }})(),{code:'usgs_imagery_http_503'});
+  assert.equal(calls.length,1);
+});
+test('imagery export preserves the requested coordinate extent',()=>{
+  const {exportUrl}=require('../lib/gps-rollout/usgs-imagery-provider');
+  const url=new URL(exportUrl({lat:26,lng:-81,width:2048,height:1024}));
+  assert.equal(url.searchParams.get('adjustAspectRatio'),'false');
+  assert.equal(url.searchParams.get('imageSR'),'4326');
+  assert.equal(url.searchParams.get('size'),'2048,1024');
+  assert.deepEqual(url.searchParams.get('bbox').split(',').map(Number),[-81.014,25.986,-80.986,26.014]);
+});
 test('explicit model is required even when AI credentials exist',async()=>{
   await assert.rejects(createEastpointeReport({settings:{AI_GATEWAY_API_KEY:'test'},read:()=>assert.fail('unexpected DB read')})(),{code:'vision_configuration_missing'});
 });
