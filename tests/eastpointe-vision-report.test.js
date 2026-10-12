@@ -75,6 +75,28 @@ test('imagery export preserves the requested coordinate extent',()=>{
   assert.equal(url.searchParams.get('imageSR'),'4326');
   assert.equal(url.searchParams.get('size'),'2048,1024');
   assert.deepEqual(url.searchParams.get('bbox').split(',').map(Number),[-81.014,25.986,-80.986,26.014]);
+  const bounds=[-81.01,25.99,-80.99,26.01];
+  assert.equal(new URL(exportUrl({lat:26,lng:-81,bounds})).searchParams.get('bbox'),bounds.join(','));
+  for(const invalid of [[null,25.99,-80.99,26.01],[-82,25,-80,27],[-81,26,-82,27],[-70,25.99,-69.99,26.01]])
+    assert.throws(()=>exportUrl({lat:26,lng:-81,bounds:invalid}),/invalid imagery bounds/);
+});
+test('empty AI results preserve an explicit assessment and never imply recovery',async()=>{
+  const read=async table=>table==='course_catalog'?[course]:[];
+  const fetchImpl=async url=>url.startsWith('https://imagery.nationalmap.gov/')?
+    {ok:true,headers:new Headers({'content-type':'image/jpeg'}),arrayBuffer:async()=>Buffer.alloc(12000)}:
+    {ok:true,json:async()=>({choices:[{message:{content:JSON.stringify({holes:[],assessment:{reason_codes:['missing_hole_numbering','untrusted_code'],explanation:'No numbered reference is supplied.'}})}}]})};
+  const result=await createEastpointeReport({settings,read,fetchImpl})();
+  assert.equal(result.status,'insufficient_evidence');
+  assert.deepEqual(result.assessment.reason_codes,['missing_hole_numbering']);
+  assert.equal(result.assessment.model_reported,true);
+  assert.equal(result.promotable,false);
+  assert.equal(result.imagery.georeference.crs,'EPSG:4326');
+});
+test('plausible global coordinates outside the actual image are rejected',async()=>{
+  const fetchImpl=async url=>url.startsWith('https://imagery.nationalmap.gov/')?
+    {ok:true,headers:new Headers({'content-type':'image/jpeg'}),arrayBuffer:async()=>Buffer.alloc(12000)}:
+    {ok:true,json:async()=>({choices:[{message:{content:JSON.stringify({holes:[{hole_number:1,points:[{type:'tee',lat:27,lng:-80.1,confidence:0.99}]}]})}}]})};
+  await assert.rejects(createEastpointeReport({settings,read:async table=>table==='course_catalog'?[course]:[],fetchImpl})(),{code:'invalid_vision_point'});
 });
 test('explicit model is required even when AI credentials exist',async()=>{
   await assert.rejects(createEastpointeReport({settings:{AI_GATEWAY_API_KEY:'test'},read:()=>assert.fail('unexpected DB read')})(),{code:'vision_configuration_missing'});
