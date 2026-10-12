@@ -1,0 +1,175 @@
+{
+  "ok": true,
+  "armed": false,
+  "read_only": true,
+  "report_only": true,
+  "promotable": false,
+  "course": {
+    "id": "4d58741c-12f9-4e3d-8947-cf4d7f2c4190",
+    "name": "Tpc Treviso Bay",
+    "city": "Naples",
+    "state_code": "FL",
+    "country_code": "US",
+    "latitude": 26.0717667,
+    "longitude": -81.7335389,
+    "holes": 18,
+    "mapping_class": "location_pending"
+  },
+  "missing_holes": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "status": "insufficient_evidence",
+  "holes": [],
+  "imagery": {
+    "source": "USGS National Map / NAIP",
+    "georeference": {
+      "crs": "EPSG:4326",
+      "bbox": [
+        -81.7357626,
+        26.0657335,
+        -81.7194854,
+        26.0760794
+      ],
+      "size": [
+        2048,
+        2048
+      ],
+      "pixel_origin": "top_left"
+    },
+    "bounds_source": "https://www.openstreetmap.org/relation/5454409",
+    "bounds_attribution": "\u00a9 OpenStreetMap contributors, ODbL 1.0"
+  },
+  "layout": {
+    "status": "candidate_layouts_retrieved",
+    "sources": [
+      {
+        "url": "https://www.tpctrevisobay.com/course-tour",
+        "retrieved_at": "2026-10-12T19:42:16.699Z",
+        "http_status": 200,
+        "mime_type": "text/html",
+        "sha256": "b1fb9ec23a1625c21a2bd5c089a5af4e49aebf7da48abbce15637310364614e8",
+        "bytes": 116579,
+        "status": "retrieved"
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/2025+Scorecard.pdf/4533f111-9752-7fa5-a629-781904e564a3?t=1760374049431",
+        "retrieved_at": "2026-10-12T19:42:17.051Z",
+        "http_status": 200,
+        "mime_type": "application/pdf",
+        "sha256": "cadb97e8b246d9a37f03b87a2cb0977415d8e8b8457608e759aea63e48ae68f3",
+        "bytes": 141889,
+        "status": "retrieved"
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/1760374144364-13eee5d3-eec2-4776-86b4-7ec158d19aa7_1.jpg/8a142fbd-1dc8-4583-1d31-50f2c1f6cbf1?t=1760374171427",
+        "retrieved_at": "2026-10-12T19:42:17.206Z",
+        "http_status": 200,
+        "mime_type": "image/jpeg",
+        "sha256": "cddc03328044567ab089ccb278fc6a59b3a01ff6dbe5ea4a82a9301ccf49a9f3",
+        "bytes": 143631,
+        "status": "retrieved"
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/1760374144364-13eee5d3-eec2-4776-86b4-7ec158d19aa7_2.jpg/0fc52cd9-790f-a1a8-9b40-5a4cdfbb3937?t=1760374189032",
+        "retrieved_at": "2026-10-12T19:42:17.466Z",
+        "http_status": 200,
+        "mime_type": "image/jpeg",
+        "sha256": "74a8da61a72856299b52909baadd5869bb39ec8f884e49d713d7669591bef7bf",
+        "bytes": 167797,
+        "status": "retrieved"
+      }
+    ],
+    "discovered_assets": [
+      {
+        "url": "https://www.tpctrevisobay.com/web/pages/course-tour",
+        "relevant": true,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/navigation-portlet/images/next.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/100251/Golf%20Course%2054%20Banner%20.jpg/d70fbe57-bd73-7431-799b-181285621b7b",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/2025+Scorecard.pdf/4533f111-9752-7fa5-a629-781904e564a3?t=1760374049431",
+        "relevant": true,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/1760374144364-13eee5d3-eec2-4776-86b4-7ec158d19aa7_1.jpg/8a142fbd-1dc8-4583-1d31-50f2c1f6cbf1?t=1760374171427",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/0/1760374144364-13eee5d3-eec2-4776-86b4-7ec158d19aa7_2.jpg/0fc52cd9-790f-a1a8-9b40-5a4cdfbb3937?t=1760374189032",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/198176/facebook-ico.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/198176/ins.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/198176/footerLogo.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/198176/left-logo-1.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/20124/198176/logo.png",
+        "relevant": false,
+        "same_origin": true
+      },
+      {
+        "url": "https://www.tpctrevisobay.com/documents/10184/0/left-logo-3.png",
+        "relevant": false,
+        "same_origin": true
+      }
+    ]
+  },
+  "assessment": {
+    "reason_codes": [
+      "missing_hole_numbering",
+      "insufficient_evidence"
+    ],
+    "explanation": "The provided candidate official layout reference is a scorecard containing hole yardages and par, but it does not include a visual schematic or layout of the golf course with numbered holes. Without a visual representation of the course routing and hole numbering, it is impossible to confidently identify and map specific hole numbers (1-18) to the visible golf features in the georeferenced aerial imagery. Assigning numbers based solely on the aerial image or general knowledge would constitute inventing or guessing, which is explicitly prohibited.",
+    "model_reported": true
+  },
+  "warnings": [
+    "Single course-center image may not cover every missing hole.",
+    "Model coordinates are unverified; confidence is not positional accuracy.",
+    "Source reuse permissions and independent hole identification remain unverified."
+  ]
+}
