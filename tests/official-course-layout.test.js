@@ -34,3 +34,12 @@ test('gateway sends PDF reference as a file with inline data',async()=>{
  await analyze({system_instructions:'report only',image_bytes:Buffer.from('aerial'),layout_assets:[{source_url:pageUrl,mime_type:'application/pdf',bytes:Buffer.from('%PDF-1.7')}],context:{},response_contract:{}});
  assert.equal(content.find(x=>x.type==='file').file.file_data,'data:application/pdf;base64,JVBERi0xLjc=');
 });
+
+test('opaque document-library images follow named references, excluding decoration',async()=>{
+ const calls=[];
+ const result=await lookupOfficialLayout({pageUrl,fetchImpl:async url=>{calls.push(url);
+ if(url===pageUrl)return new Response('<img src="/documents/1/banner.jpg/id"><img src="/documents/1/opaque_1.jpg/id"><img src="/documents/1/opaque_2.jpg/id"><img src="/documents/1/opaque_3.jpg/id"><a href="/scorecard.pdf">Scorecard</a><img src="https://external.test/documents/1/opaque.jpg/id">',{headers:{'content-type':'text/html'}});
+ return new Response('fixture',{headers:{'content-type':url.endsWith('.pdf')?'application/pdf':'image/jpeg'}});
+ }});
+ assert.deepEqual(calls,[pageUrl,'https://www.tpctrevisobay.com/scorecard.pdf','https://www.tpctrevisobay.com/documents/1/opaque_1.jpg/id','https://www.tpctrevisobay.com/documents/1/opaque_2.jpg/id']);assert.equal(result.assets.length,3);
+});
