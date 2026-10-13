@@ -1298,20 +1298,79 @@ function updateInlineGolferPosition(here,green){
   }
   inlineGolferMarker=L.circleMarker(here,{radius:9,color:'#fff',weight:3,fillColor:'#2476d1',fillOpacity:1}).addTo(inlineHoleMap);
 }
+let locationWatchGeneration=0,locationWatchSession=null;
+let locationLifecycleSuspended=document.visibilityState==='hidden',locationLastResumeAt=-Infinity;
+function locationCanWatch(){return s.v==='round'&&!s.done&&document.visibilityState!=='hidden'&&!locationLifecycleSuspended}
+function locationSessionIsCurrent(session=locationWatchSession){
+  return Boolean(session&&session===locationWatchSession&&session.generation===locationWatchGeneration&&locationCanWatch()&&s===session.round&&s.sharedRoundId===session.roundId&&s.ownerUserId===session.ownerId&&shotPlannerKey()===session.hole);
+}
+function updateLocationStatus(message,accuracyYards=null){
+  try{const status=$('gpsStatus');if(status){status.textContent=message;if(accuracyYards!==null)status.classList.toggle('gps-warning',accuracyYards>50)}}
+  catch(error){console.warn('GPS status update deferred.',error)}
+}
 function startLocation(green){
   stopLocation();
-  if(!navigator.geolocation){$('gpsStatus').textContent='GPS is not supported by this browser.';return}
-  const watchedHole=shotPlannerKey();
-  locationWatch=navigator.geolocation.watchPosition(pos=>{
-    if(s.v!=='round'||document.visibilityState==='hidden'||shotPlannerKey()!==watchedHole||!$('gpsStatus'))return;
-    const accuracyYards=Math.round(pos.coords.accuracy*1.094),status=$('gpsStatus');lastGpsAccuracyYards=accuracyYards;status.textContent=`Accuracy ±${accuracyYards} yd`;status.classList.toggle('gps-warning',accuracyYards>50);
-    const here={lat:pos.coords.latitude,lng:pos.coords.longitude};lastKnownPosition=here;const near=golferIsNearHole(green),segment=activeRouteSegment(near?here:null,green);if(!segment)return;
-    updateShotPlanner(green);
-    const tee=selectedTee(green);updateInlineGolferPosition(here,green);orientInlineHoleMap(green,segment.origin,segment.target);loadWeather(near?here:tee,segment.target,tee);
-  },err=>{if($('gpsStatus'))$('gpsStatus').textContent=err.code===1?'Location permission was denied. Allow it in browser settings.':'Unable to get a GPS signal.'},{enableHighAccuracy:true,maximumAge:3000,timeout:15000});
+  if(!green||!locationCanWatch())return;
+  const session={generation:locationWatchGeneration,round:s,roundId:s.sharedRoundId,ownerId:s.ownerUserId,hole:shotPlannerKey()};
+  locationWatchSession=session;
+  const failed=error=>{
+    if(!locationSessionIsCurrent(session))return;
+    updateLocationStatus(error?.code===1?'Location permission was denied. Allow it in browser settings.':'Unable to get a GPS signal.');
+  };
+  try{
+    const geolocation=navigator.geolocation;
+    if(!geolocation){updateLocationStatus('GPS is not supported by this browser.');stopLocation();return}
+    updateLocationStatus('Locating…');
+    const watch=geolocation.watchPosition(pos=>{
+      if(!locationSessionIsCurrent(session))return;
+      // Save the fix before touching map/DOM code: a broken renderer must not lose GPS.
+      const here={lat:pos.coords.latitude,lng:pos.coords.longitude},accuracyYards=Math.round(pos.coords.accuracy*1.094);
+      lastKnownPosition=here;lastGpsAccuracyYards=accuracyYards;
+      updateLocationStatus(`Accuracy ±${accuracyYards} yd`,accuracyYards);
+      try{
+        const near=golferIsNearHole(green),segment=activeRouteSegment(near?here:null,green);if(!segment)return;
+        updateShotPlanner(green);
+        const tee=selectedTee(green);updateInlineGolferPosition(here,green);orientInlineHoleMap(green,segment.origin,segment.target);
+        const weather=loadWeather(near?here:tee,segment.target,tee);
+        weather?.catch?.(error=>console.warn('GPS weather update deferred.',error));
+      }catch(error){console.warn('GPS map update deferred.',error)}
+    },failed,{enableHighAccuracy:true,maximumAge:3000,timeout:15000});
+    // Also handle a synchronous callback that navigates or replaces this watch.
+    if(locationSessionIsCurrent(session))locationWatch=watch;
+    else{if(locationWatchSession===session)stopLocation();try{geolocation.clearWatch(watch)}catch(error){console.warn('GPS watch cleanup deferred.',error)}}
+  }catch(error){
+    if(locationWatchSession!==session)return;
+    failed(error);stopLocation();
+  }
 }
-function stopLocation(){if(locationWatch!==null){navigator.geolocation.clearWatch(locationWatch);locationWatch=null}}
-function refreshLocation(){const g=selectedRoundCourse()?.greens?.[s.hole-1];stopLocation();if(g)startLocation(g)}
+function stopLocation(){
+  // Invalidate callbacks before clearWatch, including callbacks queued on this hole.
+  locationWatchGeneration++;
+  const watch=locationWatch;locationWatch=null;locationWatchSession=null;
+  if(watch!==null){try{navigator.geolocation?.clearWatch(watch)}catch(error){console.warn('GPS watch cleanup deferred.',error)}}
+}
+function refreshLocation(){
+  stopLocation();
+  if(!locationCanWatch())return;
+  try{const green=selectedRoundCourse()?.greens?.[s.hole-1];if(green)startLocation(green)}
+  catch(error){console.warn('GPS restart deferred.',error)}
+}
+function suspendLocation(){
+  locationLifecycleSuspended=true;locationLastResumeAt=-Infinity;stopLocation();
+}
+function resumeLocation(force=false){
+  if(document.visibilityState==='hidden')return;
+  const suspended=locationLifecycleSuspended;locationLifecycleSuspended=false;
+  if(!locationCanWatch()){stopLocation();return}
+  // Safari can deliver visible and persisted pageshow for one restore. Coalesce
+  // only fresh lifecycle resumes; a real hide always resets this short window.
+  if(!suspended&&locationSessionIsCurrent()&&(!force||Date.now()-locationLastResumeAt<1000))return;
+  refreshLocation();
+  if(locationSessionIsCurrent())locationLastResumeAt=Date.now();
+}
+document.addEventListener('visibilitychange',()=>document.visibilityState==='hidden'?suspendLocation():resumeLocation(true));
+window.addEventListener('pagehide',suspendLocation);
+window.addEventListener('pageshow',event=>resumeLocation(event.persisted===true));
 function distanceYards(a,b){const R=6371000,rad=x=>x*Math.PI/180,dLat=rad(b.lat-a.lat),dLng=rad(b.lng-a.lng),q=Math.sin(dLat/2)**2+Math.cos(rad(a.lat))*Math.cos(rad(b.lat))*Math.sin(dLng/2)**2;return R*2*Math.atan2(Math.sqrt(q),Math.sqrt(1-q))*1.0936133}
 function draftPoint(value){return value?{lat:Number(value[0]),lng:Number(value[1])}:null}
 function pointToward(start,end,yards){const distance=distanceYards(start,end),ratio=distance?yards/distance:0;return{lat:start.lat+(end.lat-start.lat)*ratio,lng:start.lng+(end.lng-start.lng)*ratio}}

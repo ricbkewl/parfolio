@@ -7,11 +7,15 @@ on:
       - '*.js'
       - '*.html'
       - 'manifest.webmanifest'
+      - 'tests/**'
+      - '.github/workflows/parfolio-runtime-guard.yml'
   pull_request:
     paths:
       - '*.js'
       - '*.html'
       - 'manifest.webmanifest'
+      - 'tests/**'
+      - '.github/workflows/parfolio-runtime-guard.yml'
   workflow_dispatch:
 
 permissions:
@@ -30,6 +34,12 @@ jobs:
         run: |
           set -euo pipefail
           for f in *.js; do node --check "$f" >/dev/null; done
+      - name: Map and GPS lifecycle recovery
+        run: |
+          node tests/gps-lifecycle-v356.mjs
+          node tests/map-lifecycle-v356.mjs
+          node tests/map-resume-recovery.mjs
+          node tests/i18n-mutation-recovery-v356.mjs
       - name: Active round map recovery
         run: node tests/round-map-recovery.mjs
       - name: Universal GPS course loading standard
