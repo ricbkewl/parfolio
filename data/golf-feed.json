@@ -1,7 +1,57 @@
 {
-  "generatedAt": "2026-10-13T19:52:45.123Z",
+  "generatedAt": "2026-10-14T06:11:47.225Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "4 Drills that stay in my rotation ⛳️ #golf #golfswing #golftips",
+      "summary": "4 Drills That Stay in My Rotation ⛳️ These are 4 drills I consistently come back to when working on my swing. Each one serves a ...",
+      "source": "Dylan Hathorn Golf",
+      "url": "https://www.youtube.com/watch?v=EBO4Xa7ohwk",
+      "publishedAt": "2026-10-14T02:47:11.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/EBO4Xa7ohwk/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Fix Your Posture Fix Your Swing #golf #golffitness #golfswing #golftraining",
+      "summary": "3 Ways Improved Posture Can Transform Your Golf Swing ⛳ Optimised Alignment for Power & Accuracy: Good posture sets ...",
+      "source": "Golf Physio Australia",
+      "url": "https://www.youtube.com/watch?v=yVLQYmj8sz0",
+      "publishedAt": "2026-10-14T02:00:45.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/yVLQYmj8sz0/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Putting requires the read, speed, and intended line to all be correct #golf #putting #golfswing",
+      "summary": "",
+      "source": "Hover Greens",
+      "url": "https://www.youtube.com/watch?v=GoCvy2E1ovQ",
+      "publishedAt": "2026-10-14T00:35:03.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/GoCvy2E1ovQ/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Miura and Steph Curry are partnering for ultra-limited iron set",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9VajRISlo5QV9jb2RuRHFoUHRhWUpHZGxFYXpFeXlJUUJTSGNLbF91dnl6Z1RSYUg0cVFRZHcyZFRualZRUTQ3N2drUnctTHlvZURoOU9xSzZoTkt0RllXRGQ5LVhGeXR5WmVDQlRibm1ueXhDZVhsTw?oc=5",
+      "publishedAt": "2026-10-14T00:32:51.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "PRICE DROP! Save up to $200 on TaylorMade P Series irons",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1YUXJhMDNheVY3MFRVREpCbldfRHUzSE1NRzhNVlpUc0h3c0xtLVdOZE5KR1hsVXBOLTFNQzdoRl9PQ2FBT3Rmb0hqWFhNR1lxSmFoWU1Cb3B5YzdfM3g4WTV6SWQ4YklOVXJEZXR0eUxoRDZ0QVlnblgxWjlCb1k?oc=5",
+      "publishedAt": "2026-10-13T22:56:41.000Z",
+      "thumbnail": ""
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -13,23 +63,13 @@
       "thumbnail": "https://i.ytimg.com/vi/jOAhMbw2guk/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Steph Arch",
-      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
-      "source": "GOLF Channel Shorts",
-      "url": "https://www.youtube.com/watch?v=l2cfo_tHgRQ",
-      "publishedAt": "2026-10-13T18:22:37.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/l2cfo_tHgRQ/hqdefault.jpg"
-    },
-    {
       "type": "article",
-      "category": "Trends",
-      "title": "TaylorMade P790 Irons Are $200 Off. I Never Thought I’d See the Day",
+      "category": "Courses",
+      "title": "Moccasin Wallow Golf Club in Palmetto, Florida, USA",
       "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5mZ1FONzEwR0x6eGxTZGpEU01IRmZuaXFKRnFXRDdpVk44RHkyVjcwUjJoamg4VHZ4X1FGQldPbE45MWFTYWdrczNQWVpvcWFpNWloSmZUa2pydlRsQ3RrX3UtS1lrSkk?oc=5",
-      "publishedAt": "2026-10-13T15:07:08.000Z",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNQzUwVUYzRTR1SV9qS01Bb0J0Y0ZmWE9IeDlJeWlaSXRpdGNMSXIzSlh6WFFlSzlmLXI2WkxRc0F6Q3JMSGlBcFEwNU5BRElQejRDU0RxaHptOUdGd1ZQVGZ0cHh0b2ZRRjVrbkhPZVM4UFlnSFRFVi1MdnIwaDdkWUV2SUg?oc=5",
+      "publishedAt": "2026-10-13T17:38:35.000Z",
       "thumbnail": ""
     },
     {
@@ -43,14 +83,34 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "The Secret Trick Golfers Use to Cheat #shorts #short",
-      "summary": "The Secret Trick Golfers Use to Cheat #shorts #short \"Welcome to AgriXFarm! Discover the fascinating world of farming with our ...",
-      "source": "AgriXFarm",
-      "url": "https://www.youtube.com/watch?v=TTQUNt8nc74",
-      "publishedAt": "2026-10-13T15:02:09.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/TTQUNt8nc74/hqdefault.jpg"
+      "type": "article",
+      "category": "Trends",
+      "title": "Survey: Tell Us What Golf Ball You’re Really Playing",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQWldFSjRhQm5adjdnMTNnemVGcmdSWUVrWFlROWlnbTQtOFFmRXhKTC0xNVAzNlFqS2RMSWN5aDhwZ2wwUG1FQTN0ZDEwdFJPUW96YzR3bDVJTlk5THM4NHFuQnlRTm1XNVN4d0UzQ0hIYjJkSS16cWdBT1k1aHNKeFpUV1JXdGhPUFRUVDJUdw?oc=5",
+      "publishedAt": "2026-10-13T15:07:08.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Are You Practicing Golf Or Practicing Your Launch Monitor Numbers?",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNaklCeWxySE9RQ1Z1VmluSUhsNHBBbnpreTY1Yi1paWN5a1RkdkhScUEtMlZLdGdDZ0s1dmdKTVhYcWVYMm1rWUJvaWxUcEdLWEVldWh0QS0wWGlTb3VKeVREUmpSYjVIQ184X0RGTEwxbmhpM2p1TEZybXctNGZGMF90U3JSVEZOU05Qc2RxdWR5bEppcnQ3S243SXd0MGI4RGw0d2FVdTI5YUN4NnpaV3h0RQ?oc=5",
+      "publishedAt": "2026-10-13T15:07:08.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "TaylorMade P790 Irons Are $200 Off. I Never Thought I’d See the Day",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5mZ1FONzEwR0x6eGxTZGpEU01IRmZuaXFKRnFXRDdpVk44RHkyVjcwUjJoamg4VHZ4X1FGQldPbE45MWFTYWdrczNQWVpvcWFpNWloSmZUa2pydlRsQ3RrX3UtS1lrSkk?oc=5",
+      "publishedAt": "2026-10-13T15:07:08.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -74,12 +134,12 @@
     },
     {
       "type": "article",
-      "category": "Courses",
-      "title": "Jones at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
+      "category": "Short Game",
+      "title": "Shanked Chip Fix",
       "summary": "",
       "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
-      "publishedAt": "2026-10-13T01:54:34.000Z",
+      "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBsZlNzWjd0amRsSUJwMzRSTThvNHFNN2xKa2Y1eHAxejk3NGpvMW9lSWRqSHdPYkNOa1VXanowaUszRTVVTW5JMU5Ua2tfSWpHdWdmSHdwZHlJU00yMkJ1a1pBRnFnc0RiYzNIT1RrS2hhdw?oc=5",
+      "publishedAt": "2026-10-13T00:00:00.000Z",
       "thumbnail": ""
     },
     {
@@ -111,16 +171,6 @@
       "url": "https://www.youtube.com/watch?v=qxP9xu0GF-g",
       "publishedAt": "2026-10-12T19:38:51.000Z",
       "thumbnail": "https://i.ytimg.com/vi/qxP9xu0GF-g/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "North Golf Course at Big Cypress Golf & Country Club in Lakeland, Florida, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxPVEVkNVFwYUg4SGZiUzlwUE1uSWlyMU05N3VQdU1sZUJLdlpSWGcySDZrYXpsZGJHQUk4eHRZRzVyTHFFS01PRmthODZvNzRmckd6dG1ETy1WRGpIUFBXUlNlSXRRb0JyS25pa3ZLS0Z6cm1ocVRkRDgyOUd1MmNCZ1hnSmxjZm5JMVhuNDZZTEZBSTJjYTRhT3hIUE5SRlJkeWc4cVd5RQ?oc=5",
-      "publishedAt": "2026-10-12T17:20:50.000Z",
-      "thumbnail": ""
     },
     {
       "type": "article",
@@ -250,56 +300,6 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5UbVZtaExjZjF5WTlfRF9qRTlsZjgwMGpxUTFpZDVvaXJNM243cFhDSk1qSll0MS1CNEJsYUh2cGpkcnVybnhSUWVpcmYxRnVZcU14d21LNmZNRU03Y3FxRUFDbmtxblE4Yzd2b2tfWTZxejYzM25MektGLWozelk?oc=5",
       "publishedAt": "2026-10-10T12:26:59.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Lakes Golf Course at Oakwood Country Club in Sun Lakes, Arizona, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNRWtUa3hfSU5oSFprMHF2VVZzOVR5OEg5cTJlT3lWbkpyUnlsczJBTUJWZWtQZVY4YnpXS1BpSF9laE5VZDdLdnU2S0U3dHhDSjBfMzN3WkN1TlE2bU5rSWpOZURIQ1FRd1dPRDFkT0lSTzlMVDdsREw1NktQVGhlODZPWXFZT3doT1VSWU82aFpYVnJfbXc5enZfZw?oc=5",
-      "publishedAt": "2026-10-10T08:01:20.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Step Into Solid Contact",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE0wRy1uSzFFSi11TnhoU0lWR2E0SkpxOWxDUlRMRHY4ZE1OT2QzU19DeFExMlFsQkVMd0t0NFNwYm8xOEFtQnZqUUJPM0tjQ0Z5dnpNZzBnZlJCRnlJZ05SSUtkUGE0X1RVdDZhM3VZR2VvY0s5X1BHZVlQSQ?oc=5",
-      "publishedAt": "2026-10-09T21:08:36.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Hyde Park Golf Club in Jacksonville, Florida, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9Ga0Fvb3d1ckdWUnNGNi14RFBieTcwemRoTGdPemlkTmNmZERLUGxZZG5McHRhTHhrNE5UX1VtV0dpSE1NMTJ2R09ja0hRMEp3WnJEYlBHcjRBZDBqVDNNUG9rT0VFVEhyWUdVX2NQcHRlY2prWGpKdWpFZ2Vidw?oc=5",
-      "publishedAt": "2026-10-09T20:06:05.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "'Never-ending journey': Popular Arizona golf course glimmers after 10 years of renovations",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxPcVpXbGZvOEh1em9tUDItUGRwa0lmTjc0NVp1NTJERGR6WjQ2SFVLMzhRWkpZY0laN0JCbHRaQlJRR25yZTlDYTRLYWYyRmE4QUVFZjNIMklZX2l2dnVudWc0cU9OSklXN1JKM0x6aHlhOWJkQzF5QTExanJDQ0pTYVBIOHo2N0UxbzZnMW90cVI5VHFXX1dTRkhvc0o2eWhreXRJR2U4bWZkRWRoa3ZRV0RpNEFvSXNCaVpLVGszRWJYOWRvU3dIbDdVSHBiWWV3VGc?oc=5",
-      "publishedAt": "2026-10-09T17:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Why Sequencing Matters In The Golf Swing And How To Improve It",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBUb0xjOGRfT2hXdTc1VHQ3OHpFbFh1NnJwZkE4aHNmYnlKQkt0bG1McFlvc0owb0tfMnA0UVI0Y09RWjh6TmxWSUFWcC1uMDNMeTZEMXQ1cURoSEJBb2FDTHlLWlFaRURLTmRDRWpaTE1iYlZwMjJIZ2pqZ1lvZw?oc=5",
-      "publishedAt": "2026-10-09T14:40:07.000Z",
       "thumbnail": ""
     }
   ]
