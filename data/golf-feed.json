@@ -1,7 +1,67 @@
 {
-  "generatedAt": "2026-10-17T05:38:17.105Z",
+  "generatedAt": "2026-10-17T16:28:26.148Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "You practise your golf swing… But do you actually TRAIN your speed? ⚡️ Most golfers spend years",
+      "summary": "You practise your golf swing… But do you actually TRAIN your speed? ⚡️ Most golfers spend years working on their technique ...",
+      "source": "Greg Smith Golf Coach",
+      "url": "https://www.youtube.com/watch?v=ZA2TZz12M6I",
+      "publishedAt": "2026-10-17T12:38:37.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/ZA2TZz12M6I/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "14clubs@Dailyjuniorcoaching",
+      "summary": "Can You Chip With ALL 14 Clubs? | Daily Coaching Who says chipping is only for wedges? At Daily Coaching, we put all 14 clubs ...",
+      "source": "DailyCoaching",
+      "url": "https://www.youtube.com/watch?v=hFZdzJHdVAQ",
+      "publishedAt": "2026-10-17T12:00:17.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/hFZdzJHdVAQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Iron and Wedge Play: Who Deserves More Credit in Golf? 🏌️‍♂️ | Full Your Golf Podcast �",
+      "summary": "Who needs more credit for their iron and wedge play? 🏌️‍♂️ Full Your Golf Podcast out now.",
+      "source": "Your Golf NCG",
+      "url": "https://www.youtube.com/watch?v=fj7DIrJ7UyI",
+      "publishedAt": "2026-10-17T11:18:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/fj7DIrJ7UyI/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Comment BOOM and I’ll send you the full driver setup breakdown 👇 Most golfers aim left with the",
+      "summary": "Comment BOOM and I'll send you the full driver setup breakdown Most golfers aim left with the driver and wonder why the ball ...",
+      "source": "Michael Kanev Golf",
+      "url": "https://www.youtube.com/watch?v=1VVToOP_IP4",
+      "publishedAt": "2026-10-17T11:11:25.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/1VVToOP_IP4/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Ejercicio en interior para mejorar tu swing - Andreu Golf",
+      "summary": "Un ejercicio para practicar el movimiento del swing sin salir del gimnasio o la sala de práctica. Sígueme para más consejos, ...",
+      "source": "Andreu Golf",
+      "url": "https://www.youtube.com/watch?v=UOlC6M0Q4fI",
+      "publishedAt": "2026-10-17T08:30:12.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/UOlC6M0Q4fI/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Fix Your Golf Swing Fast! ⛳🔥 #shorts #golf #golfswing #golftips",
+      "summary": "Fix Your Golf Swing Fast! ⛳ #shorts #golf #golfswing #golftips Want a better golf swing? ⛳ Learn how body sway, hip ...",
+      "source": "Golf spotlight",
+      "url": "https://www.youtube.com/watch?v=G2kucweKO-s",
+      "publishedAt": "2026-10-17T06:30:09.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/G2kucweKO-s/hqdefault.jpg"
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -11,6 +71,16 @@
       "url": "https://www.youtube.com/watch?v=XRHS81e_e38",
       "publishedAt": "2026-10-16T22:00:15.000Z",
       "thumbnail": "https://i.ytimg.com/vi/XRHS81e_e38/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Don’t miss this! Rapsodo’s mobile launch monitor is currently on sale for $129.99!",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE50U0FEdjdzMldfVVhUS0tmemJNa1pnZFN5LWdwTUkzU2M4UE1FVFlEUkZNM2NVTUJWeURvWERCN0pxRlI5bnk2aFVFY2VrXzZIMkFVaHluWnVuMjFGUEZ1RWRCbGM0VkRxWTJzWlRVQ2VJaEdVMXdaVm54T1lHX2s?oc=5",
+      "publishedAt": "2026-10-16T19:20:19.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -43,26 +113,6 @@
       "thumbnail": "https://i.ytimg.com/vi/VdoXVHF0WwA/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Shallowing, Full Swing or Shot Making? | Matt Baker Tip DEBUNKED",
-      "summary": "Stop trying to shallow the club” sounds like useful advice—until the move being demonstrated **isn't actually shallowing**.",
-      "source": "Swing Science by EgoFree Golf",
-      "url": "https://www.youtube.com/watch?v=qQU0DtVbsVs",
-      "publishedAt": "2026-10-16T14:26:41.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/qQU0DtVbsVs/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Train Swing Speed to Help Break 80 ⚡️",
-      "summary": "Building speed on my journey to break 80 more consistently. Here's my progression: 🏌️ 3 swings at 80% 🏌️ 3 swings at 90% ...",
-      "source": "Logan Golf",
-      "url": "https://www.youtube.com/watch?v=aQAvfxcFNEY",
-      "publishedAt": "2026-10-16T14:08:42.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/aQAvfxcFNEY/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "How Golf Monthly's Gear Finder Tool Can Help Find Your Next Clubs",
@@ -71,16 +121,6 @@
       "url": "https://news.google.com/rss/articles/CBMingFBVV95cUxPM3pVOEotbllwYVBPVHRNUG5BektsckVXNEthcUFTeXBIcXloRUJIT2FBbWVPRU5DSG8wdkttRFd2ZUdJb0t2QnhvQ3lNdndSVkI4aDZaX2VGbEpGRVBRLXZSX0xoSkN4UDlXaWlJQUU5U01ISlZiNWh4MTJBbUlrYmpuRnB5UjVCU1I0MnF4Zk1tZ1FGMWF0VHlYZEtwZw?oc=5",
       "publishedAt": "2026-10-16T13:32:39.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Take these tips to your Grave 🔥🙌🏻 #golf #golfswing #golftips #golfcoach",
-      "summary": "",
-      "source": "Golfslump",
-      "url": "https://www.youtube.com/watch?v=JRBLl2ue5vE",
-      "publishedAt": "2026-10-16T12:49:40.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/JRBLl2ue5vE/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -134,12 +174,12 @@
     },
     {
       "type": "article",
-      "category": "Courses",
-      "title": "Wild Rock Golf Club - Wild Rock Championship Course",
+      "category": "Trends",
+      "title": "This Week in Golf Gear",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQSEZJT2YtUGZDZGxwQXFncnE2RVpYcm03VEpYZG4zOU90cG0wYnA4QTdKWFZ1MWFxUUEybzNwc1FTZUJ4Q25vcHBiYWdXdFJUeGQtYnFHZHB6ZnQ5UHJoakxZc0R3YjhZbDl6Y2hnOFRScXZpTkYxSXBHQXZFX0ZnNEhSVTRQM2NaUnJJbnFxVW1LUVlqTC1pRkJlbjJUdy1YaE5xOGF3?oc=5",
-      "publishedAt": "2026-10-15T06:46:01.000Z",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE53ejcySjZhRTJZaTJfWEVVYTlnSF9zUVUwR3lYX0U4bE1sbXNiMGV1SnY1djkxNXdLSk5tUjViODNKdF91NmNFenlpNU94b0gyYnNVdWxkelROU0dscFhUWks3S1QtMjdvbWRQaw?oc=5",
+      "publishedAt": "2026-10-15T13:52:13.000Z",
       "thumbnail": ""
     },
     {
@@ -175,6 +215,16 @@
     {
       "type": "article",
       "category": "Trends",
+      "title": "Golf Balls: Expert golf ball reviews and product releases",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5CLTl1YzRPbV9TVk00R0Jrem1SQ2d4c3lBb1dfUmxoSkV3SlJnUmI3Q0w3bFk3RTFoekpTcEw4QVQxTXE1ZTZOZg?oc=5",
+      "publishedAt": "2026-10-14T18:28:45.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
       "title": "I Asked Our New AI Gear Finder To Recommend My Optimal Golf Ball (And Shot My Best Round In Months)",
       "summary": "",
       "source": "Golf Monthly",
@@ -184,12 +234,12 @@
     },
     {
       "type": "article",
-      "category": "Swing",
-      "title": "Shallow Your Swing for More Distance",
+      "category": "Trends",
+      "title": "How Do You Say \"En Fuego\" in Japanese? With A Miura x Curry Iron Collab, Of Course",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUU5jTVM0cUlIcGJiUDdMcGhvblk3VUxaZ3FpWUdsOUFpVzBqck9TaV9KTC1PR1lKbVVuTGR3cTJEb19UMEk0NmhmU25weVNydnQ3Yi1BejF1VWNrcDA3cUFHYS1pRHlRWjV0NW9RSWpKekQ3ZnFKTXNJWm13MkcwZ0ppQTVYX0lrOGxRUg?oc=5",
-      "publishedAt": "2026-10-14T16:12:16.000Z",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOX3ZTTWJVek5ucW94YVNxbmtLZUo2cTN6UWVnMmtGV0NhVmRGRFdDVjN1QXVQLWtpS014S2JVVnhxX2ZRVUxlY0tJaTAwY2pkTnFLVEVzT2ZLdzFsb1FZUUI4R1F3RmZBWHBYYlM5bFVPRWNJZkhOTjlBcjhQRWZPdGJ2UXk1WERSQTFUb205OUxtaVFId1R2dl9uSk5RTUNUSkxKNjRqcFNxMVVFenJhX2h1dlE?oc=5",
+      "publishedAt": "2026-10-14T14:27:09.000Z",
       "thumbnail": ""
     },
     {
@@ -209,16 +259,6 @@
       "summary": "",
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPaVIxcVN6ejFNWWhMT1FCV1pOU3RaV05GZGVhaVZLQS1WUUhCX2kyZklNbWJoaEdwV2ZxOV9jSG9WQjRRWm1uT0s1bTFlbWRqVjJ0RUR5UGI3SDJnYjBYVGJrbUx1WkFtMDd2WFR1bkdTYjJnOUZvQjJwMHdKbGVCUmI3MmJLOGRNQVdvSTNiNE1iOXdRRE13M1FQZS1UTkk1T05XQ191cktGTzd0cVBPSzY0dWlmY05sREhLVA?oc=5",
-      "publishedAt": "2026-10-14T14:27:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "How Do You Say \"En Fuego\" in Japanese? With A Miura x Curry Iron Collab, Of Course",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOX3ZTTWJVek5ucW94YVNxbmtLZUo2cTN6UWVnMmtGV0NhVmRGRFdDVjN1QXVQLWtpS014S2JVVnhxX2ZRVUxlY0tJaTAwY2pkTnFLVEVzT2ZLdzFsb1FZUUI4R1F3RmZBWHBYYlM5bFVPRWNJZkhOTjlBcjhQRWZPdGJ2UXk1WERSQTFUb205OUxtaVFId1R2dl9uSk5RTUNUSkxKNjRqcFNxMVVFenJhX2h1dlE?oc=5",
       "publishedAt": "2026-10-14T14:27:09.000Z",
       "thumbnail": ""
     },
@@ -260,46 +300,6 @@
       "source": "Golf Digest",
       "url": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNSkRvajh1cHJXZC1tTURxSFV6aVpqNWJmRVQ5TVJKT1lvUVd3MDdBU2lTY014aURvblMyanVTY3pvNGlTclFDMGxMUm9rRFVIMkVEcUREa0J1M0VFd00tSERQTFprUmNlNHlhSVNQQWY1OFBGTzd6NmRCbXpXVUNMQk42eDRXcFZXalFzWjdTaE9PbXJUYnRYanV5Zk9aelZYTm9Ma2hFZjdmdlIxQ2xRekxxVmRIYTZYTThPVG1GQy1ybGc4MzgtYS1R?oc=5",
       "publishedAt": "2026-10-13T15:17:14.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Should You Carry A Mini Driver Or A 3-Wood? Here’s What Golfers Told Us (And Where They Disagreed)",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFB6SXI3YXFIenBTMXdsUkpLOTJoSGVMY1M3YUhzVkhZV0J1OWVYV3JCOHRqZnhpSy10ZHl1MURIT3dyUUlnSmc?oc=5",
-      "publishedAt": "2026-10-13T15:07:08.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Are You Practicing Golf Or Practicing Your Launch Monitor Numbers?",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNaklCeWxySE9RQ1Z1VmluSUhsNHBBbnpreTY1Yi1paWN5a1RkdkhScUEtMlZLdGdDZ0s1dmdKTVhYcWVYMm1rWUJvaWxUcEdLWEVldWh0QS0wWGlTb3VKeVREUmpSYjVIQ184X0RGTEwxbmhpM2p1TEZybXctNGZGMF90U3JSVEZOU05Qc2RxdWR5bEppcnQ3S243SXd0MGI4RGw0d2FVdTI5YUN4NnpaV3h0RQ?oc=5",
-      "publishedAt": "2026-10-13T15:07:08.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Survey: Tell Us What Golf Ball You’re Really Playing",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQWldFSjRhQm5adjdnMTNnemVGcmdSWUVrWFlROWlnbTQtOFFmRXhKTC0xNVAzNlFqS2RMSWN5aDhwZ2wwUG1FQTN0ZDEwdFJPUW96YzR3bDVJTlk5THM4NHFuQnlRTm1XNVN4d0UzQ0hIYjJkSS16cWdBT1k1aHNKeFpUV1JXdGhPUFRUVDJUdw?oc=5",
-      "publishedAt": "2026-10-13T15:07:08.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "RedHawk Golf Course in Nampa, Idaho, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1VM0RTZTg4Q2ZUVF9fd1lWd2RvekpOV0FiellHeVJkSUZvdm83TGV2bmRfblRBeVg2VE8yOVotQktHM2RpMHJmU0JTdVlfLWEzZHludW9YNVZlQW9wYzZTRGc1WUdmdXVfdDFCNVBSOUdpWkI4Z1dmZ1VKMENzQQ?oc=5",
-      "publishedAt": "2026-10-13T11:15:59.000Z",
       "thumbnail": ""
     }
   ]
