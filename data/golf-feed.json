@@ -1,16 +1,116 @@
 {
-  "generatedAt": "2026-10-19T06:16:40.231Z",
+  "generatedAt": "2026-10-19T19:21:38.248Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Breaking 85: Holes 2 & 3 From the Tips at Sapona",
-      "summary": "Back-to-back bogeys on holes 2 and 3 at Sapona Golf Club, all from the tips. Can a 13 handicap still break 85? Hole 2 is a ...",
-      "source": "Kelin Thorpe",
-      "url": "https://www.youtube.com/watch?v=uDqclGEdgxA",
-      "publishedAt": "2026-10-19T02:56:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/uDqclGEdgxA/hqdefault.jpg"
+      "title": "Tiger Woods' SIMPLE Golf Glove Swing Drill",
+      "summary": "Tiger Woods demonstrates a simple golf swing drill using nothing more than a golf glove. By placing a glove under his armpit, ...",
+      "source": "Scratch Golf Tips",
+      "url": "https://www.youtube.com/watch?v=P3tXw7GVXLU",
+      "publishedAt": "2026-10-19T18:36:49.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/P3tXw7GVXLU/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "A feel and drill I use a lot with students to help understand rotation during the backswing",
+      "summary": "A feel and drill I use a lot with students to help understand rotation during the backswing. If you are interested in learning more ...",
+      "source": "Alex Clapp Golf",
+      "url": "https://www.youtube.com/watch?v=pt1om-8bnpc",
+      "publishedAt": "2026-10-19T17:07:04.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/pt1om-8bnpc/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Ball Position Made Simple: Driver to Wedge",
+      "summary": "Achieving consistent ball striking starts with understanding where the ball sits in your stance. This breakdown highlights why ball ...",
+      "source": "Kirk Junge (Setup4impact Golf)",
+      "url": "https://www.youtube.com/watch?v=14ARoA0vopI",
+      "publishedAt": "2026-10-19T16:56:24.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/14ARoA0vopI/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The National Golf Club of Louisiana in Westlake, Louisiana, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPVG9FNEswd0VRMWFEOER1MDdPSjlSRXBidjlwdmx3a01nNlhxM1JWZUxxZ0RGcjdLM1phXy1IMXNZZEtLRVVpUHJySnh4QTVLckVZU0FCLVowY1h5bUJzT1NmaFNlMVlWaTVjX0x1VjFPU2g5cENYMlE2YzRaUlFoaWdJN2lkQjNyeHFYU2U1V0owalE?oc=5",
+      "publishedAt": "2026-10-19T16:24:04.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "🏌️‍♀️ How to Hit a Driver in 16 Easy Steps ⛳ | Longer, Straighter Golf Drives!#GolfLessonTelevision",
+      "summary": "Want to hit LONGER and STRAIGHTER drives? Master your driver swing with these 16 easy golf tips! From the perfect grip and ...",
+      "source": "GolfLessonTelevision",
+      "url": "https://www.youtube.com/watch?v=CE09BzQtOHA",
+      "publishedAt": "2026-10-19T13:14:03.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/CE09BzQtOHA/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The Best Hidden Gem Golf Course In Each State",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQ0w5bW50R1dSVlRvdm92ZFN3QUQ4ZVZQUGZDYVUwUUpBRUlfSDdId0d6V21OUms0VkFMbUd0MlBESDFneHRRdWpIM1UzdU12LVRLYXEzdGp0aGJXSkVWckRtN2tyNTVmZXlIbVBLdHozRFFLaWFOZkZUMVk0RXJ5NXZna0xZRHNs?oc=5",
+      "publishedAt": "2026-10-19T12:02:22.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Golf Course Operators Think They Know What Golfers Want. Do They?",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE4yMnBTcHVTRXBKc0o1TUdLNlh6OTZMMnZGSFBaazFMbmY2dGNsN1ZjbkZUMmFpdTVVdWtsREZIRlFCRlRTNkE?oc=5",
+      "publishedAt": "2026-10-19T12:02:22.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "How to Hit Driver Made Simple - Golf Tips",
+      "summary": "Follow these simple golf driver swing basics if you want to learn how to hit your driver longer and straighter than ever before.",
+      "source": "Mark Crossfield",
+      "url": "https://www.youtube.com/watch?v=u36ADugaN8U",
+      "publishedAt": "2026-10-19T11:00:01.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/u36ADugaN8U/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "THE Never Fail Slice Fix For Your Golf Swing! #golf #slicefix #golftips",
+      "summary": "A simple and easy to setup slice fix drill for your training sessions. With this slice fix drill, you will straighten up your club path and ...",
+      "source": "Danny Bird Golf",
+      "url": "https://www.youtube.com/watch?v=PDWFLr0sTX8",
+      "publishedAt": "2026-10-19T03:27:27.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/PDWFLr0sTX8/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "School of Golf: Season 16: Chapter 5: Build a Better Backswing",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPckFOenZvTnB0QklnaUd3S191YXU5Y2dzN3dnNVdONFlKZUVXMG5EMkhkYko4TkFSUDFJQWN1cnQtV0xrSEY0amRYZ0tRbG1pQ3NNMmJQSjh3cXBPYkRSS0ZUQ0FlT2lEc3BoV0Q1c01jc3RfbnhkNHhoR05hT2d0VmZCZVY3V1U?oc=5",
+      "publishedAt": "2026-10-19T00:00:00.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Short Game",
+      "title": "“Draw Feel” Chipping Technique",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPU3ZnOWIwbERHMW1KVW9QeEk0TlZNdU91ZmFQVXM2THhuXzJCVGcyUmt6WW1jZmpPQXh1N2cxYTE2OFkzYzFRdGRTdWV6LVE2U1NIVkJBTURmdFJOQ3c5SHlfc0dNT3d0Z040THI0ZWxhMXI2LVp1Y1lHMnBJYzRaWUtB?oc=5",
+      "publishedAt": "2026-10-19T00:00:00.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -35,16 +135,6 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "🚨STOP SLICING IN 1-MINUTE with This Drill! ⛳️",
-      "summary": "Are you making great swings on the driving range but struggling to take those changes to the golf course? The problem might not ...",
-      "source": "Michael Wheeler Golf",
-      "url": "https://www.youtube.com/watch?v=T_fl1WsYC7c",
-      "publishedAt": "2026-10-18T21:09:16.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/T_fl1WsYC7c/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
       "title": "The Only Golf Swing Advice You Need #golf #golflife #shorts",
       "summary": "Swing with better golf tempo by adopting this Justin Rose technique. Designed specifically for golfers over 55, this approach ...",
       "source": "Jim LaBuda Golf",
@@ -63,36 +153,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "TRAIN YOUR GRIP. BUILD YOUR SWING. ⛳💪",
-      "summary": "TRAIN YOUR GRIP. BUILD YOUR SWING. ⛳ A better swing starts before you ever take the club back. The Stroke & Distance™ ...",
-      "source": "Stroke & Distance",
-      "url": "https://www.youtube.com/watch?v=xbblAuFdrIY",
-      "publishedAt": "2026-10-18T14:02:36.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/xbblAuFdrIY/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Perfect Golf Backswing! ⛳🔥 #shorts #golf #golfswing #golftips",
-      "summary": "Perfect Golf Backswing! ⛳ #shorts #golf #golfswing #golftips Master your golf backswing with these simple swing technique tips ...",
-      "source": "Golf spotlight",
-      "url": "https://www.youtube.com/watch?v=mkacKWvI4mI",
-      "publishedAt": "2026-10-18T12:33:00.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/mkacKWvI4mI/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "How To Complete Your Golf Backswing Like a Pro",
-      "summary": "In your backswing, you can't just turn your shoulders, you need to tilt them too. Follow this simple golf swing tip to learn how to hit ...",
-      "source": "Mark Crossfield",
-      "url": "https://www.youtube.com/watch?v=O0LP_ZcDTGk",
-      "publishedAt": "2026-10-18T11:00:10.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/O0LP_ZcDTGk/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Courses",
       "title": "Todd Creek Golf Club in Thornton, Colorado, USA",
@@ -100,16 +160,6 @@
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1YaFhPdzg2T1JUbXJzSEI1WlY0QU93QW5kdC02dnppUENkSmZMQnlJWnJhb2hQTmFYelNaOXFCLTNJS3lXY0U4RU1Yei02anZQY0lPUnlJSy1OR2tqVXhuSXBER3AyUGdGSlFzNHRBa1c4andycW43SkhmMFRuUGs?oc=5",
       "publishedAt": "2026-10-18T09:29:42.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Travel",
-      "title": "Brute at Grand Geneva Resort & Spa in Lake Geneva, Wisconsin, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPWUppUHBWeFJ3eC0zVUhtdXRfZmQ2RTVMaXRlZmhMN3NGN1F5cXlTT0h2MUs2dURFN1dFT2VtcG5MY3ltMUJrbjRFYVowU19JMjZZWkZaWWRHSGVxVXdxcENyWm12RE1ObTdaLXczR3RPSHY1NGVGWWNRT2NHZ2F0RVBFX3V0Qzk1NzdyTE1R?oc=5",
-      "publishedAt": "2026-10-17T21:11:38.000Z",
       "thumbnail": ""
     },
     {
@@ -131,6 +181,16 @@
       "url": "https://www.youtube.com/watch?v=hFZdzJHdVAQ",
       "publishedAt": "2026-10-17T12:00:17.000Z",
       "thumbnail": "https://i.ytimg.com/vi/hFZdzJHdVAQ/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Gear",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMiOkFVX3lxTE82Q3RSS1piaERlN0FCLXhWVjBDa3lhQkYtdEVXb1REdFl5dFNUNWtwYUNIbzdwRncydFE?oc=5",
+      "publishedAt": "2026-10-17T08:52:26.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -184,6 +244,16 @@
     },
     {
       "type": "article",
+      "category": "Travel",
+      "title": "This year, my golf holiday wish list is all about the little things",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOZzZCcGpSelFYb25WQW5EckQwWHVNYzl2UDNCTV9lNVE1ZG1HRGVnOXlaQUxWRFBJaW1PNzI2OUdCRDhkUjhmYWxBUnpqWVUxYXlFd2xqMUNSRmt0NGZuVmJuWEVRWk12RUx3VTlaQXlJQ3lMdkVaaGJQWkpuOTVwZg?oc=5",
+      "publishedAt": "2026-10-15T20:01:49.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Trends",
       "title": "Will The 2026 Toulon Golf Concept 59: Daytona Beach Putters Change How You See Your Putter?",
       "summary": "",
@@ -224,82 +294,12 @@
     },
     {
       "type": "article",
-      "category": "Trends",
-      "title": "For gear lovers, it’s the most wonderful time of the year",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE44cDhnbXhKNzY3WU4wcGlTNm50OTlMRDFiMDU0NzlzeVpNM0wyLUpVbEZkVmFocjFONXpaT1VNNGp3bmtVc1RCVmRNVmNPWXBzWHNhTEg1X2VlMXJScTB4bGtFZ3NwNDVPVy1n?oc=5",
-      "publishedAt": "2026-10-14T21:06:03.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Golf Balls: Expert golf ball reviews and product releases",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5CLTl1YzRPbV9TVk00R0Jrem1SQ2d4c3lBb1dfUmxoSkV3SlJnUmI3Q0w3bFk3RTFoekpTcEw4QVQxTXE1ZTZOZg?oc=5",
-      "publishedAt": "2026-10-14T18:28:45.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "I Asked Our New AI Gear Finder To Recommend My Optimal Golf Ball (And Shot My Best Round In Months)",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQdjlmZ2Q1djdlSnBhaGhaV2xXVmtsNHFpRnA4Nl9uM1gtejV1eFlERkE1dC1nNkVJemdRczVyNGVrWjJ5TGlaU2p5T2MzWFBFaS1uTFZfeEFYamFtSWM4NmZ0WXhNZlRPdG9xM05TV0RDZWwwaTVnT2Zub2pTTGNPNzFyWEdXX1BvM2c?oc=5",
-      "publishedAt": "2026-10-14T16:23:21.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Swing",
-      "title": "Shallow Your Swing for More Distance",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOUU5jTVM0cUlIcGJiUDdMcGhvblk3VUxaZ3FpWUdsOUFpVzBqck9TaV9KTC1PR1lKbVVuTGR3cTJEb19UMEk0NmhmU25weVNydnQ3Yi1BejF1VWNrcDA3cUFHYS1pRHlRWjV0NW9RSWpKekQ3ZnFKTXNJWm13MkcwZ0ppQTVYX0lrOGxRUg?oc=5",
-      "publishedAt": "2026-10-14T16:12:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "How Do You Say \"En Fuego\" in Japanese? With A Miura x Curry Iron Collab, Of Course",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOX3ZTTWJVek5ucW94YVNxbmtLZUo2cTN6UWVnMmtGV0NhVmRGRFdDVjN1QXVQLWtpS014S2JVVnhxX2ZRVUxlY0tJaTAwY2pkTnFLVEVzT2ZLdzFsb1FZUUI4R1F3RmZBWHBYYlM5bFVPRWNJZkhOTjlBcjhQRWZPdGJ2UXk1WERSQTFUb205OUxtaVFId1R2dl9uSk5RTUNUSkxKNjRqcFNxMVVFenJhX2h1dlE?oc=5",
-      "publishedAt": "2026-10-14T14:27:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "I’ve Got $600 to Spend on Irons. Here’s What I’d Buy",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNRnpqTmUzaGRJWnJPWGpadWlGS1NNTkpVTGVOdkJGR2hKS1NzN2N3bFRKdW1CWTY3V09mbXhoV1JBMDNkY1UwOHpHUzlXX0JDcjZSUWZiN1ZOVTh4VGg3dmktMEI3eklhMFB5bUpsMV8tYjBMZDBBNmxhSkNXWnVscWFtN1pIdXpiVHVr?oc=5",
-      "publishedAt": "2026-10-14T14:27:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Tour Pros Are Forced To Replace Their Driver Heads. Should You Be Worried About Yours?",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPaVIxcVN6ejFNWWhMT1FCV1pOU3RaV05GZGVhaVZLQS1WUUhCX2kyZklNbWJoaEdwV2ZxOV9jSG9WQjRRWm1uT0s1bTFlbWRqVjJ0RUR5UGI3SDJnYjBYVGJrbUx1WkFtMDd2WFR1bkdTYjJnOUZvQjJwMHdKbGVCUmI3MmJLOGRNQVdvSTNiNE1iOXdRRE13M1FQZS1UTkk1T05XQ191cktGTzd0cVBPSzY0dWlmY05sREhLVA?oc=5",
-      "publishedAt": "2026-10-14T14:27:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Miura and Steph Curry are partnering for ultra-limited iron set",
+      "title": "This putting guru’s simple drill helped me make more putts immediately",
       "summary": "",
       "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9VajRISlo5QV9jb2RuRHFoUHRhWUpHZGxFYXpFeXlJUUJTSGNLbF91dnl6Z1RSYUg0cVFRZHcyZFRualZRUTQ3N2drUnctTHlvZURoOU9xSzZoTkt0RllXRGQ5LVhGeXR5WmVDQlRibm1ueXhDZVhsTw?oc=5",
-      "publishedAt": "2026-10-14T00:32:51.000Z",
+      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBpN1RPMFg2dFV0LUhMMThFbkdmcHh3UXh5MHVrTEduRVBiSmIyTkphdXRPR3BLN2NPaTM5aV9iS0M2WDNqMU9HaDQ3NDViYnA0bTFpN3Q1OTlXYWliY0g3N0phd2RCSndLeUhXdjQ2Sl8wbjdUMGhUaWNqcXZUdw?oc=5",
+      "publishedAt": "2026-10-14T22:29:16.000Z",
       "thumbnail": ""
     }
   ]
