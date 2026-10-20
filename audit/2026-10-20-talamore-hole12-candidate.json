@@ -1,0 +1,111 @@
+{
+  "course_id": "7d40f020-3a44-4581-b7a6-f9bb584b7f17",
+  "generated_at": "2026-10-20",
+  "report_only": true,
+  "promotable": false,
+  "status": "candidate_requires_review",
+  "candidate": {
+    "hole_number": 12,
+    "par": 4,
+    "tee_lat": 35.2017748,
+    "tee_lng": -79.4062137,
+    "green_center_lat": 35.2036659,
+    "green_center_lng": -79.4091046,
+    "route_geojson": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -79.4062137,
+          35.2017748
+        ],
+        [
+          -79.4085332,
+          35.202724
+        ],
+        [
+          -79.4091046,
+          35.2036659
+        ]
+      ]
+    },
+    "osm_hole_uri": "https://www.openstreetmap.org/way/1087502869",
+    "source": "OpenStreetMap ODbL 1.0",
+    "validation_state": "review_required"
+  },
+  "source_evidence": {
+    "route": [
+      [
+        -79.4062137,
+        35.2017748
+      ],
+      [
+        -79.4085332,
+        35.202724
+      ],
+      [
+        -79.4091046,
+        35.2036659
+      ]
+    ],
+    "hole_source": {
+      "url": "https://www.openstreetmap.org/way/1087502869",
+      "version": "2",
+      "timestamp": "2025-06-24T19:05:47Z",
+      "tags": {
+        "golf": "hole",
+        "par": "4",
+        "ref": "12"
+      }
+    },
+    "course_source": {
+      "url": "https://www.openstreetmap.org/way/429298983",
+      "version": "13",
+      "timestamp": "2026-07-29T15:41:28Z"
+    },
+    "checks": {
+      "all_route_nodes_inside_course": true,
+      "tee_inside_tee_polygon": true,
+      "green_inside_green_polygon": true
+    },
+    "osm_response_sha256": "45e1dbe6804f7a37f79a3299429f4471d6a39d80f9c7101f4710b4b21c2e4938"
+  },
+  "declared_holes_evidence": {
+    "value": 18,
+    "url": "https://talamoregolfresort.com/talamore-golf-club/",
+    "evidence": "Official page labels its embedded tour Talamore 18-Hole Flyover Tour; catalog hole count remains null."
+  },
+  "visual_evidence": {
+    "official_page": "https://talamoregolfresort.com/talamore-golf-club/",
+    "playlist_url": "https://fast.wistia.net/embed/playlists/isad0gdtjg",
+    "media_id": "kowd338qtb",
+    "media_created_at": "2017-05-09",
+    "video_sha256": "ec4f12647fba282642679ea19cc45415d817ca8163f2c6f3c4a50347f1129839",
+    "reviewed_hole_12_seconds": [
+      156,
+      159,
+      162,
+      165
+    ],
+    "assessment": "Visible number 12 on computer-rendered tour; tee sequence, crossing path, dogleg and green-side features broadly correspond to NAIP corridor. Not positional survey or proof of current landscaping.",
+    "aerial_bbox": [
+      -79.4105,
+      35.2005,
+      -79.4055,
+      35.2045
+    ],
+    "aerial_size": [
+      1600,
+      1600
+    ],
+    "aerial_crs": "EPSG:4326",
+    "aerial_sha256": "e1e585c632c051c72e2d38c590c9a872be23fe31a6548410ccafd3676769f124",
+    "aerial_acquisition_date": "not verified"
+  },
+  "attribution": "© OpenStreetMap contributors, ODbL 1.0. Coordinates copied from explicitly numbered OSM trace, not derived from proprietary tour.",
+  "remaining_review": [
+    "Explain original import omission; exact importer rejection not yet established.",
+    "Catalog holes is null; any production update must resolve this with verified source evidence.",
+    "Full readiness/publishing review required; this report does not modify production."
+  ],
+  "existing_rows_preserved": 17
+}
