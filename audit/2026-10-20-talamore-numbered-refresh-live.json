@@ -1,0 +1,295 @@
+{
+  "report_only": true,
+  "promotable": false,
+  "armed": false,
+  "course_id": "7d40f020-3a44-4581-b7a6-f9bb584b7f17",
+  "proposals": [
+    {
+      "hole_number": 12,
+      "tee_lat": 35.2017748,
+      "tee_lng": -79.4062137,
+      "green_center_lat": 35.2036659,
+      "green_center_lng": -79.4091046,
+      "route_geojson": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -79.4062137,
+            35.2017748
+          ],
+          [
+            -79.4085332,
+            35.202724
+          ],
+          [
+            -79.4091046,
+            35.2036659
+          ]
+        ]
+      },
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087502869",
+      "osm_version": 2,
+      "osm_timestamp": "2025-06-24T19:05:47Z",
+      "source": "openstreetmap_numbered_trace_refresh",
+      "accepted": false
+    }
+  ],
+  "status": "complete_candidate_requires_review",
+  "missing_before": [
+    12
+  ],
+  "rejected": [],
+  "combined_rows": [
+    {
+      "par": 5,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2075741,
+      "tee_lng": -79.409403,
+      "hole_number": 1,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087537783",
+      "green_center_lat": 35.2046272,
+      "green_center_lng": -79.4136266,
+      "validation_state": "partial"
+    },
+    {
+      "par": 3,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2050791,
+      "tee_lng": -79.4143174,
+      "hole_number": 2,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087549109",
+      "green_center_lat": 35.2042012,
+      "green_center_lng": -79.4154944,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2029515,
+      "tee_lng": -79.4152855,
+      "hole_number": 3,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087549133",
+      "green_center_lat": 35.2024044,
+      "green_center_lng": -79.4114506,
+      "validation_state": "partial"
+    },
+    {
+      "par": 5,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2016463,
+      "tee_lng": -79.4108348,
+      "hole_number": 4,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087556275",
+      "green_center_lat": 35.2023734,
+      "green_center_lng": -79.4155867,
+      "validation_state": "partial"
+    },
+    {
+      "par": 3,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2035891,
+      "tee_lng": -79.4159899,
+      "hole_number": 5,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087556291",
+      "green_center_lat": 35.2037828,
+      "green_center_lng": -79.4172249,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2052892,
+      "tee_lng": -79.4168982,
+      "hole_number": 6,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087549117",
+      "green_center_lat": 35.206518,
+      "green_center_lng": -79.4141542,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2054741,
+      "tee_lng": -79.4125453,
+      "hole_number": 7,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087557784",
+      "green_center_lat": 35.2080682,
+      "green_center_lng": -79.4105729,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2071627,
+      "tee_lng": -79.4115619,
+      "hole_number": 8,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087559419",
+      "green_center_lat": 35.2102272,
+      "green_center_lng": -79.4118301,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2103703,
+      "tee_lng": -79.410986,
+      "hole_number": 9,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087561936",
+      "green_center_lat": 35.2078455,
+      "green_center_lng": -79.4098296,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2068237,
+      "tee_lng": -79.4087103,
+      "hole_number": 10,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087332336",
+      "green_center_lat": 35.2043333,
+      "green_center_lng": -79.4093252,
+      "validation_state": "partial"
+    },
+    {
+      "par": 5,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2038015,
+      "tee_lng": -79.4097973,
+      "hole_number": 11,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087499645",
+      "green_center_lat": 35.2012205,
+      "green_center_lng": -79.4066321,
+      "validation_state": "partial"
+    },
+    {
+      "hole_number": 12,
+      "tee_lat": 35.2017748,
+      "tee_lng": -79.4062137,
+      "green_center_lat": 35.2036659,
+      "green_center_lng": -79.4091046,
+      "route_geojson": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -79.4062137,
+            35.2017748
+          ],
+          [
+            -79.4085332,
+            35.202724
+          ],
+          [
+            -79.4091046,
+            35.2036659
+          ]
+        ]
+      },
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087502869",
+      "osm_version": 2,
+      "osm_timestamp": "2025-06-24T19:05:47Z",
+      "source": "openstreetmap_numbered_trace_refresh",
+      "accepted": false
+    },
+    {
+      "par": 3,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2039372,
+      "tee_lng": -79.408469,
+      "hole_number": 13,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087505790",
+      "green_center_lat": 35.2038812,
+      "green_center_lng": -79.4069306,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2045755,
+      "tee_lng": -79.4058856,
+      "hole_number": 14,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087514575",
+      "green_center_lat": 35.2073494,
+      "green_center_lng": -79.4066684,
+      "validation_state": "partial"
+    },
+    {
+      "par": 3,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2084318,
+      "tee_lng": -79.4063368,
+      "hole_number": 15,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087518250",
+      "green_center_lat": 35.2094249,
+      "green_center_lng": -79.4049903,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2079182,
+      "tee_lng": -79.4047473,
+      "hole_number": 16,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087522274",
+      "green_center_lat": 35.2092363,
+      "green_center_lng": -79.4010019,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2104438,
+      "tee_lng": -79.400934,
+      "hole_number": 17,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087524504",
+      "green_center_lat": 35.2099843,
+      "green_center_lng": -79.40387,
+      "validation_state": "partial"
+    },
+    {
+      "par": 4,
+      "source": "OpenStreetMap via Geofabrik ODbL",
+      "tee_lat": 35.2097249,
+      "tee_lng": -79.4055888,
+      "hole_number": 18,
+      "osm_hole_uri": "https://www.openstreetmap.org/way/1087529049",
+      "green_center_lat": 35.2074369,
+      "green_center_lng": -79.4081081,
+      "validation_state": "partial"
+    }
+  ],
+  "whole_course_validation": {
+    "ok": true,
+    "holes": 18
+  },
+  "boundary_source": {
+    "url": "https://www.openstreetmap.org/way/429298983",
+    "version": 13,
+    "timestamp": "2026-07-29T15:41:28Z"
+  },
+  "hole_count": 18,
+  "hole_count_evidence": {
+    "course_id": "7d40f020-3a44-4581-b7a6-f9bb584b7f17",
+    "holes": 18,
+    "verified": true,
+    "source_url": "https://talamoregolfresort.com/talamore-golf-club/",
+    "verified_at": "2026-10-20",
+    "evidence": "Official 18-Hole Flyover Tour; operator reviewed visible numbering 1-18."
+  },
+  "attribution": "© OpenStreetMap contributors, ODbL 1.0",
+  "sources": [
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/way/429298983/full.json",
+      "retrieved_at": "2026-10-20T16:20:00.095Z",
+      "http_status": 200,
+      "bytes": 36713,
+      "sha256": "33c501bdaff9f168affd1c03747f0f5a2177b4a940bdb5534f14a66126b0129b"
+    },
+    {
+      "url": "https://api.openstreetmap.org/api/0.6/map.json?bbox=-79.4181392,35.2008572,-79.4002219,35.2109966",
+      "retrieved_at": "2026-10-20T16:20:09.349Z",
+      "http_status": 200,
+      "bytes": 1908842,
+      "sha256": "bfd9cd989bec28f7e09ef4c5f64cfc5f74cf046a4b05594361e4a378699eda28"
+    }
+  ]
+}
