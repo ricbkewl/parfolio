@@ -3,6 +3,28 @@ const {lookupOfficialLayout}=require('../lib/gps-rollout/official-course-layout'
 const {createEastpointeReport}=require('../lib/gps-rollout/eastpointe-vision-report');
 const {createGatewayAnalyzeImage}=require('../lib/gps-rollout/vercel-ai-gateway-analyzer');
 const pageUrl='https://www.tpctrevisobay.com/course-tour';
+test('configured direct PDF is bounded, hashed and remains only a candidate',async()=>{
+ const url='https://official.test/course-map.pdf';const calls=[];
+ const result=await lookupOfficialLayout({pageUrl:url,fetchImpl:async(target,options)=>{
+  calls.push(target);assert.equal(options.redirect,'error');assert.ok(options.signal);
+  return new Response('%PDF-1.7 fixture',{headers:{'content-type':'application/pdf; charset=binary'}});
+ }});
+ assert.deepEqual(calls,[url]);assert.equal(result.status,'candidate_layouts_retrieved');
+ assert.equal(result.assets.length,1);assert.equal(result.assets[0].source_url,url);
+ assert.equal(result.sources[0].sha256.length,64);assert.deepEqual(result.discovered_assets,[]);
+});
+test('direct PDF invalid signature, oversized content, denial and redirect fail closed',async()=>{
+ const replies=[
+  async()=>new Response('<html>not a PDF</html>',{headers:{'content-type':'application/pdf'}}),
+  async()=>new Response('%PDF-1.7',{headers:{'content-type':'application/pdf','content-length':'9000000'}}),
+  async()=>new Response('',{status:403}),
+  async()=>{throw new TypeError('redirect');}
+ ];
+ for(const fetchImpl of replies){
+  const result=await lookupOfficialLayout({pageUrl:'https://official.test/map.pdf',fetchImpl});
+  assert.equal(result.status,'requires_source_review');assert.deepEqual(result.assets,[]);
+ }
+});
 test('official 403 records provenance and stops before imagery or AI',async()=>{
  const calls=[];
  const report=await createEastpointeReport({testCourse:'tpc_treviso_bay',settings:{AI_GATEWAY_API_KEY:'test',PARFOLIO_VISION_MODEL:'test'},read:async table=>table==='course_catalog'?[{id:'4d58741c-12f9-4e3d-8947-cf4d7f2c4190',name:'Tpc Treviso Bay',city:'Naples',country_code:'US',state_code:'FL',holes:18,latitude:26.0717667,longitude:-81.7335389,mapping_class:'location_pending'}]:[],fetchImpl:async(url,opts)=>{calls.push(url);assert.equal(opts.redirect,'error');return new Response('',{status:403});}})();
