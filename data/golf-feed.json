@@ -1,16 +1,116 @@
 {
-  "generatedAt": "2026-10-21T18:05:56.003Z",
+  "generatedAt": "2026-10-22T06:08:57.252Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | Lauren Lee",
-      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
-      "source": "GOLF Channel Shorts",
-      "url": "https://www.youtube.com/watch?v=8-_45_GFvuI",
-      "publishedAt": "2026-10-21T17:00:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/8-_45_GFvuI/hqdefault.jpg"
+      "title": "Slow your Golf Down to Speed it Up",
+      "summary": "Sometimes less is more in Golf! Slow it down, shorten it up and see where your game goes. Slowly add some more swing length ...",
+      "source": "Golf Reboot",
+      "url": "https://www.youtube.com/watch?v=T1WQ-EHX3_0",
+      "publishedAt": "2026-10-22T01:56:14.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/T1WQ-EHX3_0/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Swing and a Miss! Putting gone really wrong! #shorts #golf #fail #lifelessons",
+      "summary": "Yep its not just Hotsaws that can drive you crazy, forcefields around the cup will too!",
+      "source": "Wayne Lightning Paulsen",
+      "url": "https://www.youtube.com/watch?v=FvYQBShH5Qc",
+      "publishedAt": "2026-10-22T01:52:01.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/FvYQBShH5Qc/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Man O' War Golf Course in Myrtle Beach, South Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPR0pKVzBrS25YTHBic3hZWm40OUJMT0g3T3pjT3F3eVlGUHpqbGgxeWNoYlE2cGp0QUNmWWJYdlFRYUh4OU9ldDJZN083U2VMRmhEa0pwbF9aMkpWcjRwRlZQTVJNLWh3RjFRTXZHbnJ1QnpqMHI4QUtDZEZ2SnJlaA?oc=5",
+      "publishedAt": "2026-10-22T01:29:15.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Old Bridge Golf Club in Matawan, New Jersey, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4ya3k5ZE1RSkxLRC1Ibzk0cDJXZnJlNG5FSlE3MjhVSXNWZUZabFB1YmVRcFRIaUZvVzI0MjkxSFZnRUhzbVB1ODJyb1RnckF2N18zUVphTXhhMS0xdG03WXBib0RuWkpZdU5jdDN6QmtmbmVOT1A5WlZaNlZOWms?oc=5",
+      "publishedAt": "2026-10-21T21:02:43.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Swinging at 100% on Every Shot",
+      "summary": "Trying to swing as hard as possible on every golf shot can make it harder to develop control and consistency. In this golf lesson, ...",
+      "source": "ZLMNL",
+      "url": "https://www.youtube.com/watch?v=2e1fVgb8gnA",
+      "publishedAt": "2026-10-21T20:00:08.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/2e1fVgb8gnA/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "Too many swing thoughts can kill your golf game. Here’s how to avoid it",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBxNmUwSFNiWW5HSUl1TWw2ZGx6dnZnMTg1T1NHVkNyUUlweGdlQVRwcTNFdHFhN0hPWE9uMlRGRmtnVXdSN0hYTURzZnlaejhkMzRkZDVQVVJPUmJtR0R2REU0YkJ4WHZPdU1JREwxaWlLZFYwQTJZ?oc=5",
+      "publishedAt": "2026-10-21T19:36:23.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Why Swing Tips Don't Work the Same for Everyone",
+      "summary": "Why Swing Tips Don't Work the Same for Everyone! Feels are unique to the person. What works for one golfer is the exact ...",
+      "source": "Athletic Motion Golf",
+      "url": "https://www.youtube.com/watch?v=dWg4KaiNsBU",
+      "publishedAt": "2026-10-21T19:05:13.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/dWg4KaiNsBU/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf: what do your hands do when hitting driver?",
+      "summary": "Golf: what do your hands do when hitting driver? Here is my main feels with driver to square the face and how it differs to irons.",
+      "source": "Mason Domecq",
+      "url": "https://www.youtube.com/watch?v=g8pczBaJr3I",
+      "publishedAt": "2026-10-21T19:03:02.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/g8pczBaJr3I/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Struggling to hit the ball further no matter your age?",
+      "summary": "Discover how professional golf lessons unlock swing speed and power for any player! Whether you're 35 or 96, generating ...",
+      "source": "IMAGEN Golf - Golf Better Guaranteed!",
+      "url": "https://www.youtube.com/watch?v=BsxW0VlTfF8",
+      "publishedAt": "2026-10-21T18:21:04.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/BsxW0VlTfF8/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Is Amazon’s $18 Golf Ball Any Good? Ball Lab Has The Answer",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQcE5ZX3ZQSTFjY2ZsNTBLUlNjOHlKUmd3QWxFM0NxZHVJdFF6VDlaTFNNeWI1aENVbHFTTzJ0U1dIRWRoUXFGMUtyOUNGVW52T3hCX1czQURoMENBVDJNU2w2US1aSGlmelotb3FlXzgwa2l0QzZwaHJndlVwOWRDU1pfbUZ0YW1YeTFzQQ?oc=5",
+      "publishedAt": "2026-10-21T16:37:32.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "5 Tour Equipment Habits Our Testing Says You Should Copy (And 3 You Shouldn’t)",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNeldvd2JZWEppb09kRXF0X1Q0UW02eDNrdDZNeTdWZGxhMGlLMFJoa19zeUZRbkk5cS1NcmNyZVBvbWhzZkVPbUYzRURQUEZaZWw0eTZ0M3R6bWVsUE93SjJjejRzM09KVVRpa3Y2TXp4NUFLcC1MNGhWM0pVTzA1VEgwaks0X29jSlFRc0xKZTBxY20wQUtDZ3lWVnFBZnp3TWhHb3ZERDhJM2NXYV9Weg?oc=5",
+      "publishedAt": "2026-10-21T16:37:32.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -25,42 +125,12 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Comment SMASH and I’ll send you my 3 FREE driver drills 🏌️‍♂️ Still coming over the top? Give",
-      "summary": "Comment SMASH and I'll send you my 3 FREE driver drills 🏌️‍♂️ Still coming over the top? Give these two drills a go next time ...",
-      "source": "Damon Wood Golf",
-      "url": "https://www.youtube.com/watch?v=C-NUK51DZMA",
-      "publishedAt": "2026-10-21T15:20:32.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/C-NUK51DZMA/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "The Secret Golf Leg Trick That’s Pure Cheating 🤫⛳️ #shorts #facts",
-      "summary": "It looks like a lucky recovery, but it's pure deception! Find out how golfers use hidden devices attached to their shoes and legs to ...",
-      "source": "Facts Vault",
-      "url": "https://www.youtube.com/watch?v=IUQzJeVXV6E",
-      "publishedAt": "2026-10-21T14:30:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/IUQzJeVXV6E/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "3 Signs Your Backswing Is Too Long",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTFA0dXJmVkMtQnNkZGxRT1ItOV82a0hKZGtrXzlmMk1YaHdzMXQwdThKQ1hpUmR2ZE1zeXZ6UktOWllYMUtWYlE?oc=5",
-      "publishedAt": "2026-10-21T13:58:33.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Why older golfers lose distance and accuracy #golf #golftips #golfswing",
-      "summary": "Stop rushing your downswing sequence and start swinging with control. Many amateurs try to swing harder from the top, causing ...",
-      "source": "Jim LaBuda Golf",
-      "url": "https://www.youtube.com/watch?v=IjBBZANMq6Q",
-      "publishedAt": "2026-10-21T12:30:09.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/IjBBZANMq6Q/hqdefault.jpg"
+      "title": "Knock down #dailycoaching #golfinstruction",
+      "summary": "You don't need to make complicated swing changes to hit a great knockdown iron shot. At Daily Coaching, we believe in keeping ...",
+      "source": "DailyCoaching",
+      "url": "https://www.youtube.com/watch?v=KDfHf0VFKNU",
+      "publishedAt": "2026-10-21T12:00:34.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/KDfHf0VFKNU/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -75,6 +145,26 @@
     {
       "type": "article",
       "category": "Trends",
+      "title": "Shop L.A.B. Golf's limited-edition Black Cherry putters while they last! | Gear",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1GWEY3bDM1X3F6R3FyN2ktLWpQVjIwdGdIYlNWd0x4YlVTUEZxOFgtVkcxSWx1TEhzZFI1TGk2cTdQaU9TcHY2WTBtV2ZFbzF0YXZHa2NRLXJTX251MVNLVzQyX245UThlMTJDc1RscERQeU0?oc=5",
+      "publishedAt": "2026-10-21T10:56:46.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Your hips might be the reason you can’t hit it consistently #golf #golfcoach #golfinstruction",
+      "summary": "If you're standing up through impact, getting stuck, or struggling with contact, try this drill. The Chair Drill teaches you how to ...",
+      "source": "Tanner Barnhard",
+      "url": "https://www.youtube.com/watch?v=6T9cVtW5hZo",
+      "publishedAt": "2026-10-21T01:33:49.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/6T9cVtW5hZo/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
       "title": "I had one of my best competitive years in 2026. Here’s how my gear helped me",
       "summary": "",
       "source": "GOLF.com",
@@ -83,24 +173,14 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Try this when you practice next #golfswing #golf #golftips",
-      "summary": "Give these practice tips a go I have 3 videos you can watch to help improve your compression, ball flight and consistency of strike ...",
-      "source": "Andy Carter Golf",
-      "url": "https://www.youtube.com/watch?v=OA9nsJ42qIg",
-      "publishedAt": "2026-10-20T21:13:23.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/OA9nsJ42qIg/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Chip alrededor del green: controla las manos y el palo - Andreu Golf",
-      "summary": "Chip alrededor del green: evita adelantar las manos, extiende los brazos y deja que el palo suba y pase por la bola. Sígueme ...",
-      "source": "Andreu Golf",
-      "url": "https://www.youtube.com/watch?v=Ee7yu9NYkc4",
-      "publishedAt": "2026-10-20T16:00:27.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/Ee7yu9NYkc4/hqdefault.jpg"
+      "type": "article",
+      "category": "Courses",
+      "title": "Oxbow Creek Golf Course in Columbus, Georgia, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOVEpZdmFURzd2QnA3SUZXc0JzbkhWOWdrWlZRSmRTZ21scElneFZuQmNDdWZyeTE2Z1ZqdUdXcVRhMUx6ejV3S2pOOWZuQmVXZVFIMk56TWdqN1lQZGRPaVdWZ25VbGpwcE1WM0h1bERlbzkwU0xFcHQ2WngtMGxGeTlR?oc=5",
+      "publishedAt": "2026-10-20T17:27:59.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -111,26 +191,6 @@
       "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOWVVFMlRQOGVVc2gtTkV4WFZvRGZRY01QSFBrWnd0SFRJUllIWl9fdHE1ZDBFY2lMVkh1Wm01aE9sSjQyM3Q2OTVqT0hfZzB1eUEtSlp1azcyMEl6X3p5ZkgtdzRGcHh6WTgwdEtOUnNzS3A1YjJuQ0U2QzdfVFJJeGhPU19TRG1sMU9KZ01aNVA?oc=5",
       "publishedAt": "2026-10-20T13:55:56.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Tips for Beginners | 3 Quick Fixes: Bunker, Chipping & Driver Setup #shorts⁠",
-      "summary": "Master essential golf tips for beginners with 3 quick on-course fundamentals taught by a pro coach covering bunker sand escapes ...",
-      "source": "Trendy VS Vlogs",
-      "url": "https://www.youtube.com/watch?v=S5CTBY6UyeU",
-      "publishedAt": "2026-10-20T12:37:29.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/S5CTBY6UyeU/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Low point control for great pitching! #dailycoaching",
-      "summary": "Want to hit better pitch shots and get the ball closer to the hole? It all starts with LOW POINT CONTROL! At Daily Coaching, we ...",
-      "source": "DailyCoaching",
-      "url": "https://www.youtube.com/watch?v=w0n0DHG1kKo",
-      "publishedAt": "2026-10-20T12:00:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/w0n0DHG1kKo/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -173,16 +233,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Essential Golf Tips to Fix Your Slice and Hook by Daniel Ladner",
-      "summary": "EssentialGolfTips #GolfSwingTips #FixGolfSlice #golfforbeginners Essential Golf Tips to Fix Your Slice and Hook will help you ...",
-      "source": "Daniel Ladner",
-      "url": "https://www.youtube.com/watch?v=SkEaaKNTHvA",
-      "publishedAt": "2026-10-20T10:31:21.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/SkEaaKNTHvA/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "Which Miura Iron Is Right For You In 2026? Every Model Tested",
@@ -190,16 +240,6 @@
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOc2tNbmNoVzV0aG1pQ2ZENWVBRldqQkdOWDFkQ2RWZkdYVFVzT2JVaEVoMzZLNmtlWGFFU0F5SDdtMy1PcV9TbmZZa3NvemMyNVNqcGhORGVBdEFRWmZMWi1oN3NwOUNqNGtNNDk1Q3NLaVJGbjZQdEI4V3BXYi11V2VlNF9fYXRRRlU5QWoyenZfN2g3cmFvM2pTMG9KZVp2RDVrdg?oc=5",
       "publishedAt": "2026-10-20T10:00:13.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Jones at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNbWd0Sm1HN09Kd1RwMmRyVzB0WGtEcURmZVBZQzJ1SFMtSHNPajFVQ0dueVZ6cWFyNlFqNWdzWkRpcW9MYlVabURkSU9ES1hQN0xnR3BmZzBsMFJ1ZDJRQ2xkMHp1eThXOTV0OTVzWGhFQWhiUUtOMkM3ZF81SGNoS0dDTHhZVl9pdWc2clpEUEJvTFN1OW8xQndYQU1vVklvZzlockI5WV9QUQ?oc=5",
-      "publishedAt": "2026-10-19T22:25:32.000Z",
       "thumbnail": ""
     },
     {
@@ -260,46 +300,6 @@
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNU1dJRzF6QmtzeTFoR2RnUU81VGZ2S1Q4VE9xd0ZNUU9NZ2t0OUg2N0oxaWtKSnZfN1VpY19SZ2IzdnpMZ1pSX3hTX0lwTTAzamwxWkRGeDFaRXhUUzBUVlFvZFp4OUtpcnNuSF92VklUOXJIVmZLR21fOEhnUUJSXw?oc=5",
       "publishedAt": "2026-10-19T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Chapter 5: Build a Better Backswing",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPckFOenZvTnB0QklnaUd3S191YXU5Y2dzN3dnNVdONFlKZUVXMG5EMkhkYko4TkFSUDFJQWN1cnQtV0xrSEY0amRYZ0tRbG1pQ3NNMmJQSjh3cXBPYkRSS0ZUQ0FlT2lEc3BoV0Q1c01jc3RfbnhkNHhoR05hT2d0VmZCZVY3V1U?oc=5",
-      "publishedAt": "2026-10-19T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "“Draw Feel” Chipping Technique",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPU3ZnOWIwbERHMW1KVW9QeEk0TlZNdU91ZmFQVXM2THhuXzJCVGcyUmt6WW1jZmpPQXh1N2cxYTE2OFkzYzFRdGRTdWV6LVE2U1NIVkJBTURmdFJOQ3c5SHlfc0dNT3d0Z040THI0ZWxhMXI2LVp1Y1lHMnBJYzRaWUtB?oc=5",
-      "publishedAt": "2026-10-19T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "How PGA Tour's best putter warms up before every round | Instruction",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE12ZWZMWDh2bk4teVQtOENabDJMWVZxcHpFdk5nQ0dCR1ZxeUlMZERhUG5yOVctNEU2QnRUUHJ0NThwTEZRUFZLNXJLUWNpeDFORWxKQW9PdzVoMWV0TWxDQUpyX3Z2UGpacVRlM0F3?oc=5",
-      "publishedAt": "2026-10-18T16:50:10.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Todd Creek Golf Club in Thornton, Colorado, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1YaFhPdzg2T1JUbXJzSEI1WlY0QU93QW5kdC02dnppUENkSmZMQnlJWnJhb2hQTmFYelNaOXFCLTNJS3lXY0U4RU1Yei02anZQY0lPUnlJSy1OR2tqVXhuSXBER3AyUGdGSlFzNHRBa1c4andycW43SkhmMFRuUGs?oc=5",
-      "publishedAt": "2026-10-18T09:29:42.000Z",
       "thumbnail": ""
     }
   ]
