@@ -1,16 +1,76 @@
 {
-  "generatedAt": "2026-10-22T18:01:28.008Z",
+  "generatedAt": "2026-10-23T06:04:33.046Z",
   "youtubeEnabled": true,
   "items": [
     {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Ultimate Golf Performance Bridging the Gap Between Strength Training and the Golf Swing Where scienc",
+      "summary": "CHÀO MỪNG ĐẾN VỚI BREAK 100 GOLF TV! 18 HỐ – 1 MỤC TIÊU – DƯỚI 100 GẬY! BREAK 100 GOLF TV là kênh YouTube ...",
+      "source": "BREAK 100 GOLF TV",
+      "url": "https://www.youtube.com/watch?v=Nom1xstrQ9Y",
+      "publishedAt": "2026-10-23T04:49:44.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Nom1xstrQ9Y/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This golf drill and range hack is fire!",
+      "summary": "This golf drill and range hack is fire! Tom Gillis is a veteran PGA Pro with years of teaching and playing the game of golf!",
+      "source": "Tom Gillis Golf Instruction",
+      "url": "https://www.youtube.com/watch?v=lj_DCPsqQR4",
+      "publishedAt": "2026-10-23T02:00:33.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/lj_DCPsqQR4/hqdefault.jpg"
+    },
+    {
       "type": "article",
-      "category": "Trends",
-      "title": "This Week in Golf Gear",
+      "category": "Courses",
+      "title": "Old Bridge Golf Club in Matawan, New Jersey, USA",
       "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBldHNUQUxQbU03ZmYxRGVCNGN1REpzcGpCR0FiLTJGUXgxd1hxd3U1aDJxaGhFSXNHNUZIUDhyMEVHaTJPNjh3OE1kRE9xLWRudDFOY2ljY0RlcUlFeF9PWHUxYkdwYng1VGd3Vg?oc=5",
-      "publishedAt": "2026-10-22T14:47:33.000Z",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4ya3k5ZE1RSkxLRC1Ibzk0cDJXZnJlNG5FSlE3MjhVSXNWZUZabFB1YmVRcFRIaUZvVzI0MjkxSFZnRUhzbVB1ODJyb1RnckF2N18zUVphTXhhMS0xdG03WXBib0RuWkpZdU5jdDN6QmtmbmVOT1A5WlZaNlZOWms?oc=5",
+      "publishedAt": "2026-10-23T00:51:45.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Eliminate Back Pain Playing Golf #golftips #golf #short",
+      "summary": "Here's a very important tip if you want to eliminate back pain playing golf. This is the latest, greatest thing golfers are being told to ...",
+      "source": "Paul Wilson Golf",
+      "url": "https://www.youtube.com/watch?v=zdzIcT4Dq6I",
+      "publishedAt": "2026-10-22T23:42:05.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/zdzIcT4Dq6I/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Resort at Tahquitz Creek Golf Resort in Palm Springs, California, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxQYWdVQVdRRWpUWVFWOWd0cWdNNWpWQ2dkZXdMclNfdGh5THZKM1Ezamw5NVVybmVPYTl0NktJdUNLdmhlLUFvbkpvc0d0REJwNkUxSDZpd3UzUHdoNzJNRlZ2b0pSUlk1TUdqa3c5bjZoNVl0WEVXVXRzbmh5MWNDWXZ4OERoMzZWV1BjdWgtcWtEX2Ns?oc=5",
+      "publishedAt": "2026-10-22T23:26:43.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Callaway Swing-Easy: Can a $15 Gadget Fix Your Golf Swing? #Shorts",
+      "summary": "Check today's price: https://link.amazon/B016gqSgq Shop all my picks: https://www.amazon.com/shop/aldente0e Callaway ...",
+      "source": "Internet Product Reviews",
+      "url": "https://www.youtube.com/watch?v=UV29tvlsGVM",
+      "publishedAt": "2026-10-22T22:22:21.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/UV29tvlsGVM/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf: swing feels off? Review swing footage!",
+      "summary": "Golf: swing feels off? Review swing footage! Use an app like Eagle, who I partner with, to analyze your swing and start to ...",
+      "source": "Mason Domecq",
+      "url": "https://www.youtube.com/watch?v=TbtyN8Exqn4",
+      "publishedAt": "2026-10-22T22:06:11.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/TbtyN8Exqn4/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -23,14 +83,24 @@
       "thumbnail": ""
     },
     {
+      "type": "article",
+      "category": "Trends",
+      "title": "Limited-Edition Vokey Signature 60M Wedge Marks The Return Of Slate Blue",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPOERPdHRlYVcxWU10NEU2V0Z3dUd0aUVvdnhJSUpqTEg3NmtVaUt3TG9rRzhwZ0x2RW5CMS1LdURBXzlITTFjM2Viem80Z3FYLVlkZ0lpY2dvQ2ZFdFFIXzZESnkzMEE3TUFZNVB1dWVHb2p3TGtsODBQcU9RV09rUG5VR3J3QzNpRkJwbnlCRjBqRFh3aUJYVU90OEtUX3VrMnA4cFpGY1NJS25J?oc=5",
+      "publishedAt": "2026-10-22T14:47:33.000Z",
+      "thumbnail": ""
+    },
+    {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Golf: driver set up keys to control the ball",
-      "summary": "Golf: driver set up keys to control the ball Here is some key moves on the driver to differentiate your irons and get nice height and ...",
-      "source": "Mason Domecq",
-      "url": "https://www.youtube.com/watch?v=L9j9yCD-Glo",
-      "publishedAt": "2026-10-22T14:46:40.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/L9j9yCD-Glo/hqdefault.jpg"
+      "title": "This key movement of pressures during your golf swing help strike the ball better, and control",
+      "summary": "This key movement of pressures during your golf swing help strike the ball better, and control strike. Give it a try! If you are ...",
+      "source": "Alex Clapp Golf",
+      "url": "https://www.youtube.com/watch?v=Uy7WBSmsxUo",
+      "publishedAt": "2026-10-22T13:06:55.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Uy7WBSmsxUo/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -74,16 +144,6 @@
     },
     {
       "type": "article",
-      "category": "Courses",
-      "title": "Old Bridge Golf Club in Matawan, New Jersey, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE4ya3k5ZE1RSkxLRC1Ibzk0cDJXZnJlNG5FSlE3MjhVSXNWZUZabFB1YmVRcFRIaUZvVzI0MjkxSFZnRUhzbVB1ODJyb1RnckF2N18zUVphTXhhMS0xdG03WXBib0RuWkpZdU5jdDN6QmtmbmVOT1A5WlZaNlZOWms?oc=5",
-      "publishedAt": "2026-10-21T21:02:43.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Swing",
       "title": "Too many swing thoughts can kill your golf game. Here’s how to avoid it",
       "summary": "",
@@ -91,36 +151,6 @@
       "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBxNmUwSFNiWW5HSUl1TWw2ZGx6dnZnMTg1T1NHVkNyUUlweGdlQVRwcTNFdHFhN0hPWE9uMlRGRmtnVXdSN0hYTURzZnlaejhkMzRkZDVQVVJPUmJtR0R2REU0YkJ4WHZPdU1JREwxaWlLZFYwQTJZ?oc=5",
       "publishedAt": "2026-10-21T19:36:23.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Fix Your Golf Swing Before It Starts! Pro Tips for Beginners #GolfTips #ImproveYourGame",
-      "summary": "Unlock Your Best Golf Swing! Is your swing suffering before you even take a shot? Discover the game-changing secret that ...",
-      "source": "Kerrod Gray Golf",
-      "url": "https://www.youtube.com/watch?v=8Y1smcB0Jqw",
-      "publishedAt": "2026-10-21T19:15:53.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/8Y1smcB0Jqw/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Why Swing Tips Don't Work the Same for Everyone",
-      "summary": "Why Swing Tips Don't Work the Same for Everyone! Feels are unique to the person. What works for one golfer is the exact ...",
-      "source": "Athletic Motion Golf",
-      "url": "https://www.youtube.com/watch?v=dWg4KaiNsBU",
-      "publishedAt": "2026-10-21T19:05:13.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/dWg4KaiNsBU/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Struggling to hit the ball further no matter your age?",
-      "summary": "Discover how professional golf lessons unlock swing speed and power for any player! Whether you're 35 or 96, generating ...",
-      "source": "IMAGEN Golf - Golf Better Guaranteed!",
-      "url": "https://www.youtube.com/watch?v=BsxW0VlTfF8",
-      "publishedAt": "2026-10-21T18:21:04.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/BsxW0VlTfF8/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -184,6 +214,16 @@
     },
     {
       "type": "article",
+      "category": "Courses",
+      "title": "Meadows/Creekside at Traces Golf Club, The in Florence, South Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxORDhHUVZXNDVZV2xudlY3enY4bi1KbjdzYzNObkNKN3BhMTFJaDh5aXlxdjhRcWJQU1JCX2pGR1o1NzlibGJLNGRMLVJhamtsM012TmJ6OV9oQlJHZnhPVGJqXy1tZEtyQUEyTERzVU50cWlsVEw4UnpnQ18wTFA5a0EtVHEwRDl6a2xQRkJrcnJ6TEdWZ1VqamFsYw?oc=5",
+      "publishedAt": "2026-10-20T12:12:11.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Swing",
       "title": "MyGolfSpy Drill Of The Week: The Lead Arm Drill",
       "summary": "",
@@ -224,16 +264,6 @@
     },
     {
       "type": "article",
-      "category": "Courses",
-      "title": "Rutgers University Golf Course in Piscataway, New Jersey, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNd3cwV2oxVXBWczVBRXltamJzUGxCSnB2RkE0ODBZUGwyZmsyQThtTFFrT21LQkJmaTdGNmJISVI5YzcxRFJUTUlTUGpqMmQxcmlTTU1UM0VWdzBBRHkyd25IMEFyT3M1NXQwU1QzWDNqd2tqRTdDakxlUXlDNWtPaWtIdVRJQ0tSUVVF?oc=5",
-      "publishedAt": "2026-10-20T09:03:40.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Trends",
       "title": "Eugenio Chacarra's long putter looks a little different. Here's the long story behind it | Gear",
       "summary": "",
@@ -263,44 +293,14 @@
       "thumbnail": ""
     },
     {
-      "type": "article",
-      "category": "Courses",
-      "title": "The Best Hidden Gem Golf Course In Each State",
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "You’re Missing This In Chipping!",
       "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQ0w5bW50R1dSVlRvdm92ZFN3QUQ4ZVZQUGZDYVUwUUpBRUlfSDdId0d6V21OUms0VkFMbUd0MlBESDFneHRRdWpIM1UzdU12LVRLYXEzdGp0aGJXSkVWckRtN2tyNTVmZXlIbVBLdHozRFFLaWFOZkZUMVk0RXJ5NXZna0xZRHNs?oc=5",
-      "publishedAt": "2026-10-19T12:02:22.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Golf Course Operators Think They Know What Golfers Want. Do They?",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE4yMnBTcHVTRXBKc0o1TUdLNlh6OTZMMnZGSFBaazFMbmY2dGNsN1ZjbkZUMmFpdTVVdWtsREZIRlFCRlRTNkE?oc=5",
-      "publishedAt": "2026-10-19T12:02:22.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Irons",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiQkFVX3lxTE1ReE8tVHdhWGVLX0tlRXNJbnc3X3lzREtGOXBfaFZkUUlvOW1FMmw2RTc5a0NCVWR5Z1kwTWlpdWRxQQ?oc=5",
-      "publishedAt": "2026-10-19T10:35:30.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Backswing Turn and Tilt Drill",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNU1dJRzF6QmtzeTFoR2RnUU81VGZ2S1Q4VE9xd0ZNUU9NZ2t0OUg2N0oxaWtKSnZfN1VpY19SZ2IzdnpMZ1pSX3hTX0lwTTAzamwxWkRGeDFaRXhUUzBUVlFvZFp4OUtpcnNuSF92VklUOXJIVmZLR21fOEhnUUJSXw?oc=5",
-      "publishedAt": "2026-10-19T00:00:00.000Z",
-      "thumbnail": ""
+      "source": "Harry Shaw Golf",
+      "url": "https://www.youtube.com/watch?v=toGlN2i7ybw",
+      "publishedAt": "2026-10-19T13:00:02.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/toGlN2i7ybw/hqdefault.jpg"
     }
   ]
 }
