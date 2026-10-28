@@ -1,26 +1,96 @@
 {
-  "generatedAt": "2026-10-28T06:53:22.500Z",
+  "generatedAt": "2026-10-28T18:53:33.617Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Too Close or Too Far? | Golf Tips with Jonathan Jacobson ⛳ #Shorts",
-      "summary": "Too close to the ball? Too far away? Let your club guide you! ⛳ Jonathan Jacobson, Golf Director of the Little Golf Trust and ...",
-      "source": "Sally Little | Golf Legacy & Giving",
-      "url": "https://www.youtube.com/watch?v=zgaL9Yz4vQI",
-      "publishedAt": "2026-10-28T06:14:53.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/zgaL9Yz4vQI/hqdefault.jpg"
+      "title": "Swing the clubhead, release the hands for square contact and speed! #swingspeed #golftips #winnipeg",
+      "summary": "Struggling with weak solid contact? Over turning swinging harder and getting less out of it?! You can have the best tour pro turn ...",
+      "source": "Barry & Tammy Gibson - Over50Golf",
+      "url": "https://www.youtube.com/watch?v=GOaG3v9oenc",
+      "publishedAt": "2026-10-28T18:30:32.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/GOaG3v9oenc/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "How Far To Stand From The Golf Ball (Driver Versus Irons)",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNRjlOSTVVY0JQSnNwdFRrc0dDVG45R0lfNlBkR2gzd1QxR1ZHN1M5QkVGNnhmbm5kR0tDdlZFNlJxUDlyb3lRTm5wdEZCY0ttNkY4cUhxR2ZYcWtmTnZGNFcyLW1oY3EwbWNnQ1VJY3ZxSmJVUjBScGUzenZ4WUtGWjV1dFdVZWpMRVNCTm5zdHFlcUotQjNNajlQbDVQWDdhUndkcVB3?oc=5",
+      "publishedAt": "2026-10-28T18:23:03.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Stop Slicing Your Driver FOREVER! ⛳️👀 #shorts #golf",
-      "summary": "Struggling with an annoying slice off the tee? In this short video, learn how one simple alignment stick drill can immediately fix ...",
-      "source": "Golf spotlight",
-      "url": "https://www.youtube.com/watch?v=yiuwd3feXaY",
-      "publishedAt": "2026-10-28T04:35:50.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/yiuwd3feXaY/hqdefault.jpg"
+      "title": "Live Highlights",
+      "summary": "About the SnapSwing Channel SnapSwing is a golf channel dedicated to helping you build a better swing through golf lessons, ...",
+      "source": "스냅스윙(김사부)",
+      "url": "https://www.youtube.com/watch?v=rArKFejFA-4",
+      "publishedAt": "2026-10-28T17:02:59.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/rArKFejFA-4/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | #shorts #golf",
+      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
+      "source": "GOLF Channel Shorts",
+      "url": "https://www.youtube.com/watch?v=BGKzKuGmL3U",
+      "publishedAt": "2026-10-28T17:00:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/BGKzKuGmL3U/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Blade vs Game Improvement Irons: The Real Performance Difference",
+      "summary": "",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQTFRmRHpSYVZOY21MMTRObElmdWkxLVdOcEFCemgxTFNjOGQtcDU2TnVYNGw1Y1RrN2tKdVo3V1R3Z1Q1V3RaTzBBMUFOUXpoTlVkcFF0R3RCYjZWS2hKQUJQdXg3eWpBZHNoSDA1YUxjVkNOOFNCczExV3ZJNGpQNzQyd1NqYmVtZlN2VkJpTDFYUElPNGdFbnZncXgzdjZqR2c?oc=5",
+      "publishedAt": "2026-10-28T15:00:27.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Chunking Chips: Weight Forward, Hands Ahead | Fairway Freddie Golf Tip",
+      "summary": "Chunking your chips? Most chunked chips come from weight hanging back and wristy hands. Set most of your weight on your ...",
+      "source": "BookMoreTeeTimes",
+      "url": "https://www.youtube.com/watch?v=vdzbIannTNU",
+      "publishedAt": "2026-10-28T14:32:01.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/vdzbIannTNU/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "TempoKing Swing Trainer Review: A Training Club You Can Hear",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTdSazNvVUlNTWM2bHlNTGF3OTlkdXQ1a1puekF2OUZKUWtocGk0Wm5ZYjlDQlZOOHBoMnJDaGxPNkM4MUhBYjJKYk5weVRZVFY4Y2JkNFVoLVJ4dm9HR2FzOWhVRC1WNFA0M2t4WS1KWElNMDlaaDQzZ3VHMnhJWXJWbEZFa0FTMEF4X2xtNmVkVXF5a1FzM0xn?oc=5",
+      "publishedAt": "2026-10-28T13:50:28.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "MGS Mailbag: The Truth About Iron Lofts",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE91VzlFMXliYUpoUHhYMTdNSEVyZnVRVTUtYzhpdTYtUnZ6Tm52TDhHMkdEenFMYWdaQWo4RjVENEQtOEVJcm5UY2FsLUNPZ0M0dGFaYU02blRIdTRFUnBnb1Q3akRibkJIQzh0M2EzZ1lIYlhMSkE3SmxHNmRHTmM?oc=5",
+      "publishedAt": "2026-10-28T13:50:28.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Swing Powerful Tips Guide Audiobook by Chris Adkins",
+      "summary": "Listen to this title for free on Audible : https://amzn.to/4ygBDlL Title: Golf Swing Powerful Tips Guide Subtitle: Golf Instruction and ...",
+      "source": "João Antônio Virasse",
+      "url": "https://www.youtube.com/watch?v=QTMa78i2RxQ",
+      "publishedAt": "2026-10-28T11:23:20.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/QTMa78i2RxQ/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -43,6 +113,16 @@
       "thumbnail": "https://i.ytimg.com/vi/YIyZ6y1vALc/hqdefault.jpg"
     },
     {
+      "type": "article",
+      "category": "Courses",
+      "title": "Chula Vista Golf Course in Bonita, California, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPcWhGd2NEdWVLeDJDdmgzVWF3eG1XaENoVjltXzkzX1VGbGhZV3VzZFg5SUxmTF9YeENDY0NCSU9GbWtNOEoxNmRZNVNTWGp5dEliYjBqWm1CYncwWXZibXlCdVNUVEZDOGVMRzdZVkx6UmVxR3M5d3hWZDJFbkcxajJwYw?oc=5",
+      "publishedAt": "2026-10-28T00:53:38.000Z",
+      "thumbnail": ""
+    },
+    {
       "type": "video",
       "category": "Tips & Tricks",
       "title": "Golf Tip with Connor Luke",
@@ -51,6 +131,16 @@
       "url": "https://www.youtube.com/watch?v=-XPbK8nmamk",
       "publishedAt": "2026-10-27T18:50:58.000Z",
       "thumbnail": "https://i.ytimg.com/vi/-XPbK8nmamk/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Pro Tip from Alex at RGC The Marshmallow Bunker Drill",
+      "summary": "RGC's Alex is switching out the golf balls for JUMBO marshmallows.",
+      "source": "Riverside Golf Club",
+      "url": "https://www.youtube.com/watch?v=4pxY9aG6xZQ",
+      "publishedAt": "2026-10-27T18:09:04.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/4pxY9aG6xZQ/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -65,12 +155,12 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Draw baby draw #dailycoaching #golfswing",
-      "summary": "Draw Drill: Swing Under the Noodle! Want to hit a better draw? Let's train your body to create the space and swing path needed to ...",
-      "source": "DailyCoaching",
-      "url": "https://www.youtube.com/watch?v=6SE3kW2yLOc",
-      "publishedAt": "2026-10-27T12:00:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/6SE3kW2yLOc/hqdefault.jpg"
+      "title": "Tip Tuesday with Mike Tabbert: Spin Loft",
+      "summary": "Tip Tuesday with Mike Tabbert: Let's talk spin loft! Want more control off the tee? It starts with understanding what's happening ...",
+      "source": "Level Up Golf Academy",
+      "url": "https://www.youtube.com/watch?v=j_H3Eognl6I",
+      "publishedAt": "2026-10-27T14:02:24.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/j_H3Eognl6I/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -95,16 +185,6 @@
     {
       "type": "article",
       "category": "Trends",
-      "title": "How To Choose A Golf Ball For Women (2026)",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQdEo3R1ZGMXRDRjF1Y0tBZ3lVMmNhRUJTdFR4Y25wNWVJZHY4Y2U5bGFldzVuZkJjYnJWbk9sQkxCUDY4a1pIYjVXVHZwd2o5dHhrcDdJM3RwZXhBSWZnQjBidm9lTnJTeGI1OW1HVDRfaFJVSm9penR4SklSRWZ3dVJR?oc=5",
-      "publishedAt": "2026-10-27T11:40:26.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
       "title": "How Do You Know If You Were Fitted Incorrectly For A Driver?",
       "summary": "",
       "source": "MyGolfSpy",
@@ -113,14 +193,14 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Stop Dropping Your Hands From the Top – Fix Your Downswing Sequence",
-      "summary": "The popular “drop your hands, then rotate” golf tip works as a slow-motion drill, but in a real, dynamic golf swing it often ruins your ...",
-      "source": "Golf Dev Guy",
-      "url": "https://www.youtube.com/watch?v=5Th54ITEcvM",
-      "publishedAt": "2026-10-27T10:51:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/5Th54ITEcvM/hqdefault.jpg"
+      "type": "article",
+      "category": "Trends",
+      "title": "How To Choose A Golf Ball For Women (2026)",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQdEo3R1ZGMXRDRjF1Y0tBZ3lVMmNhRUJTdFR4Y25wNWVJZHY4Y2U5bGFldzVuZkJjYnJWbk9sQkxCUDY4a1pIYjVXVHZwd2o5dHhrcDdJM3RwZXhBSWZnQjBidm9lTnJTeGI1OW1HVDRfaFJVSm9penR4SklSRWZ3dVJR?oc=5",
+      "publishedAt": "2026-10-27T11:40:26.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -140,16 +220,6 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMHRhN3VHQ2xtYzhTS0hsZUNXSnNYazhscXRscjJFem90Sm8wSWlXWDl0OVYxa1pYV1ZrQmU3Ymt5RDdxal91RDJiSU9BeVhET19GcHRMOHFwTlJKRzR1bzA2cXZCeE1NMjRlMHFpcjVRUVNITEQtSVVuNmZHc2dNT3A2alRXMnFpR3c?oc=5",
       "publishedAt": "2026-10-26T20:42:50.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Todd Creek Golf Club in Thornton, Colorado, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1YaFhPdzg2T1JUbXJzSEI1WlY0QU93QW5kdC02dnppUENkSmZMQnlJWnJhb2hQTmFYelNaOXFCLTNJS3lXY0U4RU1Yei02anZQY0lPUnlJSy1OR2tqVXhuSXBER3AyUGdGSlFzNHRBa1c4andycW43SkhmMFRuUGs?oc=5",
-      "publishedAt": "2026-10-26T19:34:02.000Z",
       "thumbnail": ""
     },
     {
@@ -204,6 +274,16 @@
     },
     {
       "type": "article",
+      "category": "Trends",
+      "title": "Gear",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMiOkFVX3lxTE82Q3RSS1piaERlN0FCLXhWVjBDa3lhQkYtdEVXb1REdFl5dFNUNWtwYUNIbzdwRncydFE?oc=5",
+      "publishedAt": "2026-10-26T11:39:00.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Swing",
       "title": "School of Golf: Season 16: Chapter 6: Sync Up Your Downswing",
       "summary": "",
@@ -214,92 +294,12 @@
     },
     {
       "type": "article",
-      "category": "Travel",
-      "title": "Byrd at Sea Trail Golf Resort and Convention Center in Sunset Beach, North Carolina, USA",
+      "category": "Courses",
+      "title": "Jekyll Island Golf Club - Great Dunes Course",
       "summary": "",
       "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPUVh1blc1TUI1MkhoTHdyTDFldjBPZWQyejRMejdTcmgxck4zOWEzMDMzX1o4OG9TemltWnA4bDRYc3pKdV9zSmlTalQ0SnpIRG5Pd0tRSjNtVTlGNWc0MndPOTFTVUhnbk9mcFFSdG8tNFZtQmFFRE5tWVRrVjNXSW1nM1BpRTF0b2ZGTmpwX1BoY01GNDduLXh5eW5QYnNmb0Q2VkpDSXU?oc=5",
-      "publishedAt": "2026-10-26T02:33:27.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Quail Run Golf Club in Naples, Florida, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE9FLTE2anVId1lDc0NDZ2xIbW5tOXZLY1lQN2ZZbHVHX1dLUlNmQ2gyZ2FpT1c5Qk1ybHhEbV9jQVNtNU9TUnY4b19jb2x4VDg2VUd1WXk2Z2M3ajYzVjM3clRET0RMRXVHUzdDamlOa2RmT1ZsNUFLUTNWLXI?oc=5",
-      "publishedAt": "2026-10-26T02:07:58.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Travel",
-      "title": "Travel can be stressful. Here are 10 ways to make your next golf trip feel effortless",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1YRVJPaXZvMkwxbGVabXBEcWV2U1pzY3pDM2xVQmxnWE82ekhuS0dJMG9uQjJDVjBqS3d6UnhlYzlqQ3NQNVMyYVB1VGxCMEtKcVBZSXk0Z1dxak9QOC16VDMwaXRjbzhWMF9FVjJOenE?oc=5",
-      "publishedAt": "2026-10-25T15:57:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "The top 25 classic golf courses in Canada, ranked",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNTVF0dmVYNmplVmFKMDZYMVFBZ25XSWY4dlZjaFQwWDc0cGcyNTdCdXBxdTFmUXdTZjh5aVR4c0R5aExuTUlpSGxfbWRyYXJQbERVQnJqWWVENUVDWmFCX2dqSHlhWHFZeFVBcG1KTnkxYl9mMmtEdVYwX25mQnR0LTJkbjUtQmdCYmt1TUJHSFpidjB3R1dVSUM5aHo1X2FuTVZoaEtWZ3AyUzBZQkJuTWtwR2c3U1A3bDJyY0RoeG1wU2ttbnU3dQ?oc=5",
-      "publishedAt": "2026-10-25T13:02:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "The top 25 modern golf courses in Canada, ranked",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxORFFCd21FWVFiXzZDUzc0SGstZXdtMWhJMUVVZGoxZjF4Y2pDeHVIczJiLXlkVHR2bEhHbEhlSTRFXzZfR0Ewcy1pRW5pX3p2YWo4cGNmTUZQbEF3dHVlRWxrTTdJY0pGNktLQkRxUVhPb05sTnhPaUcxY1lNUVNrbjBKZVJPM0ZXVDY1MGF6UTNJOFBIc2ZpMjBsTHRqb3dES2RGTWFYSjg3d0xLTHhZZFpvTFpEWHMxanhsMDZnLV9TODF5NFJv?oc=5",
-      "publishedAt": "2026-10-25T12:02:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Belt Buckle Downswing Drill",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFA2OGFZRklRMFVGeTNQdTI5Q2FEVlRyQkMzT0hWUWZVMnJkekR2dkFlN1prams0ZmJveWxQZmppWWUza1hFMERoX25vSWNCTnExWWJFTnlKNXZrSkhMSFZBOVZUdWpkYTRfdjNvN2FtSEM2OWVUaHFfakZ5Zk1QZw?oc=5",
-      "publishedAt": "2026-10-25T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Best TaylorMade Golf Clubs Of 2026 (Driver, Woods, Irons & More, Tested by MyGolfSpy)",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQSTlydjcxazM3ZzI2VmYzSUVId2R3V0RvMDRhb01LZVJrZGl5dmg2MWFZNjFhbjRJVFRaVWJSenAyNGVFZDJMV0R6MEF1YzZIYjFNMDY5X2c3WXFmOXNYbFZnVUNVTEtkNm9GSE1tdmhNbEtIYVA2R0VCMTN6Tl9hQ25vQlRza1Y1NWJpbEdVcmlwTF9mR0QwdllEaU9kT3NSd2VWLURJV09TY3ZjVmVCWDRsejg?oc=5",
-      "publishedAt": "2026-10-24T15:15:07.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "This week's PGA Tour golf course is the shortest on the 2026 schedule",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxONHBiNFItVGVvZ3ZxRHM0OHRWYkI5TXNMYW1VdVJiX1NYOE5QcFptS2xLRHZhOGxXOGx1R2NuRmxneDFGdkJkWjNyNWJJcnF0UjM2RDc4UTlNOXRNaW5nM2lFVi1fLVZ3UUY0QmFpZzk0UjRIQ1RlYXZ0VTdGU3lJWEduS2pFYjQ4VkFseXNEbjRiTm94Qllvd05ObTBWTXNJR2tWV3hkWVAyZHhBN09QZWcwOXd2TGR2LVRBQWZrMktKamRMN2h3cFFmNi1HeXhfNTNnOVo2VGpVaTAtdjBZX19wOXc?oc=5",
-      "publishedAt": "2026-10-24T14:31:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "PXG just gave its mini driver a speed boost",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBKUnFjeVNVaWtGb1BxUUx1Zk1HUTFaV1pZSlhZTWN4dllObUxLY3NOLU5WMkprNWFmNTlGTDgzNFBNMkkxSVlIQXhoanVRQjV0QlFWOUZqT2JpYjF3ZFlrcmZWZGZ6ZmlYNnBKcWNXTmFhNXUyclZv?oc=5",
-      "publishedAt": "2026-10-24T12:38:12.000Z",
+      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPVkV1elVUYWsxUURXcnNINjFhandOSXYzejhHSlk1WldGWXhHZEp4R1g2NkxlREZHWEFWOWZHdUtGV0kxaE1LbjVNaWFPeXBsYWZHaWE3NHpuck5wNTk0Zjl3RllyWTNZWUlkOUhTM2N1X1NyS3RpendpR0pwZ1U4NWdnWjl1M3hvYmNwS254NEhWLUR1d2xSV1lHTQ?oc=5",
+      "publishedAt": "2026-10-26T08:04:35.000Z",
       "thumbnail": ""
     }
   ]
