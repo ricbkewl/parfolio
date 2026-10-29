@@ -1,7 +1,147 @@
 {
-  "generatedAt": "2026-10-29T07:10:34.823Z",
+  "generatedAt": "2026-10-29T18:58:28.711Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Pro Level Ball Striking In Under 2 Mins",
+      "summary": "Want more distance off the tee? The Driver Distance Code gives you a step-by-step system to hit it further — fast. Grab it here: ...",
+      "source": "Ali Taylor Golf",
+      "url": "https://www.youtube.com/watch?v=CG2BDJrmuEk",
+      "publishedAt": "2026-10-29T18:43:58.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/CG2BDJrmuEk/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Fix Your Golf Grip and Stop Slicing—Try This Swiss Ball Drill",
+      "summary": "Fix your golf slice by understanding how grip, casting, and an outside-in swing path work together. This indoor lesson explains ...",
+      "source": "Good Golf Coaching",
+      "url": "https://www.youtube.com/watch?v=R8RCVl9k2x0",
+      "publishedAt": "2026-10-29T17:54:52.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/R8RCVl9k2x0/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Start filming and stop guessing #golf #golfswing #golfswingpath #golfslice #driver",
+      "summary": "",
+      "source": "Alexander Golf",
+      "url": "https://www.youtube.com/watch?v=WYYszN9-Qc0",
+      "publishedAt": "2026-10-29T17:42:06.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/WYYszN9-Qc0/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Losing Your Golf Posture! ⛳🔥 #shorts #golf #golfswing #golfer #golfcoach",
+      "summary": "Stop losing your posture in your golf swing! ⛳ Learn the difference between losing posture and proper body rotation for a more ...",
+      "source": "Golf spotlight",
+      "url": "https://www.youtube.com/watch?v=tj-tYhPWqm0",
+      "publishedAt": "2026-10-29T17:21:59.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/tj-tYhPWqm0/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The best courses around $100 among our list of the top public options",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSlFiWUlGUzRVazJLd3lDMjM2Zm5Ta1ZfZkNrTDZJZkdsbkxPbEJoMERabkZ2cFE1THZsTWkzNnZWYzBHN1RMcm1jOTI4UnJ6dzNRLU84RUFHMFlqd1BMUnZZMVFHcXoxb0xQcWMwb09mbHA5YlFJZDNVZE9Gb0hoZThmRHYwaEhPcEJqRzR6anBXMW8?oc=5",
+      "publishedAt": "2026-10-29T17:12:23.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "A driver and two irons, traced in green and red",
+      "summary": "One driver off the tee, then two iron shots in the evening haze. Ball flight traced on each. DM @dbrody_official #golf #shorts ...",
+      "source": "Daniel Brody",
+      "url": "https://www.youtube.com/watch?v=d5-u9-gu3uM",
+      "publishedAt": "2026-10-29T17:00:26.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/d5-u9-gu3uM/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This Tiny Pin Tells Golfers When to Swing! 🤯⛳",
+      "summary": "This tiny golf training tool could help golfers improve their swing timing! ⛳ It makes a soft click at the top of the backswing, ...",
+      "source": "Chapter Zero",
+      "url": "https://www.youtube.com/watch?v=v_k2uxrIW1k",
+      "publishedAt": "2026-10-29T17:00:02.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/v_k2uxrIW1k/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Spring Valley Golf Course in Elizabeth, Colorado, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNYm90QjlqaVdSSFZybFhPT0lkX1hQSTN0WVZ2SHgyVV84d202Sk45ZUFGOVJ6SWZ2bG1pbnhlMmlRd2xSclB6Z1MtdloyQTZXOEdhRVJkY0R3WWRIbnVVdk1ueGtlVEV2S3daTVdhdGIwaUN3OHJaemtrRFZucUplXzlyRQ?oc=5",
+      "publishedAt": "2026-10-29T15:05:45.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The golf courses of Pinehurst Resort, ranked from best to 'worst'",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNbEVFVE44OEswaUdXeHpmNzVRVE1qMFE1Tk9uZDlwMVZxUDBwVXBuVmNrWWNuNnRKUGY0cmhzUllqYTg0ckdMQ0g2RU13Z2xOZGVVNG9WdTVMZ01ZWjMyWTliUWxIS293SEw4c0Zyc19sdlhEQzg5ZXZqX0VzVUhZZWtQMkJtMHZuRVpIVjdiTQ?oc=5",
+      "publishedAt": "2026-10-29T13:48:07.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop trying to hit the golf ball with your arms!",
+      "summary": "Get Your Free PXG Fitting Here: http://benmutzgolfgiveaway.com Stop trying to hit the golf ball with your arms! Get my Books Here: ...",
+      "source": "Ben Mutz Golf",
+      "url": "https://www.youtube.com/watch?v=Bp_sPLs2-ec",
+      "publishedAt": "2026-10-29T13:15:14.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Bp_sPLs2-ec/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "How Far Does The Average Female Golfer Hit Their 7-Iron In 2026",
+      "summary": "",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNWDFyY2pUaWUza2g0VUtrU3Q3b1FUSEhRcDhHTEFaYlBsRlJlQ0ZiYjY1UGd2ZDc5MW13am5oRWZRbmwzTXZrd01VNHdNTm00WkVWTGJDcl85LWMweDRxZDBlN0Z6aVlIc2xfYWZ3aVdZTXdxMmdiQ1pMd1A0RkJwb0Nxbjl4UjA4R3pvQl9FT0NMNHlJdEEyVWpCU3RrRGxJYkE?oc=5",
+      "publishedAt": "2026-10-29T12:49:46.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Short Game",
+      "title": "A 10-Second Dominant Eye Test That Might Fix Your Putting Alignment",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQcGdXeG9MVGRZREFKdlVmajhlY2Vhc2J3eG1BVWtHb2ZzQTIzZFFrWlpXdmpTRmFlOV9fRnJ0Y0drQjZpeXh6OHd5cENnR1EySWlyU1kyTzYwdkZ2R3lHUTZVYmtraVZGQlhJVlpjd3NCV215ZVY4SzlNV0M0eEp1Y09uM2VxRGl0THVYOXl4dzVDSWFkVlZCMFJTWUxmNV92VmpYZ3lSekIxd0hsSjA1b2lEY1plZw?oc=5",
+      "publishedAt": "2026-10-29T12:25:28.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "This Week in Golf Gear",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4xb0paal9CbVB3ejROSVhZVTg5elJweWVpbzllSFJxcmNmaDRUeFR1eUNKUkJwX2FZYkVTMkltT3JxTG42OW9IdDlwcHQyRTdJNmZEOERVUnV3c1FLZUhURzB4MHczM290OUo1SA?oc=5",
+      "publishedAt": "2026-10-29T12:25:28.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Travel",
+      "title": "West at Grandover Resort in Greensboro, North Carolina, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQOERkQ0dXTlZWZDRRQjVqNDl0TlRvaWdJVExOcUNQb1VoQ1NjZ3lNSGIyUzRYUUZGQkZ3OW9TTmtvQUpIZEhVY1lSTHpmZEFjZXl1R0hGaXBFMEZHUVFHa09GNVZPanNabF9WV0tORDBTTGVZQlZyVVFsdjN4WUFPdzk3Wks?oc=5",
+      "publishedAt": "2026-10-29T11:55:41.000Z",
+      "thumbnail": ""
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -13,34 +153,14 @@
       "thumbnail": "https://i.ytimg.com/vi/3pol33W1vfE/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Fix Your Golf Slice Fast! ⛳🔥 #shorts #golf #golfswing",
-      "summary": "Struggling with a golf slice? ⛳🏌️‍♀️ Watch the difference between a slice and a straight golf shot! Improve your golf swing, ...",
-      "source": "Golf spotlight",
-      "url": "https://www.youtube.com/watch?v=gx0x4doo93s",
-      "publishedAt": "2026-10-29T01:21:23.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/gx0x4doo93s/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "This putting trick is pretty fun! #golftips",
-      "summary": "This is a pretty fun putting drill as you put the ball in the middle and you try to go around it. Subscribe ...",
-      "source": "Tom Gillis Golf Instruction",
-      "url": "https://www.youtube.com/watch?v=JXDorPc-iCA",
-      "publishedAt": "2026-10-29T01:05:17.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/JXDorPc-iCA/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "The “Stay in Your Posture” Fix for Early Extension",
-      "summary": "Early extension ruining your contact? Stay in your posture. 🏌️‍♀️ Rock into the ground, keep your right hip back, and use the ...",
-      "source": "Kevin Sprecher",
-      "url": "https://www.youtube.com/watch?v=8c08ABdnmDI",
-      "publishedAt": "2026-10-29T00:35:32.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/8c08ABdnmDI/hqdefault.jpg"
+      "type": "article",
+      "category": "Trends",
+      "title": "Callaway Chrome Tour TRTL Puts A Turtle On Your Golf Ball",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPbWV2aHdiSlVFVDZVVzFiVEh0bFl2ZU95UGdLNjNIVWZGVDUwRS1WXzhicXVodUc3N3BqOU54UDVIczVGbEZNaTNTRWZCRHBpNm5UTGlleUJFQkdGVEZGUHdPX2Z4LTVuYXRqb2ZBZGtBRkpsaEM2YnBWR3V4d2g5MmNsS2JKbW9RMGZBQ2ZKcmI1TUdlRXFTVQ?oc=5",
+      "publishedAt": "2026-10-29T00:25:28.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -83,16 +203,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Live Highlights",
-      "summary": "About the SnapSwing Channel SnapSwing is a golf channel dedicated to helping you build a better swing through golf lessons, ...",
-      "source": "스냅스윙(김사부)",
-      "url": "https://www.youtube.com/watch?v=rArKFejFA-4",
-      "publishedAt": "2026-10-28T17:02:59.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/rArKFejFA-4/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "Blade vs Game Improvement Irons: The Real Performance Difference",
@@ -123,16 +233,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Swing Powerful Tips Guide Audiobook by Chris Adkins",
-      "summary": "Listen to this title for free on Audible : https://amzn.to/4ygBDlL Title: Golf Swing Powerful Tips Guide Subtitle: Golf Instruction and ...",
-      "source": "João Antônio Virasse",
-      "url": "https://www.youtube.com/watch?v=QTMa78i2RxQ",
-      "publishedAt": "2026-10-28T11:23:20.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/QTMa78i2RxQ/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Courses",
       "title": "Spring Hollow Golf Course in Spring City, Pennsylvania, USA",
@@ -141,16 +241,6 @@
       "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPM3UzMDVkMEdLenN1dDdkbE9EUE50QWdSLVA0VzRTNGJiSThEdWhOMWlDN01wUmJudVlXMmIwV082TFRRemswMXBMN3RZMG1fdEtxdm9jekJFZWJPdjc5NFRlV2sxRExwYU1JeE05aHQwUS1nVFVjVGJnMFZQd2RUbXJmWkVwZw?oc=5",
       "publishedAt": "2026-10-28T02:47:51.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Easy Golf 'HACK': Fix Your Golf Swing With A HACKY SACK!",
-      "summary": "Try my FUN and surprisingly effective HACKY SACK drill for a steadier head, better balance, and more consistent ball striking!",
-      "source": "Bob Menzies Golf",
-      "url": "https://www.youtube.com/watch?v=YIyZ6y1vALc",
-      "publishedAt": "2026-10-28T01:00:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/YIyZ6y1vALc/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -165,11 +255,11 @@
     {
       "type": "article",
       "category": "Courses",
-      "title": "Somebody is going to earn a Masters and Open invite on one of the most stunning courses in the world",
+      "title": "Oxbow Creek Golf Course in Columbus, Georgia, USA",
       "summary": "",
-      "source": "Golf Digest",
-      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPY2RWTHltUmdzeWpfeTFUaTNHVHRvNXNjM0MtSWc1SWt4YkpiTlUwSzVrYk1LU0Z1bWJlZ0k4dEtBQTRPelloRUpKUGE5c3RSRk15RkhqUHFoNkZnUjJRdEZncVZBRFA4MFF2NlVheTh2VVg1bHZ0MlNzQUpkS0xsdk1NMVEyVXE5cF9jLXEyNl9YdUhiUUtfXzhiemh2eFE5?oc=5",
-      "publishedAt": "2026-10-27T13:07:41.000Z",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOVEpZdmFURzd2QnA3SUZXc0JzbkhWOWdrWlZRSmRTZ21scElneFZuQmNDdWZyeTE2Z1ZqdUdXcVRhMUx6ejV3S2pOOWZuQmVXZVFIMk56TWdqN1lQZGRPaVdWZ25VbGpwcE1WM0h1bERlbzkwU0xFcHQ2WngtMGxGeTlR?oc=5",
+      "publishedAt": "2026-10-27T14:18:09.000Z",
       "thumbnail": ""
     },
     {
@@ -210,96 +300,6 @@
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQdEo3R1ZGMXRDRjF1Y0tBZ3lVMmNhRUJTdFR4Y25wNWVJZHY4Y2U5bGFldzVuZkJjYnJWbk9sQkxCUDY4a1pIYjVXVHZwd2o5dHhrcDdJM3RwZXhBSWZnQjBidm9lTnJTeGI1OW1HVDRfaFJVSm9penR4SklSRWZ3dVJR?oc=5",
       "publishedAt": "2026-10-27T11:40:26.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Reston National Golf Course",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNb25QVkJnV0xpMWloRkVHVElkbEZHRnM4NmVXYVNKbVJ4RThpb2VYYXhUbDYxbjVKMGRIY19pWDF0R3NXOVZ6ZnVmdVNQYTJMZE56WmdWaXlpUFp0SFY1T0tuYW5fTl9KNzNyUVdyWmR3cDNIazlfeTQ2TlN1VlprcEl6bEFyd0No?oc=5",
-      "publishedAt": "2026-10-26T23:53:16.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "This Tour coach’s putting drill changed the way I practice",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOMHRhN3VHQ2xtYzhTS0hsZUNXSnNYazhscXRscjJFem90Sm8wSWlXWDl0OVYxa1pYV1ZrQmU3Ymt5RDdxal91RDJiSU9BeVhET19GcHRMOHFwTlJKRzR1bzA2cXZCeE1NMjRlMHFpcjVRUVNITEQtSVVuNmZHc2dNT3A2alRXMnFpR3c?oc=5",
-      "publishedAt": "2026-10-26T20:42:50.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Play Winged Foot, Chicago Golf Club or Oakmont … while you invest in the future of golf",
-      "summary": "",
-      "source": "Golf Digest",
-      "url": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNcHlEQTR1SDJRdlNLYW40aHh1WUVldTZUSWN1YU9nbENFV2RIbUJxVlpQaFNzNmF1dzRIR0RzdnZQMFpGeWVFTkhtWDJvdGdHREpidFVsekpfeVY3RTVCaTVIc3pKckhXc0tHRVlnUXR0MVJ3dWF1OWhHblBYYlJIUnhBWUxwSkNxOFZ4QVVjQ3R1WHVHbXF1aVV4eDlUeEhTUnAyWDZKVi1BbkFOTkpLUzNHTmhLRXlMbE1VN2FBbW92N2M?oc=5",
-      "publishedAt": "2026-10-26T19:30:13.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "5 bunker tips from Tour pros",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQN0d4cHNSMnh6QUVpQ0lONWs0dUZ2YjNtQVlyZExobENlcVVwLXhSVUplV05GNEU1Y0tuU1V3R3NUUlZMM1ptZ2RfcnhkVmVXRDRpQlR4WXZvSlJjanc5T0liZlp6MkdLR0szMnlSd1A5TTZhSzZKZEFXZFVEWTVtdWVYRQ?oc=5",
-      "publishedAt": "2026-10-26T14:38:05.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Golf Gear To Consider For A Cold, Stormy Day",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPNXpEYWx5RXptcXlCZGpWRjl4RVZNbUFzcjJ1V0w2bU9WaXdlWUVybTMzWm9WWk8tRWh6bGp5WG5kTkRwQmZucTNyWlpjQU9CZkF4THJ2WHQ1blplcmlUTXZlbjJHTTZzOWpMcFZVZjhheV9KemVSaHVNMGpSRHI0ZmlqUElFQQ?oc=5",
-      "publishedAt": "2026-10-26T12:45:10.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Golfweek ranks the top 40 college and campus courses in the U.S.",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxNTGhBTm5Ibkt0cFlxdUpBY2lqNGJCcmZVcTZfdWVNZzg0THRpVGdyM0NoX25YdmlQSU53c2tkYk1WQkdzZWd5UDFGY3JFUXoxcENtcHlIdDFZNWhJeFFIZnFqbWhNWWV3cUt5ZUZHanJxdTJBb29sdkNfeXRXTXpxT2twWGttSlRkQVppU3FUWndDRTRzclNHTUVHb1l5c3FHX2RuTF9EQXRpbzg3N2RLS2RwOEVsal8yNmhic1RDU0pIQmRPbkE5WQ?oc=5",
-      "publishedAt": "2026-10-26T12:01:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Gear",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiOkFVX3lxTE82Q3RSS1piaERlN0FCLXhWVjBDa3lhQkYtdEVXb1REdFl5dFNUNWtwYUNIbzdwRncydFE?oc=5",
-      "publishedAt": "2026-10-26T11:39:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Chapter 6: Sync Up Your Downswing",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQd0RwOU9GeTNaZGtvUVJoazlwYjhOODUyQWV0dGdvTkR2YjNJYlJ2dGlwQ3Z0S01UTWRoMm5EdVdNcUdDbmlndGpMdUNpSHlKNGRLY21KR0dBQUZBRWxOYm9tYkdHOFppbmVpTnB2UWNYR2xCRzJUSmdFNFVnOFpPQXM5b2E?oc=5",
-      "publishedAt": "2026-10-26T09:36:31.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "Jekyll Island Golf Club - Great Dunes Course",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxPVkV1elVUYWsxUURXcnNINjFhandOSXYzejhHSlk1WldGWXhHZEp4R1g2NkxlREZHWEFWOWZHdUtGV0kxaE1LbjVNaWFPeXBsYWZHaWE3NHpuck5wNTk0Zjl3RllyWTNZWUlkOUhTM2N1X1NyS3RpendpR0pwZ1U4NWdnWjl1M3hvYmNwS254NEhWLUR1d2xSV1lHTQ?oc=5",
-      "publishedAt": "2026-10-26T08:04:35.000Z",
       "thumbnail": ""
     }
   ]
