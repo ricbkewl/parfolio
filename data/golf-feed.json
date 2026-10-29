@@ -1,25 +1,85 @@
 {
-  "generatedAt": "2026-10-28T18:53:33.617Z",
+  "generatedAt": "2026-10-29T07:10:34.823Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Swing the clubhead, release the hands for square contact and speed! #swingspeed #golftips #winnipeg",
-      "summary": "Struggling with weak solid contact? Over turning swinging harder and getting less out of it?! You can have the best tour pro turn ...",
-      "source": "Barry & Tammy Gibson - Over50Golf",
-      "url": "https://www.youtube.com/watch?v=GOaG3v9oenc",
-      "publishedAt": "2026-10-28T18:30:32.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/GOaG3v9oenc/hqdefault.jpg"
+      "title": "Would this golf putting aid help you putt better? #golf",
+      "summary": "Would this Golfpod aid help you put better? Tom Gillis is a PGA professional with over 35 years of teaching and playing at a high ...",
+      "source": "Tom Gillis Golf Instruction",
+      "url": "https://www.youtube.com/watch?v=3pol33W1vfE",
+      "publishedAt": "2026-10-29T03:08:06.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/3pol33W1vfE/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Fix Your Golf Slice Fast! ⛳🔥 #shorts #golf #golfswing",
+      "summary": "Struggling with a golf slice? ⛳🏌️‍♀️ Watch the difference between a slice and a straight golf shot! Improve your golf swing, ...",
+      "source": "Golf spotlight",
+      "url": "https://www.youtube.com/watch?v=gx0x4doo93s",
+      "publishedAt": "2026-10-29T01:21:23.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/gx0x4doo93s/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This putting trick is pretty fun! #golftips",
+      "summary": "This is a pretty fun putting drill as you put the ball in the middle and you try to go around it. Subscribe ...",
+      "source": "Tom Gillis Golf Instruction",
+      "url": "https://www.youtube.com/watch?v=JXDorPc-iCA",
+      "publishedAt": "2026-10-29T01:05:17.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/JXDorPc-iCA/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "The “Stay in Your Posture” Fix for Early Extension",
+      "summary": "Early extension ruining your contact? Stay in your posture. 🏌️‍♀️ Rock into the ground, keep your right hip back, and use the ...",
+      "source": "Kevin Sprecher",
+      "url": "https://www.youtube.com/watch?v=8c08ABdnmDI",
+      "publishedAt": "2026-10-29T00:35:32.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/8c08ABdnmDI/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "How to Hit Your Driver Farther Without Swinging Harder | Easy Golf Swing Tip",
+      "summary": "Add easy distance ⬇️ Want to hit your driver farther without swinging harder? Learn a simple golf swing move that encourages ...",
+      "source": "Face First Golf",
+      "url": "https://www.youtube.com/watch?v=WjK7Q9NpIyw",
+      "publishedAt": "2026-10-29T00:00:21.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/WjK7Q9NpIyw/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Use this backyard golf drill to keep improving your golf swing! #golftips",
+      "summary": "Use this backyard Golf drill to help you keep improving your golf swing. Take a basketball or a soccer ball and keep it in front of ...",
+      "source": "Tom Gillis Golf Instruction",
+      "url": "https://www.youtube.com/watch?v=w5f9a73ljCs",
+      "publishedAt": "2026-10-28T23:45:18.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/w5f9a73ljCs/hqdefault.jpg"
     },
     {
       "type": "article",
-      "category": "Trends",
-      "title": "How Far To Stand From The Golf Ball (Driver Versus Irons)",
+      "category": "Swing",
+      "title": "Struggling with tension in your golf swing? Try the ‘potato chip’ drill",
       "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNRjlOSTVVY0JQSnNwdFRrc0dDVG45R0lfNlBkR2gzd1QxR1ZHN1M5QkVGNnhmbm5kR0tDdlZFNlJxUDlyb3lRTm5wdEZCY0ttNkY4cUhxR2ZYcWtmTnZGNFcyLW1oY3EwbWNnQ1VJY3ZxSmJVUjBScGUzenZ4WUtGWjV1dFdVZWpMRVNCTm5zdHFlcUotQjNNajlQbDVQWDdhUndkcVB3?oc=5",
-      "publishedAt": "2026-10-28T18:23:03.000Z",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1TRmZER1ozQ2x5ckVPYkFiaWU3NFJ0MkZBeDlQYktQNFpaZVpEbFQ5bXZaVmNuMWpfTXNEZndYNHJtUzJVR1dIN2Q1MVFTa2c1R2RfWjh3YWNZcGVvRzRNZ3Q4ckFkSmM3Q01JbFY3UkpQNDgwV3BfTEJlQmtOeVk?oc=5",
+      "publishedAt": "2026-10-28T21:20:50.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "School of Golf: Season 16: Homework: 2-4 Downswing Drill",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE01cnNibVp0RnhNYTVDV0M1bDFTeERxa3lOUDVucmZnX0JQMjJya0habE5qQ1Vqb1dSRFNPdTlfeU5zNmRWNnBCWWZFR0hPaERZR29tRkk4MDBNQ3dUbVRyeG5DcEVWTWphZ0hHbnpqRHB0RF9wdEF5WEtyd0hwUWs?oc=5",
+      "publishedAt": "2026-10-28T20:56:09.000Z",
       "thumbnail": ""
     },
     {
@@ -31,16 +91,6 @@
       "url": "https://www.youtube.com/watch?v=rArKFejFA-4",
       "publishedAt": "2026-10-28T17:02:59.000Z",
       "thumbnail": "https://i.ytimg.com/vi/rArKFejFA-4/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | #shorts #golf",
-      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
-      "source": "GOLF Channel Shorts",
-      "url": "https://www.youtube.com/watch?v=BGKzKuGmL3U",
-      "publishedAt": "2026-10-28T17:00:19.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/BGKzKuGmL3U/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -61,16 +111,6 @@
       "url": "https://www.youtube.com/watch?v=vdzbIannTNU",
       "publishedAt": "2026-10-28T14:32:01.000Z",
       "thumbnail": "https://i.ytimg.com/vi/vdzbIannTNU/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "TempoKing Swing Trainer Review: A Training Club You Can Hear",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQLTdSazNvVUlNTWM2bHlNTGF3OTlkdXQ1a1puekF2OUZKUWtocGk0Wm5ZYjlDQlZOOHBoMnJDaGxPNkM4MUhBYjJKYk5weVRZVFY4Y2JkNFVoLVJ4dm9HR2FzOWhVRC1WNFA0M2t4WS1KWElNMDlaaDQzZ3VHMnhJWXJWbEZFa0FTMEF4X2xtNmVkVXF5a1FzM0xn?oc=5",
-      "publishedAt": "2026-10-28T13:50:28.000Z",
-      "thumbnail": ""
     },
     {
       "type": "article",
@@ -123,44 +163,14 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Tip with Connor Luke",
-      "summary": "Looking for more accurate putts? In this week's golf tip, Blue Bell Country Club Director of Instruction Connor Luke works with Joey ...",
-      "source": "Hansen Properties Inc.",
-      "url": "https://www.youtube.com/watch?v=-XPbK8nmamk",
-      "publishedAt": "2026-10-27T18:50:58.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/-XPbK8nmamk/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Pro Tip from Alex at RGC The Marshmallow Bunker Drill",
-      "summary": "RGC's Alex is switching out the golf balls for JUMBO marshmallows.",
-      "source": "Riverside Golf Club",
-      "url": "https://www.youtube.com/watch?v=4pxY9aG6xZQ",
-      "publishedAt": "2026-10-27T18:09:04.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/4pxY9aG6xZQ/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Courses",
-      "title": "Oxbow Creek Golf Course in Columbus, Georgia, USA",
+      "title": "Somebody is going to earn a Masters and Open invite on one of the most stunning courses in the world",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOVEpZdmFURzd2QnA3SUZXc0JzbkhWOWdrWlZRSmRTZ21scElneFZuQmNDdWZyeTE2Z1ZqdUdXcVRhMUx6ejV3S2pOOWZuQmVXZVFIMk56TWdqN1lQZGRPaVdWZ25VbGpwcE1WM0h1bERlbzkwU0xFcHQ2WngtMGxGeTlR?oc=5",
-      "publishedAt": "2026-10-27T14:18:09.000Z",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPY2RWTHltUmdzeWpfeTFUaTNHVHRvNXNjM0MtSWc1SWt4YkpiTlUwSzVrYk1LU0Z1bWJlZ0k4dEtBQTRPelloRUpKUGE5c3RSRk15RkhqUHFoNkZnUjJRdEZncVZBRFA4MFF2NlVheTh2VVg1bHZ0MlNzQUpkS0xsdk1NMVEyVXE5cF9jLXEyNl9YdUhiUUtfXzhiemh2eFE5?oc=5",
+      "publishedAt": "2026-10-27T13:07:41.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Tip Tuesday with Mike Tabbert: Spin Loft",
-      "summary": "Tip Tuesday with Mike Tabbert: Let's talk spin loft! Want more control off the tee? It starts with understanding what's happening ...",
-      "source": "Level Up Golf Academy",
-      "url": "https://www.youtube.com/watch?v=j_H3Eognl6I",
-      "publishedAt": "2026-10-27T14:02:24.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/j_H3Eognl6I/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -240,16 +250,6 @@
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQN0d4cHNSMnh6QUVpQ0lONWs0dUZ2YjNtQVlyZExobENlcVVwLXhSVUplV05GNEU1Y0tuU1V3R3NUUlZMM1ptZ2RfcnhkVmVXRDRpQlR4WXZvSlJjanc5T0liZlp6MkdLR0szMnlSd1A5TTZhSzZKZEFXZFVEWTVtdWVYRQ?oc=5",
       "publishedAt": "2026-10-26T14:38:05.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Foresight Sports QuadMax Launch Monitor Review: The New Gold Standard?",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMirwFBVV95cUxNZkdQT0luVDdxTE13NGR0dWNQLWNLeXNTeGpHbTBMcWtCOXc3VE1zbGtvSjc4NTFveVNnUXk3dktQalVUM3FFd2ZpSTY3UjV1Y0dSTW5qeEo5TTF1WnZ1OHVSUE1MQ01IbFU3RlA0c0NZanYxcUJ6NmhsQlcyZG9DUE9PZDJQUjQtaXVsLTlVa2tGTEt2dEVzUUhtLUh6VV95a0N6STdOWU14QmhYcFlB?oc=5",
-      "publishedAt": "2026-10-26T14:24:04.000Z",
       "thumbnail": ""
     },
     {
