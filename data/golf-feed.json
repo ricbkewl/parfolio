@@ -1,7 +1,47 @@
 {
-  "generatedAt": "2026-10-30T18:38:37.147Z",
+  "generatedAt": "2026-10-31T07:01:53.587Z",
   "youtubeEnabled": true,
   "items": [
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Type ‘Free’ below and I’ll send you a link to a FREE swing review",
+      "summary": "Type 'Free' below and I'll send you a link to a FREE swing review. Struggling to hit a draw? Your club path might be the culprit.",
+      "source": "Dan Lloyd Golf",
+      "url": "https://www.youtube.com/watch?v=xZzDLFLbmTA",
+      "publishedAt": "2026-10-31T05:08:35.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/xZzDLFLbmTA/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Chipping, Start Putting: Tommy Fleetwood's Simplest Short Game Rule (Left Handed) 🪞",
+      "summary": "Lefty Tip of the Day #11: Tommy Fleetwood shows how he was taught to chip, flipped for left-handed golfers. Putt until you can't ...",
+      "source": "SouthPawSwings",
+      "url": "https://www.youtube.com/watch?v=ka7Oy4PfH2Q",
+      "publishedAt": "2026-10-31T00:36:01.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/ka7Oy4PfH2Q/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Short Game",
+      "title": "Red-hot BYU sophomore playing fearlessly and putting out of his mind on PGA Tour",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQT1pFNXlSbDczWDdETnNOWktoam10YmdWRlkxTkNIWmpQSUdCTXBwdlZVQ1NnbEZTT0lERjhOVW96QWtVN19QcGlIeVo2LUd4XzRkTEVEbDNfbUxQVGZkbFMwLTVOVHpNeTJFR0lqSjFFSmVSa004NTh2VURnc3ZQbFNtaw?oc=5",
+      "publishedAt": "2026-10-30T23:15:12.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Sun Mountain at Las Vegas Paiute Golf Resort",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNU1BEVmZvc1JYcnB0QWJST29jRWxIbVZZR09HWmxWaEZvemxTTVhfck15QzdpMUs3MzZrazN6U1JONGdQd096MDVvd1FGcm51STNoRzM0VVJ2bnZwTEg1SXpaTWdoU2NZLTZhTEpjamdJQ2JFNExROFF0QnFtUzhwQzRkR1YwRV9CODJ2dDBuTl9PQUZEMVkwUjN2OTZ2UzA?oc=5",
+      "publishedAt": "2026-10-30T22:55:07.000Z",
+      "thumbnail": ""
+    },
     {
       "type": "video",
       "category": "Tips & Tricks",
@@ -13,24 +53,14 @@
       "thumbnail": "https://i.ytimg.com/vi/t_cNcPWQmzk/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "🚀 Supercharge Your Swing: Gain Distance and Lower Your Score! 🚀 Craving that extra edge on the",
-      "summary": "Supercharge Your Swing: Gain Distance and Lower Your Score! Craving that extra edge on the course? Dreaming of drives ...",
-      "source": "Coach Andrew Banner",
-      "url": "https://www.youtube.com/watch?v=PoIaZyWZuM4",
-      "publishedAt": "2026-10-30T16:24:38.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/PoIaZyWZuM4/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Some takeaways are different to others, but if yours rolls and whips inside and you struggle with",
-      "summary": "Some takeaways are different to others, but if yours rolls and whips inside and you struggle with this, give this drill a try. Let me ...",
-      "source": "Alex Clapp Golf",
-      "url": "https://www.youtube.com/watch?v=plLgyt52Jz4",
-      "publishedAt": "2026-10-30T16:07:18.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/plLgyt52Jz4/hqdefault.jpg"
+      "type": "article",
+      "category": "Short Game",
+      "title": "Which Golf Balls Spin The Most Around The Greens? 2026 Greenside Spin Rankings",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPeW14OGdBTEQxaDZTdW43VW0zMVB2MG5mSHhWWW9hc3RTdV9GVmxGdF9HcUMzQ045TXpra2VJdlBjZlcwSGlYTEUwOTVHSFJucFlhekNzc2xnSDZ6ZkQ2QkVEeW8zVG13T1c5Q3lRWWR4SzZmM0s3YmdDX3puSm9NQy1qWW9VX2FQdFh5VlUweWtpZEc0WXItWEJrRllhUUJpSjFrT1R6bGhXRFYtc0ZRUVdzYw?oc=5",
+      "publishedAt": "2026-10-30T15:50:54.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -61,36 +91,6 @@
       "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPdHc5Mnlwam1vWkY0d1JFa3ZETTlwdFMtX3BfN3JXNng4bnRJbDFtM0hBOWNuVVkybFBJVFRYem41bTE4UE5KWEFHNTVYMzA1UXhiYlNGOXpWNDZvRE9td1lyZ3dma1EtLTZYN2RwM1lqY0lHdWtQLVpHbWlQbThqLUdZYTEzeTRyc2R4TXlvVXlHSFMzdjJF?oc=5",
       "publishedAt": "2026-10-30T15:48:44.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Casual Friday PGA Tour Champ, golf swing tips, NFl ,NCAA and more!",
-      "summary": "Casual Friday PGA Tour Champ, golf swing tips, NFL,NCAA and more! Tom Gillis is a veteran PGA Pro with years of teaching and ...",
-      "source": "Tom Gillis Golf Instruction",
-      "url": "https://www.youtube.com/watch?v=YmWOI0-g29M",
-      "publishedAt": "2026-10-30T15:10:29.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/YmWOI0-g29M/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Comment STRIKE and I’ll send you a Bonus drill to work on straight away 👇 Most golfers think",
-      "summary": "Comment STRIKE and I'll send you a Bonus drill to work on straight away Most golfers think compression is about hitting harder ...",
-      "source": "Michael Kanev Golf",
-      "url": "https://www.youtube.com/watch?v=ddN0ha1qhNM",
-      "publishedAt": "2026-10-30T14:21:43.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/ddN0ha1qhNM/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | Lauren Lee",
-      "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
-      "source": "GOLF Channel Shorts",
-      "url": "https://www.youtube.com/watch?v=NRNzv8000s8",
-      "publishedAt": "2026-10-30T14:00:20.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/NRNzv8000s8/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -133,6 +133,16 @@
       "thumbnail": "https://i.ytimg.com/vi/sDt8MwXGXFo/hqdefault.jpg"
     },
     {
+      "type": "article",
+      "category": "Courses",
+      "title": "Nakoma Golf Resort - Dragon Course in Clio, California, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUE85WjRhQlJlMHVLYzBHUzNYTklxTHJsTmlndTFNUU9Xa0Q3T25QeklySWs5OWZveElxQ1BQZ3ZpQ3k3aWZ0TkFwRXJTd3JDNXR5b3ZjaFVZNHdHbXRMMU9hNkxsU0pCUmJoYllSb0EteXRtb0thckRlMmJDM3pOb2VYYnpEcWctXzdPcQ?oc=5",
+      "publishedAt": "2026-10-30T08:36:27.000Z",
+      "thumbnail": ""
+    },
+    {
       "type": "video",
       "category": "Tips & Tricks",
       "title": "Swing Tip",
@@ -161,6 +171,16 @@
       "url": "https://www.youtube.com/watch?v=KaS7A_vrdBQ",
       "publishedAt": "2026-10-29T22:00:39.000Z",
       "thumbnail": "https://i.ytimg.com/vi/KaS7A_vrdBQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "[KLPGA SeoyulMoon] A Game-Changing Tip You Can Use on the Course!",
+      "summary": "",
+      "source": "문서율",
+      "url": "https://www.youtube.com/watch?v=JFFnKNuAcEM",
+      "publishedAt": "2026-10-29T21:30:14.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/JFFnKNuAcEM/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -214,6 +234,16 @@
     },
     {
       "type": "article",
+      "category": "Courses",
+      "title": "Oak Quarry Golf Club in Riverside, California, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBXcGptc0JXY0tDUDItam5mbjdWb25LX0JyS2ZnYXFLcW83dTh4UFI0UHlnVi1sS0FJam1qb3o2U2pqMXZnVXJTRk1ZNUlQSnFBRmU1N29xSm5pRnpWbHc2NzNIRFRjQXdYUTh0TmtvMVhHMElGU0ljSXFXdw?oc=5",
+      "publishedAt": "2026-10-29T14:08:08.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Trends",
       "title": "How Far Does The Average Female Golfer Hit Their 7-Iron In 2026",
       "summary": "",
@@ -224,32 +254,12 @@
     },
     {
       "type": "article",
-      "category": "Short Game",
-      "title": "Is Your Chipping Really Good Enough? Try This Quick Challenge",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNTXFYMkJsYjk5Rm9RQ1dwelUzSF9lLTdmc05ERjFnOGxhbUJYMDllNHZaMld6YkpTaHVONGY0ZXZ0dmZPWVVRYXJvMWFUdFhWRlJSLVNmd0E2UlpzMkN3Z1dqMFRMUFU5a1F2eTVHSjFuMGxidWwza1hHUVdIZVJnNlNBYXZpbFpkLV80?oc=5",
-      "publishedAt": "2026-10-29T12:25:28.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Trends",
       "title": "This Week in Golf Gear",
       "summary": "",
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4xb0paal9CbVB3ejROSVhZVTg5elJweWVpbzllSFJxcmNmaDRUeFR1eUNKUkJwX2FZYkVTMkltT3JxTG42OW9IdDlwcHQyRTdJNmZEOERVUnV3c1FLZUhURzB4MHczM290OUo1SA?oc=5",
       "publishedAt": "2026-10-29T12:25:28.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Travel",
-      "title": "West at Grandover Resort in Greensboro, North Carolina, USA",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQOERkQ0dXTlZWZDRRQjVqNDl0TlRvaWdJVExOcUNQb1VoQ1NjZ3lNSGIyUzRYUUZGQkZ3OW9TTmtvQUpIZEhVY1lSTHpmZEFjZXl1R0hGaXBFMEZHUVFHa09GNVZPanNabF9WV0tORDBTTGVZQlZyVVFsdjN4WUFPdzk3Wks?oc=5",
-      "publishedAt": "2026-10-29T11:55:41.000Z",
       "thumbnail": ""
     },
     {
@@ -290,16 +300,6 @@
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE01cnNibVp0RnhNYTVDV0M1bDFTeERxa3lOUDVucmZnX0JQMjJya0habE5qQ1Vqb1dSRFNPdTlfeU5zNmRWNnBCWWZFR0hPaERZR29tRkk4MDBNQ3dUbVRyeG5DcEVWTWphZ0hHbnpqRHB0RF9wdEF5WEtyd0hwUWs?oc=5",
       "publishedAt": "2026-10-28T20:56:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Blade vs Game Improvement Irons: The Real Performance Difference",
-      "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQTFRmRHpSYVZOY21MMTRObElmdWkxLVdOcEFCemgxTFNjOGQtcDU2TnVYNGw1Y1RrN2tKdVo3V1R3Z1Q1V3RaTzBBMUFOUXpoTlVkcFF0R3RCYjZWS2hKQUJQdXg3eWpBZHNoSDA1YUxjVkNOOFNCczExV3ZJNGpQNzQyd1NqYmVtZlN2VkJpTDFYUElPNGdFbnZncXgzdjZqR2c?oc=5",
-      "publishedAt": "2026-10-28T15:00:27.000Z",
       "thumbnail": ""
     }
   ]
