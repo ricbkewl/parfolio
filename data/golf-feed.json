@@ -1,16 +1,86 @@
 {
-  "generatedAt": "2026-10-31T07:01:53.587Z",
+  "generatedAt": "2026-10-31T17:47:39.426Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Type ‘Free’ below and I’ll send you a link to a FREE swing review",
-      "summary": "Type 'Free' below and I'll send you a link to a FREE swing review. Struggling to hit a draw? Your club path might be the culprit.",
-      "source": "Dan Lloyd Golf",
-      "url": "https://www.youtube.com/watch?v=xZzDLFLbmTA",
-      "publishedAt": "2026-10-31T05:08:35.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/xZzDLFLbmTA/hqdefault.jpg"
+      "title": "Stop Slicing Your Golf Shots: Understand Swing Path and Clubface #shorts",
+      "summary": "The slice happens when your swing path is outside-to-in while the club face stays open. Your body compensates by holding the ...",
+      "source": "Golf with Coach Carolin",
+      "url": "https://www.youtube.com/watch?v=V5chba75xfg",
+      "publishedAt": "2026-10-31T16:57:28.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/V5chba75xfg/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Control Your Wrists, Control Your Golf Swing! 🔥#GolfTips #GolfDrills #GolfSwing",
+      "summary": "Subscribe for more golf lessons, drills, and swing tips to improve your game. https://www.slicgolf.com/ ...",
+      "source": "SLICGOLF",
+      "url": "https://www.youtube.com/watch?v=f0Ajf7rU9W0",
+      "publishedAt": "2026-10-31T16:42:13.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/f0Ajf7rU9W0/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "PGAC Tour Simmons bank coverage, Notre Dame and golf swing tips!! 📱",
+      "summary": "PGAC Tour Simmons bank coverage, Notre Dame and golf swing tips!! Tom Gillis is a veteran PGA Pro with years of teaching and ...",
+      "source": "Tom Gillis Golf Instruction",
+      "url": "https://www.youtube.com/watch?v=PvA-CmZxAfc",
+      "publishedAt": "2026-10-31T16:25:20.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/PvA-CmZxAfc/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Tip: Rotator cuff mobility ⛳",
+      "summary": "Saturday Golf Tip: Rotator cuff mobility ⛳ If shoulder issues are limiting your club takeaway and release, try this rotator cuff ...",
+      "source": "Max Hecker - TheHomeCaddie Las Vegas Realtor",
+      "url": "https://www.youtube.com/watch?v=KrhPvJvYBNQ",
+      "publishedAt": "2026-10-31T15:53:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/KrhPvJvYBNQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf: how to swing your long irons",
+      "summary": "Golf: how to swing your long irons Here are my main two keys to stripe my long irons and create height and compression and ...",
+      "source": "Mason Domecq",
+      "url": "https://www.youtube.com/watch?v=KEmIizxvdWo",
+      "publishedAt": "2026-10-31T15:16:53.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/KEmIizxvdWo/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "Golfweek video instruction: Master weight transfer with this drill",
+      "summary": "",
+      "source": "Golfweek",
+      "url": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUUFFMk5ZMlpIaHlPaC0wN21YZFlDZUFrRlFzcTktWXZVQ3ljNUVzblJON2tyRl9GWjMtUFRaWHRJZ3l2aGVoczNMUEI2RUcxUmoycnJ6NjdVdzlQMjE1UVJLMlJkZWN5TmNucTJTQm1mVjFtbWlFSElOdnlrNnIyYmgyVWRGd1lHejV3Z3RSY0tnczJCY245UnNYdmFrRVVnT0lDWE9UX3pkX01STkF4WGhCOFFBb3lQcDhyRE9xUDJxY083Ym42ZU5sYnFYTWhmdnNn?oc=5",
+      "publishedAt": "2026-10-31T14:10:47.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "From the rules of golf to swing mechanics, equipment, fitness, nutrition and everything in between⛳️",
+      "summary": "From the rules of golf to swing mechanics, equipment, fitness, nutrition and everything in between. No question is too basic or ...",
+      "source": "ChadCADDY",
+      "url": "https://www.youtube.com/watch?v=S_ku3HGqf1w",
+      "publishedAt": "2026-10-31T12:00:03.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/S_ku3HGqf1w/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Travel",
+      "title": "The North Nine at The House on the Rock Resort and Golf Club in Spring Green, Wisconsin, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPVHRQQldyQllTUXlVNlk5eUxoV3JxbjlMVWJOOW42UnVZRUVnUTlPUnRUSWpvYld5ZEsxMHFvMVN0MXZXamJyNDhMUjMxb3dqRWZVTFloR2VWSFFieV9ERHlJWGw2dktTekI2aG1pU05rS1AxSDFhVGVkd2NUU3l5LTlSSUhrRjgzdXpueEpaWUJhWTFEU1pGVkVkSEE3QjNfOC04a3pjVHAwX0RqeE1Ielpaa3I?oc=5",
+      "publishedAt": "2026-10-31T02:20:30.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
@@ -41,6 +111,26 @@
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNU1BEVmZvc1JYcnB0QWJST29jRWxIbVZZR09HWmxWaEZvemxTTVhfck15QzdpMUs3MzZrazN6U1JONGdQd096MDVvd1FGcm51STNoRzM0VVJ2bnZwTEg1SXpaTWdoU2NZLTZhTEpjamdJQ2JFNExROFF0QnFtUzhwQzRkR1YwRV9CODJ2dDBuTl9PQUZEMVkwUjN2OTZ2UzA?oc=5",
       "publishedAt": "2026-10-30T22:55:07.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Simple Pro tips to increase your Driver Distance",
+      "summary": "golf #golfskill #golfswing #golflesson #golflessons #golftechnique #golftips #golflife #golfing #golfshorts #driver #driverswing ...",
+      "source": "KOREA NO.1 GOLFER HEO [ENG]",
+      "url": "https://www.youtube.com/watch?v=mofx7Qllkt4",
+      "publishedAt": "2026-10-30T22:00:39.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/mofx7Qllkt4/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This is such a brilliant golf tip on how to handle soft sand vs firm sand! #golftip #golftips",
+      "summary": "",
+      "source": "Jamie Allan Golf",
+      "url": "https://www.youtube.com/watch?v=vTKIOI_wRQM",
+      "publishedAt": "2026-10-30T20:31:29.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/vTKIOI_wRQM/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -93,46 +183,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "I Tested a $20 Amazon Golf Swing Trainer",
-      "summary": "Buy it here (affiliate link): https://geni.us/DYv9DAo 5-in-1 Retractable Golf Swing Trainer, Training Aid with Grip Trainer, Grip ...",
-      "source": "Swipe-Shop Reviews",
-      "url": "https://www.youtube.com/watch?v=aeICTrZ-Vm4",
-      "publishedAt": "2026-10-30T12:00:14.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/aeICTrZ-Vm4/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Why You Chunk Every Chip Shot (And How to Fix It)",
-      "summary": "If you chunk your chip shots, it's one of two things 99% of the time! Todd shows you exactly how to fix both. Get the FREE ...",
-      "source": "US GOLF TV",
-      "url": "https://www.youtube.com/watch?v=yFJVL1CKmr8",
-      "publishedAt": "2026-10-30T11:00:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/yFJVL1CKmr8/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "The golf courses of Pinehurst Resort, ranked from best to 'worst'",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNbEVFVE44OEswaUdXeHpmNzVRVE1qMFE1Tk9uZDlwMVZxUDBwVXBuVmNrWWNuNnRKUGY0cmhzUllqYTg0ckdMQ0g2RU13Z2xOZGVVNG9WdTVMZ01ZWjMyWTliUWxIS293SEw4c0Zyc19sdlhEQzg5ZXZqX0VzVUhZZWtQMkJtMHZuRVpIVjdiTQ?oc=5",
-      "publishedAt": "2026-10-30T10:18:04.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Equilibrio al final del swing: ejercicio de 15 golpes - Andreu Golf",
-      "summary": "Ejercicio de 15 golpes seguidos centrándote solo en aguantar el equilibrio al final del swing, para que el cuerpo pase a través de ...",
-      "source": "Andreu Golf",
-      "url": "https://www.youtube.com/watch?v=sDt8MwXGXFo",
-      "publishedAt": "2026-10-30T09:30:34.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/sDt8MwXGXFo/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Courses",
       "title": "Nakoma Golf Resort - Dragon Course in Clio, California, USA",
@@ -145,62 +195,12 @@
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Swing Tip",
-      "summary": "SWING TIP for the weekend - Tag your one mate who'd manage this ( @sportbible)",
-      "source": "The Golf Clearance Outlet",
-      "url": "https://www.youtube.com/watch?v=e9-f15oJX1w",
-      "publishedAt": "2026-10-30T08:03:37.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/e9-f15oJX1w/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Is this anti- slice golf advice gonna help ? #golf #tggi",
-      "summary": "Will this anti-sliced Golf advice actually help you or hurt you? Do you want to start down with your lower body and let the arms ...",
-      "source": "Tom Gillis Golf Instruction",
-      "url": "https://www.youtube.com/watch?v=8Ue6XybPmPo",
-      "publishedAt": "2026-10-30T02:47:03.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/8Ue6XybPmPo/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Emergency Tips for your Iron & Utility",
-      "summary": "golf #golfskill #golfswing #golflesson #golflessons #golftechnique #golftips #golflife #golfing #golfshorts #driver #driverswing ...",
-      "source": "KOREA NO.1 GOLFER HEO [ENG]",
-      "url": "https://www.youtube.com/watch?v=KaS7A_vrdBQ",
-      "publishedAt": "2026-10-29T22:00:39.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/KaS7A_vrdBQ/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "[KLPGA SeoyulMoon] A Game-Changing Tip You Can Use on the Course!",
-      "summary": "",
-      "source": "문서율",
-      "url": "https://www.youtube.com/watch?v=JFFnKNuAcEM",
-      "publishedAt": "2026-10-29T21:30:14.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/JFFnKNuAcEM/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
       "title": "Chipping with 9 iron #golf",
       "summary": "How to chip with 9 iron? - Narrow stance - Ball position in the trail heel - Stand very close to the golf ball - Stand the shaft up til the ...",
       "source": "Hungry Golfer of ATL",
       "url": "https://www.youtube.com/watch?v=N13ZYfj0Dg4",
       "publishedAt": "2026-10-29T21:21:26.000Z",
       "thumbnail": "https://i.ytimg.com/vi/N13ZYfj0Dg4/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Golfweek video instruction: Master weight transfer with this drill",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMi1AFBVV95cUxOUTJ4emozUjhCWWN6RkZnV3YxcGVELThXX1lBamQ3cG1LYnhKRkRtN1lPQlBydUV6LXlhUmdOa1E5Y2VaZ2IzMkFJajFEUV8zVVlFNEZKQUFwdWNqNHltNEs3Sk9FSEtvOHQ1aTZYcWdUUHl5YnRoVlR2Q3M3bjVrZTF5ZktrVjNrTkVDdTBrRmxUT3o0Sk9xOFdWZkRLczVGYkFkdEtybXBaSTFaLXA4QWEtWjhxdzhmZkxSNjVwUG9DdzVOUDEzYmJMeGU0ZkMwS0tmdA?oc=5",
-      "publishedAt": "2026-10-29T21:09:25.000Z",
-      "thumbnail": ""
     },
     {
       "type": "article",
@@ -264,6 +264,16 @@
     },
     {
       "type": "article",
+      "category": "Courses",
+      "title": "The golf courses of Pinehurst Resort, ranked from best to 'worst'",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNbEVFVE44OEswaUdXeHpmNzVRVE1qMFE1Tk9uZDlwMVZxUDBwVXBuVmNrWWNuNnRKUGY0cmhzUllqYTg0ckdMQ0g2RU13Z2xOZGVVNG9WdTVMZ01ZWjMyWTliUWxIS293SEw4c0Zyc19sdlhEQzg5ZXZqX0VzVUhZZWtQMkJtMHZuRVpIVjdiTQ?oc=5",
+      "publishedAt": "2026-10-29T07:00:00.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Trends",
       "title": "Callaway Chrome Tour TRTL Puts A Turtle On Your Golf Ball",
       "summary": "",
@@ -290,16 +300,6 @@
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBNMFBkeFJESExDYkpvRFNlM0dmUnk3VnEzQ2ZiMTE1OTEyaU1ENmdGREdXRzhNQjdiODJfQUR1cFVqTWNRY1VVZGY5ZGViNk5BSmx2RElEQ0ZTRkF2NHZld09fNGVJWHZDR3BIS0FrNDFsQzV1TnJ5T0h3LVA?oc=5",
       "publishedAt": "2026-10-28T21:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: Homework: 2-4 Downswing Drill",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE01cnNibVp0RnhNYTVDV0M1bDFTeERxa3lOUDVucmZnX0JQMjJya0habE5qQ1Vqb1dSRFNPdTlfeU5zNmRWNnBCWWZFR0hPaERZR29tRkk4MDBNQ3dUbVRyeG5DcEVWTWphZ0hHbnpqRHB0RF9wdEF5WEtyd0hwUWs?oc=5",
-      "publishedAt": "2026-10-28T20:56:09.000Z",
       "thumbnail": ""
     }
   ]
