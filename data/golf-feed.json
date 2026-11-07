@@ -1,16 +1,86 @@
 {
-  "generatedAt": "2026-11-07T07:15:00.426Z",
+  "generatedAt": "2026-11-07T18:03:43.697Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Practice with a 20 handicap (what I’m working on in description 👇)",
-      "summary": "What I worked on today: 1. Left-hand grip I made a small adjustment to my left-hand grip. I was holding the club too much in my ...",
-      "source": "Bald Eagle Golf",
-      "url": "https://www.youtube.com/watch?v=LZ8-yOOCyeA",
-      "publishedAt": "2026-11-07T06:00:11.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/LZ8-yOOCyeA/hqdefault.jpg"
+      "title": "Stop Hitting AT the Golf Ball! Learn to Swing the Club Naturally",
+      "summary": "If you're struggling with inconsistent ball striking, a tense golf swing, or trying too hard to hit the ball, changing your swing intention ...",
+      "source": "Face First Golf",
+      "url": "https://www.youtube.com/watch?v=EB_UUfM8rgk",
+      "publishedAt": "2026-11-07T17:47:14.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/EB_UUfM8rgk/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "If you lose your swing and contact before round of golf this simple tip can get you back ! … 1.",
+      "summary": "If you lose your swing and contact before round of golf this simple tip can get you back ! … 1.feet together 2. Swing without ...",
+      "source": "Justin Scott",
+      "url": "https://www.youtube.com/watch?v=wESzxxUTFRA",
+      "publishedAt": "2026-11-07T17:17:23.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/wESzxxUTFRA/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Couple drills here to help feel shaft lean and compression in your golf swing",
+      "summary": "Couple drills here to help feel shaft lean and compression in your golf swing. If you are interested in learning more about your ...",
+      "source": "Alex Clapp Golf",
+      "url": "https://www.youtube.com/watch?v=PUh2TjTg1ns",
+      "publishedAt": "2026-11-07T17:06:05.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/PUh2TjTg1ns/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Swinging Harder But Losing Distance? Try This Golf Swing Speed Tip",
+      "summary": "Are you trying to swing your driver harder to hit the golf ball farther, but your shots keep coming up short? The problem might be ...",
+      "source": "Cam Lancaster - Golf Performance Coach",
+      "url": "https://www.youtube.com/watch?v=9QXzv3Pusjo",
+      "publishedAt": "2026-11-07T15:02:37.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/9QXzv3Pusjo/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "What Causes A Shank? The Swing Reasons And Equipment Ones Nobody Mentions",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNY2c1ckdsN25JR0dUazc3OEtxeFdsQ09oWFNZSjdrS3BCTUlZeDc1MWpUb2tWSHFTQm01U0UwQWxYVzdJemVvb1U1SmhiM1Q3bXMza3ZWRGxiS0pMaVA1elVqR3FLcDl6VE1CQWRnekUyejdoUzdNODRIS0RGbE5xOUR1Qzlvb3RpSzd2YUg4RTZROHZFMXlTNFhGLWNxM2wxQzgxUnJIekVCVFN0MUZwVkNjN1gtelVobkU0UA?oc=5",
+      "publishedAt": "2026-11-07T14:52:56.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "The best courses in the U.S. for $100",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSlFiWUlGUzRVazJLd3lDMjM2Zm5Ta1ZfZkNrTDZJZkdsbkxPbEJoMERabkZ2cFE1THZsTWkzNnZWYzBHN1RMcm1jOTI4UnJ6dzNRLU84RUFHMFlqd1BMUnZZMVFHcXoxb0xQcWMwb09mbHA5YlFJZDNVZE9Gb0hoZThmRHYwaEhPcEJqRzR6anBXMW8?oc=5",
+      "publishedAt": "2026-11-07T14:25:40.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Florida’s golf boom is producing some of the most interesting courses of the century",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQZnRMRnZnOVpGbXYtZjRUMWlsR3otTHR4dEN0NWVWeFFVVGw0OUp4RDQ0Sm5Fc1h6R2dOWlkta3oyTkVrR2pQNmFEYU05ck41eVdwekxSb2hWMkpESDVNaDlxSTQxSTRMaG5NY0g5cGUzTEhPdWs1TmRwVzM0NDFrQkUxVlhHdUNlU29pdDRsMTZ1dw?oc=5",
+      "publishedAt": "2026-11-07T14:20:16.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Wild Rock Golf Club - Wild Rock Championship Course",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQSEZJT2YtUGZDZGxwQXFncnE2RVpYcm03VEpYZG4zOU90cG0wYnA4QTdKWFZ1MWFxUUEybzNwc1FTZUJ4Q25vcHBiYWdXdFJUeGQtYnFHZHB6ZnQ5UHJoakxZc0R3YjhZbDl6Y2hnOFRScXZpTkYxSXBHQXZFX0ZnNEhSVTRQM2NaUnJJbnFxVW1LUVlqTC1pRkJlbjJUdy1YaE5xOGF3?oc=5",
+      "publishedAt": "2026-11-07T11:23:07.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -21,36 +91,6 @@
       "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxORG1haUxSdHlDT3ZfQlQ0RU01b014eXhyNzNWUUJIa1FKRGdJMk9CUnJGY2syU2VhWktTbXFJTmxvR3l1NjhqTF9JYVVtTWROSkJjaGQ0akw4YlZjQTVrUTQzV1VBTGhsQVpRMm1yYU44VGE1akR0cmR4N3pLUElxUHk2Sm1IemhibHc?oc=5",
       "publishedAt": "2026-11-07T03:35:14.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "The Ball Flight I Fix Most Often: Push Slice #golf #golflessons #ballflight",
-      "summary": "Golfers. You MUST understand this: Your ball flight is your teacher. Learn what it is telling you and then apply the ball flight laws in ...",
-      "source": "Golf Help with Karl Doller",
-      "url": "https://www.youtube.com/watch?v=zuvl2_0wx1k",
-      "publishedAt": "2026-11-07T03:25:17.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/zuvl2_0wx1k/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Tom Watson showing the difference between the reverse C golf swing and the one playing golf swing",
-      "summary": "Tom Watson demonstrating the difference between the old reverse C golf swing and the new one plane golf swing. Subscribe ...",
-      "source": "Tom Gillis Golf Instruction",
-      "url": "https://www.youtube.com/watch?v=TN0glexOPHQ",
-      "publishedAt": "2026-11-07T02:28:02.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/TN0glexOPHQ/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Cameron Young's powerful swing explained #golftraining #swingspeed #golftips #golffitness #golffit",
-      "summary": "Cameron Young generates tremendous clubhead speed through efficient sequencing, ground force production and powerful ...",
-      "source": "Golf Physio Australia",
-      "url": "https://www.youtube.com/watch?v=ZnMy2nHYU24",
-      "publishedAt": "2026-11-07T01:00:33.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/ZnMy2nHYU24/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -74,23 +114,13 @@
     },
     {
       "type": "article",
-      "category": "Courses",
-      "title": "Wild Rock Golf Club - Wild Rock Championship Course",
+      "category": "Trends",
+      "title": "Callaway bets $15 million on 3D printing’s golf club future in Texas",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQSEZJT2YtUGZDZGxwQXFncnE2RVpYcm03VEpYZG4zOU90cG0wYnA4QTdKWFZ1MWFxUUEybzNwc1FTZUJ4Q25vcHBiYWdXdFJUeGQtYnFHZHB6ZnQ5UHJoakxZc0R3YjhZbDl6Y2hnOFRScXZpTkYxSXBHQXZFX0ZnNEhSVTRQM2NaUnJJbnFxVW1LUVlqTC1pRkJlbjJUdy1YaE5xOGF3?oc=5",
-      "publishedAt": "2026-11-06T21:39:09.000Z",
+      "source": "Golfweek",
+      "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQV0wwMzdYUHhiT29PQXU2bWpycGRSX0tFUk8tcDA2bV9TdFJ3Tl81cHIzOExUVTV3clhOTzZ2eWpUQWI5emNibGdoZDB0bHl0c3ZzWUx2QzE1elJNckVnb0FJakZnSjFYUC1BRGhlblJZNGpZLXZDaDZTR0IxYmZZM3RLRkp1X2I1YXgwRnpoQzM3VEJhY3NUTDdVSW80NHUzbWFWV2d5ZUpGMlhuQk5vRUFTa2xSMkoxZmh6MG1VQnROdHJsYUdfMnpFVHNaaFFwY1ZMUGhCTU1KQUxP?oc=5",
+      "publishedAt": "2026-11-06T19:00:00.000Z",
       "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Too many swing thoughts? You could be getting in your own way. 🧠⛳️",
-      "summary": "Too many swing thoughts? You could be getting in your own way. ⛳️ Todd Sones introduces the Swing Chain—six connected ...",
-      "source": "Scoring Zone",
-      "url": "https://www.youtube.com/watch?v=_dM979_4CzY",
-      "publishedAt": "2026-11-06T17:49:32.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/_dM979_4CzY/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -111,16 +141,6 @@
       "url": "https://www.youtube.com/watch?v=23T2rNEFfGQ",
       "publishedAt": "2026-11-06T16:14:52.000Z",
       "thumbnail": "https://i.ytimg.com/vi/23T2rNEFfGQ/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Have you heard of this?",
-      "summary": "Still slicing the golf ball? Your trail hand might be the reason. ⛳️ Before you start changing your swing path, take a closer look at ...",
-      "source": "Mark Spitzer Golf",
-      "url": "https://www.youtube.com/watch?v=r8anhuW9QQA",
-      "publishedAt": "2026-11-06T16:00:13.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/r8anhuW9QQA/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -173,43 +193,13 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Your Trail Elbow Is Ruining Your Downswing! Try This Golf Swing Tip",
-      "summary": "Are you struggling to shallow the golf club or stop coming over the top during your downswing? Your trail elbow position might be ...",
-      "source": "Cam Lancaster - Golf Performance Coach",
-      "url": "https://www.youtube.com/watch?v=cfaNtrFx2LQ",
-      "publishedAt": "2026-11-06T14:00:24.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/cfaNtrFx2LQ/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "3 Swing Fixes She Didn't Know 😳 Stop Slicing + Gain 10 Yards ⛳",
-      "summary": "3 quick swing fixes from a real lesson at CJS Golf Academy: 1. Tuck the trail elbow to stop slicing 2. Start the downswing with a hip ...",
-      "source": "CJS Golf Academy",
-      "url": "https://www.youtube.com/watch?v=ccwzVnHrCAA",
-      "publishedAt": "2026-11-05T22:13:17.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/ccwzVnHrCAA/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "The second ingredient to help fix your slice off the tee box. #golfswing #bettergolf #playbetter",
-      "summary": "",
-      "source": "Cam Page",
-      "url": "https://www.youtube.com/watch?v=u6JWkhscIyA",
-      "publishedAt": "2026-11-05T19:39:09.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/u6JWkhscIyA/hqdefault.jpg"
-    },
-    {
       "type": "article",
-      "category": "Trends",
-      "title": "Did Grant Horvat’s putter save his team the Internet Invitational?",
+      "category": "Swing",
+      "title": "Golfweek video instruction: Don’t guess when between clubs",
       "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQZjhPZy1XRmtPSkFfN1dNQ0FwWmphNExsc1I0TFh1enlYYXRWSWhOT2V3SFJidXFtdzB1R2FMOUpiWE8wQ24tTU1HaHBXS0E0Q21UQWV3SURhZ2pBQVduNzdBVk9kRzd1YkNXYjFyRm9SOG0zWTVkSDgwWnl5RWI1c2VqZFNMS0pCTmlMc2p0cmJ0UQ?oc=5",
-      "publishedAt": "2026-11-05T17:41:36.000Z",
+      "source": "Golfweek",
+      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxObExkMkctVlhHYlpoZ1BsRzRlRmxlZHBMaFFicW14MkFBM0M3b2FUVUFHRUk3Ui16bkRiR2RwbWxXRC1BZ005Wl8zVnMydGVkN0ZQR1hlTUMtcnMtZDc1WE9hT0JPQThvVW9MZVlkUnN6bWFBVEs1YUY0TEIwQTFMMW9qZW9XaF9KSEExTkNqcXRfNzljMHVQNjVGZHpXRkplaTh5VGlwWm5aU0tvT3lZcC05Y1I1bHJmSVB3bUZnODJvTnZSNlQtRQ?oc=5",
+      "publishedAt": "2026-11-05T21:41:17.000Z",
       "thumbnail": ""
     },
     {
@@ -230,6 +220,16 @@
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPZElwd1JvRDJCd1RaazlvUVQ3aDRzYW43QkJPOXJvNjR3bnpoamtUZGVJNzFTZVRGTlJGZW42T3dfMy1nZ3Nlci02alFoeFJaYkplS19ocVNTTEJ4MS0xeXc0X1hpMkJPcWcwV1FUQjVndzM4b1NjZG9fV2xYS3J4RGFuQ1duemJpMDBMakdyQQ?oc=5",
       "publishedAt": "2026-11-05T12:06:54.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "Bunker Pull-Back Drill",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFB1STVISEl1dUdBamswdjljZ3kyd0JTczF6Uk5SVUVwU2JYbENNYXpOQ09wZWRnZEF0eFpramNSSGl2Q2lrOHpMbEpWRXExek9LR0M4U0t2Z2dJUUlWM3N5LTRVS3htSFhlUmhlaEpwOVRDN3hDb0dTYjV3?oc=5",
+      "publishedAt": "2026-11-05T08:00:00.000Z",
       "thumbnail": ""
     },
     {
@@ -285,21 +285,21 @@
     {
       "type": "article",
       "category": "Trends",
+      "title": "What Are The Yips? Why Calcavecchia, DiMarco and Langer Changed How They Held The Putter",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNUC1HaGhZQ0ZScDFydzhuZXlKNkVUSW9FT2E1RURvcmRqYkpzUVJrYXREc1FsT1dYcWE5aFlYNmJKalItTld2dFlueERNVGplTERHVGQ1eWxrMGRIRy1sdFNlMWR3VmQyOE9kMmR4Z1NlTlRpRk1RV3FHaGtHLUc4aFdLRGRfcW1lZEMyeVY0OFlpUVdiRkdyWklVSUhEbU5UVFd4LVpxR1NQalhTSkRnUDFvSnk0Z3VoWnhmTWlJemlTbHNTeVFqcVhLVUExbUE?oc=5",
+      "publishedAt": "2026-11-04T14:26:49.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
       "title": "Why We Might Be Wrong About Iron Offset (And Who Really Needs It)",
       "summary": "",
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNV0dBV2U5ZHRteVExbE5hYVRqajgwcDhlSEphZUd0SHhGVlpyYWtaT1gya1BnU2N6Q2xXZC1kY01hdGVjcUMtRW94Ulc4R1pZeDRBVW1sMmFWUWpkZzJpY2xxMmdHRlFZb1Q1b3dCb2pGaElxZVlzZzcxRFVKeV96TDB2dVpTSkRtUGlaZGtqdlUzUzFWMW00MUlVb0pERDFFR2c?oc=5",
       "publishedAt": "2026-11-04T12:55:23.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Breathe Into a Better Backswing",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNdFFaeHlrcUw5WGpLVVRwY2NyX1dXOWh6LWJzT0o4clNtUEthZG9yRmVwZ3VhbXMzOUxiclBQbmNYUFNjdmd3a1c3M3NCX2J4MDlmOHJ3ei1fcG5FeFgyOGMyTWp4QVlFMENPbVJ6Qnk0N1d3ZmEtd0o4bVZKTHV0R09XcFZJQQ?oc=5",
-      "publishedAt": "2026-11-04T00:00:00.000Z",
       "thumbnail": ""
     }
   ]
