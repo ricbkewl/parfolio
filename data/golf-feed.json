@@ -1,36 +1,116 @@
 {
-  "generatedAt": "2026-11-09T08:02:01.545Z",
+  "generatedAt": "2026-11-09T23:00:15.594Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Mastering Golf Stance and Bunker Escapes #shorts",
-      "summary": "How your stance dictates swing balance, plus a masterclass in finesse. Watch Fred Couples turn a tricky greenside bunker shot ...",
-      "source": "Golfers guide",
-      "url": "https://www.youtube.com/watch?v=pmiI5_tyJBg",
-      "publishedAt": "2026-11-09T05:11:45.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/pmiI5_tyJBg/hqdefault.jpg"
+      "title": "How to Load Your Swing",
+      "summary": "The second phase of the golf swing is what I call the Stretch Cycle. In this video, I demonstrate two drills to help you feel how the ...",
+      "source": "PURE IMPACT GOLF",
+      "url": "https://www.youtube.com/watch?v=9nudy67xjKQ",
+      "publishedAt": "2026-11-09T21:00:04.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/9nudy67xjKQ/hqdefault.jpg"
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Before and after two lessons in. Talented young junior. Cleaning up the body. #golfswing",
-      "summary": "It's not how you leave it's how you come back! We'll be doing a dive in on the changes being made in the structure required. No tip ...",
-      "source": "Kelvin Kelley",
-      "url": "https://www.youtube.com/watch?v=HFF-KZpLwac",
-      "publishedAt": "2026-11-09T04:33:21.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/HFF-KZpLwac/hqdefault.jpg"
+      "title": "Stop Fatting & Thinning the golf ball #golf #golfswing #golftips",
+      "summary": "Fat shops and thin shots often come from the same issue however this drill will help you improve your low point therefore your ...",
+      "source": "Andy Carter Golf",
+      "url": "https://www.youtube.com/watch?v=1ebcbVAbick",
+      "publishedAt": "2026-11-09T20:51:40.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/1ebcbVAbick/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Swing",
+      "title": "Stop making this common swing mistake for more consistent contact",
+      "summary": "",
+      "source": "GOLF.com",
+      "url": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBvMzk2TXd5OVZLTVdQZjJJV2tnS284aEJjNXhwNm12emlTS1RzdEF5VFhWWkp1aVZQZ2lYZVNTdHI4LUloeDNGTVc5SDhXVDVibEtMbDAyanNfMEN5eGlqUkRaS2VmcDlnbmZ6c01CX1JQaWozN1pzbXhR?oc=5",
+      "publishedAt": "2026-11-09T20:50:55.000Z",
+      "thumbnail": ""
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "⛳ Perfect Your Golf Chip Shot With This Tip",
-      "summary": "Improve your golf game with this quick and effective guide to mastering the perfect chip shot. Whether you are a beginner looking ...",
-      "source": "Bang NAB",
-      "url": "https://www.youtube.com/watch?v=1xVGAoCwdEY",
-      "publishedAt": "2026-11-09T03:48:51.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/1xVGAoCwdEY/hqdefault.jpg"
+      "title": "How To Stop Overswinging (Feel vs Real Backswing Tip)",
+      "summary": "Feel vs Real: how to stop overswinging in your golf backswing. When a club goes past parallel, the longer the backswing, the ...",
+      "source": "Mark Spitzer Golf",
+      "url": "https://www.youtube.com/watch?v=qHazu9gAdGs",
+      "publishedAt": "2026-11-09T20:00:21.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/qHazu9gAdGs/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "99% OF GOLFERS GET THIS WRONG #golftraining #swingspeed #golftips #golffitness #golfswing",
+      "summary": "Most golfers aren't rotating properly through impact. Instead of pushing off the ball and rotating through the swing, they hang back ...",
+      "source": "Golf Physio Australia",
+      "url": "https://www.youtube.com/watch?v=UMaymMb9Ju8",
+      "publishedAt": "2026-11-09T20:00:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/UMaymMb9Ju8/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Golf Swing Tip: Rotate Your Chest, Don’t Force a Straight Arm #shorts",
+      "summary": "Stop forcing a straight left arm and start using your chest as the engine for your backswing. Proper body rotation ensures your ...",
+      "source": "Golf with Coach Carolin",
+      "url": "https://www.youtube.com/watch?v=P1Ds6dpxVII",
+      "publishedAt": "2026-11-09T19:55:40.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/P1Ds6dpxVII/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Tips Can Cause a Bad Mechanic - Todd Graves",
+      "summary": "Before you try another swing tip, look at how you set up. Match the club's plane to your arm position, body tilt, and alignment at ...",
+      "source": "Todd Graves",
+      "url": "https://www.youtube.com/watch?v=NRh2FQZwChM",
+      "publishedAt": "2026-11-09T18:30:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/NRh2FQZwChM/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Why Do I Hit My Driver Low On The Face?",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNSjlILTZPUXhodWNWaHFsZWs1M2o2b3c4anh6UERjRjg4MDV6UUZfUUlta1l2Snp1c1Fhc2s1YTNTZW52ZnNYRXFvUHJVYnJoQVh3WUkwcS16SXN4M1ltMndyZ1hySGU0UWFhcUwtUEItbHpTeW5hN2VXdjJlSE5BU0EwdWJQQVZpMXFQalVQYw?oc=5",
+      "publishedAt": "2026-11-09T16:22:43.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Mitsubishi MMT Iron Shaft Review: The Perfect Gateway To Graphite",
+      "summary": "",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOSkkycFp6a1VGLWszQ0pHemNrNTU1bFRpNVphSVZhX0d3cXNGT0lOMEYxNGJVYmY4VFlyVkhxSHItTjY2QWZsNDI0Tlg5V0x0TElOR1ZFZmRtbUNRZ0VRb1hwZFlFM244U1A1ZVlhZlNkMnV2aHdfcXV6RUgzN0xrZGJyeHJZbFE3eGJPZWFPWFUwVnJvZkF0enAzMjVyTXhCTnlJTm4yckRsM1F1M2x6LWotTGRmemdUMTdmd3NLcU8tMm9aNV84?oc=5",
+      "publishedAt": "2026-11-09T13:34:04.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "Every putter used by a winner on the PGA Tour in the 2026 season",
+      "summary": "",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBJazJyaUFBbjVTSklYWVloLVpYMVNya1FLR1lZUnlyZVI5TUlyZ0RaYlFuOHlJbFMyTTVPT2gzdjV3akFreGcteTRPMDdmM2NkRHhJbGNtdkRESVJmVE0xYXdVWVVoWFMtSmZab1hFVnhOOENURzM0UDQyc1JEc3c?oc=5",
+      "publishedAt": "2026-11-09T10:02:59.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Simple tip from a PGA Professional! #golf #golfswing #golftips",
+      "summary": "",
+      "source": "Harry Trusler Golf",
+      "url": "https://www.youtube.com/watch?v=nXljcPeyUj0",
+      "publishedAt": "2026-11-09T07:50:49.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/nXljcPeyUj0/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -51,6 +131,16 @@
       "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPYlJwUlRMREI4MGF4RXlMeVBQMmI4YUV5czdZRElHSXBmaUZwTmR0V2d1Q04wVk5PTmZCalNwUDV4LXdYWVRfOV9ULTNERzV3eHlkRFh4SndYZmxzNjdlc0pKS0NaYWNXUDJndmJHZEZtNWtEdEsyVndzc01makM4ZGVPVmJvZHpZazlBWUJXcWo0eTRs?oc=5",
       "publishedAt": "2026-11-09T02:55:27.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Gain MORE distance and compression with this tip!Try this out and let me know how it goes! #golftips",
+      "summary": "",
+      "source": "J Smith Golf",
+      "url": "https://www.youtube.com/watch?v=541G89e3xHE",
+      "publishedAt": "2026-11-09T01:00:38.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/541G89e3xHE/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -83,66 +173,6 @@
       "thumbnail": "https://i.ytimg.com/vi/_Y0y5mKuQz4/hqdefault.jpg"
     },
     {
-      "type": "article",
-      "category": "Short Game",
-      "title": "How to Use Wedge Bounce",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5iZ1Z1RVdZYjRiXzNoSERRYUxjSXhXZkZ4bnNEQ3ktQktXQ0NyUlAyZTQzNElvQnU5RmlxUjFqZm1IdWxianROUEd3d2llOFFsYzdoaEpqcng3OUVRdUt0MHJyb01Ia2tkS3FmZlFIVkZ0Snk3RnVHU2ZwNA?oc=5",
-      "publishedAt": "2026-11-08T21:32:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Pressure Movement - Get in front of it.",
-      "summary": "Subscribe for weekly golf instruction, World Tour highlights, and swing tips. #ChristopherHowardGolf #GolfSchool #GolfInstruction ...",
-      "source": "Chowardgolf",
-      "url": "https://www.youtube.com/watch?v=NH-YVZc3Kvo",
-      "publishedAt": "2026-11-08T21:00:15.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/NH-YVZc3Kvo/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Donald Trump BOMBS This Drive! 💣⛳",
-      "summary": "President Donald Trump steps up to the tee and takes a big swing! What do you think of his driver swing? Rate it from 1–10 in the ...",
-      "source": "Scratch Golf Tips",
-      "url": "https://www.youtube.com/watch?v=2qIhuJOnqN4",
-      "publishedAt": "2026-11-08T20:22:04.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/2qIhuJOnqN4/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Swing Drill: Keep Your Lead Arm Straight for More Power #shorts",
-      "summary": "Locking out your arms during the golf swing destroys rotation and distance. Using a simple club drill under your trail arm helps you ...",
-      "source": "Golf with Coach Carolin",
-      "url": "https://www.youtube.com/watch?v=IVO4l3R-ezI",
-      "publishedAt": "2026-11-08T20:04:49.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/IVO4l3R-ezI/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Love playing the tips #collegegolf #golf #golfergirl #golfswing #golfgear #golfer #femalegolfers",
-      "summary": "",
-      "source": "Carmellacuts",
-      "url": "https://www.youtube.com/watch?v=zN3isy8QXjg",
-      "publishedAt": "2026-11-08T19:23:08.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/zN3isy8QXjg/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "If you're a scooper, you're in trouble.",
-      "summary": "Subscribe for weekly golf instruction, World Tour highlights, and swing tips. #ChristopherHowardGolf #GolfSchool #GolfInstruction ...",
-      "source": "Chowardgolf",
-      "url": "https://www.youtube.com/watch?v=NDN0MS-ua3g",
-      "publishedAt": "2026-11-08T19:00:24.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/NDN0MS-ua3g/hqdefault.jpg"
-    },
-    {
       "type": "video",
       "category": "Tips & Tricks",
       "title": "Tommy Fleetwood Chips With One Stroke And Three Clubs (Left Handed) 🪞",
@@ -153,43 +183,13 @@
       "thumbnail": "https://i.ytimg.com/vi/UGHari8ECQ0/hqdefault.jpg"
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "How to Hit Your Irons Better on Par 3s | 3 Simple Golf Tips",
-      "summary": "Struggling with fat iron shots, thin golf shots, or inconsistent ball striking on par 3 holes? Face First Golf instructor Craig Jones ...",
-      "source": "Face First Golf",
-      "url": "https://www.youtube.com/watch?v=WXKNTlL_bh4",
-      "publishedAt": "2026-11-08T15:00:53.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/WXKNTlL_bh4/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Struggling With Iron Contact? Try These 3 Simple Golf Drills",
-      "summary": "Are you struggling to hit your irons consistently, even after trying different golf swing tips and adjustments? If you're tired of hitting ...",
-      "source": "Cam Lancaster - Golf Performance Coach",
-      "url": "https://www.youtube.com/watch?v=1f8En2g9Hic",
-      "publishedAt": "2026-11-08T15:00:37.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/1f8En2g9Hic/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Missing Putts? Try This Gate Drill For Path Control",
-      "summary": "Missing your putts on line? Use the gate drill with two tees to improve your path control. Setting up a gate just wider than your ...",
-      "source": "GolfLessonTelevision",
-      "url": "https://www.youtube.com/watch?v=MhmVAEPD5QI",
-      "publishedAt": "2026-11-08T13:33:15.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/MhmVAEPD5QI/hqdefault.jpg"
-    },
-    {
       "type": "article",
-      "category": "Courses",
-      "title": "The best courses in the U.S. for $100",
+      "category": "Trends",
+      "title": "Every driver used by a winner on the PGA Tour in the 2026 season",
       "summary": "",
       "source": "Golf Digest",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSlFiWUlGUzRVazJLd3lDMjM2Zm5Ta1ZfZkNrTDZJZkdsbkxPbEJoMERabkZ2cFE1THZsTWkzNnZWYzBHN1RMcm1jOTI4UnJ6dzNRLU84RUFHMFlqd1BMUnZZMVFHcXoxb0xQcWMwb09mbHA5YlFJZDNVZE9Gb0hoZThmRHYwaEhPcEJqRzR6anBXMW8?oc=5",
-      "publishedAt": "2026-11-08T08:25:45.000Z",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE5ZSDdpLU5ob0VvX1NzYjlzdERzRmtaVzQ1Q25fem5xSF9lOXdnT1RBNHFZTF9FOHlzSXFqZUYxQVNDMktrR3gxZjV2bGQxU2JEX2o0Zmk1c1lobkxmWkxPUVpQQU1CTk0xYmNBMUREclZ1eU0wcENKM0pFelVxYU0?oc=5",
+      "publishedAt": "2026-11-08T08:00:00.000Z",
       "thumbnail": ""
     },
     {
@@ -204,12 +204,32 @@
     },
     {
       "type": "article",
+      "category": "Short Game",
+      "title": "How to Use Wedge Bounce",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5iZ1Z1RVdZYjRiXzNoSERRYUxjSXhXZkZ4bnNEQ3ktQktXQ0NyUlAyZTQzNElvQnU5RmlxUjFqZm1IdWxianROUEd3d2llOFFsYzdoaEpqcng3OUVRdUt0MHJyb01Ia2tkS3FmZlFIVkZ0Snk3RnVHU2ZwNA?oc=5",
+      "publishedAt": "2026-11-08T00:00:00.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
       "category": "Travel",
       "title": "Snow Mountain at Las Vegas Paiute Golf Resort",
       "summary": "",
       "source": "GolfPass",
       "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOcnA2cUZFZHFOYmhOVkM5emMtN05nSG9nM0ZvWTQzeG8tR0xVNFRpNmNCY0U2bjdyck43bzNhV1VWUXluanNLTlI0TE5rLUwxOG54TVBMVEJ3blNZRC14VDFxYWEwRnlIMVBRcUVtWUp5SXNpRDU1bnVpREYxcHBFbXRPX3kzTGdTSElULWYyOGVsYzZ0SWs2dXZocldLZWZv?oc=5",
       "publishedAt": "2026-11-07T19:35:28.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "What Causes A Shank? The Swing Reasons And Equipment Ones Nobody Mentions",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNY2c1ckdsN25JR0dUazc3OEtxeFdsQ09oWFNZSjdrS3BCTUlZeDc1MWpUb2tWSHFTQm01U0UwQWxYVzdJemVvb1U1SmhiM1Q3bXMza3ZWRGxiS0pMaVA1elVqR3FLcDl6VE1CQWRnekUyejdoUzdNODRIS0RGbE5xOUR1Qzlvb3RpSzd2YUg4RTZROHZFMXlTNFhGLWNxM2wxQzgxUnJIekVCVFN0MUZwVkNjN1gtelVobkU0UA?oc=5",
+      "publishedAt": "2026-11-07T14:52:56.000Z",
       "thumbnail": ""
     },
     {
@@ -224,13 +244,23 @@
     },
     {
       "type": "article",
-      "category": "Travel",
-      "title": "East at Grandover Resort in Greensboro, North Carolina, USA",
+      "category": "Courses",
+      "title": "The best courses in the U.S. for $100",
       "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNMWJxZlFQbGw3empPTWxLdGgwV1dCZ2NlT0RDQUJfNGxnbDFHUkdmcHdQcWxBSFlIQTB6STZHeHQ3dGpHVG03MjBTdUt6Tm1sdW5pU2F1TENfaWtIUmRYeDdoekFTemQtQjZoWE41MHd6aGhPb01GcVV6NnAtVkhPbHBYc1U?oc=5",
-      "publishedAt": "2026-11-07T04:12:40.000Z",
+      "source": "Golf Digest",
+      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSlFiWUlGUzRVazJLd3lDMjM2Zm5Ta1ZfZkNrTDZJZkdsbkxPbEJoMERabkZ2cFE1THZsTWkzNnZWYzBHN1RMcm1jOTI4UnJ6dzNRLU84RUFHMFlqd1BMUnZZMVFHcXoxb0xQcWMwb09mbHA5YlFJZDNVZE9Gb0hoZThmRHYwaEhPcEJqRzR6anBXMW8?oc=5",
+      "publishedAt": "2026-11-07T08:00:00.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Stop Using Your Sand Wedge Around the Greens",
+      "summary": "Most golfers automatically reach for their sand wedge when chipping around the green, but there's a much simpler way to get ...",
+      "source": "Golf in the Now",
+      "url": "https://www.youtube.com/watch?v=V8YXOvGwhRo",
+      "publishedAt": "2026-11-06T20:00:35.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/V8YXOvGwhRo/hqdefault.jpg"
     },
     {
       "type": "article",
@@ -241,6 +271,16 @@
       "url": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxQV0wwMzdYUHhiT29PQXU2bWpycGRSX0tFUk8tcDA2bV9TdFJ3Tl81cHIzOExUVTV3clhOTzZ2eWpUQWI5emNibGdoZDB0bHl0c3ZzWUx2QzE1elJNckVnb0FJakZnSjFYUC1BRGhlblJZNGpZLXZDaDZTR0IxYmZZM3RLRkp1X2I1YXgwRnpoQzM3VEJhY3NUTDdVSW80NHUzbWFWV2d5ZUpGMlhuQk5vRUFTa2xSMkoxZmh6MG1VQnROdHJsYUdfMnpFVHNaaFFwY1ZMUGhCTU1KQUxP?oc=5",
       "publishedAt": "2026-11-06T19:00:00.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Simple Keys to Exceptional Chipping! (3 Shot Method) #golfswing #golfinstruction",
+      "summary": "All good short game starts with picking the right chip! I cover the three categories of chips and pitches and cover how to do ...",
+      "source": "GolfProConnor",
+      "url": "https://www.youtube.com/watch?v=35FuCvAIUfw",
+      "publishedAt": "2026-11-06T16:21:19.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/35FuCvAIUfw/hqdefault.jpg"
     },
     {
       "type": "video",
@@ -260,46 +300,6 @@
       "source": "GOLF.com",
       "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxQaUEwM0Y3R1BNS1lVd2Q1LURZaFpmR0tVcHhkcGg2c2hQS0YxdUVkbHkwakZSOVZlaUV2N1Rod0V0RU55aFB5SDJ1MHgyMVNWTm5kWGRsamJLRi13UkhxR2FaYkpkdFcwM21hSVNub0JmUmp5SUtMNGVzRXY5ekp2cDZ0a09rcFg1bTJJ?oc=5",
       "publishedAt": "2026-11-06T15:49:06.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Jacob Bridgeman Does 3 Things With A Putter That No \"Golf 101\" Book Would Teach You",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPMThLSGFnaE4xcWtORjdhRDA5djNkMDFwV3hlNS1NSG1UYmJYNWhpWEhKUVF0TU5nZV9YWnhsSURFamJucUI5UnNQUUh4aU1PeHc1akRvbU1uVWRxTHJIb0ZtbGFCbk5sY2VIcE5hTTJ5QVZYbF80RGxRWXotdkxvT2kxVmVod0NsazNKb3NWTjEyaE56VlRSZ2tHSmVoSXdUdlJvamdMMzV0d0hvRzJDTE5fMnVVU01ZUTNDUFhhU3R3d1ZNMV9Lcw?oc=5",
-      "publishedAt": "2026-11-06T15:09:45.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "The 10 Costliest Equipment Mistakes In Pro Golf History",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE9HU1FwOGJQQ08wbllqVUw3NWdEdDU4ckNhR3hqaTdzVlhqc2doOHRMSzdWUDdBdUwzMmhSZFVEd19qWWpUSVE?oc=5",
-      "publishedAt": "2026-11-06T15:05:44.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "Golf Driver Distance Calculator: Enter Your Age And Handicap",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNVWZwd0FiV1pGd19Zb3FlZVBwYk5EODdhTTlpSTcydV90X1U2dTFzZ1lfLUFNT2FaSG5NSVRHUHVxUXNLdkZTc1J0LW94MldmRWRoaFByaWJFOVFFLWcwNjBLM0R2Nl8wUndVZ3ItYS1UeWdUTTFrZjlod01FVHhwNFc0Rm5hMFg1Z1E1dnk3S0FoX3h3Nks5S1Biay04dElBU2FDcGtrWjZJbkU?oc=5",
-      "publishedAt": "2026-11-06T15:05:44.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "Golfweek video instruction: Don’t guess when between clubs",
-      "summary": "",
-      "source": "Golfweek",
-      "url": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxObExkMkctVlhHYlpoZ1BsRzRlRmxlZHBMaFFicW14MkFBM0M3b2FUVUFHRUk3Ui16bkRiR2RwbWxXRC1BZ005Wl8zVnMydGVkN0ZQR1hlTUMtcnMtZDc1WE9hT0JPQThvVW9MZVlkUnN6bWFBVEs1YUY0TEIwQTFMMW9qZW9XaF9KSEExTkNqcXRfNzljMHVQNjVGZHpXRkplaTh5VGlwWm5aU0tvT3lZcC05Y1I1bHJmSVB3bUZnODJvTnZSNlQtRQ?oc=5",
-      "publishedAt": "2026-11-05T21:41:17.000Z",
       "thumbnail": ""
     }
   ]
