@@ -1,36 +1,126 @@
 {
-  "generatedAt": "2026-11-20T08:37:47.831Z",
+  "generatedAt": "2026-11-20T21:12:41.401Z",
   "youtubeEnabled": true,
   "items": [
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | #shorts #golf",
+      "title": "Tiger Woods’ secret to generating more clubhead speed #golftraining #swingspeed #golftips",
+      "summary": "Tiger Woods generates incredible power through the way he sequences his body during the golf swing. Want more clubhead ...",
+      "source": "Golf Physio Australia",
+      "url": "https://www.youtube.com/watch?v=RGwwn8Q0jUQ",
+      "publishedAt": "2026-11-20T20:00:25.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/RGwwn8Q0jUQ/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "This Golf Club Has a Built-In Laser and It Actually Works 🎯 #golf #golfclub #golftips",
+      "summary": "A laser beams a line off the club as you swing, showing exactly when your path drifts. Great for the range and practice rounds.",
+      "source": "Two Bite Verdict",
+      "url": "https://www.youtube.com/watch?v=sWl5jNDYzTo",
+      "publishedAt": "2026-11-20T20:00:11.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/sWl5jNDYzTo/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Comment STRIKE and I’ll send you 2 drills to compress every iron within 3 swings 👇 These 3 moves",
+      "summary": "Comment STRIKE and I'll send you 2 drills to compress every iron within 3 swings These 3 moves are so simple but effective!",
+      "source": "Michael Kanev Golf",
+      "url": "https://www.youtube.com/watch?v=U8ytSi7U-10",
+      "publishedAt": "2026-11-20T19:13:43.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/U8ytSi7U-10/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Too many swing thoughts? Why one word beats ten tips",
+      "summary": "Stacking swing thoughts splits your attention right when the motion needs to flow. Choose one simple cue before you step in, then ...",
+      "source": "MentalRoutine for Golfers",
+      "url": "https://www.youtube.com/watch?v=nQmPdRH1HxA",
+      "publishedAt": "2026-11-20T17:06:42.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/nQmPdRH1HxA/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "Amazing Golf Swing you need to see | Golf Girl awesome swing | Golf shorts | Hannah Leiner",
       "summary": "Welcome to our golf-centric Golf channel, where we explore the wonderful world of golf! Our channel is dedicated to everything ...",
       "source": "GOLF Channel Shorts",
-      "url": "https://www.youtube.com/watch?v=_GEbB87aDxA",
-      "publishedAt": "2026-11-20T03:34:24.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/_GEbB87aDxA/hqdefault.jpg"
+      "url": "https://www.youtube.com/watch?v=yCcnKZx-CSw",
+      "publishedAt": "2026-11-20T17:00:38.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/yCcnKZx-CSw/hqdefault.jpg"
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "27 swing thoughts and 28 grams of protein 🫰🏻 #golf #golfswing #golfergirl #golfer #golflife",
-      "summary": "Sponsored by David Protein I make room in my golf bag for snacks. Tap the link on this Short to check out David Protein. #Golf ...",
-      "source": "Madison Pool",
-      "url": "https://www.youtube.com/watch?v=EHFnd6-oS38",
-      "publishedAt": "2026-11-20T01:54:46.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/EHFnd6-oS38/hqdefault.jpg"
+      "title": "#golfswing, #golf, #pgatour, #golftips, #miyagiforgolf",
+      "summary": "Don Peterson shares quick tip to help cure your slice. This simple back turn concept help golfers into a perfect back swing position ...",
+      "source": "Swing Factory Golf Training",
+      "url": "https://www.youtube.com/watch?v=6FxkB36JAfo",
+      "publishedAt": "2026-11-20T16:35:18.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/6FxkB36JAfo/hqdefault.jpg"
     },
     {
       "type": "video",
       "category": "Tips & Tricks",
-      "title": "Effortless Golf Swing Power: Driver Setup and Elbow Tips for Longer Drives | Craig Jones",
-      "summary": "If you're trying to hit longer, straighter drives by swinging harder, Craig Jones wants you to consider a different approach.",
-      "source": "Face First Golf",
-      "url": "https://www.youtube.com/watch?v=714Y8SoOB1o",
-      "publishedAt": "2026-11-20T01:00:34.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/714Y8SoOB1o/hqdefault.jpg"
+      "title": "How to Improve Golf Swing Rhythm and Tempo | TORC Swingtrainer Practice Tips",
+      "summary": "Looking for a better way to work on your golf swing rhythm and tempo? ⛳ A smooth golf swing isn't necessarily about moving ...",
+      "source": "TORC Swingtrainer",
+      "url": "https://www.youtube.com/watch?v=l3-shwIk7SQ",
+      "publishedAt": "2026-11-20T15:00:22.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/l3-shwIk7SQ/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "What Actually Happens When You Adjust Your Driver?",
+      "summary": "",
+      "source": "Golf Monthly",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOZ29ROW5GZ1VFd21fTHFsbl9hZTQ3YW5XRGhyVjJqNGoxcm1lQ0lFMGR4TGJOMHE3dkhJQVJTZmRYSVNmdVByLTF0blR5WEhQT1FoVEZjMnZnQVh0UU4yU0dZck5jZ2dKSjFaWEg4SE4xbGFQSnlZZUNqQjRld0J5UzhaNE1zTE50X0loYUxRbw?oc=5",
+      "publishedAt": "2026-11-20T13:35:14.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "The EASY Way To Build a Consistent Golf Swing",
+      "summary": "Grab a spare golf tee and try this super-simple golf swing drill to learn how to perfect your takeaway and start hitting straighter, ...",
+      "source": "Mark Crossfield",
+      "url": "https://www.youtube.com/watch?v=7gOoOWVHjvI",
+      "publishedAt": "2026-11-20T12:00:13.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/7gOoOWVHjvI/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "툭툭 가볍게 200미터 치는 방법 Snap Swing[스냅스윙] #골프레슨 #golf",
+      "summary": "스냅스윙 채널 소개 스냅스윙은 골프 레슨, 스윙 교정, 드라이버 연습, 아이언 샷, 골프 연습 영상과 쇼츠를 통해 더 좋은 스윙을 만드는 ...",
+      "source": "스냅스윙(김용현프로)",
+      "url": "https://www.youtube.com/watch?v=zeo7qI4Usts",
+      "publishedAt": "2026-11-20T11:15:23.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/zeo7qI4Usts/hqdefault.jpg"
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "끝장 레슨 시작합니다. Snap Swing[스냅스윙] #골프레슨 #golf",
+      "summary": "스냅스윙 채널 소개 스냅스윙은 골프 레슨, 스윙 교정, 드라이버 연습, 아이언 샷, 골프 연습 영상과 쇼츠를 통해 더 좋은 스윙을 만드는 ...",
+      "source": "스냅스윙(김용현프로)",
+      "url": "https://www.youtube.com/watch?v=Fv_uodK-5xI",
+      "publishedAt": "2026-11-20T10:45:11.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/Fv_uodK-5xI/hqdefault.jpg"
+    },
+    {
+      "type": "article",
+      "category": "Courses",
+      "title": "Mirror Lake Golf Club - Lake Course in Villa Rica, Georgia, USA",
+      "summary": "",
+      "source": "GolfPass",
+      "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxObDBUQmVXVWdfYjdkcjlZN1pjVk91WXVCTi1ieHg4bGI5b0xFaGpBbTMwd1JKY2VxY3B6cDdQeUF0dVpJXzY5VlpneS1qY1psMkw1d2dBaVNWQXlzbV9fTW52akc1aFU2WUFzVndLdnR1cU9Od2kwa0hWMkh3SUJKRXBGUXVJV1JmcEJtR0I5MTA?oc=5",
+      "publishedAt": "2026-11-20T07:32:57.000Z",
+      "thumbnail": ""
     },
     {
       "type": "article",
@@ -43,36 +133,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "How the One-Piece Takeaway & Swing Plane Work ⛳ #golf #golftips #shorts",
-      "summary": "How the One-Piece Takeaway & Swing Plane Work | Golf Four Dummies On-Course Pocket Caddie (#043) 3-SECOND ...",
-      "source": "Golf four Dummies",
-      "url": "https://www.youtube.com/watch?v=LaAKbUq3I9Q",
-      "publishedAt": "2026-11-19T23:28:06.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/LaAKbUq3I9Q/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf School Player Tip | Lake Charles, LA",
-      "summary": "FIND A GOLF SCHOOL NEAR YOU https://www.christopherhowardgolf.com/chrishowardgolfschools JOIN OUR SWING ...",
-      "source": "Chowardgolf",
-      "url": "https://www.youtube.com/watch?v=epE0R5Z7WJg",
-      "publishedAt": "2026-11-19T19:00:12.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/epE0R5Z7WJg/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Driver Tip: Add 20 Yards by Swinging Through #shorts",
-      "summary": "Stop swinging at the ball. Picture the fairway, stay loose, turn your hips and shoulders, and swing through toward your target for a ...",
-      "source": "Bruce Ives Golf",
-      "url": "https://www.youtube.com/watch?v=CxLd0WTWnRY",
-      "publishedAt": "2026-11-19T18:57:42.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/CxLd0WTWnRY/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "I Tried Heads-Up Putting For 10 Rounds... I'll Never Go Back To Looking At The Golf Ball",
@@ -83,16 +143,6 @@
       "thumbnail": ""
     },
     {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "More Hip Rotation Is Ruining Your Golf Swing? Try This for Better Iron Contact",
-      "summary": "Are you trying to increase hip rotation in your golf swing but still struggling with inconsistent iron contact? More rotation might not ...",
-      "source": "Cam Lancaster - Golf Performance Coach",
-      "url": "https://www.youtube.com/watch?v=tsstsCiihk0",
-      "publishedAt": "2026-11-19T15:00:35.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/tsstsCiihk0/hqdefault.jpg"
-    },
-    {
       "type": "article",
       "category": "Trends",
       "title": "Where Are They Now? Ten Years Of Most Wanted Driver Winners And What They Sell For Used",
@@ -100,46 +150,6 @@
       "source": "MyGolfSpy",
       "url": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNdHZISWNlQ0REdHR3WWtnME9UOVY3WjlNTDVZTE5lZXktb0tYSGJTY0I4cHB4NjFpemR5d1FTTTd5MkpaUEFSZGxsM1RVTTcwckR5MTZpZnhVVU1wdVFkNThIOVVUT094VjlEc3NNRV9VbmpGMHYySnlvaTM3ak5BZG9JejJxWmk1Y0t6VWhuRjVwbXlhNm1BNFlhMUY4RG5oeHpvckRJVWthRElYT3dSQmlvZTJkYVBpMUlrRUU0NA?oc=5",
       "publishedAt": "2026-11-19T14:06:55.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Any tips for my driver swing? #trustmebro #golf #drivinglesson #golftips #golflesson",
-      "summary": "Any tips for my driver swing? #trustmebro #golf #drivinglesson #golftips #golflesson.",
-      "source": "Handy Capped Golf",
-      "url": "https://www.youtube.com/watch?v=2EpPkxgD26w",
-      "publishedAt": "2026-11-19T13:56:43.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/2EpPkxgD26w/hqdefault.jpg"
-    },
-    {
-      "type": "video",
-      "category": "Tips & Tricks",
-      "title": "Golf Swing Non-Negotiables #1: The Setup",
-      "summary": "Most swing faults start before the club even moves. In this video lesson from my upcoming book, Golf Swing Non-Negotiables, ...",
-      "source": "Justin Evans",
-      "url": "https://www.youtube.com/watch?v=-BTw8fk7mck",
-      "publishedAt": "2026-11-19T10:57:42.000Z",
-      "thumbnail": "https://i.ytimg.com/vi/-BTw8fk7mck/hqdefault.jpg"
-    },
-    {
-      "type": "article",
-      "category": "Courses",
-      "title": "GOLF.com: Golf News, Golf Equipment, Instruction, Courses, Travel",
-      "summary": "",
-      "source": "GOLF.com",
-      "url": "https://news.google.com/rss/articles/CBMiM0FVX3lxTE1EalVaZlA0NFFUelBOcE9EV1JtREJDXzhPb0I4RkVGY3YtVk9PQXBYUk9zcw?oc=5",
-      "publishedAt": "2026-11-18T18:21:30.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Trends",
-      "title": "I Shop Golf Gear For A Living. These Are The Smartest Holiday Buys This Year",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5PaFo0TmhMUC1lZFlZYWFUZHE2UXZLSmJCbkxtTy1pUFgyR3pPdm5HaDdZN0lrZGVmMVJTMEdaMW9Lcl82VFRhVTFaUmkydmZjYW12amFKRXF2QklOYklab3diekJ5czB2dnBtVmpLQ0JheEMwU1BidFhXOA?oc=5",
-      "publishedAt": "2026-11-18T16:36:40.000Z",
       "thumbnail": ""
     },
     {
@@ -155,21 +165,21 @@
     {
       "type": "article",
       "category": "Trends",
-      "title": "Big John’s Internet Invitational Run Puts Scythe Putter In Spotlight",
+      "title": "I Shop Golf Gear For A Living. These Are The Smartest Holiday Buys This Year",
       "summary": "",
       "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1pUTlrOGxRMTlRMTB3T29GUU9MWUhydU9rVFR5bFZvTkdSRThjUGhSMWNDeFpwUmZKR3NqNXFrVEU0QzQzQ0E?oc=5",
+      "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5PaFo0TmhMUC1lZFlZYWFUZHE2UXZLSmJCbkxtTy1pUFgyR3pPdm5HaDdZN0lrZGVmMVJTMEdaMW9Lcl82VFRhVTFaUmkydmZjYW12amFKRXF2QklOYklab3diekJ5czB2dnBtVmpLQ0JheEMwU1BidFhXOA?oc=5",
       "publishedAt": "2026-11-18T16:36:40.000Z",
       "thumbnail": ""
     },
     {
       "type": "article",
       "category": "Trends",
-      "title": "The Next Golf Club Extinction: Are The Days Of The 3-Wood Numbered?",
+      "title": "Big John’s Internet Invitational Run Puts Scythe Putter In Spotlight",
       "summary": "",
-      "source": "Golf Monthly",
-      "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPNFJ6OEYtcksyalhJQ1lZc2UzUmhhV21iQXNTOUlhM1FJVmN5aThUT0lSejdqRHB2QWFLNThFQVVMVGpnMUQ0VXQ0M0tSeTlBX0tZS2IzRDF5RUZqZ05kYTFwak9vbmtGQ1VodllEeTY2cVUxTk43ZFdScHlmZjBja2N0c0xHS25Fel9rRmw4aFRvVGlhLUo5M1pjVVZ3QnBZUE9Ybg?oc=5",
-      "publishedAt": "2026-11-18T14:02:57.000Z",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE1pUTlrOGxRMTlRMTB3T29GUU9MWUhydU9rVFR5bFZvTkdSRThjUGhSMWNDeFpwUmZKR3NqNXFrVEU0QzQzQ0E?oc=5",
+      "publishedAt": "2026-11-18T16:36:40.000Z",
       "thumbnail": ""
     },
     {
@@ -200,26 +210,6 @@
       "source": "Golf Monthly",
       "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOZGFTcEpDcFNlXzgxRkxEbnVGR1duOW1rUmxya2lYZ2xfeWhhSVVsZVVPZXcyNEFOQXVqcUtQSlB6QXJWWjBlVjN1aEF6MVRwaS1PRFBMVkViMEhjY1M2OVh1WXZBMkpmU2xUbDU4X3lXd2NTZEpNLUtzQnI4cDJqc1JFQzNzd1JSeXdRVmRuVHNWUzN0TEFTbVJlYU5SSmRhcUZZY2VhV3NhaGIyckxvc0dEbElsd1JjVTZZ?oc=5",
       "publishedAt": "2026-11-18T12:57:42.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Swing",
-      "title": "School of Golf: Season 16: The One Thing That Causes a Slice",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeUpoN3dub2x3bE1WdW4tYXpCM0VWTEsyYTRwUE1XXy0yVkwxTDhjMjFCZVNRQ0YzRm1mR29ZRGxhUDc5eURXS0Z4aXAteGdpQ2Q3SzhPZmliTGw2bVpDMmpRcy1CZEJhMGtuVEF6a0Yxal9KN3RvY0swOTNtOW9qRldxd21oZw?oc=5",
-      "publishedAt": "2026-11-18T00:00:00.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
-      "category": "Short Game",
-      "title": "Turn-Down Bunker Tip",
-      "summary": "",
-      "source": "GolfPass",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE1xT3EyYVpTdGxOUnVsTnZLaGNqbjNCLVBjYUE4cWZNSHIyX0EwSVRoOFN3OUxJaUc2dkhtN3J1OW9vcTN1TlRaaTJCTC1lbnBzNkZiT2UwQXdwVHE1RnFsWnVjT2RQRG9xQUFoeXQ5MjVLaHBPc0tj?oc=5",
-      "publishedAt": "2026-11-18T00:00:00.000Z",
       "thumbnail": ""
     },
     {
@@ -284,16 +274,6 @@
     },
     {
       "type": "article",
-      "category": "Swing",
-      "title": "6 Smart Used Driver Buys For Slow Swing Speed Players",
-      "summary": "",
-      "source": "MyGolfSpy",
-      "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQRk1MMEFEVWdxQUt5OFhSY2FTdU1sNUtjVmVZMjlGSVRqQmVjeWNITkEwTU9BNWZzc1JyM3hRcWdjT00xWFk0YUxJZG5qc2ZFMDFTd2kyQXYxNGhoZnV5UHRpb2pmTFFxZVByMU92QkVaRGRKOTFmODhhZVhqWmw0dm1zYVBFWGhJaDVkWk9vVWFUY0E?oc=5",
-      "publishedAt": "2026-11-16T16:23:09.000Z",
-      "thumbnail": ""
-    },
-    {
-      "type": "article",
       "category": "Trends",
       "title": "Is Black Friday Actually The Best Time To Buy A New Golf Club?",
       "summary": "",
@@ -301,6 +281,26 @@
       "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQUnBuQS11TjNZaTRuWlFMdTZtTnE5ekNua09nUklkMkp6XzlocW1mQ2tVNXB2dlpVREZKaFVPaW5zQmlHcDVIN2w5ZzFzOUdIT3JHZ0dKdXE0d3E1dWo3VFdqR0dYelBVUVcxVFJWbDdxYXRGMUhscG45and5aVNmdkpFcHJCbnl1MzFxaWNYa2tTRjZGZzFqZEg4WG1waFU?oc=5",
       "publishedAt": "2026-11-16T14:30:37.000Z",
       "thumbnail": ""
+    },
+    {
+      "type": "article",
+      "category": "Trends",
+      "title": "You Don’t Need a Premium Golf Ball. Play One of These 5",
+      "summary": "",
+      "source": "MyGolfSpy",
+      "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOVVJjWXNPTkJmbmtZMWpjQ3gtUzEwQXJCcms5QVVDV21BMlUyUlJyRVd2YjZBNFNxTFdSMHV3S0NjSE9RQlJEOVVPNXMtMm9aNEtVc2RSWGM3MVVyY09QMUxvU3p2VzNyOUtnbHBtT05vOV9WVWlJdDhvTjBNVHMxWWlfelhwVXhISkJr?oc=5",
+      "publishedAt": "2026-11-16T08:00:00.000Z",
+      "thumbnail": ""
+    },
+    {
+      "type": "video",
+      "category": "Tips & Tricks",
+      "title": "How to Break 80 in Golf: Master Your Short Game",
+      "summary": "You don't need a perfect golf swing to break 80. Improving your chipping and putting is one of the best ways to lower your ...",
+      "source": "LouisvilleGolfClub",
+      "url": "https://www.youtube.com/watch?v=lwaNNnZU5fQ",
+      "publishedAt": "2026-11-15T23:30:11.000Z",
+      "thumbnail": "https://i.ytimg.com/vi/lwaNNnZU5fQ/hqdefault.jpg"
     }
   ]
 }
